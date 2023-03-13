@@ -245,7 +245,7 @@ public class Duel extends JFrame {
 		sourceDeck1.add(BeastCard.sourceCard(1, new ArrayList<>()));
 		sourceDeck2.add(BeastCard.sourceCard(1, new ArrayList<>()));
 		List<Effect> effects = new LinkedList<>(Arrays.asList(new Effect("burrower","beast"), new Effect("rabbit_hole","beast",1)));
-		List<Effect> effects2 = new LinkedList<>(Arrays.asList(new Effect("hefty_right","robot")));
+		List<Effect> effects2 = new LinkedList<>(Arrays.asList(new Effect("guardian","robot")));
 		mainDeck1.add(BeastCard.mainCard("kingfisher", "blood", 0, 5, 0, effects));
 		mainDeck1.add(RobotCard.mainCard("s0n1a", 1, 2, 1, effects2));
 		mainDeck1.add(BeastCard.mainCard("kingfisher", "blood", 2, 1, 1, new ArrayList<>()));
@@ -364,6 +364,7 @@ public class Duel extends JFrame {
 				card.setHp(card.getHp()-card.getPoisoned());
 				copycard.getHp().setText(card.getHp().toString());
 				if (card.getHp()<=0) {
+					card.setPoisoned(0);
 					Optional<Effect> unkillableEffect = card.getEffects().stream().filter(effect -> effect.getName().equals("unkillable")).findFirst();
 					if (unkillableEffect.isPresent()) {
 						//unkillable

@@ -1,13 +1,19 @@
 main deck:
-robot;bomb_latcher;5;2;0;_;_;_;_;_;_;_;_
-robot;qu177;3;1;0;sprinter_right;_;_;_;_;_;_;_
-robot;bomb_latcher;5;2;0;_;_;_;_;_;_;_;_
-robot;gr1zz;6;1;1;_;_;_;_;_;_;_;_
-robot;qu177;3;1;0;sprinter_right;_;_;_;_;_;_;_
+beast;wolf_cub;bone;6;1;0;burrower;_;_;_;_;_;_;_
+beast;stunted_wolf;blood;1;2;0;_;_;_;_;_;_;_;_
+beast;stunted_wolf;blood;1;2;0;_;_;_;_;_;_;_;_
+beast;sparrow;blood;2;2;0;fledgling;1;_;_;_;_;_;_
+beast;turkey_vulture;blood;1;2;0;_;_;_;_;_;_;_;_
+beast;kingfisher;blood;1;2;0;_;_;_;_;_;_;_;_
+beast;stunted_wolf;blood;1;2;0;_;_;_;_;_;_;_;_
+beast;turkey_vulture;blood;1;2;0;_;_;_;_;_;_;_;_
 source deck:
-robot;empty_vessel;1;1;0;_;_;_;_;_;_;_;_
-robot;empty_vessel;1;1;0;_;_;_;_;_;_;_;_
-robot;empty_vessel;1;1;0;_;_;_;_;_;_;_;_
-robot;empty_vessel;1;1;0;_;_;_;_;_;_;_;_
-robot;empty_vessel;1;1;0;_;_;_;_;_;_;_;_
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_
 fin

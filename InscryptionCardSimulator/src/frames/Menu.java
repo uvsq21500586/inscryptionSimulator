@@ -17,17 +17,17 @@ import frames.menubuttons.ButtonToSeeDeck;
 import frames.menubuttons.ButtonToSimulatorCard;
 
 public class Menu extends JFrame {
-	//codes interdits: 1-1 (sauf pour P2 pour farmer),4-2,5-2
+	//codes interdits: 1-1 (sauf pour P2 pour farmer),4-2,5-2,7-2
 	
-	//j1: 6-2, booster value = 1*4+1=5, vies: 1/1
+	//j1: 8-2, booster value = 2*4+1=9, vies: 1/1
 	//argent: 0
-	private int modulo1 = 7;
-	private int multiplier1 = 3;
-	private int globalStrenght1 = 1;
+	private int modulo1 = 9;
+	private int multiplier1 = 2;
+	private int globalStrenght1 = 2;
 	private int rarityStrenght1 = 1;
 	private String typecards1 = "robot";
 	private int PV1 = 6;
-	private int nbCards1 = 5;
+	private int nbCards1 = 8;
 	private List<Card> mainDeck1;
 	private List<Card> sourceDeck1;
 	

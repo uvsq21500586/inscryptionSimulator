@@ -290,6 +290,21 @@ public abstract class Card {
 				damPanel.setBounds(100 + 200 * ((position+1)%4), 310, 200, 300);
 			}
 		}
+		if (buttonPlaceCard[position + 4].getCardPanel() == null) {
+			//guardian?
+			for (int i=4;i<8;i++) {
+				if (i-4 != position) {
+					CardPanel cardPanelAdv = buttonPlaceCard[i].getCardPanel();
+					if (cardPanelAdv != null && cardPanelAdv.getCard().getEffects().stream().anyMatch(effect -> effect.getName().equals("guardian"))) {
+						cardPanelAdv.setBounds(100 + 200 * position, 10, 200, 300);
+						cardPanelAdv.setFieldPosition(position+4);
+						buttonPlaceCard[i].setCardPanel(null);
+						buttonPlaceCard[position+4].setCardPanel(cardPanelAdv);
+						break;
+					}
+				}
+			}
+		}
 	}
 	
 	public void isattackedByPlayer2(Duel duel, ButtonPlaceCard buttonPlaceCard[], int position, Card advcard) throws IOException, FontFormatException {

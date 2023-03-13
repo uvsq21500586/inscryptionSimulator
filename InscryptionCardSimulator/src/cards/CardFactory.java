@@ -9,7 +9,7 @@ import effects.Effect;
 public class CardFactory {
 	public static String beastAppearances[] = {"kingfisher", "raven_egg", "sparrow", "magpie", "raven", "turkey_vulture", "stunted_wolf","wolf_cub"};
 	
-	public static String robotAppearances[] = {"s0n1a","qu177","gr1zz","bomb_latcher","exeskeleton","shield_latcher"};
+	public static String robotAppearances[] = {"xformerbatbot","s0n1a","xformerporcupinebot","qu177","xformergrizzlybot","gr1zz","bomb_latcher","exeskeleton","shield_latcher"};
 	
 	public static BeastCard beastCard(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u0) throws IOException {
 		int u = u0;

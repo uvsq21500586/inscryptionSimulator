@@ -115,7 +115,6 @@ public class SimulatorCard extends JFrame {
 		
 		this.getContentPane().add(panelBackground);
 		this.setVisible(true);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		new SimulatorCardControler(this);
 	}
 	
