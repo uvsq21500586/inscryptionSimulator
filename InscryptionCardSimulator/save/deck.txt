@@ -1,0 +1,13 @@
+main deck:
+robot;bomb_latcher;5;2;0;_;_;_;_;_;_;_;_
+robot;qu177;3;1;0;sprinter_right;_;_;_;_;_;_;_
+robot;bomb_latcher;5;2;0;_;_;_;_;_;_;_;_
+robot;gr1zz;6;1;1;_;_;_;_;_;_;_;_
+robot;qu177;3;1;0;sprinter_right;_;_;_;_;_;_;_
+source deck:
+robot;empty_vessel;1;1;0;_;_;_;_;_;_;_;_
+robot;empty_vessel;1;1;0;_;_;_;_;_;_;_;_
+robot;empty_vessel;1;1;0;_;_;_;_;_;_;_;_
+robot;empty_vessel;1;1;0;_;_;_;_;_;_;_;_
+robot;empty_vessel;1;1;0;_;_;_;_;_;_;_;_
+fin
