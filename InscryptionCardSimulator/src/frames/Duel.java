@@ -112,9 +112,13 @@ public class Duel extends JFrame {
 		List<Card> mainDeckToPlay = new LinkedList<>(Arrays.asList());
 		for (int i=0;i<maindeck.size();i++) {
 			if (maindeck.get(i) instanceof BeastCard) {
-				BeastCard newcard = ((BeastCard) maindeck.get(i));
+				BeastCard newcard = (BeastCard) maindeck.get(i);
+				mainDeckToPlay.add(r.nextInt(i+1), newcard.cloneCard(newcard));
+			} else {
+				RobotCard newcard = (RobotCard) maindeck.get(i);
 				mainDeckToPlay.add(r.nextInt(i+1), newcard.cloneCard(newcard));
 			}
+			
 		}
 		return mainDeckToPlay;
 	}
