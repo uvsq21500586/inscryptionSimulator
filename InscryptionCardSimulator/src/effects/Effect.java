@@ -21,11 +21,12 @@ public class Effect {
 	public final static Map<String, Integer> mapEffectToCost = buildMapNamesEffectsToCost();
 	
 	public final static List<String> namesEffects = Arrays.asList("rabbit_hole","airborne","bee_within","sprinter_right","poison","fledgling","dambuilder","burrower","unkillable","sharp_quills",
-			"hefty_right","guardian");
-	public final static List<String> namesBeastEffects = Arrays.asList("rabbit_hole","airborne","bee_within","sprinter_right","poison","fledgling","dambuilder","burrower");
+			"hefty_right","guardian","brittle","fecundity","loose_tail_right");
+	public final static List<String> namesBeastEffects = Arrays.asList("rabbit_hole","airborne","bee_within","sprinter_right","poison","fledgling","dambuilder","burrower","fecundity","loose_tail_right");
 	public final static List<String> namesRobotEffects = Arrays.asList("sprinter_right","poison","burrower","unkillable","sharp_quills","hefty_right","guardian","airborne");
-	public final static List<String> namesLevelEffects = Arrays.asList("rabbit_hole","bee_within","poison","fledgling","dambuilder","unkillable","sharp_quills");
-	public final static List<String> namesAttackEffects = Arrays.asList("airborne","poison");
+	public final static List<String> namesUndeadEffects = Arrays.asList("brittle","poison");
+	public final static List<String> namesLevelEffects = Arrays.asList("rabbit_hole","bee_within","poison","fledgling","dambuilder","unkillable","sharp_quills","loose_tail_right");
+	public final static List<String> namesAttackEffects = Arrays.asList("airborne","poison","brittle");
 	
 	String name;
 	int costStats;
@@ -77,6 +78,18 @@ public class Effect {
 					.getScaledInstance(30,30, 
 							Image.SCALE_DEFAULT));
 			label.setIcon(icone);
+		} else if (name.equals("loose_tail_left")) {
+			name = "loose_tail_right";
+			icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+					.getScaledInstance(30,30, 
+							Image.SCALE_DEFAULT));
+			label.setIcon(icone);
+		} else if (name.equals("loose_tail_right")) {
+			name = "loose_tail_left";
+			icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+					.getScaledInstance(30,30, 
+							Image.SCALE_DEFAULT));
+			label.setIcon(icone);
 		}
 	}
 	
@@ -96,6 +109,9 @@ public class Effect {
 		effectsToCost.put("sharp_quills",2);
 		effectsToCost.put("hefty_right",1);
 		effectsToCost.put("guardian",1);
+		effectsToCost.put("brittle",-2);
+		effectsToCost.put("fecundity",3);
+		effectsToCost.put("loose_tail_right",3);
 		return effectsToCost;
 	}
 

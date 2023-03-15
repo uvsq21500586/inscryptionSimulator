@@ -96,6 +96,7 @@ public class BeastCard extends Card {
 				stringForm = stringForm + ";_;_";
 			}
 		}
+		stringForm = stringForm + ";" + rarity;
 		return stringForm;
 	}
 	

@@ -1,19 +1,15 @@
 main deck:
-beast;wolf_cub;bone;6;1;0;burrower;_;_;_;_;_;_;_
-beast;stunted_wolf;blood;1;2;0;_;_;_;_;_;_;_;_
-beast;stunted_wolf;blood;1;2;0;_;_;_;_;_;_;_;_
-beast;sparrow;blood;2;2;0;fledgling;1;_;_;_;_;_;_
-beast;turkey_vulture;blood;1;2;0;_;_;_;_;_;_;_;_
-beast;kingfisher;blood;1;2;0;_;_;_;_;_;_;_;_
-beast;stunted_wolf;blood;1;2;0;_;_;_;_;_;_;_;_
-beast;turkey_vulture;blood;1;2;0;_;_;_;_;_;_;_;_
+beast;raven_egg;bone;8;2;0;bee_within;1;_;_;_;_;_;_;0
+beast;turkey_vulture;blood;2;3;0;dambuilder;1;_;_;_;_;_;_;0
+beast;magpie;blood;1;1;1;_;_;_;_;_;_;_;_;0
+beast;sparrow;blood;2;2;1;burrower;_;sprinter_right;_;_;_;_;_;0
+beast;sparrow;blood;1;2;0;sprinter_right;_;_;_;_;_;_;_;0
+beast;sparrow;blood;2;2;1;burrower;_;sprinter_right;_;_;_;_;_;0
 source deck:
-beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_
-beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_
-beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_
-beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_
-beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_
-beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_
-beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_
-beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
 fin

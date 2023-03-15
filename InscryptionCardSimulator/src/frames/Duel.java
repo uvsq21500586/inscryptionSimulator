@@ -19,6 +19,7 @@ import java.awt.*;
 import cards.BeastCard;
 import cards.Card;
 import cards.RobotCard;
+import cards.UndeadCard;
 import effects.Effect;
 import frames.duelbuttons.*;
 import frames.menubuttons.ButtonToDuel;
@@ -240,11 +241,11 @@ public class Duel extends JFrame {
 	}
 	
 	private void buildDecks() throws IOException {
-		sourceDeck1.add(RobotCard.sourceCard(1, new ArrayList<>()));
+		sourceDeck1.add(UndeadCard.sourceCard(1, 1, Arrays.asList(new Effect("brittle","undead"))));
 		sourceDeck2.add(BeastCard.sourceCard(1, new ArrayList<>()));
 		sourceDeck1.add(BeastCard.sourceCard(1, new ArrayList<>()));
 		sourceDeck2.add(BeastCard.sourceCard(1, new ArrayList<>()));
-		List<Effect> effects = new LinkedList<>(Arrays.asList(new Effect("burrower","beast"), new Effect("rabbit_hole","beast",1)));
+		List<Effect> effects = new LinkedList<>(Arrays.asList(new Effect("loose_tail_right","beast",1), new Effect("rabbit_hole","beast",1)));
 		List<Effect> effects2 = new LinkedList<>(Arrays.asList(new Effect("guardian","robot")));
 		mainDeck1.add(BeastCard.mainCard("kingfisher", "blood", 0, 5, 0, effects));
 		mainDeck1.add(RobotCard.mainCard("s0n1a", 1, 2, 1, effects2));
@@ -345,59 +346,53 @@ public class Duel extends JFrame {
 		if (!turnJ2) {
 			for (int i=0;i<4;i++) {
 				if (buttonPlaceCard[i].getCardPanel() != null) {
-					buttonPlaceCard[i].getCardPanel().getCard().attackPlayer2(this, buttonPlaceCard, i);
+					buttonPlaceCard[i].getCardPanel().getCard().attackPlayer2(this, buttonPlaceCard, i, duelControler);
 				}
 			}
 		} else {
 			for (int i=0;i<4;i++) {
 				if (buttonPlaceCard[i].getCardPanel() != null) {
-					buttonPlaceCard[i].getCardPanel().getCard().attackPlayer1(this, buttonPlaceCard, i);
+					buttonPlaceCard[i].getCardPanel().getCard().attackPlayer1(this, buttonPlaceCard, i, duelControler);
 				}
 			}
 		}
-		//poison?
+		//poison or brittle?
 		for (int i=0;i<4;i++) {
 			CardPanel copycard = buttonPlaceCard[i].getCardPanel();
 			if (copycard != null) {
 				Card card = copycard.getCard();
-				if (card.getPoisoned()>0) {
+				Optional<Effect> brittleEffect = card.getEffects().stream().filter(effect -> effect.getName().equals("brittle")).findFirst();
+				Optional<Effect> unkillableEffect = card.getEffects().stream().filter(effect -> effect.getName().equals("unkillable")).findFirst();
+				if (brittleEffect.isPresent()) {
+					if (unkillableEffect.isPresent()) {
+						//unkillable
+						applyUnkillableEffect(i, copycard, card, unkillableEffect);
+					} else {
+						card.deadCard(this, buttonPlaceCard, i);
+					}
+					if (!turnJ2) {
+						boneP1++;
+					} else {
+						boneP2++;
+					}
+				} else if (card.getPoisoned()>0) {
 				card.setHp(card.getHp()-card.getPoisoned());
 				copycard.getHp().setText(card.getHp().toString());
 				if (card.getHp()<=0) {
 					card.setPoisoned(0);
-					Optional<Effect> unkillableEffect = card.getEffects().stream().filter(effect -> effect.getName().equals("unkillable")).findFirst();
+					
 					if (unkillableEffect.isPresent()) {
 						//unkillable
-						card.setAttackBase(card.getAttackBase() + (unkillableEffect.get().getLevel()-1)/3);
-						card.setHpBase(card.getHpBase() + (unkillableEffect.get().getLevel()-1)/3);
-						int lvlSup = (unkillableEffect.get().getLevel()-1)%3;
-						if (lvlSup == 1) {
-							card.setHpBase(card.getHpBase() + 1);
-						}
-						if (lvlSup == 2) {
-							card.setAttackBase(card.getAttackBase() + 1);
-						}
-						card.setAttack(card.getAttackBase());
-						card.setHp(card.getHpBase());
-						copycard.setPosition("onHand");
-						copycard.getAttack().setText(card.getAttackBase().toString());
-						copycard.getHp().setText(card.getHpBase().toString());
-						if (!turnJ2) {
-							getHandCard1().add(copycard);
-						} else {
-							getHandCard2().add(copycard);
-						}
-						getPanel().remove(copycard);
-						buttonPlaceCard[i].setCardPanel(null);
+						applyUnkillableEffect(i, copycard, card, unkillableEffect);
 						
 					} else {
 						card.deadCard(this, buttonPlaceCard, i);
 					}
 					
 					if (!turnJ2) {
-						boneP1 = boneP1 + 1;
+						boneP1++;
 					} else {
-						boneP2 = boneP2 + 1;
+						boneP2++;
 					}
 				}
 				}
@@ -406,7 +401,7 @@ public class Duel extends JFrame {
 		}
 		
 		//déplacements?
-		List<CardPanel> cardsOnField = new ArrayList();
+		List<CardPanel> cardsOnField = new ArrayList<CardPanel>();
 		for (int i=0;i<4;i++) {
 			CardPanel copycard = buttonPlaceCard[i].getCardPanel();
 			if (copycard != null) {
@@ -567,6 +562,30 @@ public class Duel extends JFrame {
 			isFirstTurn = false;
 		}
 		
+	}
+
+	private void applyUnkillableEffect(int i, CardPanel copycard, Card card, Optional<Effect> unkillableEffect) {
+		card.setAttackBase(card.getAttackBase() + (unkillableEffect.get().getLevel()-1)/3);
+		card.setHpBase(card.getHpBase() + (unkillableEffect.get().getLevel()-1)/3);
+		int lvlSup = (unkillableEffect.get().getLevel()-1)%3;
+		if (lvlSup == 1) {
+			card.setHpBase(card.getHpBase() + 1);
+		}
+		if (lvlSup == 2) {
+			card.setAttackBase(card.getAttackBase() + 1);
+		}
+		card.setAttack(card.getAttackBase());
+		card.setHp(card.getHpBase());
+		copycard.setPosition("onHand");
+		copycard.getAttack().setText(card.getAttackBase().toString());
+		copycard.getHp().setText(card.getHpBase().toString());
+		if (!turnJ2) {
+			getHandCard1().add(copycard);
+		} else {
+			getHandCard2().add(copycard);
+		}
+		getPanel().remove(copycard);
+		buttonPlaceCard[i].setCardPanel(null);
 	}
 	
 	public boolean playable(Card card) {

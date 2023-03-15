@@ -17,7 +17,7 @@ import frames.duelbuttons.CardPanel;
 import frames.menubuttons.ButtonToDuel;
 
 public class SimulatorCard extends JFrame {
-	private String listTypes[] = {"beast", "robot"}; 
+	private String listTypes[] = {"beast", "robot", "undead"}; 
 	
 	
 	private JButton buttonSimulation;
@@ -87,7 +87,7 @@ public class SimulatorCard extends JFrame {
 		typeCard.setSelectedIndex(0);
 		System.out.println(typeCard.getSelectedValue());
 		this.getContentPane().add(typeCard);
-		typeCard.setBounds(200,50,140,50);
+		typeCard.setBounds(200,50,140,100);
 		moduloText = new JTextArea("3");
 		moduloText.setBounds(550,50,100,50);
 		moduloText.setFont(font.deriveFont(Font.BOLD,24f));

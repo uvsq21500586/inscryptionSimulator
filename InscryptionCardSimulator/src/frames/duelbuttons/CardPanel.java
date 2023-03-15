@@ -10,10 +10,12 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import cards.BeastCard;
 import cards.Card;
 import cards.RobotCard;
+import cards.UndeadCard;
 
 public class CardPanel extends JPanel {
 	Font font; 
@@ -24,6 +26,8 @@ public class CardPanel extends JPanel {
 	JLabel cost;
 	JLabel level;
 	JLabel poison;
+	JLabel rarity;
+	JLabel rarityText;
 	String position;
 	int fieldPosition;
 	JLabel effects[];
@@ -56,6 +60,22 @@ public class CardPanel extends JPanel {
 	    this.add(poison);
 	    poison.setBounds(80,130,40,40);
 	    poison.setVisible(false);
+	    
+	    rarity = new JLabel();
+	    rarity.setIcon(new ImageIcon(ImageIO.read(new File("img/rarity.png"))
+				.getScaledInstance(40,40, 
+				Image.SCALE_DEFAULT)));
+	    rarityText =  new JLabel(card.getRarity().toString(), SwingConstants.CENTER);
+	    this.add(rarityText);
+	    this.add(rarity);
+	    rarity.setBounds(10,50,40,40);
+	    rarityText.setBounds(10,50,50,40);
+	    rarityText.setFont(font.deriveFont(Font.BOLD,16f));
+	    if (card.getRarity() == 0) {
+	    	rarity.setVisible(false);
+	    	rarityText.setVisible(false);
+	    }
+	    
 	    labelBackground.setBounds(0,0,200,300);
 	    labelAppeareance.setBounds(0,0,200,200);
 	    
@@ -128,6 +148,24 @@ public class CardPanel extends JPanel {
 					Image.SCALE_DEFAULT)));
 	    	level.setForeground(new Color(0,255,0));
 	    }
+	    
+	    if (card instanceof UndeadCard) {
+	    	Image img = ImageIO.read(new File("img/undead/" + card.getAppearance() + ".png"));
+	    	labelAppeareance.setIcon(new ImageIcon(img
+					.getScaledInstance(200,200, 
+					Image.SCALE_DEFAULT)));
+	    	if (card.getLevel() > 0) {
+	    		cost = new JLabel();
+    			img = ImageIO.read(new File("img/costs/bone.png"));
+    			cost.setIcon(new ImageIcon(img
+    					.getScaledInstance(50,50, 
+    							Image.SCALE_DEFAULT)));
+    			this.add(cost);
+    			cost.setBounds(145,40,50,50);
+    			level.setForeground(new Color(128,0,0));
+	    	}
+	    }
+	    
 	    if (card.getLevel() < 2) {
 	    	level.setVisible(false);
 	    }
@@ -143,6 +181,12 @@ public class CardPanel extends JPanel {
 	    }
 	    if (card instanceof RobotCard) {
 	    	Image img = ImageIO.read(new File("img/robot/empty.png"));
+	    	labelBackground.setIcon(new ImageIcon(img
+					.getScaledInstance(200,300, 
+					Image.SCALE_DEFAULT)));
+	    }
+	    if (card instanceof UndeadCard) {
+	    	Image img = ImageIO.read(new File("img/undead/empty.png"));
 	    	labelBackground.setIcon(new ImageIcon(img
 					.getScaledInstance(200,300, 
 					Image.SCALE_DEFAULT)));
@@ -163,6 +207,34 @@ public class CardPanel extends JPanel {
     	level.setFont(font.deriveFont(Font.BOLD,24f));
     	this.add(level);
     	level.setBounds(125,40,50,50);
+    	
+    	poison = new JLabel("");
+	    poison.setIcon(new ImageIcon(ImageIO.read(new File("img/poison.png"))
+						.getScaledInstance(40,40, 
+						Image.SCALE_DEFAULT)));
+	    this.add(poison);
+	    poison.setBounds(80,130,40,40);
+	    if (card.getPoisoned() == 0) {
+	    	poison.setVisible(false);
+	    }
+	    
+    	
+    	rarity = new JLabel(card.getRarity().toString());
+	    rarity.setIcon(new ImageIcon(ImageIO.read(new File("img/rarity.png"))
+				.getScaledInstance(40,40, 
+				Image.SCALE_DEFAULT)));
+	    
+	    rarityText =  new JLabel(card.getRarity().toString(), SwingConstants.CENTER);
+	    this.add(rarityText);
+	    this.add(rarity);
+	    rarity.setBounds(10,50,40,40);
+	    rarityText.setBounds(10,50,50,40);
+	    rarityText.setFont(font.deriveFont(Font.BOLD,16f));
+	    if (card.getRarity() == 0) {
+	    	rarity.setVisible(false);
+	    	rarityText.setVisible(false);
+	    }
+    	
     	appearanceCard(card, labelAppeareance);
 	    
 	    labelBackground.setBounds(0,0,200,300);

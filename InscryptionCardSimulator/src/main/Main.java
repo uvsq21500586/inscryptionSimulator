@@ -68,6 +68,7 @@ class Main {
 	    				  Integer.parseInt(lineContent[4]),
 	    				  Integer.parseInt(lineContent[5]),
 	    				  effects,
+	    				  Integer.parseInt(lineContent[14]),
 	    				  true);
 	    		  maindeck.add(newCard);
 	    	  }
@@ -107,6 +108,7 @@ class Main {
 	    				  Integer.parseInt(lineContent[3]),
 	    				  Integer.parseInt(lineContent[4]),
 	    				  effects,
+	    				  Integer.parseInt(lineContent[13]),
 	    				  true);
 	    		  maindeck.add(newCard);
 	    	  }
@@ -149,6 +151,7 @@ class Main {
 	    				  Integer.parseInt(lineContent[4]),
 	    				  Integer.parseInt(lineContent[5]),
 	    				  effects,
+	    				  Integer.parseInt(lineContent[14]),
 	    				  false);
 	    		  sourcedeck.add(newCard);
 	    	  }
@@ -188,6 +191,7 @@ class Main {
 	    				  Integer.parseInt(lineContent[3]),
 	    				  Integer.parseInt(lineContent[4]),
 	    				  effects,
+	    				  Integer.parseInt(lineContent[13]),
 	    				  false);
 	    		  sourcedeck.add(newCard);
 	    	  }

@@ -7,20 +7,53 @@ import java.util.List;
 import effects.Effect;
 
 public class CardFactory {
-	public static String beastAppearances[] = {"kingfisher", "raven_egg", "sparrow", "magpie", "raven", "turkey_vulture", "stunted_wolf","wolf_cub"};
+	public static String beastAppearances[] = {"kingfisher", "raven_egg", "sparrow", "magpie", "raven", "turkey_vulture", "stunted_wolf","wolf_cub","bloodhound","wolf"};
 	
 	public static String robotAppearances[] = {"xformerbatbot","s0n1a","xformerporcupinebot","qu177","xformergrizzlybot","gr1zz","bomb_latcher","exeskeleton","shield_latcher"};
 	
-	public static BeastCard beastCard(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u0) throws IOException {
+	public static String undeadAppearances[] = {"armored_zombie","bone_lord"};
+	
+	public static Card mainCard(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u0, String type) throws IOException {
 		int u = u0;
-		int nbstats = 0;
+		
 		int levelRarity = 0;
-		int level = 0;
-		int attackmin = 0;
+		
 		while (u%10 == 9) {
 			u = (u * multiplicator)%modulo;
 			levelRarity++;
 		}
+		if (type.equals("beast")) {
+			return beastCard(modulo, multiplicator, globalStrengh, rarityStrengh, u, levelRarity);
+		} else if (type.equals("robot")) {
+			return robotCard(modulo, multiplicator, globalStrengh, rarityStrengh, u, levelRarity);
+		}
+		
+		return undeadCard(modulo, multiplicator, globalStrengh, rarityStrengh, u, levelRarity);
+	}
+	
+	public static Card sourceCard(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u0, String type) throws IOException {
+		int u = u0;
+		
+		int levelRarity = 0;
+		
+		while (u%10 == 9) {
+			u = (u * multiplicator)%modulo;
+			levelRarity++;
+		}
+		if (type.equals("beast")) {
+			return beastCardSource(modulo, multiplicator, globalStrengh, rarityStrengh, u, levelRarity);
+		} else if (type.equals("robot")) {
+			return robotCardSource(modulo, multiplicator, globalStrengh, rarityStrengh, u, levelRarity);
+		}
+		
+		return undeadCardSource(modulo, multiplicator, globalStrengh, rarityStrengh, u, levelRarity);
+	}
+	
+	
+	private static BeastCard beastCard(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u, int levelRarity) throws IOException {
+		int nbstats = 0;
+		int level = 0;
+		int attackmin = 0;
 		String typeCost = "blood";
 		if (u%4 == 3) {
 			typeCost = "bone";
@@ -159,17 +192,135 @@ public class CardFactory {
 		
 		return new BeastCard(appearance, typeCost, level, hp, attack, effects, levelRarity, true);
 	}
-	
-	public static RobotCard robotCard(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u0) throws IOException {
-		int u = u0;
+
+	private static UndeadCard undeadCard(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u, int levelRarity) throws IOException {
 		int nbstats = 0;
-		int levelRarity = 0;
 		int level = 0;
 		int attackmin = 0;
-		while (u%10 == 9) {
-			u = (u * multiplicator)%modulo;
-			levelRarity++;
+		int lvlmax = 10;
+		ArrayList<Integer> integerSeen = new ArrayList<Integer>();
+		while (u%4 == 3 && !integerSeen.contains(u)) {
+			integerSeen.add(u);
+			u = (u * multiplicator + 2*levelRarity)%modulo;
+			lvlmax++;
 		}
+		level = 1 + u%(lvlmax-1);
+		level = Math.min(lvlmax, 1 + u%(lvlmax-1));
+		u = (u * multiplicator + 2*levelRarity)%modulo;
+		nbstats = (level+1) * globalStrengh / 4 + levelRarity * rarityStrengh;
+		nbstats = nbstats - u%(1+globalStrengh/8);
+		u = (u * multiplicator + 2*levelRarity)%modulo;
+		
+		//effects
+		boolean stopEffects = false;
+		List<Effect> effects = new ArrayList<>();
+		List<String> sortedeffects = new ArrayList<>();
+		
+		//effect1
+		if (u%4>0) {
+			String effectName = Effect.namesUndeadEffects.get(u%(Effect.namesUndeadEffects.size()));
+			if (Effect.mapEffectToCost.get(effectName) > nbstats) {
+				stopEffects = true;
+			} else if (Effect.namesAttackEffects.contains(effectName) && Effect.mapEffectToCost.get(effectName) + 2 > nbstats) {
+				stopEffects = true;
+			} else {
+				sortedeffects.add(effectName);
+				if (Effect.namesLevelEffects.contains(effectName)) {
+					effects.add(new Effect(effectName, "undead", 1));
+				} else {
+					effects.add(new Effect(effectName, "undead"));
+				}
+				nbstats -= effects.get(effects.size()-1).getCostStats();
+				if (Effect.namesAttackEffects.contains(effectName)) {
+					attackmin++;
+					nbstats -= 2;
+				}
+			}
+		} else {
+			stopEffects = true;
+		}
+		u = (u * multiplicator + 2*levelRarity)%modulo;
+		
+		//effect2
+		if (!stopEffects) {
+		if (u%4>1) {
+			String effectName = Effect.namesUndeadEffects.get(u%(Effect.namesUndeadEffects.size()));
+			if (Effect.mapEffectToCost.get(effectName) > nbstats || sortedeffects.contains(effectName)) {
+				stopEffects = true;
+			} else if (Effect.namesAttackEffects.contains(effectName) && attackmin == 0 && Effect.mapEffectToCost.get(effectName) + 2 > nbstats) {
+				stopEffects = true;
+			} else {
+				sortedeffects.add(effectName);
+				if (Effect.namesLevelEffects.contains(effectName)) {
+					effects.add(new Effect(effectName, "undead", 1));
+				} else {
+					effects.add(new Effect(effectName, "undead"));
+				}
+				nbstats -= effects.get(effects.size()-1).getCostStats();
+				if (Effect.namesAttackEffects.contains(effectName) && attackmin == 0) {
+					attackmin++;
+					nbstats -= 2;
+				}
+			}
+		} else {
+			stopEffects = true;
+		}
+		u = (u * multiplicator + 2*levelRarity)%modulo;
+		}
+		//effect3
+		if (!stopEffects) {
+		if (u%4>2) {
+			String effectName = Effect.namesUndeadEffects.get(u%(Effect.namesUndeadEffects.size()));
+			if (Effect.mapEffectToCost.get(effectName) > nbstats || sortedeffects.contains(effectName)) {
+				stopEffects = true;
+			} else if (Effect.namesAttackEffects.contains(effectName) && attackmin == 0 && Effect.mapEffectToCost.get(effectName) + 2 > nbstats) {
+				stopEffects = true;
+			} else {
+				sortedeffects.add(effectName);
+				if (Effect.namesLevelEffects.contains(effectName)) {
+					effects.add(new Effect(effectName, "undead", 1));
+				} else {
+					effects.add(new Effect(effectName, "undead"));
+				}
+				nbstats -= effects.get(effects.size()-1).getCostStats();
+				if (Effect.namesAttackEffects.contains(effectName) && attackmin == 0) {
+					attackmin++;
+					nbstats -= 2;
+				}
+			}
+		} else {
+			stopEffects = true;
+		}
+		u = (u * multiplicator + 2*levelRarity)%modulo;
+		}
+		//levels effects
+		for (int i=0;i<effects.size();i++) {
+			Effect effect = effects.get(i);
+			if (Effect.namesLevelEffects.contains(effect.getName())) {
+				int levelEffect = 1 + u%(1+nbstats/effect.getCostStats());
+				u = (u * multiplicator + 2*levelRarity)%modulo;
+				levelEffect = Math.min(levelEffect, 1 + u%(1+nbstats/effect.getCostStats()));
+				u = (u * multiplicator + 2*levelRarity)%modulo;
+				nbstats -= effect.getCostStats();
+				effect.setLevel(levelEffect);
+			}
+		}
+		
+		//attack and hp
+		int bonusAttack = u%(1+nbstats/2);
+		int attack = attackmin + bonusAttack;
+		int hp = 1 + nbstats - 2*bonusAttack;
+		u = (u * multiplicator + 2*levelRarity)%modulo;
+		String appearance = undeadAppearances[u%(undeadAppearances.length)];
+		
+		return new UndeadCard(appearance, level, hp, attack, effects, levelRarity, true);
+	}
+	
+	
+	private static RobotCard robotCard(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u, int levelRarity) throws IOException {
+		int nbstats = 0;
+		int level = 0;
+		int attackmin = 0;
 		int nbMox = 0;
 		if (u%4 == 3) {
 			//1mox
@@ -328,14 +479,8 @@ public class CardFactory {
 		return new RobotCard(appearance, level, hp, attack, effects, levelRarity, true);
 	}
 	
-	public static BeastCard beastCardSource(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u0) throws IOException {
-		int u = u0;
+	private static BeastCard beastCardSource(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u, int levelRarity) throws IOException {
 		int nbstats = 0;
-		int levelRarity = 0;
-		while (u%10 == 9) {
-			u = (u * multiplicator)%modulo;
-			levelRarity++;
-		}
 		String typeCost = "blood";
 		nbstats = globalStrengh/8 + levelRarity * rarityStrengh;
 		nbstats = nbstats - u%(1+globalStrengh/8);
@@ -423,10 +568,8 @@ public class CardFactory {
 		return new BeastCard("squirrel", typeCost, 0, hp, 0, effects, levelRarity, false);
 	}
 	
-	public static RobotCard robotCardSource(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u0) throws IOException {
-		int u = u0;
+	private static RobotCard robotCardSource(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u, int levelRarity) throws IOException {
 		int nbstats = 0;
-		int levelRarity = 0;
 		int level = 0;
 		int attackmin = 0;
 		while (u%10 == 9) {
@@ -557,5 +700,81 @@ public class CardFactory {
 		int hp = 1 + nbstats;
 		
 		return new RobotCard("empty_vessel", level, hp, 0, effects, levelRarity, false);
+	}
+
+	private static UndeadCard undeadCardSource(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u, int levelRarity) throws IOException {
+		int nbstats = 0;
+		nbstats = globalStrengh/8 + levelRarity * rarityStrengh;
+		nbstats = nbstats - u%(1+globalStrengh/8);
+		u = (u * multiplicator + 2*levelRarity)%modulo;
+		//effects
+		boolean stopEffects = false;
+		List<Effect> effects = new ArrayList<>();
+		List<String> sortedeffects = new ArrayList<>();
+		
+		//effect1
+		sortedeffects.add("brittle");
+		effects.add(new Effect("brittle", "undead"));
+		
+		//effect2
+		if (!stopEffects) {
+		if (u%4>1) {
+			String effectName = Effect.namesUndeadEffects.get(u%(Effect.namesUndeadEffects.size()));
+			if (Effect.mapEffectToCost.get(effectName) > nbstats || sortedeffects.contains(effectName)) {
+				stopEffects = true;
+			} else {
+				sortedeffects.add(effectName);
+				if (Effect.namesLevelEffects.contains(effectName)) {
+					effects.add(new Effect(effectName, "undead", 1));
+				} else {
+					effects.add(new Effect(effectName, "undead"));
+				}
+				nbstats -= effects.get(effects.size()-1).getCostStats();
+				
+			}
+		} else {
+			stopEffects = true;
+		}
+		u = (u * multiplicator + 2*levelRarity)%modulo;
+		}
+		//effect3
+		if (!stopEffects) {
+		if (u%4>2) {
+			String effectName = Effect.namesUndeadEffects.get(u%(Effect.namesUndeadEffects.size()));
+			if (Effect.mapEffectToCost.get(effectName) > nbstats || sortedeffects.contains(effectName)) {
+				stopEffects = true;
+			} else {
+				sortedeffects.add(effectName);
+				if (Effect.namesLevelEffects.contains(effectName)) {
+					effects.add(new Effect(effectName, "undead", 1));
+				} else {
+					effects.add(new Effect(effectName, "undead"));
+				}
+				nbstats -= effects.get(effects.size()-1).getCostStats();
+			}
+		} else {
+			stopEffects = true;
+		}
+		u = (u * multiplicator + 2*levelRarity)%modulo;
+		}
+		//levels effects
+		for (int i=0;i<effects.size();i++) {
+			Effect effect = effects.get(i);
+			if (Effect.namesLevelEffects.contains(effect.getName())) {
+				int levelEffect = 1 + u%(1+nbstats/effect.getCostStats());
+				u = (u * multiplicator + 2*levelRarity)%modulo;
+				levelEffect = Math.min(levelEffect, 1 + u%(1+nbstats/effect.getCostStats()));
+				u = (u * multiplicator + 2*levelRarity)%modulo;
+				nbstats -= (levelEffect-1)*effect.getCostStats();
+				effect.setLevel(levelEffect);
+			}
+		}
+		
+		//attack and hp
+		int bonusAttack = u%(1+nbstats/2);
+		int attack = 1 + bonusAttack;
+		int hp = 1 + nbstats - 2*bonusAttack;
+
+		return new UndeadCard("skeleton", 0, hp, attack, effects, levelRarity, false);
 	}
 }

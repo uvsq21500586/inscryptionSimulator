@@ -46,27 +46,31 @@ public class MenuControler implements ActionListener,MouseListener {
 				if (((ButtonToDuel) e.getSource()).label.contains("True") && menu.getMainDeck1() != null) {
 					// construire les decks du joueur2
 					List<Card> mainDeck2 = new ArrayList<>();
-					for (int i=0;i<menu.getNbCards2();i++) {
-						Random r = new Random();
-						Card newCard = CardFactory.beastCard(
-								menu.getModulo2(),
-								menu.getMultiplier2(),
-								menu.getGlobalStrenght2(),
-								menu.getRarityStrenght2(),
-								r.nextInt(menu.getModulo2()-1)+1);
-						mainDeck2.add(newCard);
-					}
 					List<Card> sourceDeck2 = new ArrayList<>();
 					for (int i=0;i<menu.getNbCards2();i++) {
 						Random r = new Random();
-						Card newCard = CardFactory.beastCardSource(
+						Card newCard = CardFactory.mainCard(
 								menu.getModulo2(),
 								menu.getMultiplier2(),
 								menu.getGlobalStrenght2(),
 								menu.getRarityStrenght2(),
-								r.nextInt(menu.getModulo2()-1)+1);
+								r.nextInt(menu.getModulo2()-1)+1,
+								menu.getTypecards2());
+						mainDeck2.add(newCard);
+					}
+					
+					for (int i=0;i<menu.getNbCards2();i++) {
+						Random r = new Random();
+						Card newCard = CardFactory.sourceCard(
+								menu.getModulo2(),
+								menu.getMultiplier2(),
+								menu.getGlobalStrenght2(),
+								menu.getRarityStrenght2(),
+								r.nextInt(menu.getModulo2()-1)+1,
+								menu.getTypecards2());
 						sourceDeck2.add(newCard);
 					}
+					
 					duel.open(menu.getMainDeck1(), mainDeck2, menu.getSourceDeck1(), sourceDeck2, menu.getPV1(), menu.getPV2());
 				} else if (!((ButtonToDuel) e.getSource()).label.contains("True")) {
 					duel.openTest();
@@ -95,24 +99,26 @@ public class MenuControler implements ActionListener,MouseListener {
 			List<Card> mainDeck1 = new ArrayList<>();
 			for (int i=0;i<menu.getNbCards1();i++) {
 				Random r = new Random();
-				Card newCard;
 				try {
-					if (menu.getTypecards1().equals("beast")) {
-					newCard = CardFactory.beastCard(
+					Card card1 = CardFactory.mainCard(
 							menu.getModulo1(),
 							menu.getMultiplier1(),
 							menu.getGlobalStrenght1(),
 							menu.getRarityStrenght1(),
-							r.nextInt(menu.getModulo1()-1)+1);
+							r.nextInt(menu.getModulo1()-1)+1,
+							menu.getTypecards1());
+					Card card2 = CardFactory.mainCard(
+							menu.getModulo1(),
+							menu.getMultiplier1(),
+							menu.getGlobalStrenght1(),
+							menu.getRarityStrenght1(),
+							r.nextInt(menu.getModulo1()-1)+1,
+							menu.getTypecards1());
+					if (card2.getRarity() < card1.getRarity()) {
+						mainDeck1.add(card2);
 					} else {
-						newCard = CardFactory.robotCard(
-								menu.getModulo1(),
-								menu.getMultiplier1(),
-								menu.getGlobalStrenght1(),
-								menu.getRarityStrenght1(),
-								r.nextInt(menu.getModulo1()-1)+1);
+						mainDeck1.add(card1);
 					}
-					mainDeck1.add(newCard);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -122,25 +128,26 @@ public class MenuControler implements ActionListener,MouseListener {
 			List<Card> sourceDeck1 = new ArrayList<>();
 			for (int i=0;i<menu.getNbCards1();i++) {
 				Random r = new Random();
-				Card newCard;
 				try {
-					if (menu.getTypecards1().equals("beast")) {
-						newCard = CardFactory.beastCardSource(
-								menu.getModulo1(),
-								menu.getMultiplier1(),
-								menu.getGlobalStrenght1(),
-								menu.getRarityStrenght1(),
-								r.nextInt(menu.getModulo1()-1)+1);
+					Card card1 = CardFactory.sourceCard(
+							menu.getModulo1(),
+							menu.getMultiplier1(),
+							menu.getGlobalStrenght1(),
+							menu.getRarityStrenght1(),
+							r.nextInt(menu.getModulo1()-1)+1,
+							menu.getTypecards1());
+					Card card2 = CardFactory.sourceCard(
+							menu.getModulo1(),
+							menu.getMultiplier1(),
+							menu.getGlobalStrenght1(),
+							menu.getRarityStrenght1(),
+							r.nextInt(menu.getModulo1()-1)+1,
+							menu.getTypecards1());
+					if (card2.getRarity() < card1.getRarity()) {
+						sourceDeck1.add(card2);
 					} else {
-						newCard = CardFactory.robotCardSource(
-								menu.getModulo1(),
-								menu.getMultiplier1(),
-								menu.getGlobalStrenght1(),
-								menu.getRarityStrenght1(),
-								r.nextInt(menu.getModulo1()-1)+1);
+						sourceDeck1.add(card1);
 					}
-					
-					sourceDeck1.add(newCard);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -179,31 +186,59 @@ public class MenuControler implements ActionListener,MouseListener {
 			List<Card> boosterSource = new ArrayList<>();
 			
 			Random r = new Random();
-			for (int i=0;i<4;i++) {
-				try {
-					boosterMain.add(CardFactory.beastCard(
-							menu.getModulo1(),
-							menu.getMultiplier1(),
-							menu.getGlobalStrenght1(),
-							menu.getRarityStrenght1(),
-							r.nextInt(menu.getModulo1()-1)+1));
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				for (int i=0;i<4;i++) {
+					try {
+						Card card1 = CardFactory.mainCard(
+								menu.getModulo1(),
+								menu.getMultiplier1(),
+								menu.getGlobalStrenght1(),
+								menu.getRarityStrenght1(),
+								r.nextInt(menu.getModulo1()-1)+1,
+								menu.getTypecards1());
+						Card card2 = CardFactory.mainCard(
+								menu.getModulo1(),
+								menu.getMultiplier1(),
+								menu.getGlobalStrenght1(),
+								menu.getRarityStrenght1(),
+								r.nextInt(menu.getModulo1()-1)+1,
+								menu.getTypecards1());
+						if (card2.getRarity() < card1.getRarity()) {
+							boosterMain.add(card2);
+						} else {
+							boosterMain.add(card1);
+						}
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
-			}
+				for (int i=0;i<4;i++) {
+					try {
+						Card card1 = CardFactory.sourceCard(
+								menu.getModulo1(),
+								menu.getMultiplier1(),
+								menu.getGlobalStrenght1(),
+								menu.getRarityStrenght1(),
+								r.nextInt(menu.getModulo1()-1)+1,
+								menu.getTypecards1());
+						Card card2 = CardFactory.sourceCard(
+								menu.getModulo1(),
+								menu.getMultiplier1(),
+								menu.getGlobalStrenght1(),
+								menu.getRarityStrenght1(),
+								r.nextInt(menu.getModulo1()-1)+1,
+								menu.getTypecards1());
+						if (card2.getRarity() < card1.getRarity()) {
+							boosterSource.add(card2);
+						} else {
+							boosterSource.add(card1);
+						}
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
 			
-			try {
-				boosterSource.add(CardFactory.beastCardSource(
-						menu.getModulo1(),
-						menu.getMultiplier1(),
-						menu.getGlobalStrenght1(),
-						menu.getRarityStrenght1(),
-						r.nextInt(menu.getModulo1()-1)+1));
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
 			try {
 				Player1Deck boosterView = new Player1Deck(boosterMain, boosterSource);
 			} catch (IOException e1) {

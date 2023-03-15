@@ -7,35 +7,35 @@ import java.util.List;
 import effects.Effect;
 import frames.duelbuttons.ButtonPlaceCard;
 
-public class RobotCard extends Card {
-	public RobotCard(String appearance, Integer level, int hpBase, int attackBase, List<Effect> effects,
+public class UndeadCard extends Card {
+	public UndeadCard(String appearance, Integer level, int hpBase, int attackBase, List<Effect> effects,
 			boolean mainDeck) {
-		super("robot", appearance, level, hpBase, attackBase, effects, mainDeck);
+		super("undead", appearance, level, hpBase, attackBase, effects, mainDeck);
 		// TODO Auto-generated constructor stub
 	}
 	
-	public RobotCard(String appearance, Integer level, int hpBase, int attackBase, List<Effect> effects, int rarity,
+	public UndeadCard(String appearance, Integer level, int hpBase, int attackBase, List<Effect> effects, int rarity,
 			boolean mainDeck) {
-		super("robot", appearance, level, hpBase, attackBase, effects, rarity, mainDeck);
+		super("undead", appearance, level, hpBase, attackBase, effects, rarity, mainDeck);
 		// TODO Auto-generated constructor stub
 	}
 	
-	public static RobotCard sourceCard(int hpBase, List<Effect> effects) {
-		return new RobotCard("empty_vessel", 1, hpBase, 0, effects, false);
+	public static UndeadCard sourceCard(int hpBase, int attackBase, List<Effect> effects) {
+		return new UndeadCard("skeleton", 0, hpBase, attackBase, effects, false);
 		// TODO Auto-generated constructor stub
 	}
 	
-	public static RobotCard mainCard(String appearance, Integer level, int hpBase, int attackBase, List<Effect> effects) {
-		return new RobotCard(appearance, level, hpBase, attackBase, effects, true);
+	public static UndeadCard mainCard(String appearance, Integer level, int hpBase, int attackBase, List<Effect> effects) {
+		return new UndeadCard(appearance, level, hpBase, attackBase, effects, true);
 		// TODO Auto-generated constructor stub
 	}
 	
-	public boolean playable(ButtonPlaceCard placesCards[], Integer energy) {
+	public boolean playable(ButtonPlaceCard placesCards[], Integer bones) {
 		boolean emptyplace = placesCards[0].getCardPanel() == null
 				|| placesCards[1].getCardPanel() == null
 						|| placesCards[2].getCardPanel() == null
 								|| placesCards[3].getCardPanel() == null;
-		if (energy >= getLevel() && emptyplace) {
+		if (bones >= getLevel() && emptyplace) {
 			return true;
 		}
 		
@@ -43,13 +43,13 @@ public class RobotCard extends Card {
 	}
 
 	
-	public RobotCard cloneCard(RobotCard card) {
+	public UndeadCard cloneCard(UndeadCard card) {
 		// TODO Auto-generated method stub
 		List<Effect> effects = new LinkedList<>(Arrays.asList());
 		for (int i=0;i<card.effects.size(); i++) {
 			effects.add(card.effects.get(i));
 		}
-		return new RobotCard(card.appearance, card.level, card.hpBase, card.attackBase, effects, card.mainDeck);
+		return new UndeadCard(card.appearance, card.level, card.hpBase, card.attackBase, effects, card.mainDeck);
 	}
 
 	@Override

@@ -10,6 +10,7 @@ import java.io.IOException;
 import javax.swing.JButton;
 
 import cards.BeastCard;
+import cards.Card;
 import cards.CardFactory;
 import cards.RobotCard;
 import frames.menubuttons.ButtonToDuel;
@@ -31,39 +32,21 @@ public class SimulatorCardControler implements ActionListener,MouseListener {
 		// TODO Auto-generated method stub
 		if (e.getSource() instanceof JButton) {
 			System.out.println("mouseClicked");
-			if (simulatorCard.getTypeCard().getSelectedValue().equals("beast")) {
-				try {
-					//simulatorCard.getResultCard().remove(null);
-					BeastCard card = CardFactory.beastCard(
-							Integer.parseInt(simulatorCard.getModuloText().getText()),
-							Integer.parseInt(simulatorCard.getMultiplicatorText().getText()),
-							Integer.parseInt(simulatorCard.getGlobalstrengh().getText()),
-							Integer.parseInt(simulatorCard.getRaritystrengh().getText()),
-							Integer.parseInt(simulatorCard.getSeed().getText())
-					);
-					simulatorCard.getResultCard().repaint(card);
-					//.setResultCard(new CardPanel(card));
-				} catch (IOException | FontFormatException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-			if (simulatorCard.getTypeCard().getSelectedValue().equals("robot")) {
-				try {
-					//simulatorCard.getResultCard().remove(null);
-					RobotCard card = CardFactory.robotCard(
-							Integer.parseInt(simulatorCard.getModuloText().getText()),
-							Integer.parseInt(simulatorCard.getMultiplicatorText().getText()),
-							Integer.parseInt(simulatorCard.getGlobalstrengh().getText()),
-							Integer.parseInt(simulatorCard.getRaritystrengh().getText()),
-							Integer.parseInt(simulatorCard.getSeed().getText())
-					);
-					simulatorCard.getResultCard().repaint(card);
-					//.setResultCard(new CardPanel(card));
-				} catch (IOException | FontFormatException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+			try {
+				//simulatorCard.getResultCard().remove(null);
+				Card card = CardFactory.mainCard(
+						Integer.parseInt(simulatorCard.getModuloText().getText()),
+						Integer.parseInt(simulatorCard.getMultiplicatorText().getText()),
+						Integer.parseInt(simulatorCard.getGlobalstrengh().getText()),
+						Integer.parseInt(simulatorCard.getRaritystrengh().getText()),
+						Integer.parseInt(simulatorCard.getSeed().getText()),
+						simulatorCard.getTypeCard().getSelectedValue()
+				);
+				simulatorCard.getResultCard().repaint(card);
+				//.setResultCard(new CardPanel(card));
+			} catch (IOException | FontFormatException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 		}
 	}

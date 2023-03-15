@@ -236,6 +236,20 @@ public class DuelControler implements ActionListener,MouseListener {
 		
 		if (duel.getButtonPlaceCard()[0].equals(fieldCard) || duel.getButtonPlaceCard()[1].equals(fieldCard) || duel.getButtonPlaceCard()[2].equals(fieldCard) || duel.getButtonPlaceCard()[3].equals(fieldCard)) {
 			cardSelected.getCard().placeCard(duel, duel.getButtonPlaceCard(), cardSelected.getFieldPosition());
+			if (cardSelected.getCard().getEffects().stream().anyMatch(effect -> effect.getName().equals("fecundity"))) {
+				if (cardSelected.getCard() instanceof BeastCard) {
+					BeastCard copycard = (BeastCard) cardSelected.getCard();
+					CardPanel copyCardPanel = new CardPanel(copycard.cloneCard(copycard));
+					if (duel.isTurnJ2()) {
+						duel.getHandCard2().add(copyCardPanel);
+					} else {
+						duel.getHandCard1().add(copyCardPanel);
+					}
+					copyCardPanel.addMouseListener(this);
+				}
+				
+			}
+			
 			cardSelected = null;
 			puttingBloodCard = false;
 			try {
@@ -253,7 +267,7 @@ public class DuelControler implements ActionListener,MouseListener {
 	private void playCard(MouseEvent e) {
 		//System.out.println("playCard");
 		CardPanel card = (CardPanel) e.getSource();
-		if (card.getPosition().equals("onHand") && !sacrifying && duel.playable(card.getCard())) {
+		if (card.getPosition().equals("onHand") && !sacrifying && duel.playable(card.getCard()) && cardSelected == null) {
 			System.out.println("playCard playable");
 			cardSelected = card;
 			if (card.getCard() instanceof BeastCard && ((BeastCard) card.getCard()).getCostType().equals("blood") && card.getCard().getLevel()>0) {
