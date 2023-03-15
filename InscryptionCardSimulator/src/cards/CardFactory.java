@@ -11,7 +11,7 @@ public class CardFactory {
 	
 	public static String robotAppearances[] = {"xformerbatbot","s0n1a","xformerporcupinebot","qu177","xformergrizzlybot","gr1zz","bomb_latcher","exeskeleton","shield_latcher"};
 	
-	public static String undeadAppearances[] = {"armored_zombie","bone_lord"};
+	public static String undeadAppearances[] = {"armored_zombie","bone_lord","bone_lords_horn","bone_pile","bone_prince","dead_hand"};
 	
 	public static Card mainCard(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u0, String type) throws IOException {
 		int u = u0;
@@ -174,12 +174,26 @@ public class CardFactory {
 		for (int i=0;i<effects.size();i++) {
 			Effect effect = effects.get(i);
 			if (Effect.namesLevelEffects.contains(effect.getName())) {
-				int levelEffect = 1 + u%(1+nbstats/effect.getCostStats());
-				u = (u * multiplicator + 2*levelRarity)%modulo;
-				levelEffect = Math.min(levelEffect, 1 + u%(1+nbstats/effect.getCostStats()));
-				u = (u * multiplicator + 2*levelRarity)%modulo;
-				nbstats -= (levelEffect-1)*effect.getCostStats();
-				effect.setLevel(levelEffect);
+				if (Effect.namesResourceEffects.contains(effect.getName())) {
+					int lvlmaxEffect = 1 + nbstats/effect.getCostStats();
+					ArrayList<Integer> integerSeen = new ArrayList<Integer>();
+					while (u%4 == 3 && !integerSeen.contains(u)) {
+						integerSeen.add(u);
+						u = (u * multiplicator + 2*levelRarity)%modulo;
+						lvlmaxEffect++;
+					}
+					int levelEffect = 1 + u%lvlmaxEffect;
+					u = (u * multiplicator + 2*levelRarity)%modulo;
+					nbstats -= (levelEffect-1)*effect.getCostStats();
+					effect.setLevel(levelEffect);
+				} else {
+					int levelEffect = 1 + u%(1+nbstats/effect.getCostStats());
+					u = (u * multiplicator + 2*levelRarity)%modulo;
+					levelEffect = Math.min(levelEffect, 1 + u%(1+nbstats/effect.getCostStats()));
+					u = (u * multiplicator + 2*levelRarity)%modulo;
+					nbstats -= (levelEffect-1)*effect.getCostStats();
+					effect.setLevel(levelEffect);
+				}
 			}
 		}
 		
@@ -297,12 +311,26 @@ public class CardFactory {
 		for (int i=0;i<effects.size();i++) {
 			Effect effect = effects.get(i);
 			if (Effect.namesLevelEffects.contains(effect.getName())) {
-				int levelEffect = 1 + u%(1+nbstats/effect.getCostStats());
-				u = (u * multiplicator + 2*levelRarity)%modulo;
-				levelEffect = Math.min(levelEffect, 1 + u%(1+nbstats/effect.getCostStats()));
-				u = (u * multiplicator + 2*levelRarity)%modulo;
-				nbstats -= effect.getCostStats();
-				effect.setLevel(levelEffect);
+				if (Effect.namesResourceEffects.contains(effect.getName())) {
+					int lvlmaxEffect = 1 + nbstats/effect.getCostStats();
+					ArrayList<Integer> integerSeen2 = new ArrayList<Integer>();
+					while (u%4 == 3 && !integerSeen2.contains(u)) {
+						integerSeen2.add(u);
+						u = (u * multiplicator + 2*levelRarity)%modulo;
+						lvlmaxEffect++;
+					}
+					int levelEffect = 1 + u%lvlmaxEffect;
+					u = (u * multiplicator + 2*levelRarity)%modulo;
+					nbstats -= (levelEffect-1)*effect.getCostStats();
+					effect.setLevel(levelEffect);
+				} else {
+					int levelEffect = 1 + u%(1+nbstats/effect.getCostStats());
+					u = (u * multiplicator + 2*levelRarity)%modulo;
+					levelEffect = Math.min(levelEffect, 1 + u%(1+nbstats/effect.getCostStats()));
+					u = (u * multiplicator + 2*levelRarity)%modulo;
+					nbstats -= (levelEffect-1)*effect.getCostStats();
+					effect.setLevel(levelEffect);
+				}
 			}
 		}
 		
@@ -457,17 +485,31 @@ public class CardFactory {
 			u = (u * multiplicator + 2*levelRarity)%modulo;
 			}
 		//levels effects
-		for (int i=0;i<effects.size();i++) {
-			Effect effect = effects.get(i);
-			if (Effect.namesLevelEffects.contains(effect.getName())) {
-				int levelEffect = 1 + u%(1+nbstats/effect.getCostStats());
-				u = (u * multiplicator + 2*levelRarity)%modulo;
-				levelEffect = Math.min(levelEffect, 1 + u%(1+nbstats/effect.getCostStats()));
-				u = (u * multiplicator + 2*levelRarity)%modulo;
-				nbstats -= (levelEffect-1)*effect.getCostStats();
-				effect.setLevel(levelEffect);
-			}
-		}
+				for (int i=0;i<effects.size();i++) {
+					Effect effect = effects.get(i);
+					if (Effect.namesLevelEffects.contains(effect.getName())) {
+						if (Effect.namesResourceEffects.contains(effect.getName())) {
+							int lvlmaxEffect = 1 + nbstats/effect.getCostStats();
+							ArrayList<Integer> integerSeen2 = new ArrayList<Integer>();
+							while (u%4 == 3 && !integerSeen2.contains(u)) {
+								integerSeen2.add(u);
+								u = (u * multiplicator + 2*levelRarity)%modulo;
+								lvlmaxEffect++;
+							}
+							int levelEffect = 1 + u%lvlmaxEffect;
+							u = (u * multiplicator + 2*levelRarity)%modulo;
+							nbstats -= (levelEffect-1)*effect.getCostStats();
+							effect.setLevel(levelEffect);
+						} else {
+							int levelEffect = 1 + u%(1+nbstats/effect.getCostStats());
+							u = (u * multiplicator + 2*levelRarity)%modulo;
+							levelEffect = Math.min(levelEffect, 1 + u%(1+nbstats/effect.getCostStats()));
+							u = (u * multiplicator + 2*levelRarity)%modulo;
+							nbstats -= (levelEffect-1)*effect.getCostStats();
+							effect.setLevel(levelEffect);
+						}
+					}
+				}
 		
 		//attack and hp
 		int bonusAttack = u%(1+nbstats/2);
@@ -551,17 +593,31 @@ public class CardFactory {
 		u = (u * multiplicator + 2*levelRarity)%modulo;
 		}
 		//levels effects
-		for (int i=0;i<effects.size();i++) {
-			Effect effect = effects.get(i);
-			if (Effect.namesLevelEffects.contains(effect.getName())) {
-				int levelEffect = 1 + u%(1+nbstats/effect.getCostStats());
-				u = (u * multiplicator + 2*levelRarity)%modulo;
-				levelEffect = Math.min(levelEffect, 1 + u%(1+nbstats/effect.getCostStats()));
-				u = (u * multiplicator + 2*levelRarity)%modulo;
-				nbstats -= (levelEffect-1)*effect.getCostStats();
-				effect.setLevel(levelEffect);
-			}
-		}
+				for (int i=0;i<effects.size();i++) {
+					Effect effect = effects.get(i);
+					if (Effect.namesLevelEffects.contains(effect.getName())) {
+						if (Effect.namesResourceEffects.contains(effect.getName())) {
+							int lvlmaxEffect = 1 + nbstats/effect.getCostStats();
+							ArrayList<Integer> integerSeen = new ArrayList<Integer>();
+							while (u%4 == 3 && !integerSeen.contains(u)) {
+								integerSeen.add(u);
+								u = (u * multiplicator + 2*levelRarity)%modulo;
+								lvlmaxEffect++;
+							}
+							int levelEffect = 1 + u%lvlmaxEffect;
+							u = (u * multiplicator + 2*levelRarity)%modulo;
+							nbstats -= (levelEffect-1)*effect.getCostStats();
+							effect.setLevel(levelEffect);
+						} else {
+							int levelEffect = 1 + u%(1+nbstats/effect.getCostStats());
+							u = (u * multiplicator + 2*levelRarity)%modulo;
+							levelEffect = Math.min(levelEffect, 1 + u%(1+nbstats/effect.getCostStats()));
+							u = (u * multiplicator + 2*levelRarity)%modulo;
+							nbstats -= (levelEffect-1)*effect.getCostStats();
+							effect.setLevel(levelEffect);
+						}
+					}
+				}
 		
 		//attack and hp
 		int hp = 1 + nbstats;
@@ -684,17 +740,31 @@ public class CardFactory {
 			u = (u * multiplicator + 2*levelRarity)%modulo;
 			}
 		//levels effects
-		for (int i=0;i<effects.size();i++) {
-			Effect effect = effects.get(i);
-			if (Effect.namesLevelEffects.contains(effect.getName())) {
-				int levelEffect = 1 + u%(1+nbstats/effect.getCostStats());
-				u = (u * multiplicator + 2*levelRarity)%modulo;
-				levelEffect = Math.min(levelEffect, 1 + u%(1+nbstats/effect.getCostStats()));
-				u = (u * multiplicator + 2*levelRarity)%modulo;
-				nbstats -= (levelEffect-1)*effect.getCostStats();
-				effect.setLevel(levelEffect);
-			}
-		}
+				for (int i=0;i<effects.size();i++) {
+					Effect effect = effects.get(i);
+					if (Effect.namesLevelEffects.contains(effect.getName())) {
+						if (Effect.namesResourceEffects.contains(effect.getName())) {
+							int lvlmaxEffect = 1 + nbstats/effect.getCostStats();
+							ArrayList<Integer> integerSeen = new ArrayList<Integer>();
+							while (u%4 == 3 && !integerSeen.contains(u)) {
+								integerSeen.add(u);
+								u = (u * multiplicator + 2*levelRarity)%modulo;
+								lvlmaxEffect++;
+							}
+							int levelEffect = 1 + u%lvlmaxEffect;
+							u = (u * multiplicator + 2*levelRarity)%modulo;
+							nbstats -= (levelEffect-1)*effect.getCostStats();
+							effect.setLevel(levelEffect);
+						} else {
+							int levelEffect = 1 + u%(1+nbstats/effect.getCostStats());
+							u = (u * multiplicator + 2*levelRarity)%modulo;
+							levelEffect = Math.min(levelEffect, 1 + u%(1+nbstats/effect.getCostStats()));
+							u = (u * multiplicator + 2*levelRarity)%modulo;
+							nbstats -= (levelEffect-1)*effect.getCostStats();
+							effect.setLevel(levelEffect);
+						}
+					}
+				}
 		
 		//hp
 		int hp = 1 + nbstats;
@@ -758,17 +828,31 @@ public class CardFactory {
 		u = (u * multiplicator + 2*levelRarity)%modulo;
 		}
 		//levels effects
-		for (int i=0;i<effects.size();i++) {
-			Effect effect = effects.get(i);
-			if (Effect.namesLevelEffects.contains(effect.getName())) {
-				int levelEffect = 1 + u%(1+nbstats/effect.getCostStats());
-				u = (u * multiplicator + 2*levelRarity)%modulo;
-				levelEffect = Math.min(levelEffect, 1 + u%(1+nbstats/effect.getCostStats()));
-				u = (u * multiplicator + 2*levelRarity)%modulo;
-				nbstats -= (levelEffect-1)*effect.getCostStats();
-				effect.setLevel(levelEffect);
-			}
-		}
+				for (int i=0;i<effects.size();i++) {
+					Effect effect = effects.get(i);
+					if (Effect.namesLevelEffects.contains(effect.getName())) {
+						if (Effect.namesResourceEffects.contains(effect.getName())) {
+							int lvlmaxEffect = 1 + nbstats/effect.getCostStats();
+							ArrayList<Integer> integerSeen = new ArrayList<Integer>();
+							while (u%4 == 3 && !integerSeen.contains(u)) {
+								integerSeen.add(u);
+								u = (u * multiplicator + 2*levelRarity)%modulo;
+								lvlmaxEffect++;
+							}
+							int levelEffect = 1 + u%lvlmaxEffect;
+							u = (u * multiplicator + 2*levelRarity)%modulo;
+							nbstats -= (levelEffect-1)*effect.getCostStats();
+							effect.setLevel(levelEffect);
+						} else {
+							int levelEffect = 1 + u%(1+nbstats/effect.getCostStats());
+							u = (u * multiplicator + 2*levelRarity)%modulo;
+							levelEffect = Math.min(levelEffect, 1 + u%(1+nbstats/effect.getCostStats()));
+							u = (u * multiplicator + 2*levelRarity)%modulo;
+							nbstats -= (levelEffect-1)*effect.getCostStats();
+							effect.setLevel(levelEffect);
+						}
+					}
+				}
 		
 		//attack and hp
 		int bonusAttack = u%(1+nbstats/2);

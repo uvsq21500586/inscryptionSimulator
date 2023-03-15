@@ -1,6 +1,7 @@
 package main;
 import frames.*;
 
+import java.awt.FontFormatException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -17,7 +18,7 @@ import effects.Effect;
 
 class Main {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, FontFormatException {
 		// TODO Auto-generated method stub
 		Menu menu = new Menu();
 		menu.open();

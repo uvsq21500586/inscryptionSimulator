@@ -245,10 +245,12 @@ public class Duel extends JFrame {
 		sourceDeck2.add(BeastCard.sourceCard(1, new ArrayList<>()));
 		sourceDeck1.add(BeastCard.sourceCard(1, new ArrayList<>()));
 		sourceDeck2.add(BeastCard.sourceCard(1, new ArrayList<>()));
+		sourceDeck1.add(BeastCard.sourceCard(1, new ArrayList<>()));
+		sourceDeck2.add(BeastCard.sourceCard(1, new ArrayList<>()));
 		List<Effect> effects = new LinkedList<>(Arrays.asList(new Effect("loose_tail_right","beast",1), new Effect("rabbit_hole","beast",1)));
-		List<Effect> effects2 = new LinkedList<>(Arrays.asList(new Effect("guardian","robot")));
+		List<Effect> effects2 = new LinkedList<>(Arrays.asList(new Effect("bone_king","undead",1)));
 		mainDeck1.add(BeastCard.mainCard("kingfisher", "blood", 0, 5, 0, effects));
-		mainDeck1.add(RobotCard.mainCard("s0n1a", 1, 2, 1, effects2));
+		mainDeck1.add(UndeadCard.mainCard("bone_lord", 1, 1, 1, effects2));
 		mainDeck1.add(BeastCard.mainCard("kingfisher", "blood", 2, 1, 1, new ArrayList<>()));
 		mainDeck1.add(BeastCard.mainCard("kingfisher", "bone", 2, 1, 1, new ArrayList<>()));
 		mainDeck1.add(BeastCard.mainCard("kingfisher", "bone", 1, 1, 1, new ArrayList<>()));
@@ -371,10 +373,23 @@ public class Duel extends JFrame {
 						card.deadCard(this, buttonPlaceCard, i);
 					}
 					if (!turnJ2) {
-						boneP1++;
+						Optional<Effect> bone_kingEffect = card.getEffects().stream().filter(effect -> effect.getName().equals("bone_king")).findFirst();
+						if (bone_kingEffect.isPresent()) {
+							setBoneP1(getBoneP1()+ 1 + 3*bone_kingEffect.get().getLevel());
+						} else {
+							setBoneP1(getBoneP1()+1);
+						}
+						card.corpse_eaterEffectP1(this, buttonPlaceCard, duelControler, i);
 					} else {
-						boneP2++;
+						Optional<Effect> bone_kingEffect = card.getEffects().stream().filter(effect -> effect.getName().equals("bone_king")).findFirst();
+						if (bone_kingEffect.isPresent()) {
+							setBoneP2(getBoneP2()+ 1 + 3*bone_kingEffect.get().getLevel());
+						} else {
+							setBoneP2(getBoneP2()+1);
+						}
+						card.corpse_eaterEffectP2(this, buttonPlaceCard, duelControler, i);
 					}
+					
 				} else if (card.getPoisoned()>0) {
 				card.setHp(card.getHp()-card.getPoisoned());
 				copycard.getHp().setText(card.getHp().toString());
@@ -390,9 +405,21 @@ public class Duel extends JFrame {
 					}
 					
 					if (!turnJ2) {
-						boneP1++;
+						Optional<Effect> bone_kingEffect = card.getEffects().stream().filter(effect -> effect.getName().equals("bone_king")).findFirst();
+						if (bone_kingEffect.isPresent()) {
+							setBoneP1(getBoneP1()+ 1 + 3*bone_kingEffect.get().getLevel());
+						} else {
+							setBoneP1(getBoneP1()+1);
+						}
+						card.corpse_eaterEffectP1(this, buttonPlaceCard, duelControler, i);
 					} else {
-						boneP2++;
+						Optional<Effect> bone_kingEffect = card.getEffects().stream().filter(effect -> effect.getName().equals("bone_king")).findFirst();
+						if (bone_kingEffect.isPresent()) {
+							setBoneP2(getBoneP2()+ 1 + 3*bone_kingEffect.get().getLevel());
+						} else {
+							setBoneP2(getBoneP2()+1);
+						}
+						card.corpse_eaterEffectP2(this, buttonPlaceCard, duelControler, i);
 					}
 				}
 				}

@@ -9,6 +9,7 @@ import java.util.Optional;
 import cards.BeastCard;
 import cards.Card;
 import cards.RobotCard;
+import cards.UndeadCard;
 import effects.Effect;
 
 public class DeckManagement {
@@ -66,6 +67,14 @@ public class DeckManagement {
 				}
 				if (card.getEffects().stream().anyMatch(effect -> effect.getName().equals("bee_within"))) {
 					nbPotentialBones+= (card.getHpBase()+1)/2;
+				}
+				Optional<Effect> bone_kingEffect = card.getEffects().stream().filter(effect -> effect.getName().equals("bone_king")).findFirst();
+				if (bone_kingEffect.isPresent()) {
+					if (card instanceof BeastCard && !((BeastCard) card).getCostType().equals("bone")) {
+						nbPotentialBones+= 1 + 3*bone_kingEffect.get().getLevel();
+					} else {
+						nbPotentialBones+= Math.max(0, 1 + 3*bone_kingEffect.get().getLevel() - card.getLevel());
+					}
 				}
 				playableMainDeck.add(card);
 			}
@@ -201,7 +210,7 @@ public class DeckManagement {
 		int marge = nbPotentialBones;
 		for (int i=0;i<mainDeck.size();i++) {
 			Card card = mainDeck.get(i);
-			if (card.getLevel()>1 && card instanceof BeastCard && ((BeastCard) card).getCostType().equals("bone")) {
+			if (card.getLevel()>1 && ((card instanceof BeastCard && ((BeastCard) card).getCostType().equals("bone")) || card instanceof UndeadCard) ) {
 				nbPotentialBones -= (card.getLevel()-1);
 			}
 		}

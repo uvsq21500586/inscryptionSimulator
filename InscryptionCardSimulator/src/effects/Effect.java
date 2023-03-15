@@ -21,12 +21,13 @@ public class Effect {
 	public final static Map<String, Integer> mapEffectToCost = buildMapNamesEffectsToCost();
 	
 	public final static List<String> namesEffects = Arrays.asList("rabbit_hole","airborne","bee_within","sprinter_right","poison","fledgling","dambuilder","burrower","unkillable","sharp_quills",
-			"hefty_right","guardian","brittle","fecundity","loose_tail_right");
+			"hefty_right","guardian","brittle","fecundity","loose_tail_right","corpse_eater","bone_king");
 	public final static List<String> namesBeastEffects = Arrays.asList("rabbit_hole","airborne","bee_within","sprinter_right","poison","fledgling","dambuilder","burrower","fecundity","loose_tail_right");
 	public final static List<String> namesRobotEffects = Arrays.asList("sprinter_right","poison","burrower","unkillable","sharp_quills","hefty_right","guardian","airborne");
-	public final static List<String> namesUndeadEffects = Arrays.asList("brittle","poison");
-	public final static List<String> namesLevelEffects = Arrays.asList("rabbit_hole","bee_within","poison","fledgling","dambuilder","unkillable","sharp_quills","loose_tail_right");
+	public final static List<String> namesUndeadEffects = Arrays.asList("brittle","poison","corpse_eater","bone_king","unkillable","guardian");
+	public final static List<String> namesLevelEffects = Arrays.asList("rabbit_hole","bee_within","poison","fledgling","dambuilder","unkillable","sharp_quills","loose_tail_right","corpse_eater","bone_king");
 	public final static List<String> namesAttackEffects = Arrays.asList("airborne","poison","brittle");
+	public final static List<String> namesResourceEffects = Arrays.asList("bone_king");
 	
 	String name;
 	int costStats;
@@ -112,6 +113,8 @@ public class Effect {
 		effectsToCost.put("brittle",-2);
 		effectsToCost.put("fecundity",3);
 		effectsToCost.put("loose_tail_right",3);
+		effectsToCost.put("corpse_eater",3);
+		effectsToCost.put("bone_king",2);
 		return effectsToCost;
 	}
 

@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import cards.BeastCard;
 import cards.RobotCard;
+import cards.UndeadCard;
 import frames.duelbuttons.ButtonMainDeck;
 import frames.duelbuttons.ButtonPlaceCard;
 import frames.duelbuttons.ButtonSourceDeck;
@@ -290,6 +291,15 @@ public class DuelControler implements ActionListener,MouseListener {
 			if (card.getCard() instanceof RobotCard) {
 				duel.setEnergy(duel.getEnergy() - card.getCard().getLevel());
 				duel.getEnergyPileCount().setText(": " + duel.getEnergy() + "/" + duel.getEnergymax());
+			}
+			if (card.getCard() instanceof UndeadCard) {
+				if (duel.isTurnJ2()) {
+					duel.setBoneP2(duel.getBoneP2() - card.getCard().getLevel());
+					duel.getBonePileCount().setText(": " + duel.getBoneP2());
+				} else {
+					duel.setBoneP1(duel.getBoneP1() - card.getCard().getLevel());
+					duel.getBonePileCount().setText(": " + duel.getBoneP1());
+				}
 			}
 		} else if (card.getPosition().equals("onField") && card.getFieldPosition()<4 && sacrifying && !cardBeingSacrified.contains(card)) {
 			System.out.println("sacrifying + ");

@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Image;
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -17,28 +19,29 @@ import frames.menubuttons.ButtonToSeeDeck;
 import frames.menubuttons.ButtonToSimulatorCard;
 
 public class Menu extends JFrame {
-	//codes interdits: 1-1 (sauf pour P2 pour farmer),4-2,5-2,7-2,9-2,9-3
+	//types: beast robot undead
+	//codes interdits: 1-1 (sauf pour P2 pour farmer),4-2,5-2,7-2,9-2,9-3,10-3,11-2,11-3,12-2,12-3
 	
-	//j1: 10-1, booster value = 1*4+1=5, vies: 1/1
-	//crédits: 0
+	//j1: 13-1, booster value = 2*4+1=9, vies: 1/1
+	//crédits: 3
 	private int modulo1 = 11;
-	private int multiplier1 = 2;
+	private int multiplier1 = 5;
 	private int globalStrenght1 = 2;
 	private int rarityStrenght1 = 1;
 	private String typecards1 = "beast";
 	private int PV1 = 5;
-	private int nbCards1 = 6;
+	private int nbCards1 = 7;
 	private List<Card> mainDeck1;
 	private List<Card> sourceDeck1;
 	
-	//j2: 1-1
-	private int modulo2 = 3;
+	//j2: 2-1
+	private int modulo2 = 7;
 	private int multiplier2 = 2;
 	private int globalStrenght2 = 1;
 	private int rarityStrenght2 = 1;
 	private String typecards2 = "beast";
 	private int PV2 = 5;
-	private int nbCards2 = 5;
+	private int nbCards2 = 6;
 	private List<Card> mainDeck2;
 	private List<Card> sourceDeck2;
 	
@@ -67,7 +70,7 @@ public class Menu extends JFrame {
 
 
 
-	public void open() throws IOException {
+	public void open() throws IOException, FontFormatException {
 		Image img = ImageIO.read(new File("img/wood-background.jpeg"));
 		JPanel panelBackground = new JPanel();
 		panelBackground.setBounds(0, 0, 1500, 800);
@@ -87,6 +90,19 @@ public class Menu extends JFrame {
 		this.getContentPane().add(buttonToBuildDeck);
 		this.getContentPane().add(buttonToSeeDeck);
 		this.getContentPane().add(buttonBoosterCard);
+		
+		Font font = Font.createFont(Font.TRUETYPE_FONT, new File("conthrax-sb.ttf"));
+		JLabel labelParamP1 = new JLabel("Parameter P1");
+		this.getContentPane().add(labelParamP1);
+		labelParamP1.setBounds(100, 190, 300, 50);
+		labelParamP1.setFont(font.deriveFont(Font.BOLD,24f));
+		labelParamP1.setForeground(new Color(255, 255, 255));
+		
+		JLabel labelParamP2 = new JLabel("Parameter P2");
+		this.getContentPane().add(labelParamP2);
+		labelParamP2.setBounds(1000, 190, 300, 50);
+		labelParamP2.setFont(font.deriveFont(Font.BOLD,24f));
+		labelParamP2.setForeground(new Color(255, 255, 255));
 		this.getContentPane().add(panelBackground);
 		
 		this.setVisible(true);
