@@ -69,11 +69,20 @@ public class DeckManagement {
 					nbPotentialBones+= (card.getHpBase()+1)/2;
 				}
 				Optional<Effect> bone_kingEffect = card.getEffects().stream().filter(effect -> effect.getName().equals("bone_king")).findFirst();
+				Optional<Effect> scavenger = card.getEffects().stream().filter(effect -> effect.getName().equals("scavenger")).findFirst();
 				if (bone_kingEffect.isPresent()) {
 					if (card instanceof BeastCard && !((BeastCard) card).getCostType().equals("bone")) {
 						nbPotentialBones+= 1 + 3*bone_kingEffect.get().getLevel();
+						if (scavenger.isPresent()) {
+							nbPotentialBones+= 1+card.getHpBase()/2;
+						}
 					} else {
-						nbPotentialBones+= Math.max(0, 1 + 3*bone_kingEffect.get().getLevel() - card.getLevel());
+						if (scavenger.isPresent()) {
+							nbPotentialBones+= Math.max(0, 2 + 3*bone_kingEffect.get().getLevel() + card.getHpBase()/2 - card.getLevel());
+						} else {
+							nbPotentialBones+= Math.max(0, 1 + 3*bone_kingEffect.get().getLevel() - card.getLevel());
+						}
+						
 					}
 				}
 				playableMainDeck.add(card);
@@ -200,7 +209,7 @@ public class DeckManagement {
 		if (levelMax == 1) return 0;
 		int malus = 0;
 		for (int i=1;i<levelMax;i++) {
-			malus += Math.max(0, tapLevelToNumberCards[levelMax-1]*i/(3+i) - tapLevelToNumberCards[i]);
+			malus += Math.max(0, tapLevelToNumberCards[levelMax-1]*i/(2+i) - tapLevelToNumberCards[i]);
 		}
 		return malus*malus;
 	}
@@ -238,19 +247,34 @@ public class DeckManagement {
 			Card card = mainDeck.get(i);
 			Optional<Effect> bee = card.getEffects().stream().filter(effect -> effect.getName().equals("bee_within")).findFirst();
 			Optional<Effect> burrower = card.getEffects().stream().filter(effect -> effect.getName().equals("burrower")).findFirst();
+			Optional<Effect> mighty_leap = card.getEffects().stream().filter(effect -> effect.getName().equals("mighty_leap")).findFirst();
 			Optional<Effect> air = card.getEffects().stream().filter(effect -> effect.getName().equals("airborne")).findFirst();
 			Optional<Effect> sharp_quills = card.getEffects().stream().filter(effect -> effect.getName().equals("sharp_quills")).findFirst();
+			Optional<Effect> scavenger = card.getEffects().stream().filter(effect -> effect.getName().equals("scavenger")).findFirst();
+			Optional<Effect> bifurcated_strike = card.getEffects().stream().filter(effect -> effect.getName().equals("bifurcated_strike")).findFirst();
 			if (bee.isPresent()) {
 				bonus += (card.getHpBase()-1)/2;
 			}
 			if (burrower.isPresent()) {
-				bonus += (card.getHpBase()-1)/3;
+				bonus += Math.max(0,card.getHpBase()-card.getAttackBase());
+			}
+			if (burrower.isPresent() && mighty_leap.isPresent()) {
+				bonus += Math.max(0,card.getHpBase()-card.getAttackBase());
 			}
 			if (air.isPresent()) {
 				bonus += (card.getAttackBase()-1)/2;
 			}
 			if (sharp_quills.isPresent()) {
-				bonus += (card.getAttackBase()-1)/3;
+				bonus += (card.getHpBase()-1+sharp_quills.get().getLevel())/2;
+			}
+			if (burrower.isPresent() && sharp_quills.isPresent()) {
+				bonus += Math.max(0,card.getHpBase()-card.getAttackBase());
+			}
+			if (scavenger.isPresent() && bifurcated_strike.isPresent() && !air.isPresent()) {
+				bonus += scavenger.get().getLevel() + card.getAttackBase();
+			}
+			if (bifurcated_strike.isPresent()) {
+				bonus += card.getAttackBase();
 			}
 		}
 		return bonus;
@@ -262,14 +286,22 @@ public class DeckManagement {
 			Card card = mainDeck.get(i);
 			//Optional<Effect> bee = card.getEffects().stream().filter(effect -> effect.getName().equals("bee_within")).findFirst();
 			Optional<Effect> burrower = card.getEffects().stream().filter(effect -> effect.getName().equals("burrower")).findFirst();
+			Optional<Effect> guardian = card.getEffects().stream().filter(effect -> effect.getName().equals("guardian")).findFirst();
 			Optional<Effect> sprinter = card.getEffects().stream().filter(effect -> effect.getName().equals("sprinter_right")).findFirst();
 			Optional<Effect> hefty = card.getEffects().stream().filter(effect -> effect.getName().equals("hefty_right")).findFirst();
-			//Optional<Effect> air = card.getEffects().stream().filter(effect -> effect.getName().equals("airborne")).findFirst();
+			Optional<Effect> air = card.getEffects().stream().filter(effect -> effect.getName().equals("airborne")).findFirst();
+			Optional<Effect> scavenger = card.getEffects().stream().filter(effect -> effect.getName().equals("scavenger")).findFirst();
 			if (burrower.isPresent() && card.getHpBase() == 1) {
 				malus += card.getAttack();
 			}
+			if (burrower.isPresent() && guardian.isPresent()) {
+				malus ++;
+			}
 			if (sprinter.isPresent() && hefty.isPresent()) {
 				malus ++;
+			}
+			if (scavenger.isPresent() && air.isPresent()) {
+				malus += 2*scavenger.get().getLevel();
 			}
 		}
 		return malus;

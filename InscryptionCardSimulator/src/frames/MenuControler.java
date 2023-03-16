@@ -212,7 +212,7 @@ public class MenuControler implements ActionListener,MouseListener {
 						e1.printStackTrace();
 					}
 				}
-				for (int i=0;i<4;i++) {
+				for (int i=0;i<1;i++) {
 					try {
 						Card card1 = CardFactory.sourceCard(
 								menu.getModulo1(),

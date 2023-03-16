@@ -65,35 +65,59 @@ public abstract class Card {
 	public abstract boolean playable(ButtonPlaceCard placesCards[], Integer bonePile);
 	
 	public void attackPlayer2(Duel duel, ButtonPlaceCard buttonPlaceCard[], int position, DuelControler controler) throws IOException, FontFormatException {
+		if (effects.stream().anyMatch(effect -> effect.getName().equals("bifurcated_strike"))) {
+			if (position>0) {
+				attackPlayer2WithTarget(duel, buttonPlaceCard, position, position+3, controler);
+			}
+			if (buttonPlaceCard[position] != null && buttonPlaceCard[position].getCardPanel().getCard().equals(this) && position<3) {
+				attackPlayer2WithTarget(duel, buttonPlaceCard, position, position+5, controler);
+			}
+		} else {
+			attackPlayer2WithTarget(duel, buttonPlaceCard, position, position+4, controler);
+		}
+	}
+	
+	public void attackPlayer2WithTarget(Duel duel, ButtonPlaceCard buttonPlaceCard[], int position, int positionAdv, DuelControler controler) throws IOException, FontFormatException {
 		CardPanel cardBurrowerPanel = cardBurrowerAdv(buttonPlaceCard);
-		if (buttonPlaceCard[position+4].getCardPanel() == null && cardBurrowerPanel != null) {
+		CardPanel cardBurrowerMightyLeapPanel = cardBurrowerMightyLeapAdv(buttonPlaceCard);
+		if (buttonPlaceCard[positionAdv].getCardPanel() == null && cardBurrowerPanel != null && !effects.stream().anyMatch(effect -> effect.getName().equals("airborne"))) {
 			//attaque directe contrée
 			int pos = cardBurrowerPanel.getFieldPosition();
 			buttonPlaceCard[pos].setCardPanel(null);
-			buttonPlaceCard[position+4].setCardPanel(cardBurrowerPanel);
-			cardBurrowerPanel.setFieldPosition(position+4);
-			cardBurrowerPanel.setBounds(buttonPlaceCard[position+4].getX(),buttonPlaceCard[position+4].getY(),
-					buttonPlaceCard[position+4].getWidth(), buttonPlaceCard[position+4].getHeight());
+			buttonPlaceCard[positionAdv].setCardPanel(cardBurrowerPanel);
+			cardBurrowerPanel.setFieldPosition(positionAdv);
+			cardBurrowerPanel.setBounds(buttonPlaceCard[positionAdv].getX(),buttonPlaceCard[positionAdv].getY(),
+					buttonPlaceCard[positionAdv].getWidth(), buttonPlaceCard[positionAdv].getHeight());
+		} else if (buttonPlaceCard[positionAdv].getCardPanel() == null && effects.stream().anyMatch(effect -> effect.getName().equals("airborne"))
+				&& cardBurrowerMightyLeapPanel != null) {
+			int pos = cardBurrowerMightyLeapPanel.getFieldPosition();
+			buttonPlaceCard[pos].setCardPanel(null);
+			buttonPlaceCard[positionAdv].setCardPanel(cardBurrowerMightyLeapPanel);
+			cardBurrowerMightyLeapPanel.setFieldPosition(positionAdv);
+			cardBurrowerMightyLeapPanel.setBounds(buttonPlaceCard[positionAdv].getX(),buttonPlaceCard[positionAdv].getY(),
+					buttonPlaceCard[positionAdv].getWidth(), buttonPlaceCard[positionAdv].getHeight());
 		}
-		if (buttonPlaceCard[position+4].getCardPanel() == null || effects.stream().anyMatch(effect -> effect.getName().equals("airborne"))) {
+		if (buttonPlaceCard[positionAdv].getCardPanel() == null || (
+				effects.stream().anyMatch(effect -> effect.getName().equals("airborne")) && buttonPlaceCard[positionAdv].getCardPanel().getCard().getEffects().stream().noneMatch(effect -> effect.getName().equals("mighty_leap"))
+				)) {
 			//attaque directe
 			duel.setBalance(duel.getBalance() + attack);
 			duel.getBalanceLabel().setText("Balance: " + duel.getBalance());
 		} else {
 			//attaque une autre carte
-			Card advCard = buttonPlaceCard[position+4].getCardPanel().getCard();
+			Card advCard = buttonPlaceCard[positionAdv].getCardPanel().getCard();
 			//loose_tail
 			Optional<Effect> loose_tail_rightEffect = advCard.getEffects().stream().filter(effect -> effect.getName().equals("loose_tail_right")).findFirst();
 			Optional<Effect> loose_tail_leftEffect = advCard.getEffects().stream().filter(effect -> effect.getName().equals("loose_tail_left")).findFirst();
 			if (loose_tail_rightEffect.isPresent()) {
-				advCard.loosing_tail(duel, buttonPlaceCard, position+4, true, loose_tail_rightEffect.get(), controler);
+				advCard.loosing_tail(duel, buttonPlaceCard, positionAdv, true, loose_tail_rightEffect.get(), controler);
 			} else if (loose_tail_leftEffect.isPresent()) {
-				advCard.loosing_tail(duel, buttonPlaceCard, position+4, false, loose_tail_leftEffect.get(), controler);
+				advCard.loosing_tail(duel, buttonPlaceCard, positionAdv, false, loose_tail_leftEffect.get(), controler);
 			}
-			advCard = buttonPlaceCard[position+4].getCardPanel().getCard();
+			advCard = buttonPlaceCard[positionAdv].getCardPanel().getCard();
 			advCard.isattackedByPlayer1(duel, buttonPlaceCard, position, this);
 			advCard.setHp(advCard.getHp() - attack);
-			buttonPlaceCard[position+4].getCardPanel().getHp().setText(advCard.getHp().toString());
+			buttonPlaceCard[positionAdv].getCardPanel().getHp().setText(advCard.getHp().toString());
 			
 			//sharp_quills
 			Optional<Effect> sharp_quillsEffect = advCard.getEffects().stream().filter(effect -> effect.getName().equals("sharp_quills")).findFirst();
@@ -148,17 +172,16 @@ public abstract class Card {
 					}
 					advCard.setAttack(advCard.getAttackBase());
 					advCard.setHp(advCard.getHpBase());
-					buttonPlaceCard[position+4].getCardPanel().setPosition("onHand");
-					buttonPlaceCard[position+4].getCardPanel().getAttack().setText(advCard.getAttackBase().toString());
-					buttonPlaceCard[position+4].getCardPanel().getHp().setText(advCard.getHpBase().toString());
-					duel.getHandCard2().add(buttonPlaceCard[position+4].getCardPanel());
-					duel.getPanel().remove(buttonPlaceCard[position+4].getCardPanel());
-					buttonPlaceCard[position+4].setCardPanel(null);
+					buttonPlaceCard[positionAdv].getCardPanel().setPosition("onHand");
+					buttonPlaceCard[positionAdv].getCardPanel().getAttack().setText(advCard.getAttackBase().toString());
+					buttonPlaceCard[positionAdv].getCardPanel().getHp().setText(advCard.getHpBase().toString());
+					duel.getHandCard2().add(buttonPlaceCard[positionAdv].getCardPanel());
+					duel.getPanel().remove(buttonPlaceCard[positionAdv].getCardPanel());
+					buttonPlaceCard[positionAdv].setCardPanel(null);
 					
 				} else {
 					//carte morte
-					deadCard(duel, buttonPlaceCard, position+4);
-					duel.setBoneP2(duel.getBoneP2()+1);
+					deadCard(duel, buttonPlaceCard, positionAdv);
 				}
 				Optional<Effect> bone_kingEffect =advCard.getEffects().stream().filter(effect -> effect.getName().equals("bone_king")).findFirst();
 				if (bone_kingEffect.isPresent()) {
@@ -166,12 +189,16 @@ public abstract class Card {
 				} else {
 					duel.setBoneP2(duel.getBoneP2()+1);
 				}
-				advCard.corpse_eaterEffectP2(duel, buttonPlaceCard, controler, position+4);
+				Optional<Effect> scavenger = effects.stream().filter(effect -> effect.getName().equals("scavenger")).findFirst();
+				if (scavenger.isPresent()) {
+					duel.setBoneP1(duel.getBoneP1()+scavenger.get().getLevel());
+				}
+				advCard.corpse_eaterEffectP2(duel, buttonPlaceCard, controler, positionAdv);
 			} else {
 				if (effects.stream().anyMatch(effect -> effect.getName().equals("poison"))) {
 					Effect effectpoison = effects.stream().filter(effect -> effect.getName().equals("poison")).findFirst().get();
 					advCard.setPoisoned(effectpoison.getLevel());
-					buttonPlaceCard[position+4].getCardPanel().getPoison().setVisible(true);
+					buttonPlaceCard[positionAdv].getCardPanel().getPoison().setVisible(true);
 				}
 			}
 		}
@@ -193,6 +220,28 @@ public abstract class Card {
 		}
 		return null;
 	}
+	
+	private CardPanel cardBurrowerMightyLeapAdv(ButtonPlaceCard[] buttonPlaceCard) {
+		// TODO Auto-generated method stub
+		if (buttonPlaceCard[4].getCardPanel() != null && buttonPlaceCard[4].getCardPanel().getCard().getEffects().stream().anyMatch(effect -> effect.getName().equals("burrower"))
+				&& buttonPlaceCard[4].getCardPanel().getCard().getEffects().stream().anyMatch(effect -> effect.getName().equals("mighty_leap"))) {
+			return buttonPlaceCard[4].getCardPanel();
+		}
+		if (buttonPlaceCard[5].getCardPanel() != null && buttonPlaceCard[5].getCardPanel().getCard().getEffects().stream().anyMatch(effect -> effect.getName().equals("burrower"))
+				&& buttonPlaceCard[5].getCardPanel().getCard().getEffects().stream().anyMatch(effect -> effect.getName().equals("mighty_leap"))) {
+			return buttonPlaceCard[5].getCardPanel();
+		}
+		if (buttonPlaceCard[6].getCardPanel() != null && buttonPlaceCard[6].getCardPanel().getCard().getEffects().stream().anyMatch(effect -> effect.getName().equals("burrower"))
+				&& buttonPlaceCard[6].getCardPanel().getCard().getEffects().stream().anyMatch(effect -> effect.getName().equals("mighty_leap"))) {
+			return buttonPlaceCard[6].getCardPanel();
+		}
+		if (buttonPlaceCard[7].getCardPanel() != null && buttonPlaceCard[7].getCardPanel().getCard().getEffects().stream().anyMatch(effect -> effect.getName().equals("burrower"))
+				&& buttonPlaceCard[7].getCardPanel().getCard().getEffects().stream().anyMatch(effect -> effect.getName().equals("mighty_leap"))) {
+			return buttonPlaceCard[7].getCardPanel();
+		}
+		return null;
+	}
+
 
 	public void deadCard(Duel duel, ButtonPlaceCard[] buttonPlaceCard, int position) {
 		duel.getPanel().remove(buttonPlaceCard[position].getCardPanel());
@@ -200,33 +249,57 @@ public abstract class Card {
 	}
 	
 	public void attackPlayer1(Duel duel, ButtonPlaceCard buttonPlaceCard[], int position, DuelControler controler) throws IOException, FontFormatException {
+		if (effects.stream().anyMatch(effect -> effect.getName().equals("bifurcated_strike"))) {
+			if (position>0) {
+				attackPlayer1WithTarget(duel, buttonPlaceCard, position, position+3, controler);
+			}
+			if (buttonPlaceCard[position] != null && buttonPlaceCard[position].getCardPanel().getCard().equals(this) && position<3) {
+				attackPlayer1WithTarget(duel, buttonPlaceCard, position, position+5, controler);
+			}
+		} else {
+			attackPlayer1WithTarget(duel, buttonPlaceCard, position, position+4, controler);
+		}
+	}
+	
+	public void attackPlayer1WithTarget(Duel duel, ButtonPlaceCard buttonPlaceCard[], int position, int positionAdv, DuelControler controler) throws IOException, FontFormatException {
 		CardPanel cardBurrowerPanel = cardBurrowerAdv(buttonPlaceCard);
-		if (buttonPlaceCard[position+4].getCardPanel() == null && cardBurrowerPanel != null && !effects.stream().anyMatch(effect -> effect.getName().equals("airborne"))) {
+		CardPanel cardBurrowerMightyLeapPanel = cardBurrowerMightyLeapAdv(buttonPlaceCard);
+		if (buttonPlaceCard[positionAdv].getCardPanel() == null && cardBurrowerPanel != null && !effects.stream().anyMatch(effect -> effect.getName().equals("airborne"))) {
 			//attaque directe contrée
 			int pos = cardBurrowerPanel.getFieldPosition();
 			buttonPlaceCard[pos].setCardPanel(null);
-			buttonPlaceCard[position+4].setCardPanel(cardBurrowerPanel);
-			cardBurrowerPanel.setFieldPosition(position+4);
-			cardBurrowerPanel.setBounds(buttonPlaceCard[position+4].getX(),buttonPlaceCard[position+4].getY(),
-					buttonPlaceCard[position+4].getWidth(), buttonPlaceCard[position+4].getHeight());
+			buttonPlaceCard[positionAdv].setCardPanel(cardBurrowerPanel);
+			cardBurrowerPanel.setFieldPosition(positionAdv);
+			cardBurrowerPanel.setBounds(buttonPlaceCard[positionAdv].getX(),buttonPlaceCard[positionAdv].getY(),
+					buttonPlaceCard[positionAdv].getWidth(), buttonPlaceCard[positionAdv].getHeight());
+		} else if (buttonPlaceCard[positionAdv].getCardPanel() == null && effects.stream().anyMatch(effect -> effect.getName().equals("airborne"))
+				&& cardBurrowerMightyLeapPanel != null) {
+			int pos = cardBurrowerMightyLeapPanel.getFieldPosition();
+			buttonPlaceCard[pos].setCardPanel(null);
+			buttonPlaceCard[positionAdv].setCardPanel(cardBurrowerMightyLeapPanel);
+			cardBurrowerMightyLeapPanel.setFieldPosition(positionAdv);
+			cardBurrowerMightyLeapPanel.setBounds(buttonPlaceCard[positionAdv].getX(),buttonPlaceCard[positionAdv].getY(),
+					buttonPlaceCard[positionAdv].getWidth(), buttonPlaceCard[positionAdv].getHeight());
 		}
-		if (buttonPlaceCard[position+4].getCardPanel() == null || effects.stream().anyMatch(effect -> effect.getName().equals("airborne"))) {
+		if (buttonPlaceCard[positionAdv].getCardPanel() == null || (
+				effects.stream().anyMatch(effect -> effect.getName().equals("airborne")) && buttonPlaceCard[positionAdv].getCardPanel().getCard().getEffects().stream().noneMatch(effect -> effect.getName().equals("mighty_leap"))
+				)) {
 			duel.setBalance(duel.getBalance() - attack);
 			duel.getBalanceLabel().setText("Balance: " + duel.getBalance());
 		} else {
-			Card advCard = buttonPlaceCard[position+4].getCardPanel().getCard();
+			Card advCard = buttonPlaceCard[positionAdv].getCardPanel().getCard();
 			//loose_tail
 			Optional<Effect> loose_tail_rightEffect = advCard.getEffects().stream().filter(effect -> effect.getName().equals("loose_tail_right")).findFirst();
 			Optional<Effect> loose_tail_leftEffect = advCard.getEffects().stream().filter(effect -> effect.getName().equals("loose_tail_left")).findFirst();
 			if (loose_tail_rightEffect.isPresent()) {
-				advCard.loosing_tail(duel, buttonPlaceCard, position+4, true, loose_tail_rightEffect.get(), controler);
+				advCard.loosing_tail(duel, buttonPlaceCard, positionAdv, true, loose_tail_rightEffect.get(), controler);
 			} else if (loose_tail_leftEffect.isPresent()) {
-				advCard.loosing_tail(duel, buttonPlaceCard, position+4, false, loose_tail_leftEffect.get(), controler);
+				advCard.loosing_tail(duel, buttonPlaceCard, positionAdv, false, loose_tail_leftEffect.get(), controler);
 			}
-			advCard = buttonPlaceCard[position+4].getCardPanel().getCard();
+			advCard = buttonPlaceCard[positionAdv].getCardPanel().getCard();
 			advCard.isattackedByPlayer2(duel, buttonPlaceCard, position, this);
 			advCard.setHp(advCard.getHp() - attack);
-			buttonPlaceCard[position+4].getCardPanel().getHp().setText(advCard.getHp().toString());
+			buttonPlaceCard[positionAdv].getCardPanel().getHp().setText(advCard.getHp().toString());
 			
 			//sharp_quills
 			Optional<Effect> sharp_quillsEffect = advCard.getEffects().stream().filter(effect -> effect.getName().equals("sharp_quills")).findFirst();
@@ -280,16 +353,16 @@ public abstract class Card {
 					}
 					advCard.setAttack(advCard.getAttackBase());
 					advCard.setHp(advCard.getHpBase());
-					buttonPlaceCard[position+4].getCardPanel().setPosition("onHand");
-					buttonPlaceCard[position+4].getCardPanel().getAttack().setText(advCard.getAttackBase().toString());
-					buttonPlaceCard[position+4].getCardPanel().getHp().setText(advCard.getHpBase().toString());
-					duel.getHandCard1().add(buttonPlaceCard[position+4].getCardPanel());
-					duel.getPanel().remove(buttonPlaceCard[position+4].getCardPanel());
-					buttonPlaceCard[position+4].setCardPanel(null);
+					buttonPlaceCard[positionAdv].getCardPanel().setPosition("onHand");
+					buttonPlaceCard[positionAdv].getCardPanel().getAttack().setText(advCard.getAttackBase().toString());
+					buttonPlaceCard[positionAdv].getCardPanel().getHp().setText(advCard.getHpBase().toString());
+					duel.getHandCard1().add(buttonPlaceCard[positionAdv].getCardPanel());
+					duel.getPanel().remove(buttonPlaceCard[positionAdv].getCardPanel());
+					buttonPlaceCard[positionAdv].setCardPanel(null);
 					
 				} else {
 					//carte morte
-					deadCard(duel, buttonPlaceCard, position+4);
+					deadCard(duel, buttonPlaceCard, positionAdv);
 				}
 				Optional<Effect> bone_kingEffect =advCard.getEffects().stream().filter(effect -> effect.getName().equals("bone_king")).findFirst();
 				if (bone_kingEffect.isPresent()) {
@@ -297,7 +370,17 @@ public abstract class Card {
 				} else {
 					duel.setBoneP1(duel.getBoneP1()+1);
 				}
+				Optional<Effect> scavenger = effects.stream().filter(effect -> effect.getName().equals("scavenger")).findFirst();
+				if (scavenger.isPresent()) {
+					duel.setBoneP2(duel.getBoneP2()+scavenger.get().getLevel());
+				}
 				advCard.corpse_eaterEffectP1(duel, buttonPlaceCard, controler, position);
+			} else {
+				if (effects.stream().anyMatch(effect -> effect.getName().equals("poison"))) {
+					Effect effectpoison = effects.stream().filter(effect -> effect.getName().equals("poison")).findFirst().get();
+					advCard.setPoisoned(effectpoison.getLevel());
+					buttonPlaceCard[positionAdv].getCardPanel().getPoison().setVisible(true);
+				}
 			}
 		}
 	}

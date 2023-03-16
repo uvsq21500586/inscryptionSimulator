@@ -1,5 +1,6 @@
 package cards;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -71,13 +72,13 @@ public class BeastCard extends Card {
 		this.costType = costType;
 	}
 	
-	public BeastCard cloneCard(BeastCard card) {
+	public BeastCard cloneCard(BeastCard card) throws IOException {
 		// TODO Auto-generated method stub
 		List<Effect> effects = new LinkedList<>(Arrays.asList());
 		for (int i=0;i<card.effects.size(); i++) {
-			effects.add(card.effects.get(i));
+			effects.add(new Effect(card.effects.get(i)));
 		}
-		return new BeastCard(card.appearance, card.costType, card.level, card.hpBase, card.attackBase, effects, card.mainDeck);
+		return new BeastCard(card.appearance, card.costType, card.level, card.hpBase, card.attackBase, effects, card.rarity, card.mainDeck);
 	}
 
 	@Override

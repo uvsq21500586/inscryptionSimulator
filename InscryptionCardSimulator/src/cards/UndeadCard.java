@@ -49,14 +49,14 @@ public class UndeadCard extends Card {
 		for (int i=0;i<card.effects.size(); i++) {
 			effects.add(card.effects.get(i));
 		}
-		return new UndeadCard(card.appearance, card.level, card.hpBase, card.attackBase, effects, card.mainDeck);
+		return new UndeadCard(card.appearance, card.level, card.hpBase, card.attackBase, effects, card.rarity, card.mainDeck);
 	}
 
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
 		String stringForm = type + ";" + appearance + ";" + level + ";" + hpBase + ";" + attackBase;
-		for(int i=0;i<4;i++) {
+		for(int i=0;i<3;i++) {
 			if (effects.size()>i) {
 				stringForm = stringForm + ";" + effects.get(i).getName();
 				if (effects.get(i).getLevel() != null) {

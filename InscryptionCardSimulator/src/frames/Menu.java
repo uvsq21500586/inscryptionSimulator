@@ -22,26 +22,26 @@ public class Menu extends JFrame {
 	//types: beast robot undead
 	//codes interdits: 1-1 (sauf pour P2 pour farmer),4-2,5-2,7-2,9-2,9-3,10-3,11-2,11-3,12-2,12-3
 	
-	//j1: 13-1, booster value = 2*4+1=9, vies: 1/1
-	//crédits: 3
-	private int modulo1 = 11;
-	private int multiplier1 = 5;
+	//j1: 13-3(5), booster value = 2*4+1=9, vies: 1/1
+	//crédits: 4
+	private int modulo1 = 9;
+	private int multiplier1 = 2;
 	private int globalStrenght1 = 2;
 	private int rarityStrenght1 = 1;
-	private String typecards1 = "beast";
+	private String typecards1 = "undead";
 	private int PV1 = 5;
 	private int nbCards1 = 7;
 	private List<Card> mainDeck1;
 	private List<Card> sourceDeck1;
 	
-	//j2: 2-1
+	//j2: 3-1
 	private int modulo2 = 7;
-	private int multiplier2 = 2;
+	private int multiplier2 = 3;
 	private int globalStrenght2 = 1;
 	private int rarityStrenght2 = 1;
 	private String typecards2 = "beast";
-	private int PV2 = 5;
-	private int nbCards2 = 6;
+	private int PV2 = 6;
+	private int nbCards2 = 5;
 	private List<Card> mainDeck2;
 	private List<Card> sourceDeck2;
 	

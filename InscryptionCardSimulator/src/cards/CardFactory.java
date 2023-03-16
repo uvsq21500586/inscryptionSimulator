@@ -9,9 +9,9 @@ import effects.Effect;
 public class CardFactory {
 	public static String beastAppearances[] = {"kingfisher", "raven_egg", "sparrow", "magpie", "raven", "turkey_vulture", "stunted_wolf","wolf_cub","bloodhound","wolf"};
 	
-	public static String robotAppearances[] = {"xformerbatbot","s0n1a","xformerporcupinebot","qu177","xformergrizzlybot","gr1zz","bomb_latcher","exeskeleton","shield_latcher"};
+	public static String robotAppearances[] = {"xformerbatbot","s0n1a","xformerporcupinebot","qu177","xformergrizzlybot","gr1zz","bomb_latcher","exeskeleton","shield_latcher","skel_e_latcher"};
 	
-	public static String undeadAppearances[] = {"armored_zombie","bone_lord","bone_lords_horn","bone_pile","bone_prince","dead_hand"};
+	public static String undeadAppearances[] = {"armored_zombie","bone_lord","bone_lords_horn","bone_pile","bone_prince","dead_hand","dead_pets","draugr"};
 	
 	public static Card mainCard(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u0, String type) throws IOException {
 		int u = u0;
@@ -219,6 +219,7 @@ public class CardFactory {
 			lvlmax++;
 		}
 		level = 1 + u%(lvlmax-1);
+		u = (u * multiplicator + 2*levelRarity)%modulo;
 		level = Math.min(lvlmax, 1 + u%(lvlmax-1));
 		u = (u * multiplicator + 2*levelRarity)%modulo;
 		nbstats = (level+1) * globalStrengh / 4 + levelRarity * rarityStrengh;
@@ -513,6 +514,9 @@ public class CardFactory {
 		
 		//attack and hp
 		int bonusAttack = u%(1+nbstats/2);
+		if (effects.stream().anyMatch(effect -> effect.getName().equals("bifurcated_strike"))) {
+			bonusAttack = u%(1+nbstats/3);
+		}
 		int attack = attackmin + bonusAttack;
 		int hp = 1 + nbstats - 2*bonusAttack;
 		u = (u * multiplicator + 2*levelRarity)%modulo;

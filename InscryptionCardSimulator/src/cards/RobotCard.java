@@ -1,5 +1,6 @@
 package cards;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -43,13 +44,13 @@ public class RobotCard extends Card {
 	}
 
 	
-	public RobotCard cloneCard(RobotCard card) {
+	public RobotCard cloneCard(RobotCard card) throws IOException {
 		// TODO Auto-generated method stub
 		List<Effect> effects = new LinkedList<>(Arrays.asList());
 		for (int i=0;i<card.effects.size(); i++) {
-			effects.add(card.effects.get(i));
+			effects.add(new Effect(card.effects.get(i)));
 		}
-		return new RobotCard(card.appearance, card.level, card.hpBase, card.attackBase, effects, card.mainDeck);
+		return new RobotCard(card.appearance, card.level, card.hpBase, card.attackBase, effects, card.rarity, card.mainDeck);
 	}
 
 	@Override

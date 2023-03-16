@@ -21,13 +21,13 @@ public class Effect {
 	public final static Map<String, Integer> mapEffectToCost = buildMapNamesEffectsToCost();
 	
 	public final static List<String> namesEffects = Arrays.asList("rabbit_hole","airborne","bee_within","sprinter_right","poison","fledgling","dambuilder","burrower","unkillable","sharp_quills",
-			"hefty_right","guardian","brittle","fecundity","loose_tail_right","corpse_eater","bone_king");
+			"hefty_right","guardian","brittle","fecundity","loose_tail_right","corpse_eater","bone_king","mighty_leap","bifurcated_strike","scavenger");
 	public final static List<String> namesBeastEffects = Arrays.asList("rabbit_hole","airborne","bee_within","sprinter_right","poison","fledgling","dambuilder","burrower","fecundity","loose_tail_right");
-	public final static List<String> namesRobotEffects = Arrays.asList("sprinter_right","poison","burrower","unkillable","sharp_quills","hefty_right","guardian","airborne");
-	public final static List<String> namesUndeadEffects = Arrays.asList("brittle","poison","corpse_eater","bone_king","unkillable","guardian");
-	public final static List<String> namesLevelEffects = Arrays.asList("rabbit_hole","bee_within","poison","fledgling","dambuilder","unkillable","sharp_quills","loose_tail_right","corpse_eater","bone_king");
-	public final static List<String> namesAttackEffects = Arrays.asList("airborne","poison","brittle");
-	public final static List<String> namesResourceEffects = Arrays.asList("bone_king");
+	public final static List<String> namesRobotEffects = Arrays.asList("sprinter_right","poison","burrower","unkillable","sharp_quills","hefty_right","guardian","airborne","mighty_leap","bifurcated_strike");
+	public final static List<String> namesUndeadEffects = Arrays.asList("brittle","poison","corpse_eater","bone_king","unkillable","guardian","scavenger");
+	public final static List<String> namesLevelEffects = Arrays.asList("rabbit_hole","bee_within","poison","fledgling","dambuilder","unkillable","sharp_quills","loose_tail_right","corpse_eater","bone_king","scavenger");
+	public final static List<String> namesAttackEffects = Arrays.asList("airborne","poison","brittle","bifurcated_strike","scavenger");
+	public final static List<String> namesResourceEffects = Arrays.asList("bone_king","scavenger");
 	
 	String name;
 	int costStats;
@@ -52,6 +52,14 @@ public class Effect {
 		this.icone = new ImageIcon((ImageIO.read(new File("img/" + typeCard + "/effects/" + name + ".png")))
 				.getScaledInstance(30,30, 
 				Image.SCALE_DEFAULT));;
+	}
+	
+	public Effect(Effect effect) throws IOException {
+		super();
+		this.name = effect.name;
+		this.costStats = mapEffectToCost.get(name);
+		this.level = effect.level;
+		this.icone = effect.icone;
 	}
 	
 	public void inverseDirection(JLabel label, Card card) throws IOException {
@@ -115,6 +123,9 @@ public class Effect {
 		effectsToCost.put("loose_tail_right",3);
 		effectsToCost.put("corpse_eater",3);
 		effectsToCost.put("bone_king",2);
+		effectsToCost.put("mighty_leap",1);
+		effectsToCost.put("bifurcated_strike",4);
+		effectsToCost.put("scavenger",2);
 		return effectsToCost;
 	}
 

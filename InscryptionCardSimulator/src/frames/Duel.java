@@ -108,15 +108,18 @@ public class Duel extends JFrame {
 		
 	}
 
-	private List<Card> buildDeck(List<Card> maindeck) {
+	private List<Card> buildDeck(List<Card> maindeck) throws IOException {
 		Random r = new Random();
 		List<Card> mainDeckToPlay = new LinkedList<>(Arrays.asList());
 		for (int i=0;i<maindeck.size();i++) {
 			if (maindeck.get(i) instanceof BeastCard) {
 				BeastCard newcard = (BeastCard) maindeck.get(i);
 				mainDeckToPlay.add(r.nextInt(i+1), newcard.cloneCard(newcard));
-			} else {
+			} else if (maindeck.get(i) instanceof RobotCard) {
 				RobotCard newcard = (RobotCard) maindeck.get(i);
+				mainDeckToPlay.add(r.nextInt(i+1), newcard.cloneCard(newcard));
+			} else {
+				UndeadCard newcard = (UndeadCard) maindeck.get(i);
 				mainDeckToPlay.add(r.nextInt(i+1), newcard.cloneCard(newcard));
 			}
 			
@@ -247,14 +250,15 @@ public class Duel extends JFrame {
 		sourceDeck2.add(BeastCard.sourceCard(1, new ArrayList<>()));
 		sourceDeck1.add(BeastCard.sourceCard(1, new ArrayList<>()));
 		sourceDeck2.add(BeastCard.sourceCard(1, new ArrayList<>()));
-		List<Effect> effects = new LinkedList<>(Arrays.asList(new Effect("loose_tail_right","beast",1), new Effect("rabbit_hole","beast",1)));
-		List<Effect> effects2 = new LinkedList<>(Arrays.asList(new Effect("bone_king","undead",1)));
-		mainDeck1.add(BeastCard.mainCard("kingfisher", "blood", 0, 5, 0, effects));
-		mainDeck1.add(UndeadCard.mainCard("bone_lord", 1, 1, 1, effects2));
+		List<Effect> effects = new LinkedList<>(Arrays.asList(new Effect("burrower","robot"), new Effect("bifurcated_strike","robot")));
+		List<Effect> effects2 = new LinkedList<>(Arrays.asList(new Effect("scavenger","undead",1)));
+		mainDeck1.add(RobotCard.mainCard("s0n1a", 1, 1, 1, effects));
+		//mainDeck1.add(UndeadCard.mainCard("bone_lord", 1, 1, 1, effects2));
 		mainDeck1.add(BeastCard.mainCard("kingfisher", "blood", 2, 1, 1, new ArrayList<>()));
 		mainDeck1.add(BeastCard.mainCard("kingfisher", "bone", 2, 1, 1, new ArrayList<>()));
 		mainDeck1.add(BeastCard.mainCard("kingfisher", "bone", 1, 1, 1, new ArrayList<>()));
-		mainDeck2.add(BeastCard.mainCard("kingfisher", "blood", 0, 5, 1, new ArrayList<>()));
+		//mainDeck2.add(RobotCard.mainCard("s0n1a", 1, 5, 1, effects2));
+		mainDeck2.add(UndeadCard.mainCard("bone_lord", 1, 5, 1, effects2));
 		mainDeck2.add(BeastCard.mainCard("kingfisher", "blood", 1, 1, 1, new ArrayList<>()));
 		mainDeck2.add(BeastCard.mainCard("kingfisher", "blood", 1, 1, 1, new ArrayList<>()));
 		mainDeck2.add(BeastCard.mainCard("kingfisher", "bone", 1, 1, 1, new ArrayList<>()));
