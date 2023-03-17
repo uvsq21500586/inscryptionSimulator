@@ -14,7 +14,7 @@ import effects.Effect;
 
 public class DeckManagement {
 	
-	public static List<Card> optimizeDeck(List<Card> mainDeck, List<Card> sourceDeck, List<Card> mainBooster) {
+	public static List<Card> optimizeMainDeck(List<Card> mainDeck, List<Card> sourceDeck, List<Card> mainBooster) {
 		List<Card> mainCopyDeck = new ArrayList<>();
 		List<Card> mainCopyBestDeck = new ArrayList<>();
 		for (int i=0;i<mainDeck.size();i++) {
@@ -25,6 +25,10 @@ public class DeckManagement {
 			int bestPos = 0;
 			int bestScore = bestScoreDeck;
 			for (int j=0;j<mainDeck.size();j++) {
+				Card cardToRemplace = mainDeck.get(j);
+				if (similarTypeAndCostCards(mainBooster.get(i), cardToRemplace)) {
+					
+				}
 				mainCopyDeck = new ArrayList<>();
 				for (int k=0;k<mainDeck.size();k++) {
 					if (k!=j) {
@@ -49,13 +53,80 @@ public class DeckManagement {
 		return mainDeck;
 	}
 	
+	public static List<Card> optimizeSourceDeck(List<Card> mainDeck, List<Card> sourceDeck, List<Card> sourceBooster) {
+		List<Card> sourceCopyDeck = new ArrayList<>();
+		List<Card> sourceCopyBestDeck = new ArrayList<>();
+		for (int i=0;i<sourceDeck.size();i++) {
+			sourceCopyBestDeck.add(sourceDeck.get(i));
+		}
+		int bestScoreDeck = scoreDeck(mainDeck, sourceDeck);
+		for (int i=0;i<sourceBooster.size();i++) {
+			int bestPos = 0;
+			int bestScore = bestScoreDeck;
+			for (int j=0;j<sourceDeck.size();j++) {
+				Card cardToRemplace = sourceDeck.get(j);
+				if (similarTypeAndCostCards(sourceBooster.get(i), cardToRemplace)) {
+					
+				}
+				sourceCopyDeck = new ArrayList<>();
+				for (int k=0;k<sourceDeck.size();k++) {
+					if (k!=j) {
+						sourceCopyDeck.add(sourceDeck.get(k));
+					} else {
+						sourceCopyDeck.add(sourceBooster.get(i));
+					}
+				}
+				//evaluate
+				int newScore = scoreDeck(mainDeck, sourceCopyDeck);
+				if (newScore > bestScore) {
+					bestScore = newScore;
+					bestPos = j;
+				}
+			}
+			if (bestScore>bestScoreDeck) {
+				bestScoreDeck = bestScore;
+				sourceDeck.set(bestPos,sourceBooster.get(i));
+			}
+		}
+		
+		return sourceDeck;
+	}
+
+	private static boolean similarTypeAndCostCards(Card cardToAdd, Card cardToRemplace) {
+		if  (cardToRemplace instanceof BeastCard && cardToAdd instanceof BeastCard
+				&& ((BeastCard)cardToRemplace).getCostType().equals(((BeastCard)cardToAdd).getCostType())) {
+			return true;
+		}
+		if  (cardToRemplace instanceof RobotCard && cardToAdd instanceof RobotCard) {
+			return true;
+		}
+		if  (cardToRemplace instanceof UndeadCard && cardToAdd instanceof UndeadCard) {
+			return true;
+		}
+		
+		return false;
+	}
+	
 	public static int scoreDeck(List<Card> mainDeck, List<Card> sourceDeck) {
 		int score = 0;
 		int nbPotentialBones = sourceDeck.size();
+		int bloodCost = 0;
+		int boneCost = 0;
+		int energyCost = 0;
 		//playable?
 		List<Card> playableMainDeck = new ArrayList<>();
 		for (int i=0;i<mainDeck.size();i++) {
 			Card card = mainDeck.get(i);
+			if (card.getLevel() > 0) {
+				if (card instanceof BeastCard && !((BeastCard) card).getCostType().equals("bone")) {
+					bloodCost ++;
+				} else if (card instanceof BeastCard || card instanceof UndeadCard) {
+					boneCost ++;
+				} else if (card instanceof RobotCard) {
+					energyCost ++;
+				}
+			}
+			
 			if (invocable(card, playableMainDeck, sourceDeck, nbPotentialBones)) {
 				if (card.getLevel() == 0) { 
 					nbPotentialBones++;
@@ -116,7 +187,7 @@ public class DeckManagement {
 				Effect effect = card.getEffects().get(j);
 				int cost = effect.getCostStats();
 				if (Effect.namesLevelEffects.contains(effect.getName())) {
-					cost = cost * effect.getCostStats();
+					cost = cost * effect.getLevel();
 					if (card.getEffects().get(j).getName().equals("fledgling")) {
 						cost = cost + effect.getLevel();
 					}
@@ -129,36 +200,85 @@ public class DeckManagement {
 		score += synergiestatseffects;
 		score -= badstatseffects;
 		
+		int nbTypesCosts = 0;
+		if (bloodCost > 0) {
+			nbTypesCosts ++;
+		}
+		if (boneCost > 0) {
+			nbTypesCosts ++;
+		}
+		if (energyCost > 0) {
+			nbTypesCosts ++;
+		}
+		//other synergies
+		score += synergieRabbitOrBee(playableMainDeck);
+		
 		//malus couts
 		int malusBlood = malusBloodCost(playableMainDeck);
+		
 		int malusBone = malusBoneCost(playableMainDeck,nbPotentialBones);
+		
 		int malusEnergyCost = malusEnergyCost(playableMainDeck);
+		
 		malusNoPlayable = malusNoPlayable * (1 + malusBlood + malusBone + malusEnergyCost);
+		if (!doesDeckContainsAttack(playableMainDeck)) {
+			malusNoPlayable += Math.max(0, score) + malusNoPlayable;
+		}
+		if (malusBlood>0) {
+			malusBlood += Math.max(0, score/nbTypesCosts);
+		}
+		if (malusBone>0) {
+			malusBone += Math.max(0, score/nbTypesCosts);
+		}
+		if (malusEnergyCost>0) {
+			malusEnergyCost += Math.max(0, score/nbTypesCosts);
+		}
+		
 		score -= malusBlood;
 		score -= malusBone;
 		score -= malusEnergyCost;
 		score -= malusNoPlayable;
 		
-		//synergies
-		score += synergieRabbitOrBee(playableMainDeck);
+		
 		
 		return score;
 	}
 	
 	private static boolean invocable(Card card, List<Card> mainDeck, List<Card> sourceDeck, int nbPotentialBones) {
 		if (card.getLevel() == 0) return true;
-		int pos = mainDeck.indexOf(card);
+		if (card instanceof BeastCard) {
+			if (((BeastCard) card).getCostType().equals("bone")) {
+				if (card.getLevel() > nbPotentialBones)
+				return true;
+			} else {
+				if (card.getLevel() > 4) return false;
+			}
+		}
+		if (card instanceof RobotCard) {
+			if (card.getLevel() > 6) return false;
+		}
+		if (card instanceof UndeadCard) {
+			if (card.getLevel() > nbPotentialBones) return false;
+		}
+		/*int pos = mainDeck.indexOf(card);
 		for (int i=0;i<mainDeck.size();i++) {
 			if (i!= pos) {
 				if (card instanceof BeastCard) {
 					if (((BeastCard) card).getCostType().equals("bone")) {
+						if (card.getLevel() > nbPotentialBones)
 						return true;
 					} else {
 						if (card.getLevel() > 4) return false;
 					}
 				}
+				if (card instanceof RobotCard) {
+					if (card.getLevel() > 6) return false;
+				}
+				if (card instanceof UndeadCard) {
+					if (card.getLevel() > 6) return false;
+				}
 			}
-		}
+		}*/
 		return true;
 	}
 
@@ -170,6 +290,7 @@ public class DeckManagement {
 				levelMax = Math.max(levelMax, card.getLevel());
 			}
 		}
+		if (levelMax == 1) return 0;
 		Integer tapLevelToNumberCards[] = new Integer[levelMax];
 		for (int i=0;i<levelMax;i++) {
 			tapLevelToNumberCards[i] = 0;
@@ -184,7 +305,7 @@ public class DeckManagement {
 		}
 		int malus = 0;
 		for (int i=0;i<levelMax;i++) {
-			malus += Math.max(0, tapLevelToNumberCards[i]*(1+i)/(2+i) - tapLevelToNumberCards[i]);
+			malus += Math.max(0, tapLevelToNumberCards[levelMax-1]*(1+i)/(2+i) - tapLevelToNumberCards[i]);
 		}
 		return malus*malus;
 	}
@@ -223,7 +344,13 @@ public class DeckManagement {
 		for (int i=0;i<mainDeck.size();i++) {
 			Card card = mainDeck.get(i);
 			if (card.getLevel()>1 && ((card instanceof BeastCard && ((BeastCard) card).getCostType().equals("bone")) || card instanceof UndeadCard) ) {
-				nbPotentialBones -= (card.getLevel()-1);
+				Optional<Effect> bone_king = card.getEffects().stream().filter(effect -> effect.getName().equals("bone_king")).findFirst();
+				if (bone_king.isPresent()) {
+					marge -= Math.max(0,card.getLevel()-1-3*bone_king.get().getLevel());
+				} else {
+					marge -= (card.getLevel()-1);
+				}
+				
 			}
 		}
 		if (marge<0) return marge*marge;
@@ -309,5 +436,16 @@ public class DeckManagement {
 		}
 		return malus;
 	}
+	
+	private static boolean doesDeckContainsAttack(List<Card> mainDeck) {
+		boolean attaquant = false;
+		for (int i=0;i<mainDeck.size();i++) {
+			if (mainDeck.get(i).getAttack()>0 && mainDeck.get(i).getEffects().stream().noneMatch(effect -> effect.getName().equals("brittle"))) {
+				return true;
+			}
+		}
+		return false;
+	}
+			
 			
 }

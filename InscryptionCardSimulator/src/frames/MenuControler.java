@@ -73,6 +73,35 @@ public class MenuControler implements ActionListener,MouseListener {
 						sourceDeck2.add(newCard);
 					}
 					
+					List<Card> supMainCardsP2 = new ArrayList<>();
+					List<Card> supSourceCardsP2 = new ArrayList<>();
+					for (int i=0;i<menu.getNbSupCards2();i++) {
+						Random r = new Random();
+						Card newCard = CardFactory.mainCard(
+								menu.getModulo2(),
+								menu.getMultiplier2(),
+								menu.getGlobalStrenght2(),
+								menu.getRarityStrenght2(),
+								r.nextInt(menu.getModulo2()-1)+1,
+								menu.getTypecards2());
+						supMainCardsP2.add(newCard);
+					}
+					
+					for (int i=0;i<menu.getNbSupCards2();i++) {
+						Random r = new Random();
+						Card newCard = CardFactory.sourceCard(
+								menu.getModulo2(),
+								menu.getMultiplier2(),
+								menu.getGlobalStrenght2(),
+								menu.getRarityStrenght2(),
+								r.nextInt(menu.getModulo2()-1)+1,
+								menu.getTypecards2());
+						supSourceCardsP2.add(newCard);
+					}
+					
+					mainDeck2 = DeckManagement.optimizeMainDeck(mainDeck2, sourceDeck2, supMainCardsP2);
+					sourceDeck2 = DeckManagement.optimizeSourceDeck(mainDeck2, sourceDeck2, supSourceCardsP2);
+					
 					duel.open(menu.getMainDeck1(), mainDeck2, menu.getSourceDeck1(), sourceDeck2, menu.getLifePointsP1(), menu.getLifePointsP2());
 				} else if (!((ButtonToDuel) e.getSource()).label.contains("True")) {
 					duel.openTest();
@@ -250,7 +279,8 @@ public class MenuControler implements ActionListener,MouseListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			menu.setMainDeck1(DeckManagement.optimizeDeck(menu.getMainDeck1(), boosterSource, boosterMain));
+			menu.setMainDeck1(DeckManagement.optimizeMainDeck(menu.getMainDeck1(),menu.getSourceDeck1(), boosterMain));
+			menu.setSourceDeck1(DeckManagement.optimizeSourceDeck(menu.getMainDeck1(),menu.getSourceDeck1(), boosterSource));
 			saveDeck(menu.getMainDeck1(), menu.getSourceDeck1());
 		}
 		if (e.getSource() instanceof ButtonToOptions) {

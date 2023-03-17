@@ -83,7 +83,9 @@ class Main {
 	      line = br.readLine();
 	      lineContentOptions = line.split(" ");
 	      menu.setNbSourceCards2(Integer.parseInt(lineContentOptions[1]));
-	      
+	      line = br.readLine();
+	      lineContentOptions = line.split(" ");
+	      menu.setNbSupCards2(Integer.parseInt(lineContentOptions[1]));
 	      
 	      
 	      

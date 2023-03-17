@@ -24,9 +24,9 @@ public class Menu extends JFrame {
 	//codes interdits: 1-1 (sauf pour P2 pour farmer),4-2,5-2,7-2,9-2,9-3,10-3,11-2,11-3,12-2,12-3,
 	//14-1,14-3,15-1
 	
-	//j1: 15-3(7)?, booster value = 2*4+1=9, vies: 1/1
-	//crédits: 0
-	//j2: 1-1
+	//j1: 16-2(13)?, booster value = 2*4+1=9, vies: 1/1
+	//crédits: 3
+	//j2: 10-1
 	
 	//default parameters
 	private Integer modulo1 = 11;
@@ -48,6 +48,8 @@ public class Menu extends JFrame {
 	private Integer lifePointsP2 = 5;
 	private Integer nbMainCards2 = 5;
 	private Integer nbSourceCards2 = 5;
+	private Integer nbSupCards2 = 0;
+	
 	private List<Card> mainDeck2;
 	private List<Card> sourceDeck2;
 	
@@ -459,6 +461,18 @@ public class Menu extends JFrame {
 
 	public void setNbSourceCards2(int nbSourceCards2) {
 		this.nbSourceCards2 = nbSourceCards2;
+	}
+
+
+
+	public Integer getNbSupCards2() {
+		return nbSupCards2;
+	}
+
+
+
+	public void setNbSupCards2(Integer nbSupCards2) {
+		this.nbSupCards2 = nbSupCards2;
 	}
 	
 	

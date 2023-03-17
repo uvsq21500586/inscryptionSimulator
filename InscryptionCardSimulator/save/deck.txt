@@ -1,14 +1,15 @@
 main deck:
-robot;s0n1a;6;1;1;_;_;_;_;_;_;_;_;0
-robot;skel_e_latcher;2;2;0;_;_;_;_;_;_;_;_;0
-robot;qu177;4;1;0;unkillable;1;_;_;_;_;_;_;1
-robot;bomb_latcher;3;1;0;mighty_leap;_;_;_;_;_;_;_;0
-robot;xformerporcupinebot;5;2;0;_;_;_;_;_;_;_;_;0
-robot;xformerporcupinebot;5;2;0;_;_;_;_;_;_;_;_;0
+robot;gr1zz;5;2;1;_;_;_;_;_;_;_;_;0
+robot;xformergrizzlybot;2;1;1;_;_;_;_;_;_;_;_;0
+robot;gr1zz;5;2;1;_;_;_;_;_;_;_;_;0
+robot;bomb_latcher;3;1;1;airborne;_;_;_;_;_;_;_;0
+robot;gr1zz;5;2;1;_;_;_;_;_;_;_;_;0
+robot;xformergrizzlybot;2;1;1;_;_;_;_;_;_;_;_;0
 source deck:
-robot;empty_vessel;1;1;0;_;_;_;_;_;_;_;_;0
-robot;empty_vessel;1;1;0;_;_;_;_;_;_;_;_;0
-robot;empty_vessel;1;1;0;_;_;_;_;_;_;_;_;0
-robot;empty_vessel;1;1;0;_;_;_;_;_;_;_;_;0
-robot;empty_vessel;1;1;0;_;_;_;_;_;_;_;_;0
+robot;empty_vessel;1;1;0;mighty_leap;_;_;_;_;_;_;_;0
+robot;empty_vessel;1;1;0;burrower;_;_;_;_;_;_;_;0
+robot;empty_vessel;1;1;0;guardian;_;_;_;_;_;_;_;0
+robot;empty_vessel;1;1;0;burrower;_;_;_;_;_;_;_;0
+robot;empty_vessel;1;2;0;_;_;_;_;_;_;_;_;0
+robot;empty_vessel;1;1;0;mighty_leap;_;_;_;_;_;_;_;0
 fin

@@ -53,7 +53,7 @@ public class OptionsControler  implements ActionListener,MouseListener {
 			content = content + "lifePointsP2: " + options.getLifePointsP2().getText() + "\n";
 			content = content + "nbMainCardsP2: " + options.getNbMainCardsP2().getText() + "\n";
 			content = content + "nbSourceCardsP2: " + options.getNbSourceCardsP2().getText() + "\n";
-			
+			content = content + "nbSupCardsP2: " + options.getNbSupCardsP2().getText() + "\n";
 			
 			FileWriter fw;
 			try {

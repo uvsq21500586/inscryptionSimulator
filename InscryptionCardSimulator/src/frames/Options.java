@@ -38,6 +38,7 @@ public class Options extends JFrame {
 	private JTextArea lifePointsP2;
 	private JTextArea nbMainCardsP2;
 	private JTextArea nbSourceCardsP2;
+	private JTextArea nbSupCardsP2;
 	
 	private JButton saveButton;
 
@@ -179,6 +180,11 @@ public class Options extends JFrame {
 		this.getContentPane().add(nbSourceCardsP2Label);
 		nbSourceCardsP2Label.setFont(font.deriveFont(Font.BOLD,16f));
 		nbSourceCardsP2Label.setForeground(Color.WHITE);
+		JLabel nbSupCardsP2Label = new JLabel("nb cards sup. P2: ");
+		nbSupCardsP2Label.setBounds(180,620,300,50);
+		this.getContentPane().add(nbSupCardsP2Label);
+		nbSupCardsP2Label.setFont(font.deriveFont(Font.BOLD,16f));
+		nbSupCardsP2Label.setForeground(Color.WHITE);
 		
 		typeCardP2 = new JList<String>(listTypes);
 		typeCardP2.setSelectedIndex(0);
@@ -194,7 +200,7 @@ public class Options extends JFrame {
 		multiplicatorTextP2.setFont(font.deriveFont(Font.BOLD,20f));
 		this.getContentPane().add(multiplicatorTextP2);
 		globalstrenghP2 = new JTextArea(menu.getGlobalStrenght2().toString());
-		globalstrenghP2.setBounds(430,500,100,50);
+		globalstrenghP2.setBounds(440,500,100,50);
 		globalstrenghP2.setFont(font.deriveFont(Font.BOLD,20f));
 		this.getContentPane().add(globalstrenghP2);
 		raritystrenghP2 = new JTextArea(menu.getRarityStrenght2().toString());
@@ -213,7 +219,10 @@ public class Options extends JFrame {
 		nbSourceCardsP2.setBounds(1350,520,100,50);
 		nbSourceCardsP2.setFont(font.deriveFont(Font.BOLD,20f));
 		this.getContentPane().add(nbSourceCardsP2);
-		
+		nbSupCardsP2 = new JTextArea(menu.getNbSupCards2().toString());
+		nbSupCardsP2.setBounds(380,620,100,50);
+		nbSupCardsP2.setFont(font.deriveFont(Font.BOLD,20f));
+		this.getContentPane().add(nbSupCardsP2);
 		
 		saveButton = new JButton("Save");
 		saveButton.setBounds(1350,620,100,50);
@@ -421,6 +430,16 @@ public class Options extends JFrame {
 
 	public void setSaveButton(JButton saveButton) {
 		this.saveButton = saveButton;
+	}
+
+
+	public JTextArea getNbSupCardsP2() {
+		return nbSupCardsP2;
+	}
+
+
+	public void setNbSupCardsP2(JTextArea nbSupCardsP2) {
+		this.nbSupCardsP2 = nbSupCardsP2;
 	}
 	
 	
