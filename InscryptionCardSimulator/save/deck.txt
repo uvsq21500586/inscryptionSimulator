@@ -1,17 +1,14 @@
 main deck:
-undead;draugr;2;2;0;_;_;_;_;_;_;0
-undead;bone_prince;9;1;2;guardian;_;_;_;_;_;0
-undead;dead_hand;3;1;1;_;_;_;_;_;_;0
-undead;dead_pets;4;1;0;bone_king;1;_;_;_;_;0
-undead;bone_lords_horn;5;2;2;brittle;_;_;_;_;_;0
-undead;draugr;2;2;0;_;_;_;_;_;_;0
-undead;draugr;2;2;0;_;_;_;_;_;_;0
+robot;s0n1a;6;1;1;_;_;_;_;_;_;_;_;0
+robot;skel_e_latcher;2;2;0;_;_;_;_;_;_;_;_;0
+robot;qu177;4;1;0;unkillable;1;_;_;_;_;_;_;1
+robot;bomb_latcher;3;1;0;mighty_leap;_;_;_;_;_;_;_;0
+robot;xformerporcupinebot;5;2;0;_;_;_;_;_;_;_;_;0
+robot;xformerporcupinebot;5;2;0;_;_;_;_;_;_;_;_;0
 source deck:
-undead;skeleton;0;1;1;brittle;_;_;_;_;_;0
-undead;skeleton;0;1;1;brittle;_;_;_;_;_;0
-undead;skeleton;0;1;1;brittle;_;_;_;_;_;0
-undead;skeleton;0;1;1;brittle;_;_;_;_;_;0
-undead;skeleton;0;1;1;brittle;_;_;_;_;_;0
-undead;skeleton;0;1;1;brittle;_;_;_;_;_;0
-undead;skeleton;0;1;1;brittle;_;_;_;_;_;0
+robot;empty_vessel;1;1;0;_;_;_;_;_;_;_;_;0
+robot;empty_vessel;1;1;0;_;_;_;_;_;_;_;_;0
+robot;empty_vessel;1;1;0;_;_;_;_;_;_;_;_;0
+robot;empty_vessel;1;1;0;_;_;_;_;_;_;_;_;0
+robot;empty_vessel;1;1;0;_;_;_;_;_;_;_;_;0
 fin

@@ -26,12 +26,76 @@ class Main {
 		try
 	    {
 	      // Le fichier d'entrée
-	      File file = new File("save/deck.txt");    
+	      File file = new File("save/options.txt");    
 	      // Créer l'objet File Reader
 	      FileReader fr = new FileReader(file);  
 	      // Créer l'objet BufferedReader        
 	      BufferedReader br = new BufferedReader(fr);      
 	      String line;
+	      String lineContentOptions[];
+	      line = br.readLine();
+	      line = br.readLine();
+	      lineContentOptions = line.split(" ");
+	      menu.setTypecards1(lineContentOptions[1]);
+	      line = br.readLine();
+	      lineContentOptions = line.split(" ");
+	      menu.setModulo1(Integer.parseInt(lineContentOptions[1]));
+	      line = br.readLine();
+	      lineContentOptions = line.split(" ");
+	      menu.setMultiplier1(Integer.parseInt(lineContentOptions[1]));
+	      line = br.readLine();
+	      lineContentOptions = line.split(" ");
+	      menu.setGlobalStrenght1(Integer.parseInt(lineContentOptions[1]));
+	      line = br.readLine();
+	      lineContentOptions = line.split(" ");
+	      menu.setRarityStrenght1(Integer.parseInt(lineContentOptions[1]));
+	      line = br.readLine();
+	      lineContentOptions = line.split(" ");
+	      menu.setLifePointsP1(Integer.parseInt(lineContentOptions[1]));
+	      line = br.readLine();
+	      lineContentOptions = line.split(" ");
+	      menu.setNbMainCards1(Integer.parseInt(lineContentOptions[1]));
+	      line = br.readLine();
+	      lineContentOptions = line.split(" ");
+	      menu.setNbSourceCards1(Integer.parseInt(lineContentOptions[1]));
+	      
+	      line = br.readLine();
+	      lineContentOptions = line.split(" ");
+	      menu.setTypecards2(lineContentOptions[1]);
+	      line = br.readLine();
+	      lineContentOptions = line.split(" ");
+	      menu.setModulo2(Integer.parseInt(lineContentOptions[1]));
+	      line = br.readLine();
+	      lineContentOptions = line.split(" ");
+	      menu.setMultiplier2(Integer.parseInt(lineContentOptions[1]));
+	      line = br.readLine();
+	      lineContentOptions = line.split(" ");
+	      menu.setGlobalStrenght2(Integer.parseInt(lineContentOptions[1]));
+	      line = br.readLine();
+	      lineContentOptions = line.split(" ");
+	      menu.setRarityStrenght2(Integer.parseInt(lineContentOptions[1]));
+	      line = br.readLine();
+	      lineContentOptions = line.split(" ");
+	      menu.setLifePointsP2(Integer.parseInt(lineContentOptions[1]));
+	      line = br.readLine();
+	      lineContentOptions = line.split(" ");
+	      menu.setNbMainCards2(Integer.parseInt(lineContentOptions[1]));
+	      line = br.readLine();
+	      lineContentOptions = line.split(" ");
+	      menu.setNbSourceCards2(Integer.parseInt(lineContentOptions[1]));
+	      
+	      
+	      
+	      
+	      
+	      
+	      fr.close();
+	      
+	      file = new File("save/deck.txt");    
+	      // Créer l'objet File Reader
+	      fr = new FileReader(file);  
+	      // Créer l'objet BufferedReader        
+	      br = new BufferedReader(fr); 
 	      line = br.readLine();
 	      line = br.readLine();
 	      List<Card> maindeck = new ArrayList<>();

@@ -19,6 +19,7 @@ import decks.DeckManagement;
 import frames.menubuttons.ButtonToBoosterCard;
 import frames.menubuttons.ButtonToBuildDeck;
 import frames.menubuttons.ButtonToDuel;
+import frames.menubuttons.ButtonToOptions;
 import frames.menubuttons.ButtonToSeeDeck;
 import frames.menubuttons.ButtonToSimulatorCard;
 
@@ -34,6 +35,7 @@ public class MenuControler implements ActionListener,MouseListener {
 		menu.getButtonTrueDuel().addMouseListener(this);
 		menu.getButtonBoosterCard().addMouseListener(this);
 		menu.getButtonToSeeDeck().addMouseListener(this);
+		menu.getButtonOptions().addMouseListener(this);
 	}
 
 	@Override
@@ -47,7 +49,7 @@ public class MenuControler implements ActionListener,MouseListener {
 					// construire les decks du joueur2
 					List<Card> mainDeck2 = new ArrayList<>();
 					List<Card> sourceDeck2 = new ArrayList<>();
-					for (int i=0;i<menu.getNbCards2();i++) {
+					for (int i=0;i<menu.getNbMainCards2();i++) {
 						Random r = new Random();
 						Card newCard = CardFactory.mainCard(
 								menu.getModulo2(),
@@ -59,7 +61,7 @@ public class MenuControler implements ActionListener,MouseListener {
 						mainDeck2.add(newCard);
 					}
 					
-					for (int i=0;i<menu.getNbCards2();i++) {
+					for (int i=0;i<menu.getNbSourceCards2();i++) {
 						Random r = new Random();
 						Card newCard = CardFactory.sourceCard(
 								menu.getModulo2(),
@@ -71,7 +73,7 @@ public class MenuControler implements ActionListener,MouseListener {
 						sourceDeck2.add(newCard);
 					}
 					
-					duel.open(menu.getMainDeck1(), mainDeck2, menu.getSourceDeck1(), sourceDeck2, menu.getPV1(), menu.getPV2());
+					duel.open(menu.getMainDeck1(), mainDeck2, menu.getSourceDeck1(), sourceDeck2, menu.getLifePointsP1(), menu.getLifePointsP2());
 				} else if (!((ButtonToDuel) e.getSource()).label.contains("True")) {
 					duel.openTest();
 				}
@@ -97,7 +99,7 @@ public class MenuControler implements ActionListener,MouseListener {
 		if (e.getSource() instanceof ButtonToBuildDeck) {
 			// construire les decks du joueur2
 			List<Card> mainDeck1 = new ArrayList<>();
-			for (int i=0;i<menu.getNbCards1();i++) {
+			for (int i=0;i<menu.getNbMainCards1();i++) {
 				Random r = new Random();
 				try {
 					Card card1 = CardFactory.mainCard(
@@ -126,7 +128,7 @@ public class MenuControler implements ActionListener,MouseListener {
 				
 			}
 			List<Card> sourceDeck1 = new ArrayList<>();
-			for (int i=0;i<menu.getNbCards1();i++) {
+			for (int i=0;i<menu.getNbSourceCards1();i++) {
 				Random r = new Random();
 				try {
 					Card card1 = CardFactory.sourceCard(
@@ -250,6 +252,18 @@ public class MenuControler implements ActionListener,MouseListener {
 			}
 			menu.setMainDeck1(DeckManagement.optimizeDeck(menu.getMainDeck1(), boosterSource, boosterMain));
 			saveDeck(menu.getMainDeck1(), menu.getSourceDeck1());
+		}
+		if (e.getSource() instanceof ButtonToOptions) {
+			Options options = new Options();
+			try {
+				options.open(menu);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (FontFormatException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 

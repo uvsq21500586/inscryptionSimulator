@@ -100,9 +100,9 @@ public class DeckManagement {
 				Effect effect = card.getEffects().get(j);
 				int cost = effect.getCostStats();
 				if (Effect.namesLevelEffects.contains(effect.getName())) {
-					cost = cost * effect.getCostStats();
+					cost = cost * effect.getLevel();
 					if (card.getEffects().get(j).getName().equals("fledgling")) {
-						cost = cost * effect.getCostStats();
+						cost = cost + effect.getLevel();
 					}
 				}
 				score += cost;
@@ -117,6 +117,9 @@ public class DeckManagement {
 				int cost = effect.getCostStats();
 				if (Effect.namesLevelEffects.contains(effect.getName())) {
 					cost = cost * effect.getCostStats();
+					if (card.getEffects().get(j).getName().equals("fledgling")) {
+						cost = cost + effect.getLevel();
+					}
 				}
 				score += cost;
 			}

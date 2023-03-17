@@ -15,33 +15,39 @@ import cards.Card;
 import frames.menubuttons.ButtonToBoosterCard;
 import frames.menubuttons.ButtonToBuildDeck;
 import frames.menubuttons.ButtonToDuel;
+import frames.menubuttons.ButtonToOptions;
 import frames.menubuttons.ButtonToSeeDeck;
 import frames.menubuttons.ButtonToSimulatorCard;
 
 public class Menu extends JFrame {
 	//types: beast robot undead
-	//codes interdits: 1-1 (sauf pour P2 pour farmer),4-2,5-2,7-2,9-2,9-3,10-3,11-2,11-3,12-2,12-3
+	//codes interdits: 1-1 (sauf pour P2 pour farmer),4-2,5-2,7-2,9-2,9-3,10-3,11-2,11-3,12-2,12-3,
+	//14-1,14-3,15-1
 	
-	//j1: 13-3(5), booster value = 2*4+1=9, vies: 1/1
-	//crédits: 4
-	private int modulo1 = 9;
-	private int multiplier1 = 2;
-	private int globalStrenght1 = 2;
-	private int rarityStrenght1 = 1;
-	private String typecards1 = "undead";
-	private int PV1 = 5;
-	private int nbCards1 = 7;
+	//j1: 15-3(7)?, booster value = 2*4+1=9, vies: 1/1
+	//crédits: 0
+	//j2: 1-1
+	
+	//default parameters
+	private Integer modulo1 = 11;
+	private Integer multiplier1 = 4;
+	private Integer globalStrenght1 = 1;
+	private Integer rarityStrenght1 = 1;
+	private String typecards1 = "robot";
+	private Integer lifePointsP1 = 6;
+	private Integer nbMainCards1 = 6;
+	private Integer nbSourceCards1 = 5;
 	private List<Card> mainDeck1;
 	private List<Card> sourceDeck1;
 	
-	//j2: 3-1
-	private int modulo2 = 7;
-	private int multiplier2 = 3;
-	private int globalStrenght2 = 1;
-	private int rarityStrenght2 = 1;
+	private Integer modulo2 = 7;
+	private Integer multiplier2 = 2;
+	private Integer globalStrenght2 = 1;
+	private Integer rarityStrenght2 = 1;
 	private String typecards2 = "beast";
-	private int PV2 = 6;
-	private int nbCards2 = 5;
+	private Integer lifePointsP2 = 5;
+	private Integer nbMainCards2 = 5;
+	private Integer nbSourceCards2 = 5;
 	private List<Card> mainDeck2;
 	private List<Card> sourceDeck2;
 	
@@ -51,6 +57,7 @@ public class Menu extends JFrame {
 	private ButtonToBoosterCard buttonBoosterCard;
 	private ButtonToBuildDeck buttonToBuildDeck;
 	private ButtonToSeeDeck buttonToSeeDeck;
+	private ButtonToOptions buttonOptions;
 
 	public Menu() {
 		super("Menu");
@@ -90,19 +97,8 @@ public class Menu extends JFrame {
 		this.getContentPane().add(buttonToBuildDeck);
 		this.getContentPane().add(buttonToSeeDeck);
 		this.getContentPane().add(buttonBoosterCard);
+		this.getContentPane().add(buttonOptions);
 		
-		Font font = Font.createFont(Font.TRUETYPE_FONT, new File("conthrax-sb.ttf"));
-		JLabel labelParamP1 = new JLabel("Parameter P1");
-		this.getContentPane().add(labelParamP1);
-		labelParamP1.setBounds(100, 190, 300, 50);
-		labelParamP1.setFont(font.deriveFont(Font.BOLD,24f));
-		labelParamP1.setForeground(new Color(255, 255, 255));
-		
-		JLabel labelParamP2 = new JLabel("Parameter P2");
-		this.getContentPane().add(labelParamP2);
-		labelParamP2.setBounds(1000, 190, 300, 50);
-		labelParamP2.setFont(font.deriveFont(Font.BOLD,24f));
-		labelParamP2.setForeground(new Color(255, 255, 255));
 		this.getContentPane().add(panelBackground);
 		
 		this.setVisible(true);
@@ -133,6 +129,10 @@ public class Menu extends JFrame {
 		buttonToSeeDeck.setBounds(800, 520, 150, 50);
 		buttonToSeeDeck.setForeground(new Color(255, 255, 255));
 		buttonToSeeDeck.add(new JLabel("See deck"));
+		buttonOptions = new ButtonToOptions();
+		buttonOptions.setBounds(100, 520, 150, 50);
+		buttonOptions.setForeground(new Color(255, 255, 255));
+		buttonOptions.add(new JLabel("Options"));
 		this.repaint();
 		this.revalidate();
 	}
@@ -151,7 +151,7 @@ public class Menu extends JFrame {
 
 
 
-	public int getModulo1() {
+	public Integer getModulo1() {
 		return modulo1;
 	}
 
@@ -163,7 +163,7 @@ public class Menu extends JFrame {
 
 
 
-	public int getMultiplier1() {
+	public Integer getMultiplier1() {
 		return multiplier1;
 	}
 
@@ -175,7 +175,7 @@ public class Menu extends JFrame {
 
 
 
-	public int getGlobalStrenght1() {
+	public Integer getGlobalStrenght1() {
 		return globalStrenght1;
 	}
 
@@ -187,7 +187,7 @@ public class Menu extends JFrame {
 
 
 
-	public int getRarityStrenght1() {
+	public Integer getRarityStrenght1() {
 		return rarityStrenght1;
 	}
 
@@ -211,14 +211,14 @@ public class Menu extends JFrame {
 
 
 
-	public int getPV1() {
-		return PV1;
+	public Integer getLifePointsP1() {
+		return lifePointsP1;
 	}
 
 
 
-	public void setPV1(int pV1) {
-		PV1 = pV1;
+	public void setLifePointsP1(int lp1) {
+		lifePointsP1 = lp1;
 	}
 
 
@@ -247,7 +247,7 @@ public class Menu extends JFrame {
 
 
 
-	public int getModulo2() {
+	public Integer getModulo2() {
 		return modulo2;
 	}
 
@@ -259,7 +259,7 @@ public class Menu extends JFrame {
 
 
 
-	public int getMultiplier2() {
+	public Integer getMultiplier2() {
 		return multiplier2;
 	}
 
@@ -271,7 +271,7 @@ public class Menu extends JFrame {
 
 
 
-	public int getGlobalStrenght2() {
+	public Integer getGlobalStrenght2() {
 		return globalStrenght2;
 	}
 
@@ -283,7 +283,7 @@ public class Menu extends JFrame {
 
 
 
-	public int getRarityStrenght2() {
+	public Integer getRarityStrenght2() {
 		return rarityStrenght2;
 	}
 
@@ -307,14 +307,14 @@ public class Menu extends JFrame {
 
 
 
-	public int getPV2() {
-		return PV2;
+	public Integer getLifePointsP2() {
+		return lifePointsP2;
 	}
 
 
 
-	public void setPV2(int pV2) {
-		PV2 = pV2;
+	public void setLifePointsP2(int lp2) {
+		lifePointsP2 = lp2;
 	}
 
 
@@ -379,26 +379,26 @@ public class Menu extends JFrame {
 
 
 
-	public int getNbCards1() {
-		return nbCards1;
+	public Integer getNbMainCards1() {
+		return nbMainCards1;
 	}
 
 
 
-	public void setNbCards1(int nbCards1) {
-		this.nbCards1 = nbCards1;
+	public void setNbMainCards1(int nbCards1) {
+		this.nbMainCards1 = nbCards1;
 	}
 
 
 
-	public int getNbCards2() {
-		return nbCards2;
+	public Integer getNbMainCards2() {
+		return nbMainCards2;
 	}
 
 
 
-	public void setNbCards2(int nbCards2) {
-		this.nbCards2 = nbCards2;
+	public void setNbMainCards2(int nbCards2) {
+		this.nbMainCards2 = nbCards2;
 	}
 
 
@@ -423,6 +423,42 @@ public class Menu extends JFrame {
 
 	public void setButtonToSeeDeck(ButtonToSeeDeck buttonToSeeDeck) {
 		this.buttonToSeeDeck = buttonToSeeDeck;
+	}
+
+
+
+	public ButtonToOptions getButtonOptions() {
+		return buttonOptions;
+	}
+
+
+
+	public void setButtonOptions(ButtonToOptions buttonOptions) {
+		this.buttonOptions = buttonOptions;
+	}
+
+
+
+	public Integer getNbSourceCards1() {
+		return nbSourceCards1;
+	}
+
+
+
+	public void setNbSourceCards1(int nbSourceCards1) {
+		this.nbSourceCards1 = nbSourceCards1;
+	}
+
+
+
+	public Integer getNbSourceCards2() {
+		return nbSourceCards2;
+	}
+
+
+
+	public void setNbSourceCards2(int nbSourceCards2) {
+		this.nbSourceCards2 = nbSourceCards2;
 	}
 	
 	
