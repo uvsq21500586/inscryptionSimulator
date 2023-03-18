@@ -7,13 +7,14 @@ import java.util.List;
 import effects.Effect;
 
 public class CardFactory {
-	public static String beastAppearances[] = {"kingfisher", "raven_egg", "sparrow", "magpie", "raven", "turkey_vulture", "stunted_wolf","wolf_cub","bloodhound","dire_wolf","wolf"};
+	public static String beastAppearances[] = {"kingfisher", "raven_egg", "sparrow", "magpie", "raven", "turkey_vulture", "stunted_wolf","wolf_cub","bloodhound","dire_wolf",
+			"wolf","coyote"};
 	
 	public static String robotAppearances[] = {"xformerbatbot","s0n1a","xformerporcupinebot","qu177","xformergrizzlybot","gr1zz","bomb_latcher","exeskeleton","shield_latcher","skel_e_latcher"};
 	
 	public static String undeadAppearances[] = {"armored_zombie","bone_lord","bone_lords_horn","bone_pile","bone_prince","dead_hand","dead_pets","draugr"};
 	
-	public static String wizardAppearances[] = {"alchemist","amalgam_wiz"};
+	public static String wizardAppearances[] = {"alchemist","amalgam_wiz","bignificus","blue_mage","blue_mage_fused","boss_stim_mage"};
 	
 	public static Card mainCard(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u0, String type) throws IOException {
 		int u = u0;
@@ -552,6 +553,7 @@ public class CardFactory {
 		int nbGreenMox = 0;
 		int nbOrangeMox = 0;
 		int nbBlueMox = 0;
+		List<String> listWizardEffects = new ArrayList<>();
 		/*if (u%4 == 3) {
 			//1mox
 			nbMox++;
@@ -581,12 +583,15 @@ public class CardFactory {
 		if (level == 1) {
 			if (u%3 == 0) {
 				nbGreenMox ++;
+				listWizardEffects = Effect.namesWizardGreenEffects;
 			}
 			if (u%3 == 1) {
 				nbOrangeMox ++;
+				listWizardEffects = Effect.namesWizardOrangeEffects;
 			}
 			if (u%3 == 2) {
 				nbBlueMox ++;
+				listWizardEffects = Effect.namesWizardBlueEffects;
 			}
 			u = (u * multiplicator + 2*levelRarity)%modulo;
 		}
@@ -602,6 +607,7 @@ public class CardFactory {
 					} else {
 						nbGreenMox ++;
 					}
+					listWizardEffects = Effect.namesWizardGreenEffects;
 				} else if (u%3 == 1) {
 					nbOrangeMox ++;
 					u = (u * multiplicator + 2*levelRarity)%modulo;
@@ -610,6 +616,7 @@ public class CardFactory {
 					} else {
 						nbOrangeMox ++;
 					}
+					listWizardEffects = Effect.namesWizardOrangeEffects;
 				} else {
 					nbBlueMox ++;
 					u = (u * multiplicator + 2*levelRarity)%modulo;
@@ -618,21 +625,26 @@ public class CardFactory {
 					} else {
 						nbBlueMox ++;
 					}
+					listWizardEffects = Effect.namesWizardBlueEffects;
 				}
 			} else {
 				//two colors
 				u = (u * multiplicator + 2*levelRarity)%modulo;
 				if (u%3 == 0) {
-					nbGreenMox ++;
 					nbOrangeMox ++;
+					nbBlueMox ++;
+					listWizardEffects = Effect.namesWizardOrangeBlueEffects;
+					
 				}
 				if (u%3 == 1) {
 					nbGreenMox ++;
 					nbBlueMox ++;
+					listWizardEffects = Effect.namesWizardGreenBlueEffects;
 				}
 				if (u%3 == 2) {
+					nbGreenMox ++;
 					nbOrangeMox ++;
-					nbBlueMox ++;
+					listWizardEffects = Effect.namesWizardGreenOrangeEffects;
 				}
 			}
 		}
@@ -646,12 +658,15 @@ public class CardFactory {
 				nbAnyMox += level - nbcoloredGem;
 				if (colorGem == 0) {
 					nbGreenMox += nbcoloredGem;
+					listWizardEffects = Effect.namesWizardGreenEffects;
 				}
 				if (colorGem == 1) {
 					nbOrangeMox += nbcoloredGem;
+					listWizardEffects = Effect.namesWizardOrangeEffects;
 				}
 				if (colorGem == 2) {
 					nbBlueMox += nbcoloredGem;
+					listWizardEffects = Effect.namesWizardBlueEffects;
 				}
 				u = (u * multiplicator + 2*levelRarity)%modulo;
 			} else if (u%3 == 1) {
@@ -664,14 +679,17 @@ public class CardFactory {
 				if (absentColorGem == 0) {
 					nbOrangeMox += nbcoloredGem;
 					nbBlueMox += nbcoloredGem;
+					listWizardEffects = Effect.namesWizardOrangeBlueEffects;
 				}
 				if (absentColorGem == 1) {
 					nbGreenMox += nbcoloredGem;
 					nbBlueMox += nbcoloredGem;
+					listWizardEffects = Effect.namesWizardGreenBlueEffects;
 				}
 				if (absentColorGem == 2) {
 					nbGreenMox += nbcoloredGem;
 					nbOrangeMox += nbcoloredGem;
+					listWizardEffects = Effect.namesWizardGreenOrangeEffects;
 				}
 				u = (u * multiplicator + 2*levelRarity)%modulo;
 			} else {
@@ -682,6 +700,7 @@ public class CardFactory {
 				nbGreenMox += nbcoloredGem;
 				nbOrangeMox += nbcoloredGem;
 				nbBlueMox += nbcoloredGem;
+				listWizardEffects = Effect.namesWizardGreenOrangeBlueEffects;
 				u = (u * multiplicator + 2*levelRarity)%modulo;
 			}
 		}
@@ -696,7 +715,7 @@ public class CardFactory {
 		
 		//effect1
 		if (u%4>0) {
-			String effectName = Effect.namesWizardEffects.get(u%(Effect.namesWizardEffects.size()));
+			String effectName = listWizardEffects.get(u%(listWizardEffects.size()));
 			if (Effect.mapEffectToCost.get(effectName) > nbstats) {
 				stopEffects = true;
 			} else if (Effect.namesAttackEffects.contains(effectName) && Effect.mapEffectToCost.get(effectName) + 2 > nbstats) {
@@ -722,7 +741,7 @@ public class CardFactory {
 		//effect2
 		if (!stopEffects) {
 		if (u%4>1) {
-			String effectName = Effect.namesWizardEffects.get(u%(Effect.namesWizardEffects.size()));
+			String effectName = listWizardEffects.get(u%(listWizardEffects.size()));
 			if (Effect.mapEffectToCost.get(effectName) > nbstats || sortedeffects.contains(effectName)) {
 				stopEffects = true;
 			} else if (Effect.namesAttackEffects.contains(effectName) && attackmin == 0 && Effect.mapEffectToCost.get(effectName) + 2 > nbstats) {
@@ -748,7 +767,7 @@ public class CardFactory {
 		//effect3
 		if (!stopEffects) {
 		if (u%4>2) {
-			String effectName = Effect.namesWizardEffects.get(u%(Effect.namesWizardEffects.size()));
+			String effectName = listWizardEffects.get(u%(listWizardEffects.size()));
 			if (Effect.mapEffectToCost.get(effectName) > nbstats || sortedeffects.contains(effectName)) {
 				stopEffects = true;
 			} else if (Effect.namesAttackEffects.contains(effectName) && attackmin == 0 && Effect.mapEffectToCost.get(effectName) + 2 > nbstats) {
@@ -1224,7 +1243,7 @@ public class CardFactory {
 		//effect2
 		if (!stopEffects && effects.size()<2) {
 		if (u%4>1) {
-			String effectName = Effect.namesWizardEffects.get(u%(Effect.namesWizardEffects.size()));
+			String effectName = Effect.namesWizardMoxEffects.get(u%(Effect.namesWizardMoxEffects.size()));
 			if (Effect.mapEffectToCost.get(effectName) > nbstats || Effect.namesAttackEffects.contains(effectName) || sortedeffects.contains(effectName)) {
 				stopEffects = true;
 			} else {
@@ -1245,7 +1264,7 @@ public class CardFactory {
 		//effect3
 		if (!stopEffects && effects.size()<3) {
 		if (u%4>2) {
-			String effectName = Effect.namesWizardEffects.get(u%(Effect.namesWizardEffects.size()));
+			String effectName = Effect.namesWizardMoxEffects.get(u%(Effect.namesWizardMoxEffects.size()));
 			if (Effect.mapEffectToCost.get(effectName) > nbstats || Effect.namesAttackEffects.contains(effectName) || sortedeffects.contains(effectName)) {
 				stopEffects = true;
 			} else {

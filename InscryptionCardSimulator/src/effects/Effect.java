@@ -22,13 +22,21 @@ public class Effect {
 	
 	public final static List<String> namesEffects = Arrays.asList("rabbit_hole","airborne","bee_within","sprinter_right","poison","fledgling","dambuilder","burrower","unkillable","sharp_quills",
 			"hefty_right","guardian","brittle","fecundity","loose_tail_right","corpse_eater","bone_king","mighty_leap","bifurcated_strike","scavenger",
-			"green_gem","orange_gem","blue_gem");
-	public final static List<String> namesBeastEffects = Arrays.asList("rabbit_hole","airborne","bee_within","sprinter_right","poison","fledgling","dambuilder","burrower","fecundity","loose_tail_right");
+			"green_gem","orange_gem","blue_gem","familiar","gem_animator");
+	public final static List<String> namesBeastEffects = Arrays.asList("rabbit_hole","airborne","bee_within","sprinter_right","poison","fledgling","dambuilder","burrower","fecundity","loose_tail_right",
+			"corpse_eater");
 	public final static List<String> namesRobotEffects = Arrays.asList("sprinter_right","poison","burrower","unkillable","sharp_quills","hefty_right","guardian","airborne","mighty_leap","bifurcated_strike");
 	public final static List<String> namesUndeadEffects = Arrays.asList("brittle","poison","corpse_eater","bone_king","unkillable","guardian","scavenger");
-	public final static List<String> namesWizardEffects = Arrays.asList("green_gem","orange_gem","blue_gem");
+	public final static List<String> namesWizardMoxEffects = Arrays.asList("green_gem","orange_gem","blue_gem");
+	public final static List<String> namesWizardGreenEffects = Arrays.asList("green_gem","familiar");
+	public final static List<String> namesWizardOrangeEffects = Arrays.asList("orange_gem","familiar","gem_animator");
+	public final static List<String> namesWizardBlueEffects = Arrays.asList("blue_gem","familiar","hoarder");
+	public final static List<String> namesWizardGreenOrangeEffects = Arrays.asList("green_gem","orange_gem","familiar","gem_animator");
+	public final static List<String> namesWizardGreenBlueEffects = Arrays.asList("green_gem","blue_gem","familiar","hoarder");
+	public final static List<String> namesWizardOrangeBlueEffects = Arrays.asList("orange_gem","blue_gem","familiar","hoarder","gem_animator");
+	public final static List<String> namesWizardGreenOrangeBlueEffects = Arrays.asList("green_gem","orange_gem","blue_gem","familiar","hoarder","gem_animator");
 	public final static List<String> namesLevelEffects = Arrays.asList("rabbit_hole","bee_within","poison","fledgling","dambuilder","unkillable","sharp_quills","loose_tail_right","corpse_eater","bone_king",
-			"scavenger","green_gem","orange_gem","blue_gem");
+			"scavenger","green_gem","orange_gem","blue_gem","hoarder","gem_animator");
 	public final static List<String> namesAttackEffects = Arrays.asList("airborne","poison","brittle","bifurcated_strike","scavenger");
 	public final static List<String> namesResourceEffects = Arrays.asList("bone_king","scavenger","green_gem","orange_gem","blue_gem");
 	
@@ -132,6 +140,9 @@ public class Effect {
 		effectsToCost.put("green_gem",2);
 		effectsToCost.put("orange_gem",2);
 		effectsToCost.put("blue_gem",2);
+		effectsToCost.put("familiar",-2);
+		effectsToCost.put("hoarder",3);
+		effectsToCost.put("gem_animator",3);
 		return effectsToCost;
 	}
 

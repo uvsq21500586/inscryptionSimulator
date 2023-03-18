@@ -8,12 +8,16 @@ import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.swing.JPanel;
 
 import cards.BeastCard;
+import cards.Card;
 import cards.RobotCard;
 import cards.UndeadCard;
+import cards.WizardCard;
+import effects.Effect;
 import frames.duelbuttons.ButtonMainDeck;
 import frames.duelbuttons.ButtonPlaceCard;
 import frames.duelbuttons.ButtonSourceDeck;
@@ -248,9 +252,50 @@ public class DuelControler implements ActionListener,MouseListener {
 					}
 					copyCardPanel.addMouseListener(this);
 				}
-				
 			}
-			
+			boolean isFamiliar = cardSelected.getCard().getEffects().stream().anyMatch(effect -> effect.getName().equals("familiar"));
+			if (isFamiliar) {
+				if (!duel.isTurnJ2()) {
+					cardSelected.getCard().familiarP1(duel, duel.getButtonPlaceCard(), this, cardSelected.getFieldPosition());
+					duel.getBonePileCount().setText(": " + duel.getBoneP1());
+				} else {
+					cardSelected.getCard().familiarP2(duel, duel.getButtonPlaceCard(), this, cardSelected.getFieldPosition());
+					duel.getBonePileCount().setText(": " + duel.getBoneP2());
+				}
+			}
+			Optional<Effect> hoarder = cardSelected.getCard().getEffects().stream().filter(effect -> effect.getName().equals("hoarder")).findFirst();
+			if (hoarder.isPresent()) {
+				if (!duel.isTurnJ2()) {
+					for (int i=0;i<hoarder.get().getLevel();i++) {
+						if (!duel.getMainDeck1().isEmpty()) {
+							duel.drawMainDeckCard(this);
+						} else if (!duel.getSourceDeck1().isEmpty()) {
+							duel.drawSourceDeckCard(this);
+						}
+					}
+				} else {
+					for (int i=0;i<hoarder.get().getLevel();i++) {
+						if (!duel.getMainDeck2().isEmpty()) {
+							duel.drawMainDeckCard(this);
+						} else if (!duel.getSourceDeck2().isEmpty()) {
+							duel.drawSourceDeckCard(this);
+						}
+					}
+				}
+			}
+			Optional<Effect> gem_animator = cardSelected.getCard().getEffects().stream().filter(effect -> effect.getName().equals("gem_animator")).findFirst();
+			if (gem_animator.isPresent()) {
+				for (int i=0;i<4;i++) {
+					if (i != cardSelected.getFieldPosition() && duel.getButtonPlaceCard()[i].getCardPanel() != null) {
+						Card card = duel.getButtonPlaceCard()[0].getCardPanel().getCard();
+						if (card instanceof WizardCard && !card.isSacrificiable()) {
+							card.setAttack(card.getAttack()+gem_animator.get().getLevel());
+							duel.getButtonPlaceCard()[i].getCardPanel().getAttack().setText(card.getAttack().toString());
+						}
+						
+					}
+				}
+			}
 			cardSelected = null;
 			puttingBloodCard = false;
 			try {
