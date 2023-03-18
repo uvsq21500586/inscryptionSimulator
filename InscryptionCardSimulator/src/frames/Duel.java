@@ -20,6 +20,7 @@ import cards.BeastCard;
 import cards.Card;
 import cards.RobotCard;
 import cards.UndeadCard;
+import cards.WizardCard;
 import effects.Effect;
 import frames.duelbuttons.*;
 import frames.menubuttons.ButtonToDuel;
@@ -244,6 +245,7 @@ public class Duel extends JFrame {
 	}
 	
 	private void buildDecks() throws IOException {
+		sourceDeck1.add(WizardCard.sourceCard(1, Arrays.asList(new Effect("orange_gem","wizard",1))));
 		sourceDeck1.add(UndeadCard.sourceCard(1, 1, Arrays.asList(new Effect("brittle","undead"))));
 		sourceDeck2.add(BeastCard.sourceCard(1, new ArrayList<>()));
 		sourceDeck1.add(BeastCard.sourceCard(1, new ArrayList<>()));
@@ -254,6 +256,7 @@ public class Duel extends JFrame {
 		List<Effect> effects2 = new LinkedList<>(Arrays.asList(new Effect("scavenger","undead",1)));
 		mainDeck1.add(RobotCard.mainCard("s0n1a", 1, 1, 1, effects));
 		//mainDeck1.add(UndeadCard.mainCard("bone_lord", 1, 1, 1, effects2));
+		mainDeck1.add(WizardCard.mainCard("alchemist", 0, 0, 1, 0, 1, 1, 1, new ArrayList<>()));
 		mainDeck1.add(BeastCard.mainCard("kingfisher", "blood", 2, 1, 1, new ArrayList<>()));
 		mainDeck1.add(BeastCard.mainCard("kingfisher", "bone", 2, 1, 1, new ArrayList<>()));
 		mainDeck1.add(BeastCard.mainCard("kingfisher", "bone", 1, 1, 1, new ArrayList<>()));

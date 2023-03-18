@@ -16,6 +16,7 @@ import cards.BeastCard;
 import cards.Card;
 import cards.RobotCard;
 import cards.UndeadCard;
+import cards.WizardCard;
 
 public class CardPanel extends JPanel {
 	Font font; 
@@ -122,7 +123,7 @@ public class CardPanel extends JPanel {
 	}
 
 
-	private void appearanceCard(Card card, JLabel labelAppeareance) throws IOException {
+	private void appearanceCard(Card card, JLabel labelAppeareance) throws IOException, FontFormatException {
 		if (card instanceof BeastCard) {
 	    	Image img = ImageIO.read(new File("img/beast/" + card.getAppearance() + ".png"));
 	    	labelAppeareance.setIcon(new ImageIcon(img
@@ -166,9 +167,60 @@ public class CardPanel extends JPanel {
 	    	}
 	    }
 	    
+	    if (card instanceof WizardCard) {
+	    	Image img = ImageIO.read(new File("img/wizard/" + card.getAppearance() + ".png"));
+	    	labelAppeareance.setIcon(new ImageIcon(img
+					.getScaledInstance(200,200, 
+					Image.SCALE_DEFAULT)));
+	    	if (card.getLevel() > 0) {
+	    		cost = new JLabel();
+    			img = ImageIO.read(new File("img/costs/bone.png"));
+    			
+    			WizardCard wizard = (WizardCard) card;
+    			int nbcolors = 1;
+    			if (wizard.getCostGreenMox()>0 && wizard.getCostOrangeMox() == 0 && wizard.getCostBlueMox() == 0) {
+    				img = ImageIO.read(new File("img/costs/green_gem.png"));
+    			}
+    			if (wizard.getCostGreenMox() == 0 && wizard.getCostOrangeMox()>0 && wizard.getCostBlueMox() == 0) {
+    				img = ImageIO.read(new File("img/costs/orange_gem.png"));
+    			}
+    			if (wizard.getCostGreenMox() == 0 && wizard.getCostOrangeMox() == 0 && wizard.getCostBlueMox()>0) {
+    				img = ImageIO.read(new File("img/costs/blue_gem.png"));
+    			}
+    			if (wizard.getCostGreenMox()>0 && wizard.getCostOrangeMox()>0 && wizard.getCostBlueMox() == 0) {
+    				img = ImageIO.read(new File("img/costs/green_orange_gem.png"));
+    				nbcolors = 2;
+    			}
+    			if (wizard.getCostGreenMox()>0 && wizard.getCostOrangeMox() == 0 && wizard.getCostBlueMox()>0) {
+    				img = ImageIO.read(new File("img/costs/green_blue_gem.png"));
+    				nbcolors = 2;
+    			}
+    			if (wizard.getCostGreenMox() == 0 && wizard.getCostOrangeMox()>0 && wizard.getCostBlueMox()>0) {
+    				img = ImageIO.read(new File("img/costs/orange_blue_gem.png"));
+    				nbcolors = 2;
+    			}
+    			if (wizard.getCostGreenMox()>0 && wizard.getCostOrangeMox()>0 && wizard.getCostBlueMox()>0) {
+    				img = ImageIO.read(new File("img/costs/green_orange_blue_gem.png"));
+    				nbcolors = 3;
+    			}
+    			
+    			cost.setIcon(new ImageIcon(img
+    					.getScaledInstance(50,30, 
+    							Image.SCALE_DEFAULT)));
+    			this.add(cost);
+    			cost.setBounds(145,50,50,30);
+    			level.setText(wizard.getCostAnyMox() + "+" + ((wizard.getLevel()-wizard.getCostAnyMox())/nbcolors) + "x");
+    			level.setBounds(105,40,70,50);
+    			font = Font.createFont(Font.TRUETYPE_FONT, new File("conthrax-sb.ttf"));
+    			level.setFont(font.deriveFont(Font.BOLD,16f));
+    			level.setForeground(new Color(255,0,0));
+	    	}
+	    }
+	    
 	    if (card.getLevel() < 2) {
 	    	level.setVisible(false);
 	    }
+	    
 	}
 
 
@@ -187,6 +239,12 @@ public class CardPanel extends JPanel {
 	    }
 	    if (card instanceof UndeadCard) {
 	    	Image img = ImageIO.read(new File("img/undead/empty.png"));
+	    	labelBackground.setIcon(new ImageIcon(img
+					.getScaledInstance(200,300, 
+					Image.SCALE_DEFAULT)));
+	    }
+	    if (card instanceof WizardCard) {
+	    	Image img = ImageIO.read(new File("img/wizard/empty.png"));
 	    	labelBackground.setIcon(new ImageIcon(img
 					.getScaledInstance(200,300, 
 					Image.SCALE_DEFAULT)));

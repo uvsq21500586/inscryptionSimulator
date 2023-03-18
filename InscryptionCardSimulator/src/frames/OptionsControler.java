@@ -83,6 +83,7 @@ public class OptionsControler  implements ActionListener,MouseListener {
 			options.getMenu().setLifePointsP2(Integer.parseInt(options.getLifePointsP2().getText()));
 			options.getMenu().setNbMainCards2(Integer.parseInt(options.getNbMainCardsP2().getText()));
 			options.getMenu().setNbSourceCards2(Integer.parseInt(options.getNbSourceCardsP2().getText()));
+			options.getMenu().setNbSupCards2(Integer.parseInt(options.getNbSupCardsP2().getText()));
 		}
 	}
 

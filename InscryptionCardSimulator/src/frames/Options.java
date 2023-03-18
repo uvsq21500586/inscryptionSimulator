@@ -17,7 +17,7 @@ import frames.duelbuttons.CardPanel;
 import frames.menubuttons.ButtonToDuel;
 
 public class Options extends JFrame {
-	private String listTypes[] = {"beast", "robot", "undead"}; 
+	private String listTypes[] = {"beast", "robot", "undead","wizard"}; 
 	
 	private Menu menu;
 	

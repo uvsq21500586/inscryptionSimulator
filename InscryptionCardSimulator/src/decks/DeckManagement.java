@@ -10,6 +10,7 @@ import cards.BeastCard;
 import cards.Card;
 import cards.RobotCard;
 import cards.UndeadCard;
+import cards.WizardCard;
 import effects.Effect;
 
 public class DeckManagement {
@@ -103,6 +104,9 @@ public class DeckManagement {
 		if  (cardToRemplace instanceof UndeadCard && cardToAdd instanceof UndeadCard) {
 			return true;
 		}
+		if  (cardToRemplace instanceof WizardCard && cardToAdd instanceof WizardCard) {
+			return true;
+		}
 		
 		return false;
 	}
@@ -113,6 +117,39 @@ public class DeckManagement {
 		int bloodCost = 0;
 		int boneCost = 0;
 		int energyCost = 0;
+		int moxCost = 0;
+		int greenmox = 0;
+		int orangemox = 0;
+		int bluemox = 0;
+		int lvlMaxgreenmox = 0;
+		int lvlMaxorangemox = 0;
+		int lvlMaxbluemox = 0;
+		int maxsumlevelmox = 0;
+		
+		for (int i=0; i<sourceDeck.size(); i++) {
+			Card card = sourceDeck.get(i);
+			Optional<Effect> green_gem = card.getEffects().stream().filter(effect -> effect.getName().equals("green_gem")).findFirst();
+			Optional<Effect> orange_gem = card.getEffects().stream().filter(effect -> effect.getName().equals("orange_gem")).findFirst();
+			Optional<Effect> blue_gem = card.getEffects().stream().filter(effect -> effect.getName().equals("blue_gem")).findFirst();
+			int sumlevelmox = 0;
+			if (green_gem.isPresent()) {
+				greenmox += green_gem.get().getLevel();
+				sumlevelmox += green_gem.get().getLevel();
+				lvlMaxgreenmox = Math.max(lvlMaxgreenmox, green_gem.get().getLevel());
+			}
+			if (orange_gem.isPresent()) {
+				orangemox += orange_gem.get().getLevel();
+				sumlevelmox += orange_gem.get().getLevel();
+				lvlMaxorangemox = Math.max(lvlMaxorangemox, orange_gem.get().getLevel());
+			}
+			if (blue_gem.isPresent()) {
+				bluemox += blue_gem.get().getLevel();
+				sumlevelmox += blue_gem.get().getLevel();
+				lvlMaxbluemox = Math.max(lvlMaxbluemox, blue_gem.get().getLevel());
+			}
+			maxsumlevelmox = Math.max(maxsumlevelmox, sumlevelmox);
+		}
+		
 		//playable?
 		List<Card> playableMainDeck = new ArrayList<>();
 		for (int i=0;i<mainDeck.size();i++) {
@@ -124,10 +161,12 @@ public class DeckManagement {
 					boneCost ++;
 				} else if (card instanceof RobotCard) {
 					energyCost ++;
+				} else if (card instanceof WizardCard) {
+					moxCost ++;
 				}
 			}
 			
-			if (invocable(card, playableMainDeck, sourceDeck, nbPotentialBones)) {
+			if (invocable(card, playableMainDeck, sourceDeck, nbPotentialBones,lvlMaxgreenmox,lvlMaxorangemox,lvlMaxbluemox,maxsumlevelmox)) {
 				if (card.getLevel() == 0) { 
 					nbPotentialBones++;
 				} else if (card instanceof BeastCard && !((BeastCard) card).getCostType().equals("bone")) {
@@ -210,6 +249,10 @@ public class DeckManagement {
 		if (energyCost > 0) {
 			nbTypesCosts ++;
 		}
+		if (moxCost > 0) {
+			nbTypesCosts ++;
+		}
+		
 		//other synergies
 		score += synergieRabbitOrBee(playableMainDeck);
 		
@@ -220,7 +263,9 @@ public class DeckManagement {
 		
 		int malusEnergyCost = malusEnergyCost(playableMainDeck);
 		
-		malusNoPlayable = malusNoPlayable * (1 + malusBlood + malusBone + malusEnergyCost);
+		int malusGemCost = malusGemsCost(playableMainDeck, greenmox, orangemox, bluemox);
+		
+		malusNoPlayable = malusNoPlayable * (1 + malusBlood + malusBone + malusEnergyCost + malusGemCost);
 		if (!doesDeckContainsAttack(playableMainDeck)) {
 			malusNoPlayable += Math.max(0, score) + malusNoPlayable;
 		}
@@ -233,10 +278,14 @@ public class DeckManagement {
 		if (malusEnergyCost>0) {
 			malusEnergyCost += Math.max(0, score/nbTypesCosts);
 		}
+		if (malusGemCost>0) {
+			malusGemCost += Math.max(0, score/nbTypesCosts);
+		}
 		
 		score -= malusBlood;
 		score -= malusBone;
 		score -= malusEnergyCost;
+		score -= malusGemCost;
 		score -= malusNoPlayable;
 		
 		
@@ -244,7 +293,8 @@ public class DeckManagement {
 		return score;
 	}
 	
-	private static boolean invocable(Card card, List<Card> mainDeck, List<Card> sourceDeck, int nbPotentialBones) {
+	private static boolean invocable(Card card, List<Card> mainDeck, List<Card> sourceDeck, int nbPotentialBones,
+			int lvlMaxgreenmox, int lvlMaxorangemox, int lvlMaxbluemox, int maxSumLevelsMox) {
 		if (card.getLevel() == 0) return true;
 		if (card instanceof BeastCard) {
 			if (((BeastCard) card).getCostType().equals("bone")) {
@@ -259,6 +309,13 @@ public class DeckManagement {
 		}
 		if (card instanceof UndeadCard) {
 			if (card.getLevel() > nbPotentialBones) return false;
+		}
+		if (card instanceof WizardCard) {
+			if (card.getLevel() > 2+maxSumLevelsMox) return false;
+			if (((WizardCard) card).getCostGreenMox() > 2+lvlMaxgreenmox) return false;
+			if (((WizardCard) card).getCostOrangeMox() > 2+lvlMaxorangemox) return false;
+			if (((WizardCard) card).getCostBlueMox() > 2+lvlMaxbluemox) return false;
+			return true;
 		}
 		/*int pos = mainDeck.indexOf(card);
 		for (int i=0;i<mainDeck.size();i++) {
@@ -355,6 +412,26 @@ public class DeckManagement {
 		}
 		if (marge<0) return marge*marge;
 		return 0;
+	}
+	
+	private static int malusGemsCost(List<Card> mainDeck, int nbGreenGems, int nbOrangeGems, int nbBlueGems) {
+		int greenmarge = nbGreenGems;
+		int orangemarge = nbOrangeGems;
+		int bluemarge = nbBlueGems;
+		for (int i=0;i<mainDeck.size();i++) {
+			Card card = mainDeck.get(i);
+			if (card.getLevel()>0 && card instanceof WizardCard ) {
+				//Optional<Effect> bone_king = card.getEffects().stream().filter(effect -> effect.getName().equals("bone_king")).findFirst();
+				greenmarge -= ((WizardCard)card).getCostGreenMox();
+				orangemarge -= ((WizardCard)card).getCostOrangeMox();
+				bluemarge -= ((WizardCard)card).getCostBlueMox();
+			}
+		}
+		greenmarge = Math.min(greenmarge, 0);
+		orangemarge = Math.min(orangemarge, 0);
+		bluemarge = Math.min(bluemarge, 0);
+		int someMalusMarge = greenmarge + orangemarge + bluemarge;
+		return someMalusMarge*someMalusMarge;
 	}
 	
 	private static int synergieRabbitOrBee(List<Card> mainDeck) {

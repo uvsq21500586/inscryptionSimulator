@@ -21,13 +21,16 @@ public class Effect {
 	public final static Map<String, Integer> mapEffectToCost = buildMapNamesEffectsToCost();
 	
 	public final static List<String> namesEffects = Arrays.asList("rabbit_hole","airborne","bee_within","sprinter_right","poison","fledgling","dambuilder","burrower","unkillable","sharp_quills",
-			"hefty_right","guardian","brittle","fecundity","loose_tail_right","corpse_eater","bone_king","mighty_leap","bifurcated_strike","scavenger");
+			"hefty_right","guardian","brittle","fecundity","loose_tail_right","corpse_eater","bone_king","mighty_leap","bifurcated_strike","scavenger",
+			"green_gem","orange_gem","blue_gem");
 	public final static List<String> namesBeastEffects = Arrays.asList("rabbit_hole","airborne","bee_within","sprinter_right","poison","fledgling","dambuilder","burrower","fecundity","loose_tail_right");
 	public final static List<String> namesRobotEffects = Arrays.asList("sprinter_right","poison","burrower","unkillable","sharp_quills","hefty_right","guardian","airborne","mighty_leap","bifurcated_strike");
 	public final static List<String> namesUndeadEffects = Arrays.asList("brittle","poison","corpse_eater","bone_king","unkillable","guardian","scavenger");
-	public final static List<String> namesLevelEffects = Arrays.asList("rabbit_hole","bee_within","poison","fledgling","dambuilder","unkillable","sharp_quills","loose_tail_right","corpse_eater","bone_king","scavenger");
+	public final static List<String> namesWizardEffects = Arrays.asList("green_gem","orange_gem","blue_gem");
+	public final static List<String> namesLevelEffects = Arrays.asList("rabbit_hole","bee_within","poison","fledgling","dambuilder","unkillable","sharp_quills","loose_tail_right","corpse_eater","bone_king",
+			"scavenger","green_gem","orange_gem","blue_gem");
 	public final static List<String> namesAttackEffects = Arrays.asList("airborne","poison","brittle","bifurcated_strike","scavenger");
-	public final static List<String> namesResourceEffects = Arrays.asList("bone_king","scavenger");
+	public final static List<String> namesResourceEffects = Arrays.asList("bone_king","scavenger","green_gem","orange_gem","blue_gem");
 	
 	String name;
 	int costStats;
@@ -126,6 +129,9 @@ public class Effect {
 		effectsToCost.put("mighty_leap",1);
 		effectsToCost.put("bifurcated_strike",4);
 		effectsToCost.put("scavenger",2);
+		effectsToCost.put("green_gem",2);
+		effectsToCost.put("orange_gem",2);
+		effectsToCost.put("blue_gem",2);
 		return effectsToCost;
 	}
 

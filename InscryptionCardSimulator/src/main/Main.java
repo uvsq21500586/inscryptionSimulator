@@ -15,6 +15,7 @@ import cards.BeastCard;
 import cards.Card;
 import cards.RobotCard;
 import cards.UndeadCard;
+import cards.WizardCard;
 import effects.Effect;
 
 class Main {
@@ -213,6 +214,43 @@ class Main {
 	    				  true);
 	    		  maindeck.add(newCard);
 	    	  }
+	    	  if (lineContent[0].equals("wizard")) {
+	    		  if (!lineContent[5].equals("_")) {
+		    		  if (lineContent[6].equals("_")) {
+		    			  effects.add(new Effect(lineContent[5], lineContent[0]));
+			    	  } else {
+			    		  effects.add(new Effect(lineContent[5], lineContent[0], Integer.parseInt(lineContent[6])));
+			    	  }
+		    		  
+		    		  if (!lineContent[7].equals("_")) {
+			    		  if (lineContent[8].equals("_")) {
+			    			  effects.add(new Effect(lineContent[7], lineContent[0]));
+				    	  } else {
+				    		  effects.add(new Effect(lineContent[7], lineContent[0], Integer.parseInt(lineContent[8])));
+				    	  }
+			    		  if (!lineContent[9].equals("_")) {
+				    		  if (lineContent[10].equals("_")) {
+				    			  effects.add(new Effect(lineContent[9], lineContent[0]));
+					    	  } else {
+					    		  effects.add(new Effect(lineContent[9], lineContent[0], Integer.parseInt(lineContent[10])));
+					    	  }
+				    	  }
+			    	  }
+		    	  }
+	    		  WizardCard newCard = new WizardCard(
+	    				  lineContent[1],
+	    				  Integer.parseInt(lineContent[13]),
+	    				  Integer.parseInt(lineContent[14]),
+	    				  Integer.parseInt(lineContent[15]),
+	    				  Integer.parseInt(lineContent[16]),
+	    				  Integer.parseInt(lineContent[2]),
+	    				  Integer.parseInt(lineContent[3]),
+	    				  Integer.parseInt(lineContent[4]),
+	    				  effects,
+	    				  Integer.parseInt(lineContent[17]),
+	    				  true);
+	    		  maindeck.add(newCard);
+	    	  }
 	    	  line = br.readLine();
 	      }
 	      List<Card> sourcedeck = new ArrayList<>();
@@ -326,6 +364,43 @@ class Main {
 	    				  Integer.parseInt(lineContent[4]),
 	    				  effects,
 	    				  Integer.parseInt(lineContent[11]),
+	    				  false);
+	    		  sourcedeck.add(newCard);
+	    	  }
+	    	  if (lineContent[0].equals("wizard")) {
+	    		  if (!lineContent[5].equals("_")) {
+		    		  if (lineContent[6].equals("_")) {
+		    			  effects.add(new Effect(lineContent[5], lineContent[0]));
+			    	  } else {
+			    		  effects.add(new Effect(lineContent[5], lineContent[0], Integer.parseInt(lineContent[6])));
+			    	  }
+		    		  
+		    		  if (!lineContent[7].equals("_")) {
+			    		  if (lineContent[8].equals("_")) {
+			    			  effects.add(new Effect(lineContent[7], lineContent[0]));
+				    	  } else {
+				    		  effects.add(new Effect(lineContent[7], lineContent[0], Integer.parseInt(lineContent[8])));
+				    	  }
+			    		  if (!lineContent[9].equals("_")) {
+				    		  if (lineContent[10].equals("_")) {
+				    			  effects.add(new Effect(lineContent[9], lineContent[0]));
+					    	  } else {
+					    		  effects.add(new Effect(lineContent[9], lineContent[0], Integer.parseInt(lineContent[10])));
+					    	  }
+				    	  }
+			    	  }
+		    	  }
+	    		  WizardCard newCard = new WizardCard(
+	    				  lineContent[1],
+	    				  Integer.parseInt(lineContent[13]),
+	    				  Integer.parseInt(lineContent[14]),
+	    				  Integer.parseInt(lineContent[15]),
+	    				  Integer.parseInt(lineContent[16]),
+	    				  Integer.parseInt(lineContent[2]),
+	    				  Integer.parseInt(lineContent[3]),
+	    				  Integer.parseInt(lineContent[4]),
+	    				  effects,
+	    				  Integer.parseInt(lineContent[17]),
 	    				  false);
 	    		  sourcedeck.add(newCard);
 	    	  }
