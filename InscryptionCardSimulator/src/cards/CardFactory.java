@@ -51,7 +51,7 @@ public class CardFactory {
 			return beastCardSource(modulo, multiplicator, globalStrengh, rarityStrengh, u, levelRarity);
 		} else if (type.equals("robot")) {
 			return robotCardSource(modulo, multiplicator, globalStrengh, rarityStrengh, u, levelRarity);
-		} else if (type.equals("robot")) {
+		} else if (type.equals("undead")) {
 			return undeadCardSource(modulo, multiplicator, globalStrengh, rarityStrengh, u, levelRarity);
 		}
 		

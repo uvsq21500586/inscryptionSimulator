@@ -24,7 +24,7 @@ public class Menu extends JFrame {
 	//codes interdits: 1-1 (sauf pour P2 pour farmer),4-2,  5-2,7-2,9-2,9-3,10-3,11-2,11-3,12-2,12-3,
 	//14-1,14-3,15-1, 16-{3+4},17-{2+3+4},18-2
 	
-	//j1: 18-3(10)?, booster value = 1*4+1=5, vies: 1/1
+	//j1: 18-3(10)?, booster value = 2*4+1=9, vies: 1/1
 	//crédits: 0
 	//j2: 1-1(1)
 	
