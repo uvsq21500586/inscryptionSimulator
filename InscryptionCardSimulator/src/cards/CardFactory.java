@@ -15,7 +15,7 @@ public class CardFactory {
 	
 	public static String undeadAppearances[] = {"armored_zombie","bone_lord","bone_lords_horn","bone_pile","bone_prince","dead_hand","dead_pets","draugr","drowned_soul","ember_spirit"};
 	
-	public static String wizardAppearances[] = {"alchemist","amalgam_wiz","bignificus","blue_mage","blue_mage_fused","boss_stim_mage"};
+	public static String wizardAppearances[] = {"alchemist","amalgam_wiz","bignificus","blue_mage","blue_mage_fused","boss_stim_mage","fire_node","flying_mage"};
 	
 	public static Card mainCard(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u0, String type) throws IOException {
 		int u = u0;

@@ -1,9 +1,7 @@
 package decks;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import cards.BeastCard;
@@ -15,7 +13,8 @@ import effects.Effect;
 
 public class DeckManagement {
 	
-	public static List<Card> optimizeMainDeck(List<Card> mainDeck, List<Card> sourceDeck, List<Card> mainBooster) {
+	public static List<Card> optimizeMainDeck(List<Card> mainDeck, List<Card> sourceDeck, List<Card> mainBooster,
+			boolean greenWiz, boolean orangeWiz, boolean blueWiz) {
 		List<Card> mainCopyDeck = new ArrayList<>();
 		List<Card> mainCopyBestDeck = new ArrayList<>();
 		for (int i=0;i<mainDeck.size();i++) {
@@ -25,8 +24,41 @@ public class DeckManagement {
 		for (int i=0;i<mainBooster.size();i++) {
 			int bestPos = 0;
 			int bestScore = bestScoreDeck;
+			boolean maybeRemplace = true;
+			if (mainBooster.get(i) instanceof WizardCard) {
+				WizardCard wizCard = (WizardCard)mainBooster.get(i);
+				if (wizCard.getCostGreenMox()>0 && !greenWiz) {
+					maybeRemplace = false;
+				}
+				if (wizCard.getCostOrangeMox()>0 && !orangeWiz) {
+					maybeRemplace = false;
+				}
+				if (wizCard.getCostBlueMox()>0 && !blueWiz) {
+					maybeRemplace = false;
+				}
+			}
+			if (maybeRemplace) {
+				boolean swithPreferedMageCard = false;
 			for (int j=0;j<mainDeck.size();j++) {
 				Card cardToRemplace = mainDeck.get(j);
+				if (cardToRemplace instanceof WizardCard) {
+					boolean shouldbeRemplace = false;
+					if (((WizardCard) cardToRemplace).getCostGreenMox()>0 && !greenWiz) {
+						shouldbeRemplace = true;
+					}
+					if (((WizardCard) cardToRemplace).getCostOrangeMox()>0 && !orangeWiz) {
+						shouldbeRemplace = true;
+					}
+					if (((WizardCard) cardToRemplace).getCostBlueMox()>0 && !blueWiz) {
+						shouldbeRemplace = true;
+					}
+					if (shouldbeRemplace && mainBooster.get(i) instanceof WizardCard) {
+						swithPreferedMageCard = true;
+						mainDeck.set(j,mainBooster.get(i));
+						break;
+					}
+				}
+				
 				if (similarTypeAndCostCards(mainBooster.get(i), cardToRemplace)) {
 					mainCopyDeck = new ArrayList<>();
 					for (int k=0;k<mainDeck.size();k++) {
@@ -46,9 +78,10 @@ public class DeckManagement {
 				
 				
 			}
-			if (bestScore>bestScoreDeck) {
+			if (!swithPreferedMageCard && bestScore>bestScoreDeck) {
 				bestScoreDeck = bestScore;
 				mainDeck.set(bestPos,mainBooster.get(i));
+			}
 			}
 		}
 		
@@ -106,7 +139,15 @@ public class DeckManagement {
 			return true;
 		}
 		if  (cardToRemplace instanceof WizardCard && cardToAdd instanceof WizardCard) {
-			return true;
+			boolean greencardToRemplace = ((WizardCard) cardToRemplace).getCostGreenMox()>0;
+			boolean orangecardToRemplace = ((WizardCard) cardToRemplace).getCostOrangeMox()>0;
+			boolean bluecardToRemplace = ((WizardCard) cardToRemplace).getCostBlueMox()>0;
+			boolean greencardToToAdd = ((WizardCard) cardToAdd).getCostGreenMox()>0;
+			boolean orangecardToToAdd = ((WizardCard) cardToAdd).getCostOrangeMox()>0;
+			boolean bluecardToToAdd = ((WizardCard) cardToAdd).getCostBlueMox()>0;
+			
+			return (greencardToRemplace == greencardToToAdd && orangecardToRemplace == orangecardToToAdd
+					&& bluecardToRemplace == bluecardToToAdd);
 		}
 		
 		return false;
@@ -520,12 +561,13 @@ public class DeckManagement {
 	}
 	
 	private static boolean doesDeckContainsAttack(List<Card> mainDeck) {
-		boolean attaquant = false;
 		for (int i=0;i<mainDeck.size();i++) {
 			if (mainDeck.get(i).getAttack()>0 && mainDeck.get(i).getEffects().stream().noneMatch(effect -> effect.getName().equals("brittle"))) {
 				return true;
 			}
-			if (mainDeck.get(i).getEffects().stream().anyMatch(effect -> effect.getName().equals("fledgling"))) {
+			if (mainDeck.get(i).getEffects().stream().anyMatch(effect -> effect.getName().equals("fledgling"))
+					|| mainDeck.get(i).getEffects().stream().anyMatch(effect -> effect.getName().equals("gem_animator"))
+					) {
 				return true;
 			}
 		}

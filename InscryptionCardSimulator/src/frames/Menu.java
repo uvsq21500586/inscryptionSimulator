@@ -24,9 +24,9 @@ public class Menu extends JFrame {
 	//codes interdits: 1-1 (sauf pour P2 pour farmer),4-2,  5-2,7-2,9-2,9-3,10-3,11-2,11-3,12-2,12-3,
 	//14-1,14-3,15-1, 16-{3+4},17-{2+3+4},18-{2-4},19-{3-4},20-3
 	
-	//j1:(20) 20-4(5)?, booster value = 2*4+1=9, vies: 1/1
-	//crédits: 0
-	//j2: 4-1(4)
+	//j1:(20) 17-4*2(2-1)?, booster value = 1*4+1=5, vies: 2/2
+	//crédits: 4
+	//j2: 3-1(3)
 	
 	//default parameters
 	private Integer modulo1 = 11;
@@ -60,7 +60,15 @@ public class Menu extends JFrame {
 	private ButtonToBuildDeck buttonToBuildDeck;
 	private ButtonToSeeDeck buttonToSeeDeck;
 	private ButtonToOptions buttonOptions;
-
+	
+	private JCheckBox checkGreenMageP1 = new JCheckBox("greenP1");
+	private JCheckBox checkOrangeMageP1 = new JCheckBox("orangeP1");
+	private JCheckBox checkBlueMageP1 = new JCheckBox("blueP1");
+	
+	private JCheckBox checkGreenMageP2 = new JCheckBox("greenP2");
+	private JCheckBox checkOrangeMageP2 = new JCheckBox("orangeP2");
+	private JCheckBox checkBlueMageP2 = new JCheckBox("blueP2");
+	
 	public Menu() {
 		super("Menu");
 	}
@@ -100,6 +108,49 @@ public class Menu extends JFrame {
 		this.getContentPane().add(buttonToSeeDeck);
 		this.getContentPane().add(buttonBoosterCard);
 		this.getContentPane().add(buttonOptions);
+		Font font = Font.createFont(Font.TRUETYPE_FONT, new File("conthrax-sb.ttf"));
+		JLabel wizardTypesP1 = new JLabel("Preference wizard types P1:");
+		wizardTypesP1.setBounds(1000,150,400,50);
+		wizardTypesP1.setFont(font.deriveFont(Font.BOLD,18f));
+		wizardTypesP1.setForeground(new Color(255,255,255));
+		this.getContentPane().add(wizardTypesP1);
+		checkGreenMageP1.setBounds(1000,200,400,50);
+		checkGreenMageP1.setFont(font.deriveFont(Font.BOLD,18f));
+		checkGreenMageP1.setForeground(new Color(255,255,255));
+		checkGreenMageP1.setOpaque(false);
+		this.getContentPane().add(checkGreenMageP1);
+		checkOrangeMageP1.setBounds(1000,250,400,50);
+		checkOrangeMageP1.setFont(font.deriveFont(Font.BOLD,18f));
+		checkOrangeMageP1.setForeground(new Color(255,255,255));
+		checkOrangeMageP1.setOpaque(false);
+		this.getContentPane().add(checkOrangeMageP1);
+		checkBlueMageP1.setBounds(1000,300,400,50);
+		checkBlueMageP1.setFont(font.deriveFont(Font.BOLD,18f));
+		checkBlueMageP1.setForeground(new Color(255,255,255));
+		checkBlueMageP1.setOpaque(false);
+		this.getContentPane().add(checkBlueMageP1);
+		
+		JLabel wizardTypesP2 = new JLabel("Preference wizard types P2:");
+		wizardTypesP2.setBounds(1000,400,400,50);
+		wizardTypesP2.setFont(font.deriveFont(Font.BOLD,18f));
+		wizardTypesP2.setForeground(new Color(255,255,255));
+		this.getContentPane().add(wizardTypesP2);
+		checkGreenMageP2.setBounds(1000,450,400,50);
+		checkGreenMageP2.setFont(font.deriveFont(Font.BOLD,18f));
+		checkGreenMageP2.setForeground(new Color(255,255,255));
+		checkGreenMageP2.setOpaque(false);
+		this.getContentPane().add(checkGreenMageP2);
+		checkOrangeMageP2.setBounds(1000,500,400,50);
+		checkOrangeMageP2.setFont(font.deriveFont(Font.BOLD,18f));
+		checkOrangeMageP2.setForeground(new Color(255,255,255));
+		checkOrangeMageP2.setOpaque(false);
+		this.getContentPane().add(checkOrangeMageP2);
+		checkBlueMageP2.setBounds(1000,550,400,50);
+		checkBlueMageP2.setFont(font.deriveFont(Font.BOLD,18f));
+		checkBlueMageP2.setForeground(new Color(255,255,255));
+		checkBlueMageP2.setOpaque(false);
+		this.getContentPane().add(checkBlueMageP2);
+		
 		
 		this.getContentPane().add(panelBackground);
 		
@@ -473,6 +524,78 @@ public class Menu extends JFrame {
 
 	public void setNbSupCards2(Integer nbSupCards2) {
 		this.nbSupCards2 = nbSupCards2;
+	}
+
+
+
+	public JCheckBox getCheckGreenMageP1() {
+		return checkGreenMageP1;
+	}
+
+
+
+	public void setCheckGreenMageP1(JCheckBox checkGreenMageP1) {
+		this.checkGreenMageP1 = checkGreenMageP1;
+	}
+
+
+
+	public JCheckBox getCheckOrangeMageP1() {
+		return checkOrangeMageP1;
+	}
+
+
+
+	public void setCheckOrangeMageP1(JCheckBox checkOrangeMageP1) {
+		this.checkOrangeMageP1 = checkOrangeMageP1;
+	}
+
+
+
+	public JCheckBox getCheckBlueMageP1() {
+		return checkBlueMageP1;
+	}
+
+
+
+	public void setCheckBlueMageP1(JCheckBox checkBlueMageP1) {
+		this.checkBlueMageP1 = checkBlueMageP1;
+	}
+
+
+
+	public JCheckBox getCheckGreenMageP2() {
+		return checkGreenMageP2;
+	}
+
+
+
+	public void setCheckGreenMageP2(JCheckBox checkGreenMageP2) {
+		this.checkGreenMageP2 = checkGreenMageP2;
+	}
+
+
+
+	public JCheckBox getCheckOrangeMageP2() {
+		return checkOrangeMageP2;
+	}
+
+
+
+	public void setCheckOrangeMageP2(JCheckBox checkOrangeMageP2) {
+		this.checkOrangeMageP2 = checkOrangeMageP2;
+	}
+
+
+
+	public JCheckBox getCheckBlueMageP2() {
+		return checkBlueMageP2;
+	}
+
+
+
+	public void setCheckBlueMageP2(JCheckBox checkBlueMageP2) {
+		this.checkBlueMageP2 = checkBlueMageP2;
 	}
 	
 	

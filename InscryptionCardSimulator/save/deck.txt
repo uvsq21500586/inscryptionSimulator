@@ -1,15 +1,14 @@
 main deck:
-robot;xformergrizzlybot;2;3;0;_;_;_;_;_;_;_;_;0
-robot;buff_conduit;6;1;2;_;_;_;_;_;_;_;_;0
-robot;buff_conduit;1;2;1;brittle;_;_;_;_;_;_;_;0
-robot;xformergrizzlybot;2;3;0;_;_;_;_;_;_;_;_;0
-robot;gems_conduit;3;1;0;sharp_quills;1;_;_;_;_;_;_;0
-robot;xformergrizzlybot;2;3;0;_;_;_;_;_;_;_;_;0
-robot;xformergrizzlybot;2;3;0;_;_;_;_;_;_;_;_;0
+beast;magpie;bone;7;2;0;_;_;_;_;_;_;_;_;0
+beast;turkey_vulture;blood;3;1;0;fledgling;2;sprinter_right;_;_;_;_;_;0
+beast;raven_egg;blood;1;2;0;_;_;_;_;_;_;_;_;0
+beast;magpie;blood;2;1;1;sprinter_right;_;_;_;_;_;_;_;0
+beast;raven_egg;blood;2;2;1;airborne;_;_;_;_;_;_;_;0
+beast;magpie;blood;2;1;1;sprinter_right;_;_;_;_;_;_;_;0
 source deck:
-robot;empty_vessel;1;2;0;_;_;_;_;_;_;_;_;0
-robot;empty_vessel;1;2;0;_;_;_;_;_;_;_;_;0
-robot;empty_vessel;1;1;0;sprinter_right;_;_;_;_;_;_;_;0
-robot;empty_vessel;1;2;0;_;_;_;_;_;_;_;_;0
-robot;empty_vessel;1;1;0;sprinter_right;_;_;_;_;_;_;_;0
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
 fin

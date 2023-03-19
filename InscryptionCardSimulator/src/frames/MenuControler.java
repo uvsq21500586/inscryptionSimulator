@@ -99,7 +99,8 @@ public class MenuControler implements ActionListener,MouseListener {
 						supSourceCardsP2.add(newCard);
 					}
 					
-					mainDeck2 = DeckManagement.optimizeMainDeck(mainDeck2, sourceDeck2, supMainCardsP2);
+					mainDeck2 = DeckManagement.optimizeMainDeck(mainDeck2, sourceDeck2, supMainCardsP2,
+							menu.getCheckGreenMageP2().isSelected(),menu.getCheckOrangeMageP2().isSelected(),menu.getCheckBlueMageP2().isSelected());
 					sourceDeck2 = DeckManagement.optimizeSourceDeck(mainDeck2, sourceDeck2, supSourceCardsP2);
 					
 					duel.open(menu.getMainDeck1(), mainDeck2, menu.getSourceDeck1(), sourceDeck2, menu.getLifePointsP1(), menu.getLifePointsP2());
@@ -279,7 +280,8 @@ public class MenuControler implements ActionListener,MouseListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			menu.setMainDeck1(DeckManagement.optimizeMainDeck(menu.getMainDeck1(),menu.getSourceDeck1(), boosterMain));
+			menu.setMainDeck1(DeckManagement.optimizeMainDeck(menu.getMainDeck1(),menu.getSourceDeck1(), boosterMain,
+					menu.getCheckGreenMageP1().isSelected(),menu.getCheckOrangeMageP1().isSelected(),menu.getCheckBlueMageP1().isSelected()));
 			menu.setSourceDeck1(DeckManagement.optimizeSourceDeck(menu.getMainDeck1(),menu.getSourceDeck1(), boosterSource));
 			saveDeck(menu.getMainDeck1(), menu.getSourceDeck1());
 		}
