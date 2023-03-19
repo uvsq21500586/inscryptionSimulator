@@ -22,11 +22,11 @@ import frames.menubuttons.ButtonToSimulatorCard;
 public class Menu extends JFrame {
 	//types: beast robot undead wizard
 	//codes interdits: 1-1 (sauf pour P2 pour farmer),4-2,  5-2,7-2,9-2,9-3,10-3,11-2,11-3,12-2,12-3,
-	//14-1,14-3,15-1, 16-{3+4},17-{2+3+4},18-2
+	//14-1,14-3,15-1, 16-{3+4},17-{2+3+4},18-{2-4},19-{3-4},20-3
 	
-	//j1: 18-3(10)?, booster value = 2*4+1=9, vies: 1/1
+	//j1:(20) 20-4(5)?, booster value = 2*4+1=9, vies: 1/1
 	//crédits: 0
-	//j2: 1-1(1)
+	//j2: 4-1(4)
 	
 	//default parameters
 	private Integer modulo1 = 11;

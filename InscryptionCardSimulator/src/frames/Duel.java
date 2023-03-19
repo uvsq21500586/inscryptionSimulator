@@ -245,23 +245,29 @@ public class Duel extends JFrame {
 	}
 	
 	private void buildDecks() throws IOException {
-		sourceDeck1.add(WizardCard.sourceCard(1, Arrays.asList(new Effect("orange_gem","wizard",1))));
+		//sourceDeck1.add(WizardCard.sourceCard(1, Arrays.asList(new Effect("orange_gem","wizard",1))));
 		sourceDeck1.add(UndeadCard.sourceCard(1, 1, Arrays.asList(new Effect("brittle","undead"))));
+		sourceDeck1.add(WizardCard.sourceCard(1, Arrays.asList(new Effect("orange_gem","wizard",1))));
+		sourceDeck1.add(WizardCard.sourceCard(1, Arrays.asList(new Effect("orange_gem","wizard",1))));
 		sourceDeck2.add(WizardCard.sourceCard(1, Arrays.asList(new Effect("orange_gem","wizard",1))));
 		sourceDeck2.add(BeastCard.sourceCard(1, new ArrayList<>()));
 		sourceDeck1.add(BeastCard.sourceCard(1, new ArrayList<>()));
 		sourceDeck2.add(BeastCard.sourceCard(1, new ArrayList<>()));
 		sourceDeck1.add(BeastCard.sourceCard(1, new ArrayList<>()));
 		sourceDeck2.add(BeastCard.sourceCard(1, new ArrayList<>()));
-		List<Effect> effects = new LinkedList<>(Arrays.asList(new Effect("burrower","robot"), new Effect("bifurcated_strike","robot")));
+		List<Effect> effects = new LinkedList<>(Arrays.asList(new Effect("trifurcated_strike","robot"), new Effect("bifurcated_strike","robot")));
 		List<Effect> effects2 = new LinkedList<>(Arrays.asList(new Effect("detonator","undead",1)));
-		mainDeck1.add(RobotCard.mainCard("s0n1a", 1, 1, 0, effects));
+		List<Effect> effects3 = new LinkedList<>(Arrays.asList(new Effect("ruby_heart","wizard",1), new Effect("emerald_heart","wizard",1)));
+		mainDeck1.add(RobotCard.mainCard("s0n1a", 1, 1, 1, effects));
 		//mainDeck1.add(UndeadCard.mainCard("bone_lord", 1, 1, 1, effects2));
-		mainDeck1.add(WizardCard.mainCard("alchemist", 0, 0, 1, 0, 1, 1, 1, Arrays.asList(new Effect("gem_animator","wizard",2))));
-		mainDeck1.add(BeastCard.mainCard("kingfisher", "blood", 1, 1, 1, new ArrayList<>()));
+		mainDeck1.add(WizardCard.mainCard("alchemist", 0, 0, 1, 0, 1, 1, 0, Arrays.asList(new Effect("gem_animator","wizard",2))));
+		mainDeck1.add(WizardCard.mainCard("blue_mage", 0, 0, 1, 0, 1, 1, 1, effects3));
+		mainDeck1.add(BeastCard.mainCard("kingfisher", "blood", 1, 1, 1, Arrays.asList(new Effect("bee_within","beast",1))));
 		mainDeck1.add(BeastCard.mainCard("kingfisher", "bone", 2, 1, 1, new ArrayList<>()));
 		mainDeck1.add(BeastCard.mainCard("kingfisher", "bone", 1, 1, 1, new ArrayList<>()));
 		//mainDeck2.add(RobotCard.mainCard("s0n1a", 1, 5, 1, effects2));
+		mainDeck2.add(WizardCard.mainCard("alchemist", 0, 0, 1, 0, 1, 1, 0, Arrays.asList(new Effect("gem_animator","wizard",2))));
+		mainDeck2.add(WizardCard.mainCard("blue_mage", 0, 0, 1, 0, 1, 1, 1, effects3));
 		mainDeck2.add(UndeadCard.mainCard("bone_lord", 1, 1, 1, effects2));
 		mainDeck2.add(BeastCard.mainCard("kingfisher", "blood", 1, 1, 1, new ArrayList<>()));
 		mainDeck2.add(BeastCard.mainCard("kingfisher", "blood", 1, 1, 1, new ArrayList<>()));
@@ -270,6 +276,8 @@ public class Duel extends JFrame {
 	
 	public void drawBegininCards() throws IOException, FontFormatException {
 		handCard1.add(new CardPanel(sourceDeck1.get(0)));
+		handCard1.add(new CardPanel(sourceDeck1.get(1)));
+		handCard1.add(new CardPanel(sourceDeck1.get(2)));
 		handCard1.add(new CardPanel(mainDeck1.get(0)));
 		handCard1.add(new CardPanel(mainDeck1.get(1)));
 		handCard1.add(new CardPanel(mainDeck1.get(2)));
@@ -356,13 +364,13 @@ public class Duel extends JFrame {
 		//combat
 		if (!turnJ2) {
 			for (int i=0;i<4;i++) {
-				if (buttonPlaceCard[i].getCardPanel() != null) {
+				if (buttonPlaceCard[i].getCardPanel() != null && buttonPlaceCard[i].getCardPanel().getCard().getAttack()>0) {
 					buttonPlaceCard[i].getCardPanel().getCard().attackPlayer2(this, buttonPlaceCard, i, duelControler);
 				}
 			}
 		} else {
 			for (int i=0;i<4;i++) {
-				if (buttonPlaceCard[i].getCardPanel() != null) {
+				if (buttonPlaceCard[i].getCardPanel() != null && buttonPlaceCard[i].getCardPanel().getCard().getAttack()>0) {
 					buttonPlaceCard[i].getCardPanel().getCard().attackPlayer1(this, buttonPlaceCard, i, duelControler);
 				}
 			}
@@ -425,24 +433,27 @@ public class Duel extends JFrame {
 					if (unkillableEffect.isPresent()) {
 						//unkillable
 						applyUnkillableEffect(i, copycard, card, unkillableEffect);
+						if (!turnJ2) {
+							Optional<Effect> bone_kingEffect = card.getEffects().stream().filter(effect -> effect.getName().equals("bone_king")).findFirst();
+							if (bone_kingEffect.isPresent()) {
+								setBoneP1(getBoneP1()+ 1 + 3*bone_kingEffect.get().getLevel());
+							} else {
+								setBoneP1(getBoneP1()+1);
+							}
+						} else {
+							Optional<Effect> bone_kingEffect = card.getEffects().stream().filter(effect -> effect.getName().equals("bone_king")).findFirst();
+							if (bone_kingEffect.isPresent()) {
+								setBoneP2(getBoneP2()+ 1 + 3*bone_kingEffect.get().getLevel());
+							} else {
+								setBoneP2(getBoneP2()+1);
+							}
+						}
 					} else {
 						card.deadCard(this, buttonPlaceCard, i);
 					}
 					if (!turnJ2) {
-						Optional<Effect> bone_kingEffect = card.getEffects().stream().filter(effect -> effect.getName().equals("bone_king")).findFirst();
-						if (bone_kingEffect.isPresent()) {
-							setBoneP1(getBoneP1()+ 1 + 3*bone_kingEffect.get().getLevel());
-						} else {
-							setBoneP1(getBoneP1()+1);
-						}
 						card.corpse_eaterEffectP1(this, buttonPlaceCard, duelControler, i);
 					} else {
-						Optional<Effect> bone_kingEffect = card.getEffects().stream().filter(effect -> effect.getName().equals("bone_king")).findFirst();
-						if (bone_kingEffect.isPresent()) {
-							setBoneP2(getBoneP2()+ 1 + 3*bone_kingEffect.get().getLevel());
-						} else {
-							setBoneP2(getBoneP2()+1);
-						}
 						card.corpse_eaterEffectP2(this, buttonPlaceCard, duelControler, i);
 					}
 					
@@ -455,26 +466,28 @@ public class Duel extends JFrame {
 					if (unkillableEffect.isPresent()) {
 						//unkillable
 						applyUnkillableEffect(i, copycard, card, unkillableEffect);
-						
+						if (!turnJ2) {
+							Optional<Effect> bone_kingEffect = card.getEffects().stream().filter(effect -> effect.getName().equals("bone_king")).findFirst();
+							if (bone_kingEffect.isPresent()) {
+								setBoneP1(getBoneP1()+ 1 + 3*bone_kingEffect.get().getLevel());
+							} else {
+								setBoneP1(getBoneP1()+1);
+							}
+						} else {
+							Optional<Effect> bone_kingEffect = card.getEffects().stream().filter(effect -> effect.getName().equals("bone_king")).findFirst();
+							if (bone_kingEffect.isPresent()) {
+								setBoneP2(getBoneP2()+ 1 + 3*bone_kingEffect.get().getLevel());
+							} else {
+								setBoneP2(getBoneP2()+1);
+							}
+						}
 					} else {
 						card.deadCard(this, buttonPlaceCard, i);
 					}
 					
 					if (!turnJ2) {
-						Optional<Effect> bone_kingEffect = card.getEffects().stream().filter(effect -> effect.getName().equals("bone_king")).findFirst();
-						if (bone_kingEffect.isPresent()) {
-							setBoneP1(getBoneP1()+ 1 + 3*bone_kingEffect.get().getLevel());
-						} else {
-							setBoneP1(getBoneP1()+1);
-						}
 						card.corpse_eaterEffectP1(this, buttonPlaceCard, duelControler, i);
 					} else {
-						Optional<Effect> bone_kingEffect = card.getEffects().stream().filter(effect -> effect.getName().equals("bone_king")).findFirst();
-						if (bone_kingEffect.isPresent()) {
-							setBoneP2(getBoneP2()+ 1 + 3*bone_kingEffect.get().getLevel());
-						} else {
-							setBoneP2(getBoneP2()+1);
-						}
 						card.corpse_eaterEffectP2(this, buttonPlaceCard, duelControler, i);
 					}
 				}
@@ -645,6 +658,42 @@ public class Duel extends JFrame {
 			isFirstTurn = false;
 		}
 		
+	}
+	
+	public void recalculateAttk(Card card, int position) {
+		Integer attack = card.getAttack();
+		if (position<4) {
+			for (int i=0;i<4;i++ ) {
+				if (i!=position && buttonPlaceCard[i].getCardPanel() != null) {
+					//gem_animator
+					if (card instanceof WizardCard && !card.isMainDeck()) {
+						//mox
+						Optional<Effect> gem_animator = buttonPlaceCard[i].getCardPanel().getCard().getEffects().stream()
+								.filter(effect ->effect.getName().equals("gem_animator")).findFirst();
+						if (gem_animator.isPresent()) {
+							attack += gem_animator.get().getLevel();
+						}
+					}
+				}
+			}
+			
+		} else {
+			for (int i=4;i<7;i++ ) {
+				if (i!=position && buttonPlaceCard[i].getCardPanel() != null) {
+					//gem_animator
+					if (card instanceof WizardCard && !card.isMainDeck()) {
+						//mox
+						Optional<Effect> gem_animator = buttonPlaceCard[i].getCardPanel().getCard().getEffects().stream()
+								.filter(effect ->effect.getName().equals("gem_animator")).findFirst();
+						if (gem_animator.isPresent()) {
+							attack += gem_animator.get().getLevel();
+						}
+					}
+				}
+			}
+		}
+		card.setAttack(attack);
+		buttonPlaceCard[position].getCardPanel().getAttack().setText(attack.toString());
 	}
 
 	private void applyUnkillableEffect(int i, CardPanel copycard, Card card, Optional<Effect> unkillableEffect) {

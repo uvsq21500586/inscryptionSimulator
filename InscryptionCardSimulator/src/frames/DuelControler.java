@@ -241,6 +241,7 @@ public class DuelControler implements ActionListener,MouseListener {
 		
 		if (duel.getButtonPlaceCard()[0].equals(fieldCard) || duel.getButtonPlaceCard()[1].equals(fieldCard) || duel.getButtonPlaceCard()[2].equals(fieldCard) || duel.getButtonPlaceCard()[3].equals(fieldCard)) {
 			cardSelected.getCard().placeCard(duel, duel.getButtonPlaceCard(), cardSelected.getFieldPosition());
+			duel.recalculateAttk(cardSelected.getCard(), cardSelected.getFieldPosition());
 			if (cardSelected.getCard().getEffects().stream().anyMatch(effect -> effect.getName().equals("fecundity"))) {
 				if (cardSelected.getCard() instanceof BeastCard) {
 					BeastCard copycard = (BeastCard) cardSelected.getCard();

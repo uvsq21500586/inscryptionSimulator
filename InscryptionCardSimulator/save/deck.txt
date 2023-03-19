@@ -1,14 +1,15 @@
 main deck:
-undead;armored_zombie;3;1;1;_;_;_;_;_;_;0
-undead;bone_lord;1;2;0;_;_;_;_;_;_;0
-undead;bone_pile;5;1;2;guardian;_;brittle;_;_;_;0
-undead;dead_pets;6;2;1;detonator;_;_;_;_;_;0
-undead;bone_prince;4;3;0;_;_;_;_;_;_;0
-undead;dead_pets;6;2;1;detonator;_;_;_;_;_;0
+robot;xformergrizzlybot;2;3;0;_;_;_;_;_;_;_;_;0
+robot;buff_conduit;6;1;2;_;_;_;_;_;_;_;_;0
+robot;buff_conduit;1;2;1;brittle;_;_;_;_;_;_;_;0
+robot;xformergrizzlybot;2;3;0;_;_;_;_;_;_;_;_;0
+robot;gems_conduit;3;1;0;sharp_quills;1;_;_;_;_;_;_;0
+robot;xformergrizzlybot;2;3;0;_;_;_;_;_;_;_;_;0
+robot;xformergrizzlybot;2;3;0;_;_;_;_;_;_;_;_;0
 source deck:
-undead;skeleton;0;1;1;brittle;_;_;_;_;_;0
-undead;skeleton;0;1;1;brittle;_;airborne;_;_;_;0
-undead;skeleton;0;1;1;brittle;_;_;_;_;_;0
-undead;skeleton;0;1;1;brittle;_;_;_;_;_;0
-undead;skeleton;0;1;1;brittle;_;airborne;_;_;_;0
+robot;empty_vessel;1;2;0;_;_;_;_;_;_;_;_;0
+robot;empty_vessel;1;2;0;_;_;_;_;_;_;_;_;0
+robot;empty_vessel;1;1;0;sprinter_right;_;_;_;_;_;_;_;0
+robot;empty_vessel;1;2;0;_;_;_;_;_;_;_;_;0
+robot;empty_vessel;1;1;0;sprinter_right;_;_;_;_;_;_;_;0
 fin

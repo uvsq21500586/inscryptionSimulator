@@ -50,7 +50,7 @@ public class CardPanel extends JPanel {
 	    putBackGround(card, labelBackground);
 	    JLabel labelAppeareance = new JLabel("");
 	    level = new JLabel(card.getLevel().toString() + "x");
-    	level.setFont(font.deriveFont(Font.BOLD,24f));
+    	level.setFont(font.deriveFont(Font.BOLD,16f));
     	this.add(level);
     	level.setBounds(125,40,50,50);
 	    appearanceCard(card, labelAppeareance);
@@ -262,7 +262,7 @@ public class CardPanel extends JPanel {
 	    putBackGround(card, labelBackground);
 	    JLabel labelAppeareance = new JLabel("");
 	    level = new JLabel(card.getLevel().toString() + "x");
-    	level.setFont(font.deriveFont(Font.BOLD,24f));
+    	level.setFont(font.deriveFont(Font.BOLD,16f));
     	this.add(level);
     	level.setBounds(125,40,50,50);
     	

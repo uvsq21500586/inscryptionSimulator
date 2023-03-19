@@ -96,7 +96,7 @@ public class WizardCard extends Card {
 				}
 			}
 			
-			if (costGreenMox <= nbGreenGems && costOrangeMox <= nbOrangeGems && costBlueMox <= nbBlueGems && level>=(nbGreenGems + nbOrangeGems + nbBlueGems)) {
+			if (costGreenMox <= nbGreenGems && costOrangeMox <= nbOrangeGems && costBlueMox <= nbBlueGems && level<=(nbGreenGems + nbOrangeGems + nbBlueGems)) {
 				return true;
 			}
 		}

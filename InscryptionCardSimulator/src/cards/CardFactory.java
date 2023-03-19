@@ -10,7 +10,8 @@ public class CardFactory {
 	public static String beastAppearances[] = {"kingfisher", "raven_egg", "sparrow", "magpie", "raven", "turkey_vulture", "stunted_wolf","wolf_cub","bloodhound","dire_wolf",
 			"wolf","coyote"};
 	
-	public static String robotAppearances[] = {"xformerbatbot","s0n1a","xformerporcupinebot","qu177","xformergrizzlybot","gr1zz","bomb_latcher","exeskeleton","shield_latcher","skel_e_latcher"};
+	public static String robotAppearances[] = {"xformerbatbot","s0n1a","xformerporcupinebot","qu177","xformergrizzlybot","gr1zz","bomb_latcher","exeskeleton","shield_latcher","skel_e_latcher",
+			"buff_conduit","gems_conduit"};
 	
 	public static String undeadAppearances[] = {"armored_zombie","bone_lord","bone_lords_horn","bone_pile","bone_prince","dead_hand","dead_pets","draugr","drowned_soul","ember_spirit"};
 	
@@ -232,9 +233,9 @@ public class CardFactory {
 			lvlmax++;
 		}
 		u = (u * multiplicator + 2*levelRarity)%modulo;
-		level = 1 + u%(lvlmax-1);
+		level = 1 + u%(lvlmax);
 		u = (u * multiplicator + 2*levelRarity)%modulo;
-		level = Math.min(lvlmax, 1 + u%(lvlmax-1));
+		level = Math.min(level, 1 + u%(lvlmax));
 		u = (u * multiplicator + 2*levelRarity)%modulo;
 		nbstats = (level+1) * globalStrengh / 4 + levelRarity * rarityStrengh;
 		nbstats = nbstats - u%(1+globalStrengh/8);
@@ -533,10 +534,14 @@ public class CardFactory {
 				}
 		
 		//attack and hp
-		int bonusAttack = u%(1+nbstats/2);
-		if (effects.stream().anyMatch(effect -> effect.getName().equals("bifurcated_strike"))) {
-			bonusAttack = u%(1+nbstats/3);
-		}
+				int costAttack = 2;
+				if (effects.stream().anyMatch(effect -> effect.getName().equals("bifurcated_strike"))) {
+					costAttack ++;
+				}
+				if (effects.stream().anyMatch(effect -> effect.getName().equals("trifurcated_strike"))) {
+					costAttack += 2;
+				}
+				int bonusAttack = u%(1+nbstats/costAttack);
 		int attack = attackmin + bonusAttack;
 		int hp = 1 + nbstats - 2*bonusAttack;
 		u = (u * multiplicator + 2*levelRarity)%modulo;
@@ -821,10 +826,14 @@ public class CardFactory {
 				}
 		
 		//attack and hp
-		int bonusAttack = u%(1+nbstats/2);
+		int costAttack = 2;
 		if (effects.stream().anyMatch(effect -> effect.getName().equals("bifurcated_strike"))) {
-			bonusAttack = u%(1+nbstats/3);
+			costAttack ++;
 		}
+		if (effects.stream().anyMatch(effect -> effect.getName().equals("trifurcated_strike"))) {
+			costAttack += 2;
+		}
+		int bonusAttack = u%(1+nbstats/costAttack);
 		int attack = attackmin + bonusAttack;
 		int hp = 1 + nbstats - 2*bonusAttack;
 		u = (u * multiplicator + 2*levelRarity)%modulo;

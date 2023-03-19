@@ -72,6 +72,27 @@ public abstract class Card {
 			if (buttonPlaceCard[position] != null && buttonPlaceCard[position].getCardPanel().getCard().equals(this) && position<3) {
 				attackPlayer2WithTarget(duel, buttonPlaceCard, position, position+5, controler);
 			}
+			if (effects.stream().anyMatch(effect -> effect.getName().equals("bifurcated_strike"))){
+				if (buttonPlaceCard[position] != null && buttonPlaceCard[position].getCardPanel().getCard().equals(this) && position>0) {
+					attackPlayer2WithTarget(duel, buttonPlaceCard, position, position+3, controler);
+				}
+				if (buttonPlaceCard[position] != null && buttonPlaceCard[position].getCardPanel().getCard().equals(this)) {
+					attackPlayer2WithTarget(duel, buttonPlaceCard, position, position+4, controler);
+				}
+				if (buttonPlaceCard[position] != null && buttonPlaceCard[position].getCardPanel().getCard().equals(this) && position<3) {
+					attackPlayer2WithTarget(duel, buttonPlaceCard, position, position+5, controler);
+				}
+			}
+		} else if (effects.stream().anyMatch(effect -> effect.getName().equals("bifurcated_strike"))){
+			if (buttonPlaceCard[position] != null && buttonPlaceCard[position].getCardPanel().getCard().equals(this) && position>0) {
+				attackPlayer2WithTarget(duel, buttonPlaceCard, position, position+3, controler);
+			}
+			if (buttonPlaceCard[position] != null && buttonPlaceCard[position].getCardPanel().getCard().equals(this)) {
+				attackPlayer2WithTarget(duel, buttonPlaceCard, position, position+4, controler);
+			}
+			if (buttonPlaceCard[position] != null && buttonPlaceCard[position].getCardPanel().getCard().equals(this) && position<3) {
+				attackPlayer2WithTarget(duel, buttonPlaceCard, position, position+5, controler);
+			}
 		} else {
 			attackPlayer2WithTarget(duel, buttonPlaceCard, position, position+4, controler);
 		}
@@ -150,9 +171,36 @@ public abstract class Card {
 					} else {
 						//carte morte
 						deadCard(duel, buttonPlaceCard, position);
+						
+					}
+					Optional<Effect> ruby_heart = effects.stream().filter(effect -> effect.getName().equals("ruby_heart")).findFirst();
+					Optional<Effect> emerald_heart = effects.stream().filter(effect -> effect.getName().equals("emerald_heart")).findFirst();
+					if (ruby_heart.isPresent() || emerald_heart.isPresent()) {
+						CardPanel moxPanel = null;
+						List<Effect> newmoxEffect = new ArrayList<>();
+						if (ruby_heart.isPresent() && emerald_heart.isPresent()) {
+							newmoxEffect.add(new Effect("green_gem","wizard",1));
+							newmoxEffect.add(new Effect("orange_gem","wizard",1));
+							moxPanel = new CardPanel(new WizardCard("goranjs_mox", 0, 0, 0, 0, 0, emerald_heart.get().getLevel() + ruby_heart.get().getLevel(), 0, newmoxEffect, false));
+						} else if (ruby_heart.isPresent()) {
+							newmoxEffect.add(new Effect("orange_gem","wizard",1));
+							moxPanel = new CardPanel(new WizardCard("orange_mox", 0, 0, 0, 0, 0, ruby_heart.get().getLevel(), 0, newmoxEffect, false));
+						} else {
+							newmoxEffect.add(new Effect("green_gem","wizard",1));
+							moxPanel = new CardPanel(new WizardCard("green_gem", 0, 0, 0, 0, 0, emerald_heart.get().getLevel(), 0, newmoxEffect, false));
+						}
+						duel.getPanel().add(moxPanel,0);
+						moxPanel.setBounds(100 + 200 * (position%4), 310, 200, 300);
+						moxPanel.addMouseListener(controler);
+						buttonPlaceCard[position].setCardPanel(moxPanel);
+						moxPanel.setPosition("onField");
+						moxPanel.setFieldPosition(position);
+						moxPanel.addMouseListener(controler);
+						duel.recalculateAttk(moxPanel.getCard(), position);
+					} else {
+						corpse_eaterEffectP1(duel, buttonPlaceCard, controler, position);
 					}
 					
-					corpse_eaterEffectP1(duel, buttonPlaceCard, controler, position);
 				} else {
 					buttonPlaceCard[position].getCardPanel().getHp().setText(hp.toString());
 				}
@@ -195,7 +243,33 @@ public abstract class Card {
 				if (scavenger.isPresent()) {
 					duel.setBoneP1(duel.getBoneP1()+scavenger.get().getLevel());
 				}
-				advCard.corpse_eaterEffectP2(duel, buttonPlaceCard, controler, positionAdv);
+				Optional<Effect> ruby_heart_adv = advCard.getEffects().stream().filter(effect -> effect.getName().equals("ruby_heart")).findFirst();
+				Optional<Effect> emerald_heart_adv = advCard.getEffects().stream().filter(effect -> effect.getName().equals("emerald_heart")).findFirst();
+				if (ruby_heart_adv.isPresent() || emerald_heart_adv.isPresent()) {
+					CardPanel moxPanel = null;
+					List<Effect> newmoxEffect = new ArrayList<>();
+					if (ruby_heart_adv.isPresent() && emerald_heart_adv.isPresent()) {
+						newmoxEffect.add(new Effect("green_gem","wizard",1));
+						newmoxEffect.add(new Effect("orange_gem","wizard",1));
+						moxPanel = new CardPanel(new WizardCard("goranjs_mox", 0, 0, 0, 0, 0, emerald_heart_adv.get().getLevel() + ruby_heart_adv.get().getLevel(), 0, newmoxEffect, false));
+					} else if (ruby_heart_adv.isPresent()) {
+						newmoxEffect.add(new Effect("orange_gem","wizard",1));
+						moxPanel = new CardPanel(new WizardCard("orange_mox", 0, 0, 0, 0, 0, ruby_heart_adv.get().getLevel(), 0, newmoxEffect, false));
+					} else {
+						newmoxEffect.add(new Effect("green_gem","wizard",1));
+						moxPanel = new CardPanel(new WizardCard("green_gem", 0, 0, 0, 0, 0, emerald_heart_adv.get().getLevel(), 0, newmoxEffect, false));
+					}
+					duel.getPanel().add(moxPanel,0);
+					moxPanel.setBounds(100 + 200 * (positionAdv%4), 10, 200, 300);
+					moxPanel.addMouseListener(controler);
+					buttonPlaceCard[positionAdv].setCardPanel(moxPanel);
+					moxPanel.setPosition("onField");
+					moxPanel.setFieldPosition(positionAdv);
+					moxPanel.addMouseListener(controler);
+					duel.recalculateAttk(moxPanel.getCard(), positionAdv);
+				} else {
+					advCard.corpse_eaterEffectP2(duel, buttonPlaceCard, controler, positionAdv);
+				}
 			} else {
 				if (effects.stream().anyMatch(effect -> effect.getName().equals("poison"))) {
 					Effect effectpoison = effects.stream().filter(effect -> effect.getName().equals("poison")).findFirst().get();
@@ -348,6 +422,27 @@ public abstract class Card {
 			if (buttonPlaceCard[position] != null && buttonPlaceCard[position].getCardPanel().getCard().equals(this) && position<3) {
 				attackPlayer1WithTarget(duel, buttonPlaceCard, position, position+5, controler);
 			}
+			if (effects.stream().anyMatch(effect -> effect.getName().equals("bifurcated_strike"))){
+				if (buttonPlaceCard[position] != null && buttonPlaceCard[position].getCardPanel().getCard().equals(this) && position>0) {
+					attackPlayer1WithTarget(duel, buttonPlaceCard, position, position+3, controler);
+				}
+				if (buttonPlaceCard[position] != null && buttonPlaceCard[position].getCardPanel().getCard().equals(this)) {
+					attackPlayer1WithTarget(duel, buttonPlaceCard, position, position+4, controler);
+				}
+				if (buttonPlaceCard[position] != null && buttonPlaceCard[position].getCardPanel().getCard().equals(this) && position<3) {
+					attackPlayer1WithTarget(duel, buttonPlaceCard, position, position+5, controler);
+				}
+			}
+		} else if (effects.stream().anyMatch(effect -> effect.getName().equals("bifurcated_strike"))){
+			if (buttonPlaceCard[position] != null && buttonPlaceCard[position].getCardPanel().getCard().equals(this) && position>0) {
+				attackPlayer1WithTarget(duel, buttonPlaceCard, position, position+3, controler);
+			}
+			if (buttonPlaceCard[position] != null && buttonPlaceCard[position].getCardPanel().getCard().equals(this)) {
+				attackPlayer1WithTarget(duel, buttonPlaceCard, position, position+4, controler);
+			}
+			if (buttonPlaceCard[position] != null && buttonPlaceCard[position].getCardPanel().getCard().equals(this) && position<3) {
+				attackPlayer1WithTarget(duel, buttonPlaceCard, position, position+5, controler);
+			}
 		} else {
 			attackPlayer1WithTarget(duel, buttonPlaceCard, position, position+4, controler);
 		}
@@ -426,7 +521,33 @@ public abstract class Card {
 						//carte morte
 						deadCard(duel, buttonPlaceCard, position);
 					}
-					corpse_eaterEffectP2(duel, buttonPlaceCard, controler, position);
+					Optional<Effect> ruby_heart = effects.stream().filter(effect -> effect.getName().equals("ruby_heart")).findFirst();
+					Optional<Effect> emerald_heart = effects.stream().filter(effect -> effect.getName().equals("emerald_heart")).findFirst();
+					if (ruby_heart.isPresent() || emerald_heart.isPresent()) {
+						CardPanel moxPanel = null;
+						List<Effect> newmoxEffect = new ArrayList<>();
+						if (ruby_heart.isPresent() && emerald_heart.isPresent()) {
+							newmoxEffect.add(new Effect("green_gem","wizard",1));
+							newmoxEffect.add(new Effect("orange_gem","wizard",1));
+							moxPanel = new CardPanel(new WizardCard("goranjs_mox", 0, 0, 0, 0, 0, emerald_heart.get().getLevel() + ruby_heart.get().getLevel(), 0, newmoxEffect, false));
+						} else if (ruby_heart.isPresent()) {
+							newmoxEffect.add(new Effect("orange_gem","wizard",1));
+							moxPanel = new CardPanel(new WizardCard("orange_mox", 0, 0, 0, 0, 0, ruby_heart.get().getLevel(), 0, newmoxEffect, false));
+						} else {
+							newmoxEffect.add(new Effect("green_gem","wizard",1));
+							moxPanel = new CardPanel(new WizardCard("green_gem", 0, 0, 0, 0, 0, emerald_heart.get().getLevel(), 0, newmoxEffect, false));
+						}
+						duel.getPanel().add(moxPanel,0);
+						moxPanel.setBounds(100 + 200 * (position%4), 310, 200, 300);
+						moxPanel.addMouseListener(controler);
+						buttonPlaceCard[position].setCardPanel(moxPanel);
+						moxPanel.setPosition("onField");
+						moxPanel.setFieldPosition(position);
+						moxPanel.addMouseListener(controler);
+						duel.recalculateAttk(moxPanel.getCard(), position);
+					} else {
+						corpse_eaterEffectP2(duel, buttonPlaceCard, controler, position);
+					}
 					
 				} else {
 					buttonPlaceCard[position].getCardPanel().getHp().setText(hp.toString());
@@ -468,7 +589,33 @@ public abstract class Card {
 				if (scavenger.isPresent()) {
 					duel.setBoneP2(duel.getBoneP2()+scavenger.get().getLevel());
 				}
-				advCard.corpse_eaterEffectP1(duel, buttonPlaceCard, controler, positionAdv);
+				Optional<Effect> ruby_heart_adv = advCard.getEffects().stream().filter(effect -> effect.getName().equals("ruby_heart")).findFirst();
+				Optional<Effect> emerald_heart_adv = advCard.getEffects().stream().filter(effect -> effect.getName().equals("emerald_heart")).findFirst();
+				if (ruby_heart_adv.isPresent() || emerald_heart_adv.isPresent()) {
+					CardPanel moxPanel = null;
+					List<Effect> newmoxEffect = new ArrayList<>();
+					if (ruby_heart_adv.isPresent() && emerald_heart_adv.isPresent()) {
+						newmoxEffect.add(new Effect("green_gem","wizard",1));
+						newmoxEffect.add(new Effect("orange_gem","wizard",1));
+						moxPanel = new CardPanel(new WizardCard("goranjs_mox", 0, 0, 0, 0, 0, emerald_heart_adv.get().getLevel() + ruby_heart_adv.get().getLevel(), 0, newmoxEffect, false));
+					} else if (ruby_heart_adv.isPresent()) {
+						newmoxEffect.add(new Effect("orange_gem","wizard",1));
+						moxPanel = new CardPanel(new WizardCard("orange_mox", 0, 0, 0, 0, 0, ruby_heart_adv.get().getLevel(), 0, newmoxEffect, false));
+					} else {
+						newmoxEffect.add(new Effect("green_gem","wizard",1));
+						moxPanel = new CardPanel(new WizardCard("green_gem", 0, 0, 0, 0, 0, emerald_heart_adv.get().getLevel(), 0, newmoxEffect, false));
+					}
+					duel.getPanel().add(moxPanel,0);
+					moxPanel.setBounds(100 + 200 * (positionAdv%4), 10, 200, 300);
+					moxPanel.addMouseListener(controler);
+					buttonPlaceCard[positionAdv].setCardPanel(moxPanel);
+					moxPanel.setPosition("onField");
+					moxPanel.setFieldPosition(positionAdv);
+					moxPanel.addMouseListener(controler);
+					duel.recalculateAttk(moxPanel.getCard(), positionAdv);
+				} else {
+					advCard.corpse_eaterEffectP1(duel, buttonPlaceCard, controler, positionAdv);
+				}
 			} else {
 				if (effects.stream().anyMatch(effect -> effect.getName().equals("poison"))) {
 					Effect effectpoison = effects.stream().filter(effect -> effect.getName().equals("poison")).findFirst().get();
@@ -948,6 +1095,14 @@ public abstract class Card {
 
 	public void setRarity(Integer rarity) {
 		this.rarity = rarity;
+	}
+
+	public boolean isMainDeck() {
+		return mainDeck;
+	}
+
+	public void setMainDeck(boolean mainDeck) {
+		this.mainDeck = mainDeck;
 	}
 
 	
