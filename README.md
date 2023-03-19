@@ -13,3 +13,5 @@ To have more different cards , go to src/frames/Menu and change values of modulo
 # screenshot
 
 ![image](https://user-images.githubusercontent.com/15607933/225395726-ab1320da-9da9-48dd-ab00-2e1ac9f2880e.png)
+
+![image](https://user-images.githubusercontent.com/15607933/226169462-d8ab9a04-737c-48e6-b388-aa73d6412f64.png)
