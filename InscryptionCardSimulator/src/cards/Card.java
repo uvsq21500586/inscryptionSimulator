@@ -141,16 +141,17 @@ public abstract class Card {
 						duel.getHandCard1().add(buttonPlaceCard[position].getCardPanel());
 						duel.getPanel().remove(buttonPlaceCard[position].getCardPanel());
 						buttonPlaceCard[position].setCardPanel(null);
+						Optional<Effect> bone_kingEffect = effects.stream().filter(effect -> effect.getName().equals("bone_king")).findFirst();
+						if (bone_kingEffect.isPresent()) {
+							duel.setBoneP1(duel.getBoneP1()+ 1 + 3*bone_kingEffect.get().getLevel());
+						} else {
+							duel.setBoneP1(duel.getBoneP1()+1);
+						}
 					} else {
 						//carte morte
 						deadCard(duel, buttonPlaceCard, position);
 					}
-					Optional<Effect> bone_kingEffect = effects.stream().filter(effect -> effect.getName().equals("bone_king")).findFirst();
-					if (bone_kingEffect.isPresent()) {
-						duel.setBoneP1(duel.getBoneP1()+ 1 + 3*bone_kingEffect.get().getLevel());
-					} else {
-						duel.setBoneP1(duel.getBoneP1()+1);
-					}
+					
 					corpse_eaterEffectP1(duel, buttonPlaceCard, controler, position);
 				} else {
 					buttonPlaceCard[position].getCardPanel().getHp().setText(hp.toString());
@@ -178,17 +179,18 @@ public abstract class Card {
 					duel.getHandCard2().add(buttonPlaceCard[positionAdv].getCardPanel());
 					duel.getPanel().remove(buttonPlaceCard[positionAdv].getCardPanel());
 					buttonPlaceCard[positionAdv].setCardPanel(null);
+					Optional<Effect> bone_kingEffect =advCard.getEffects().stream().filter(effect -> effect.getName().equals("bone_king")).findFirst();
+					if (bone_kingEffect.isPresent()) {
+						duel.setBoneP2(duel.getBoneP2()+ 1 + 3*bone_kingEffect.get().getLevel());
+					} else {
+						duel.setBoneP2(duel.getBoneP2()+1);
+					}
 					
 				} else {
 					//carte morte
 					advCard.deadCard(duel, buttonPlaceCard, positionAdv);
 				}
-				Optional<Effect> bone_kingEffect =advCard.getEffects().stream().filter(effect -> effect.getName().equals("bone_king")).findFirst();
-				if (bone_kingEffect.isPresent()) {
-					duel.setBoneP2(duel.getBoneP2()+ 1 + 3*bone_kingEffect.get().getLevel());
-				} else {
-					duel.setBoneP2(duel.getBoneP2()+1);
-				}
+				
 				Optional<Effect> scavenger = effects.stream().filter(effect -> effect.getName().equals("scavenger")).findFirst();
 				if (scavenger.isPresent()) {
 					duel.setBoneP1(duel.getBoneP1()+scavenger.get().getLevel());
@@ -244,6 +246,9 @@ public abstract class Card {
 
 
 	public void deadCard(Duel duel, ButtonPlaceCard[] buttonPlaceCard, int position) {
+		boolean detonator = effects.stream().anyMatch(effect -> effect.getName().equals("detonator"));
+		
+		
 		Optional<Effect> gem_animator = effects.stream().filter(effect -> effect.getName().equals("gem_animator")).findFirst();
 		if (gem_animator.isPresent()) {
 			if (position<4) {
@@ -256,6 +261,7 @@ public abstract class Card {
 						}
 					}
 				}
+				
 			} else {
 				for (int i=4;i<8;i++) {
 					if (i !=position && buttonPlaceCard[i].getCardPanel() != null) {
@@ -270,6 +276,68 @@ public abstract class Card {
 		}
 		duel.getPanel().remove(buttonPlaceCard[position].getCardPanel());
 		buttonPlaceCard[position].setCardPanel(null);
+		if (detonator) {
+			if (position<4) {
+				if (buttonPlaceCard[position+4].getCardPanel() != null) {
+					Card advCard = buttonPlaceCard[position+4].getCardPanel().getCard();
+					advCard.setHp(advCard.getHp() - 10*hpBase);
+					if (advCard.getHp()<=0) {
+						advCard.deadCard(duel, buttonPlaceCard, position+4);
+					}
+				}
+				if (position>0 && buttonPlaceCard[position-1].getCardPanel() != null) {
+					Card allieCard = buttonPlaceCard[position-1].getCardPanel().getCard();
+					allieCard.setHp(allieCard.getHp() - 10*hpBase);
+					if (allieCard.getHp()<=0) {
+						allieCard.deadCard(duel, buttonPlaceCard, position-1);
+					}
+				}
+				if (position<3 && buttonPlaceCard[position+1].getCardPanel() != null) {
+					Card allieCard = buttonPlaceCard[position+1].getCardPanel().getCard();
+					allieCard.setHp(allieCard.getHp() - 10*hpBase);
+					if (allieCard.getHp()<=0) {
+						allieCard.deadCard(duel, buttonPlaceCard, position+1);
+					}
+				}
+			} else {
+				if (buttonPlaceCard[position-4].getCardPanel() != null) {
+					Card advCard = buttonPlaceCard[position-4].getCardPanel().getCard();
+					advCard.setHp(advCard.getHp() - 10*hpBase);
+					if (advCard.getHp()<=0) {
+						advCard.deadCard(duel, buttonPlaceCard, position-4);
+					};
+				}
+				if (position>4 && buttonPlaceCard[position-1].getCardPanel() != null) {
+					Card allieCard = buttonPlaceCard[position-1].getCardPanel().getCard();
+					allieCard.setHp(allieCard.getHp() - 10*hpBase);
+					if (allieCard.getHp()<=0) {
+						allieCard.deadCard(duel, buttonPlaceCard, position-1);
+					}
+				}
+				if (position<7 && buttonPlaceCard[position+1].getCardPanel() != null) {
+					Card allieCard = buttonPlaceCard[position+1].getCardPanel().getCard();
+					allieCard.setHp(allieCard.getHp() - 10*hpBase);
+					if (allieCard.getHp()<=0) {
+						allieCard.deadCard(duel, buttonPlaceCard, position+1);
+					}
+				}
+			}
+		}
+		Optional<Effect> bone_kingEffect = effects.stream().filter(effect -> effect.getName().equals("bone_king")).findFirst();
+		if ((!duel.isTurnJ2() && position<4) || (duel.isTurnJ2() && position>=4)) {
+			if (bone_kingEffect.isPresent()) {
+				duel.setBoneP1(duel.getBoneP1()+ 1 + 3*bone_kingEffect.get().getLevel());
+			} else {
+				duel.setBoneP1(duel.getBoneP1()+1);
+			}
+		} else {
+			if (bone_kingEffect.isPresent()) {
+				duel.setBoneP2(duel.getBoneP2()+ 1 + 3*bone_kingEffect.get().getLevel());
+			} else {
+				duel.setBoneP2(duel.getBoneP2()+1);
+			}
+		}
+		
 	}
 	
 	public void attackPlayer1(Duel duel, ButtonPlaceCard buttonPlaceCard[], int position, DuelControler controler) throws IOException, FontFormatException {
@@ -347,17 +415,19 @@ public abstract class Card {
 						duel.getHandCard2().add(buttonPlaceCard[position].getCardPanel());
 						duel.getPanel().remove(buttonPlaceCard[position].getCardPanel());
 						buttonPlaceCard[position].setCardPanel(null);
+						Optional<Effect> bone_kingEffect = effects.stream().filter(effect -> effect.getName().equals("bone_king")).findFirst();
+						if (bone_kingEffect.isPresent()) {
+							duel.setBoneP2(duel.getBoneP2()+ 1 + 3*bone_kingEffect.get().getLevel());
+						} else {
+							duel.setBoneP2(duel.getBoneP2()+1);
+						}
+						
 					} else {
 						//carte morte
 						deadCard(duel, buttonPlaceCard, position);
 					}
-					Optional<Effect> bone_kingEffect = effects.stream().filter(effect -> effect.getName().equals("bone_king")).findFirst();
-					if (bone_kingEffect.isPresent()) {
-						duel.setBoneP2(duel.getBoneP2()+ 1 + 3*bone_kingEffect.get().getLevel());
-					} else {
-						duel.setBoneP2(duel.getBoneP2()+1);
-					}
 					corpse_eaterEffectP2(duel, buttonPlaceCard, controler, position);
+					
 				} else {
 					buttonPlaceCard[position].getCardPanel().getHp().setText(hp.toString());
 				}
@@ -383,16 +453,16 @@ public abstract class Card {
 					duel.getHandCard1().add(buttonPlaceCard[positionAdv].getCardPanel());
 					duel.getPanel().remove(buttonPlaceCard[positionAdv].getCardPanel());
 					buttonPlaceCard[positionAdv].setCardPanel(null);
+					Optional<Effect> bone_kingEffect =advCard.getEffects().stream().filter(effect -> effect.getName().equals("bone_king")).findFirst();
+					if (bone_kingEffect.isPresent()) {
+						duel.setBoneP1(duel.getBoneP1()+ 1 + 3*bone_kingEffect.get().getLevel());
+					} else {
+						duel.setBoneP1(duel.getBoneP1()+1);
+					}
 					
 				} else {
 					//carte morte
 					advCard.deadCard(duel, buttonPlaceCard, positionAdv);
-				}
-				Optional<Effect> bone_kingEffect =advCard.getEffects().stream().filter(effect -> effect.getName().equals("bone_king")).findFirst();
-				if (bone_kingEffect.isPresent()) {
-					duel.setBoneP1(duel.getBoneP1()+ 1 + 3*bone_kingEffect.get().getLevel());
-				} else {
-					duel.setBoneP1(duel.getBoneP1()+1);
 				}
 				Optional<Effect> scavenger = effects.stream().filter(effect -> effect.getName().equals("scavenger")).findFirst();
 				if (scavenger.isPresent()) {

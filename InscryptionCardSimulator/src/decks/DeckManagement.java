@@ -28,22 +28,23 @@ public class DeckManagement {
 			for (int j=0;j<mainDeck.size();j++) {
 				Card cardToRemplace = mainDeck.get(j);
 				if (similarTypeAndCostCards(mainBooster.get(i), cardToRemplace)) {
-					
-				}
-				mainCopyDeck = new ArrayList<>();
-				for (int k=0;k<mainDeck.size();k++) {
-					if (k!=j) {
-						mainCopyDeck.add(mainDeck.get(k));
-					} else {
-						mainCopyDeck.add(mainBooster.get(i));
+					mainCopyDeck = new ArrayList<>();
+					for (int k=0;k<mainDeck.size();k++) {
+						if (k!=j) {
+							mainCopyDeck.add(mainDeck.get(k));
+						} else {
+							mainCopyDeck.add(mainBooster.get(i));
+						}
+					}
+					//evaluate
+					int newScore = scoreDeck(mainCopyDeck, sourceDeck);
+					if (newScore > bestScore) {
+						bestScore = newScore;
+						bestPos = j;
 					}
 				}
-				//evaluate
-				int newScore = scoreDeck(mainCopyDeck, sourceDeck);
-				if (newScore > bestScore) {
-					bestScore = newScore;
-					bestPos = j;
-				}
+				
+				
 			}
 			if (bestScore>bestScoreDeck) {
 				bestScoreDeck = bestScore;
@@ -167,33 +168,37 @@ public class DeckManagement {
 			}
 			
 			if (invocable(card, playableMainDeck, sourceDeck, nbPotentialBones,lvlMaxgreenmox,lvlMaxorangemox,lvlMaxbluemox,maxsumlevelmox)) {
-				if (card.getLevel() == 0) { 
-					nbPotentialBones++;
-				} else if (card instanceof BeastCard && !((BeastCard) card).getCostType().equals("bone")) {
-					nbPotentialBones++;
-				}
+				
+				int bonus_bones = 1;
 				if (card.getEffects().stream().anyMatch(effect -> effect.getName().equals("rabbit_hole"))) {
-					nbPotentialBones++;
+					bonus_bones++;
 				}
 				if (card.getEffects().stream().anyMatch(effect -> effect.getName().equals("bee_within"))) {
-					nbPotentialBones+= (card.getHpBase()+1)/2;
+					bonus_bones+= (card.getHpBase()+1)/2;
 				}
 				Optional<Effect> bone_kingEffect = card.getEffects().stream().filter(effect -> effect.getName().equals("bone_king")).findFirst();
 				Optional<Effect> scavenger = card.getEffects().stream().filter(effect -> effect.getName().equals("scavenger")).findFirst();
+				Optional<Effect> bone_digger = card.getEffects().stream().filter(effect -> effect.getName().equals("bone_digger")).findFirst();
+				
+				
 				if (bone_kingEffect.isPresent()) {
-					if (card instanceof BeastCard && !((BeastCard) card).getCostType().equals("bone")) {
-						nbPotentialBones+= 1 + 3*bone_kingEffect.get().getLevel();
-						if (scavenger.isPresent()) {
-							nbPotentialBones+= 1+card.getHpBase()/2;
-						}
+					bonus_bones += 3*bone_kingEffect.get().getLevel();
+				}
+				if (scavenger.isPresent()) {
+					bonus_bones += scavenger.get().getLevel();
+				}
+				if (bone_digger.isPresent()) {
+					if (card.getEffects().stream().anyMatch(effect -> effect.getName().equals("brittle"))) {
+						bonus_bones += bone_digger.get().getLevel();
 					} else {
-						if (scavenger.isPresent()) {
-							nbPotentialBones+= Math.max(0, 2 + 3*bone_kingEffect.get().getLevel() + card.getHpBase()/2 - card.getLevel());
-						} else {
-							nbPotentialBones+= Math.max(0, 1 + 3*bone_kingEffect.get().getLevel() - card.getLevel());
-						}
-						
+						bonus_bones += bone_digger.get().getLevel() + card.getHp()/2;
 					}
+				}
+				
+				if ((card instanceof BeastCard && !((BeastCard) card).getCostType().equals("bone")) || card instanceof UndeadCard) {
+					nbPotentialBones+= Math.max(0, bonus_bones - card.getLevel());
+				} else {
+					nbPotentialBones+= bonus_bones;
 				}
 				playableMainDeck.add(card);
 			}
@@ -518,6 +523,9 @@ public class DeckManagement {
 		boolean attaquant = false;
 		for (int i=0;i<mainDeck.size();i++) {
 			if (mainDeck.get(i).getAttack()>0 && mainDeck.get(i).getEffects().stream().noneMatch(effect -> effect.getName().equals("brittle"))) {
+				return true;
+			}
+			if (mainDeck.get(i).getEffects().stream().anyMatch(effect -> effect.getName().equals("fledgling"))) {
 				return true;
 			}
 		}

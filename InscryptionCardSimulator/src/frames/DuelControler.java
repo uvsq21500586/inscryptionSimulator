@@ -287,7 +287,7 @@ public class DuelControler implements ActionListener,MouseListener {
 			if (gem_animator.isPresent()) {
 				for (int i=0;i<4;i++) {
 					if (i != cardSelected.getFieldPosition() && duel.getButtonPlaceCard()[i].getCardPanel() != null) {
-						Card card = duel.getButtonPlaceCard()[0].getCardPanel().getCard();
+						Card card = duel.getButtonPlaceCard()[i].getCardPanel().getCard();
 						if (card instanceof WizardCard && !card.isSacrificiable()) {
 							card.setAttack(card.getAttack()+gem_animator.get().getLevel());
 							duel.getButtonPlaceCard()[i].getCardPanel().getAttack().setText(card.getAttack().toString());

@@ -1,11 +1,11 @@
 options:
 typeP1: beast
 moduloP1: 13
-multiplierP1: 2
-global_strenghtP1: 2
-rarity_strenghtP1: 1
+multiplierP1: 3
+global_strenghtP1: 1
+rarity_strenghtP1: 2
 lifePointsP1: 5
-nbMainCardsP1: 7
+nbMainCardsP1: 8
 nbSourceCardsP1: 5
 typeP2: beast
 moduloP2: 9

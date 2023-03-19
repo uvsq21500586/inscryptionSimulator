@@ -12,7 +12,7 @@ public class CardFactory {
 	
 	public static String robotAppearances[] = {"xformerbatbot","s0n1a","xformerporcupinebot","qu177","xformergrizzlybot","gr1zz","bomb_latcher","exeskeleton","shield_latcher","skel_e_latcher"};
 	
-	public static String undeadAppearances[] = {"armored_zombie","bone_lord","bone_lords_horn","bone_pile","bone_prince","dead_hand","dead_pets","draugr"};
+	public static String undeadAppearances[] = {"armored_zombie","bone_lord","bone_lords_horn","bone_pile","bone_prince","dead_hand","dead_pets","draugr","drowned_soul","ember_spirit"};
 	
 	public static String wizardAppearances[] = {"alchemist","amalgam_wiz","bignificus","blue_mage","blue_mage_fused","boss_stim_mage"};
 	

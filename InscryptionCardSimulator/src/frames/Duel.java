@@ -254,15 +254,15 @@ public class Duel extends JFrame {
 		sourceDeck1.add(BeastCard.sourceCard(1, new ArrayList<>()));
 		sourceDeck2.add(BeastCard.sourceCard(1, new ArrayList<>()));
 		List<Effect> effects = new LinkedList<>(Arrays.asList(new Effect("burrower","robot"), new Effect("bifurcated_strike","robot")));
-		List<Effect> effects2 = new LinkedList<>(Arrays.asList(new Effect("scavenger","undead",1)));
+		List<Effect> effects2 = new LinkedList<>(Arrays.asList(new Effect("detonator","undead",1)));
 		mainDeck1.add(RobotCard.mainCard("s0n1a", 1, 1, 0, effects));
 		//mainDeck1.add(UndeadCard.mainCard("bone_lord", 1, 1, 1, effects2));
 		mainDeck1.add(WizardCard.mainCard("alchemist", 0, 0, 1, 0, 1, 1, 1, Arrays.asList(new Effect("gem_animator","wizard",2))));
-		mainDeck1.add(BeastCard.mainCard("kingfisher", "blood", 2, 1, 1, new ArrayList<>()));
+		mainDeck1.add(BeastCard.mainCard("kingfisher", "blood", 1, 1, 1, new ArrayList<>()));
 		mainDeck1.add(BeastCard.mainCard("kingfisher", "bone", 2, 1, 1, new ArrayList<>()));
 		mainDeck1.add(BeastCard.mainCard("kingfisher", "bone", 1, 1, 1, new ArrayList<>()));
 		//mainDeck2.add(RobotCard.mainCard("s0n1a", 1, 5, 1, effects2));
-		mainDeck2.add(UndeadCard.mainCard("bone_lord", 1, 5, 1, effects2));
+		mainDeck2.add(UndeadCard.mainCard("bone_lord", 1, 1, 1, effects2));
 		mainDeck2.add(BeastCard.mainCard("kingfisher", "blood", 1, 1, 1, new ArrayList<>()));
 		mainDeck2.add(BeastCard.mainCard("kingfisher", "blood", 1, 1, 1, new ArrayList<>()));
 		mainDeck2.add(BeastCard.mainCard("kingfisher", "bone", 1, 1, 1, new ArrayList<>()));
@@ -377,10 +377,8 @@ public class Duel extends JFrame {
 				if (isFamiliar) {
 					if (!isTurnJ2()) {
 						card.familiarP1(this, buttonPlaceCard, duelControler, i);
-						boneP1++;
 					} else {
 						card.familiarP2(this, buttonPlaceCard, duelControler, i);
-						boneP2++;
 					}
 				}
 			}
@@ -401,7 +399,20 @@ public class Duel extends JFrame {
 			}
 		}
 		
-		
+		//resources generator (like bone_digger)
+		for (int i=0;i<4;i++) {
+			if (buttonPlaceCard[i].getCardPanel() != null) {
+				Card card = buttonPlaceCard[i].getCardPanel().getCard();
+				Optional<Effect> bone_digger = card.getEffects().stream().filter(effect -> effect.getName().equals("bone_digger")).findFirst();
+				if (bone_digger.isPresent()) {
+					if (!isTurnJ2()) {
+						boneP1+= bone_digger.get().getLevel();
+					} else {
+						boneP2+= bone_digger.get().getLevel();
+					}
+				}
+			}
+		}
 		
 		//poison or brittle?
 		for (int i=0;i<4;i++) {
