@@ -70,7 +70,7 @@ public class CardFactory {
 			u = (u * multiplicator + 2*levelRarity)%modulo;
 			int lvlmax = 8;
 			ArrayList<Integer> integerSeen = new ArrayList<Integer>();
-			while (u%4 == 3 && !integerSeen.contains(u)) {
+			while (u%5 == 4 && !integerSeen.contains(u)) {
 				integerSeen.add(u);
 				u = (u * multiplicator + 2*levelRarity)%modulo;
 				lvlmax++;

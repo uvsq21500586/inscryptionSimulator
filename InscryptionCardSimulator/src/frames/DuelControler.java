@@ -241,6 +241,7 @@ public class DuelControler implements ActionListener,MouseListener {
 		
 		if (duel.getButtonPlaceCard()[0].equals(fieldCard) || duel.getButtonPlaceCard()[1].equals(fieldCard) || duel.getButtonPlaceCard()[2].equals(fieldCard) || duel.getButtonPlaceCard()[3].equals(fieldCard)) {
 			cardSelected.getCard().placeCard(duel, duel.getButtonPlaceCard(), cardSelected.getFieldPosition());
+			cardSelected.getSelected().setVisible(false);
 			duel.recalculateAttk(cardSelected.getCard(), cardSelected.getFieldPosition());
 			if (cardSelected.getCard().getEffects().stream().anyMatch(effect -> effect.getName().equals("fecundity"))) {
 				if (cardSelected.getCard() instanceof BeastCard) {
@@ -317,6 +318,7 @@ public class DuelControler implements ActionListener,MouseListener {
 		if (card.getPosition().equals("onHand") && !sacrifying && duel.playable(card.getCard()) && cardSelected == null) {
 			System.out.println("playCard playable");
 			cardSelected = card;
+			cardSelected.getSelected().setVisible(true);
 			if (card.getCard() instanceof BeastCard && ((BeastCard) card.getCard()).getCostType().equals("blood") && card.getCard().getLevel()>0) {
 				sacrifying = true;
 				System.out.println("sacrifying");
@@ -350,18 +352,27 @@ public class DuelControler implements ActionListener,MouseListener {
 		} else if (card.getPosition().equals("onField") && card.getFieldPosition()<4 && sacrifying && !cardBeingSacrified.contains(card)) {
 			System.out.println("sacrifying + ");
 			cardBeingSacrified.add(card);
+			card.getBeingSacrified().setVisible(true);
 			duel.getButtonPlaceCard()[card.getFieldPosition()].setCardPanel(null);
 			sacrifices ++;
 			//unkillable?
 			
 			if (sacrifices >= sacrificeNeeded) {
-				if (duel.isTurnJ2()) {
-					duel.setBoneP2(duel.getBoneP2() + cardBeingSacrified.size());
-					duel.getBonePileCount().setText(": " + duel.getBoneP2());
-				} else {
-					duel.setBoneP1(duel.getBoneP1() + cardBeingSacrified.size());
-					duel.getBonePileCount().setText(": " + duel.getBoneP1());
+				for (int i=0;i<cardBeingSacrified.size();i++) {
+					int bones = 1;
+					Optional<Effect> bone_king = cardBeingSacrified.get(i).getCard().getEffects().stream().filter(effect->effect.getName().equals("bone_king")).findFirst();
+					if (bone_king.isPresent()) {
+						bones += bone_king.get().getLevel();
+					}
+					if (duel.isTurnJ2()) {
+						duel.setBoneP2(duel.getBoneP2() + bones);
+						duel.getBonePileCount().setText(": " + duel.getBoneP2());
+					} else {
+						duel.setBoneP1(duel.getBoneP1() + bones);
+						duel.getBonePileCount().setText(": " + duel.getBoneP1());
+					}
 				}
+				
 				cardBeingSacrified.forEach(cardSacrified -> duel.getPanel().remove(cardSacrified));
 				puttingBloodCard = true;
 				sacrifying = false;

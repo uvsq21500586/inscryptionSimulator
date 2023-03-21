@@ -26,6 +26,8 @@ public class CardPanel extends JPanel {
 	JLabel hp;
 	JLabel cost;
 	JLabel level;
+	JLabel selected;
+	JLabel beingSacrified;
 	JLabel poison;
 	JLabel rarity;
 	JLabel rarityText;
@@ -49,10 +51,11 @@ public class CardPanel extends JPanel {
 	    JLabel labelBackground = new JLabel("");
 	    putBackGround(card, labelBackground);
 	    JLabel labelAppeareance = new JLabel("");
-	    level = new JLabel(card.getLevel().toString() + "x");
-    	level.setFont(font.deriveFont(Font.BOLD,16f));
+	    level = new JLabel(card.getLevel().toString() + "x", SwingConstants.RIGHT);
+    	level.setFont(font.deriveFont(Font.BOLD,20f));
     	this.add(level);
-    	level.setBounds(125,40,50,50);
+    	level.setBounds(105,40,60,50);
+    	
 	    appearanceCard(card, labelAppeareance);
 	    poison = new JLabel("");
 	    poison.setIcon(new ImageIcon(ImageIO.read(new File("img/poison.png"))
@@ -79,7 +82,8 @@ public class CardPanel extends JPanel {
 	    
 	    labelBackground.setBounds(0,0,200,300);
 	    labelAppeareance.setBounds(0,0,200,200);
-	    
+	    this.add(selected);
+	    this.add(beingSacrified);
 	    this.add(labelAppeareance);
 	    hp = new JLabel(card.getHp().toString());
 	    hp.setBounds(160,220,50,50);
@@ -124,6 +128,19 @@ public class CardPanel extends JPanel {
 
 
 	private void appearanceCard(Card card, JLabel labelAppeareance) throws IOException, FontFormatException {
+		selected = new JLabel();
+		selected.setIcon(new ImageIcon(ImageIO.read(new File("img/activedCard.png"))
+				.getScaledInstance(200,300, 
+				Image.SCALE_DEFAULT)));
+		selected.setVisible(false);
+		selected.setBounds(0,0,200,300);
+		beingSacrified = new JLabel();
+		beingSacrified.setIcon(new ImageIcon(ImageIO.read(new File("img/sacrifice.png"))
+				.getScaledInstance(40,40, 
+				Image.SCALE_DEFAULT)));
+		beingSacrified.setVisible(false);
+		beingSacrified.setBounds(80,130,40,40);
+		
 		if (card instanceof BeastCard) {
 	    	Image img = ImageIO.read(new File("img/beast/" + card.getAppearance() + ".png"));
 	    	labelAppeareance.setIcon(new ImageIcon(img
@@ -209,8 +226,20 @@ public class CardPanel extends JPanel {
     							Image.SCALE_DEFAULT)));
     			this.add(cost);
     			cost.setBounds(145,50,50,30);
-    			level.setText(wizard.getCostAnyMox() + "+" + ((wizard.getLevel()-wizard.getCostAnyMox())/nbcolors) + "x");
-    			level.setBounds(105,40,70,50);
+    			int costMaxMox = Math.max(wizard.getCostGreenMox(), Math.max(wizard.getCostOrangeMox(),wizard.getCostBlueMox()));
+    			if (wizard.getCostAnyMox() == 0 && costMaxMox == 1) {
+    				level.setVisible(false);
+    			}
+    			if (wizard.getCostAnyMox() == 0 && costMaxMox>1) {
+    				level.setText(((wizard.getLevel()-wizard.getCostAnyMox())/nbcolors) + "x");
+    			}
+    			if (wizard.getCostAnyMox()>0 && costMaxMox == 1) {
+    				level.setText(wizard.getCostAnyMox() + "+");
+    			}
+    			if (wizard.getCostAnyMox()>0 && costMaxMox>1) {
+    				level.setText(wizard.getCostAnyMox() + "+" + ((wizard.getLevel()-wizard.getCostAnyMox())/nbcolors) + "x");
+    			}
+    			level.setBounds(95,40,60,50);
     			font = Font.createFont(Font.TRUETYPE_FONT, new File("conthrax-sb.ttf"));
     			level.setFont(font.deriveFont(Font.BOLD,16f));
     			level.setForeground(new Color(255,0,0));
@@ -261,10 +290,10 @@ public class CardPanel extends JPanel {
 	    JLabel labelBackground = new JLabel("");
 	    putBackGround(card, labelBackground);
 	    JLabel labelAppeareance = new JLabel("");
-	    level = new JLabel(card.getLevel().toString() + "x");
-    	level.setFont(font.deriveFont(Font.BOLD,16f));
+	    level = new JLabel(card.getLevel().toString() + "x",SwingConstants.RIGHT);
+    	level.setFont(font.deriveFont(Font.BOLD,20f));
     	this.add(level);
-    	level.setBounds(125,40,50,50);
+    	level.setBounds(105,40,60,50);
     	
     	poison = new JLabel("");
 	    poison.setIcon(new ImageIcon(ImageIO.read(new File("img/poison.png"))
@@ -441,6 +470,26 @@ public class CardPanel extends JPanel {
 
 	public void setAttack(JLabel attack) {
 		this.attack = attack;
+	}
+
+
+	public JLabel getSelected() {
+		return selected;
+	}
+
+
+	public void setSelected(JLabel selected) {
+		this.selected = selected;
+	}
+
+
+	public JLabel getBeingSacrified() {
+		return beingSacrified;
+	}
+
+
+	public void setBeingSacrified(JLabel beingSacrified) {
+		this.beingSacrified = beingSacrified;
 	}
 	
 	

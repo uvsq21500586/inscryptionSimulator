@@ -119,8 +119,11 @@ public class Duel extends JFrame {
 			} else if (maindeck.get(i) instanceof RobotCard) {
 				RobotCard newcard = (RobotCard) maindeck.get(i);
 				mainDeckToPlay.add(r.nextInt(i+1), newcard.cloneCard(newcard));
-			} else {
+			} else if (maindeck.get(i) instanceof UndeadCard) {
 				UndeadCard newcard = (UndeadCard) maindeck.get(i);
+				mainDeckToPlay.add(r.nextInt(i+1), newcard.cloneCard(newcard));
+			} else {
+				WizardCard newcard = (WizardCard) maindeck.get(i);
 				mainDeckToPlay.add(r.nextInt(i+1), newcard.cloneCard(newcard));
 			}
 			
