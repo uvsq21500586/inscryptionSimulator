@@ -292,6 +292,9 @@ class Main {
 	    				  effects,
 	    				  Integer.parseInt(lineContent[14]),
 	    				  false);
+	    		  if (newCard.getAppearance().contains("pelt")) {
+	    			  newCard.setSacrificiable(false);
+	    		  }
 	    		  sourcedeck.add(newCard);
 	    	  }
 	    	  if (lineContent[0].equals("robot")) {

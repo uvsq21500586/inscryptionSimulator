@@ -136,10 +136,10 @@ public class CardPanel extends JPanel {
 		selected.setBounds(0,0,200,300);
 		beingSacrified = new JLabel();
 		beingSacrified.setIcon(new ImageIcon(ImageIO.read(new File("img/sacrifice.png"))
-				.getScaledInstance(40,40, 
+				.getScaledInstance(40,80, 
 				Image.SCALE_DEFAULT)));
 		beingSacrified.setVisible(false);
-		beingSacrified.setBounds(80,130,40,40);
+		beingSacrified.setBounds(80,110,40,80);
 		
 		if (card instanceof BeastCard) {
 	    	Image img = ImageIO.read(new File("img/beast/" + card.getAppearance() + ".png"));

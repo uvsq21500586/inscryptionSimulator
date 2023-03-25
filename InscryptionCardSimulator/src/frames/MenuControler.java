@@ -22,6 +22,7 @@ import frames.menubuttons.ButtonToDuel;
 import frames.menubuttons.ButtonToOptions;
 import frames.menubuttons.ButtonToSeeDeck;
 import frames.menubuttons.ButtonToSimulatorCard;
+import frames.menubuttons.ButtonToSpecial;
 
 public class MenuControler implements ActionListener,MouseListener {
 	private Menu menu;
@@ -36,6 +37,7 @@ public class MenuControler implements ActionListener,MouseListener {
 		menu.getButtonBoosterCard().addMouseListener(this);
 		menu.getButtonToSeeDeck().addMouseListener(this);
 		menu.getButtonOptions().addMouseListener(this);
+		menu.getButtonSpecial().addMouseListener(this);
 	}
 
 	@Override
@@ -49,6 +51,7 @@ public class MenuControler implements ActionListener,MouseListener {
 					// construire les decks du joueur2
 					List<Card> mainDeck2 = new ArrayList<>();
 					List<Card> sourceDeck2 = new ArrayList<>();
+					Integer difficulty = Integer.parseInt(menu.getDifficultyP2().getText());
 					for (int i=0;i<menu.getNbMainCards2();i++) {
 						Random r = new Random();
 						Card newCard = CardFactory.mainCard(
@@ -57,7 +60,8 @@ public class MenuControler implements ActionListener,MouseListener {
 								menu.getGlobalStrenght2(),
 								menu.getRarityStrenght2(),
 								r.nextInt(menu.getModulo2()-1)+1,
-								menu.getTypecards2());
+								menu.getTypecards2(),
+								difficulty);
 						mainDeck2.add(newCard);
 					}
 					
@@ -289,6 +293,18 @@ public class MenuControler implements ActionListener,MouseListener {
 			Options options = new Options();
 			try {
 				options.open(menu);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (FontFormatException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		if (e.getSource() instanceof ButtonToSpecial) {
+			SpecialEvents special = new SpecialEvents();
+			try {
+				special.open(menu);
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

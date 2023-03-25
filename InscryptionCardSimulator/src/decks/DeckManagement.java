@@ -401,9 +401,16 @@ public class DeckManagement {
 		for (int i=0;i<mainDeck.size();i++) {
 			Card card = mainDeck.get(i);
 			if (card.getLevel()>0 && card instanceof BeastCard && ((BeastCard) card).getCostType().equals("blood")) {
-				for (int j=card.getLevel()-1;j<levelMax;j++) {
-				tapLevelToNumberCards[j]++;
+				if (card.getEffects().stream().anyMatch(effect ->effect.getName().equals("corpse_eater"))) {
+					for (int j=0;j<levelMax;j++) {
+						tapLevelToNumberCards[j]++;
+					}
+				} else {
+					for (int j=card.getLevel()-1;j<levelMax;j++) {
+						tapLevelToNumberCards[j]++;
+					}
 				}
+				
 			}
 		}
 		int malus = 0;
@@ -446,6 +453,7 @@ public class DeckManagement {
 		int marge = nbPotentialBones;
 		for (int i=0;i<mainDeck.size();i++) {
 			Card card = mainDeck.get(i);
+			if (card.getEffects().stream().noneMatch(effect ->effect.getName().equals("corpse_eater"))) {
 			if (card.getLevel()>1 && ((card instanceof BeastCard && ((BeastCard) card).getCostType().equals("bone")) || card instanceof UndeadCard) ) {
 				Optional<Effect> bone_king = card.getEffects().stream().filter(effect -> effect.getName().equals("bone_king")).findFirst();
 				if (bone_king.isPresent()) {
@@ -454,6 +462,7 @@ public class DeckManagement {
 					marge -= (card.getLevel()-1);
 				}
 				
+			}
 			}
 		}
 		if (marge<0) return marge*marge;
@@ -505,11 +514,12 @@ public class DeckManagement {
 			Optional<Effect> sharp_quills = card.getEffects().stream().filter(effect -> effect.getName().equals("sharp_quills")).findFirst();
 			Optional<Effect> scavenger = card.getEffects().stream().filter(effect -> effect.getName().equals("scavenger")).findFirst();
 			Optional<Effect> bifurcated_strike = card.getEffects().stream().filter(effect -> effect.getName().equals("bifurcated_strike")).findFirst();
+			Optional<Effect> trifurcated_strike = card.getEffects().stream().filter(effect -> effect.getName().equals("trifurcated_strike")).findFirst();
 			if (bee.isPresent()) {
 				bonus += (card.getHpBase()-1)/2;
 			}
 			if (burrower.isPresent()) {
-				bonus += Math.max(0,card.getHpBase()-card.getAttackBase());
+				bonus += Math.max(0,(card.getHpBase()-card.getAttackBase())/2);
 			}
 			if (burrower.isPresent() && mighty_leap.isPresent()) {
 				bonus += Math.max(0,card.getHpBase()-card.getAttackBase());
@@ -529,6 +539,9 @@ public class DeckManagement {
 			if (bifurcated_strike.isPresent()) {
 				bonus += card.getAttackBase();
 			}
+			if (trifurcated_strike.isPresent()) {
+				bonus += 2*card.getAttackBase();
+			}
 		}
 		return bonus;
 	}
@@ -544,6 +557,7 @@ public class DeckManagement {
 			Optional<Effect> hefty = card.getEffects().stream().filter(effect -> effect.getName().equals("hefty_right")).findFirst();
 			Optional<Effect> air = card.getEffects().stream().filter(effect -> effect.getName().equals("airborne")).findFirst();
 			Optional<Effect> scavenger = card.getEffects().stream().filter(effect -> effect.getName().equals("scavenger")).findFirst();
+			Optional<Effect> corpse_eater = card.getEffects().stream().filter(effect -> effect.getName().equals("corpse_eater")).findFirst();
 			if (burrower.isPresent() && card.getHpBase() == 1) {
 				malus += card.getAttack();
 			}
@@ -555,6 +569,11 @@ public class DeckManagement {
 			}
 			if (scavenger.isPresent() && air.isPresent()) {
 				malus += 2*scavenger.get().getLevel();
+			}
+			if (corpse_eater.isPresent()) {
+				int deltaHp = card.getHpBase() - Math.max(1, card.getHpBase()*corpse_eater.get().getLevel()/(corpse_eater.get().getLevel() * card.getLevel()));
+				int deltaAttk = card.getAttackBase() - card.getAttackBase()*corpse_eater.get().getLevel()/(corpse_eater.get().getLevel() * card.getLevel());
+				malus += deltaHp + 3*deltaAttk + 2*corpse_eater.get().getLevel();
 			}
 		}
 		return malus;

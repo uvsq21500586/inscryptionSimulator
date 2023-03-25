@@ -1,7 +1,9 @@
 package frames;
 
 import java.awt.event.KeyListener;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import java.awt.Color;
@@ -18,15 +20,16 @@ import frames.menubuttons.ButtonToDuel;
 import frames.menubuttons.ButtonToOptions;
 import frames.menubuttons.ButtonToSeeDeck;
 import frames.menubuttons.ButtonToSimulatorCard;
+import frames.menubuttons.ButtonToSpecial;
 
 public class Menu extends JFrame {
 	//types: beast robot undead wizard
-	//codes interdits: 1-1 (sauf pour P2 pour farmer),4-2,5-2,7-2,  9-2,9-3,10-3,11-2,11-3,12-2,12-3,
-	//14-1,14-3,15-1, 16-{3+4},17-{2+3+4},18-{2-4},19-{3-4},20-3
+	//codes interdits: 1-1,4-2,5-2,7-2,9-2,9-3,10-3,11-2,11-3,12-2,12-3,
+	//  15-1,16-{3+4},17-{2+3+4},18-{2-4},19-{3-4}, 20-3,22-3
 	
-	//j1:(21) 21-4*2(6), booster value = 1*4+1=5, vies: 2/2
-	//crédits: 2
-	//j2: 3-1(3)
+	//j1:(23) 23-1*1(23,1(23)), booster value = 2*4+2=10, vies: 1/1
+	//crédits: 0
+	//j2: s4;21-1(21)
 	
 	
 	//default parameters
@@ -61,6 +64,7 @@ public class Menu extends JFrame {
 	private ButtonToBuildDeck buttonToBuildDeck;
 	private ButtonToSeeDeck buttonToSeeDeck;
 	private ButtonToOptions buttonOptions;
+	private ButtonToSpecial buttonSpecial;
 	
 	private JCheckBox checkGreenMageP1 = new JCheckBox("greenP1");
 	private JCheckBox checkOrangeMageP1 = new JCheckBox("orangeP1");
@@ -69,6 +73,8 @@ public class Menu extends JFrame {
 	private JCheckBox checkGreenMageP2 = new JCheckBox("greenP2");
 	private JCheckBox checkOrangeMageP2 = new JCheckBox("orangeP2");
 	private JCheckBox checkBlueMageP2 = new JCheckBox("blueP2");
+	
+	private JTextArea difficultyP2 = new JTextArea("0");
 	
 	public Menu() {
 		super("Menu");
@@ -109,6 +115,7 @@ public class Menu extends JFrame {
 		this.getContentPane().add(buttonToSeeDeck);
 		this.getContentPane().add(buttonBoosterCard);
 		this.getContentPane().add(buttonOptions);
+		this.getContentPane().add(buttonSpecial);
 		Font font = Font.createFont(Font.TRUETYPE_FONT, new File("conthrax-sb.ttf"));
 		JLabel wizardTypesP1 = new JLabel("Preference wizard types P1:");
 		wizardTypesP1.setBounds(1000,150,400,50);
@@ -159,6 +166,16 @@ public class Menu extends JFrame {
 		this.getContentPane().add(checkBlueMageP2);
 		
 		
+		JLabel difficultyP2Label = new JLabel("difficulty:");
+		difficultyP2Label.setBounds(50,350,120,50);
+		difficultyP2Label.setFont(font.deriveFont(Font.BOLD,18f));
+		difficultyP2Label.setForeground(new Color(255,255,255));
+		this.getContentPane().add(difficultyP2Label);
+		
+		difficultyP2.setBounds(200,350,100,50);
+		this.getContentPane().add(difficultyP2);
+		difficultyP2.setFont(font.deriveFont(Font.BOLD,18f));
+		
 		this.getContentPane().add(panelBackground);
 		
 		this.setVisible(true);
@@ -193,8 +210,49 @@ public class Menu extends JFrame {
 		buttonOptions.setBounds(100, 520, 150, 50);
 		buttonOptions.setForeground(new Color(255, 255, 255));
 		buttonOptions.add(new JLabel("Options"));
+		buttonSpecial = new ButtonToSpecial();
+		buttonSpecial.setBounds(800, 630, 150, 50);
+		buttonSpecial.setForeground(new Color(255, 255, 255));
+		buttonSpecial.add(new JLabel("buttonSpecial"));
+		
 		this.repaint();
 		this.revalidate();
+	}
+	
+	public void saveDeck(List<Card> mainDeck1, List<Card> sourceDeck1) {
+		File file = new File("save/deck.txt");
+
+		// créer le fichier s'il n'existe pas
+		if (!file.exists()) {
+			try {
+				file.createNewFile();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		String content = "main deck:\n";
+		for (int i=0;i<mainDeck1.size();i++) {
+			Card card = mainDeck1.get(i);
+			content = content + card.toString() + "\n";
+		}
+		content = content + "source deck:\n";
+		for (int i=0;i<sourceDeck1.size();i++) {
+			Card card = sourceDeck1.get(i);
+			content = content + card.toString() + "\n";
+		}
+		content = content + "fin\n";
+		
+		FileWriter fw;
+		try {
+			fw = new FileWriter(file.getAbsoluteFile());
+			BufferedWriter bw = new BufferedWriter(fw);
+			bw.write(content);
+			bw.close();
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 	}
 
 
@@ -603,6 +661,30 @@ public class Menu extends JFrame {
 
 	public void setCheckBlueMageP2(JCheckBox checkBlueMageP2) {
 		this.checkBlueMageP2 = checkBlueMageP2;
+	}
+
+
+
+	public ButtonToSpecial getButtonSpecial() {
+		return buttonSpecial;
+	}
+
+
+
+	public void setButtonSpecial(ButtonToSpecial buttonSpecial) {
+		this.buttonSpecial = buttonSpecial;
+	}
+
+
+
+	public JTextArea getDifficultyP2() {
+		return difficultyP2;
+	}
+
+
+
+	public void setDifficultyP2(JTextArea difficultyP2) {
+		this.difficultyP2 = difficultyP2;
 	}
 	
 	

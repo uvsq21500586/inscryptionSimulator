@@ -249,10 +249,10 @@ public class Duel extends JFrame {
 	
 	private void buildDecks() throws IOException {
 		//sourceDeck1.add(WizardCard.sourceCard(1, Arrays.asList(new Effect("orange_gem","wizard",1))));
-		sourceDeck1.add(UndeadCard.sourceCard(1, 1, Arrays.asList(new Effect("brittle","undead"))));
-		sourceDeck1.add(WizardCard.sourceCard(1, Arrays.asList(new Effect("orange_gem","wizard",1))));
-		sourceDeck1.add(WizardCard.sourceCard(1, Arrays.asList(new Effect("orange_gem","wizard",1))));
-		sourceDeck2.add(WizardCard.sourceCard(1, Arrays.asList(new Effect("orange_gem","wizard",1))));
+		//sourceDeck1.add(UndeadCard.sourceCard(1, 1, Arrays.asList(new Effect("brittle","undead"))));
+		//sourceDeck1.add(WizardCard.sourceCard(1, Arrays.asList(new Effect("orange_gem","wizard",1))));
+		//sourceDeck1.add(WizardCard.sourceCard(1, Arrays.asList(new Effect("orange_gem","wizard",1))));
+		//sourceDeck2.add(WizardCard.sourceCard(1, Arrays.asList(new Effect("orange_gem","wizard",1))));
 		sourceDeck2.add(BeastCard.sourceCard(1, new ArrayList<>()));
 		sourceDeck1.add(BeastCard.sourceCard(1, new ArrayList<>()));
 		sourceDeck2.add(BeastCard.sourceCard(1, new ArrayList<>()));
@@ -261,10 +261,13 @@ public class Duel extends JFrame {
 		List<Effect> effects = new LinkedList<>(Arrays.asList(new Effect("trifurcated_strike","robot"), new Effect("bifurcated_strike","robot")));
 		List<Effect> effects2 = new LinkedList<>(Arrays.asList(new Effect("detonator","undead",1)));
 		List<Effect> effects3 = new LinkedList<>(Arrays.asList(new Effect("ruby_heart","wizard",1), new Effect("emerald_heart","wizard",1)));
+		List<Effect> effects4 = new ArrayList<>();
+		effects4.add(new Effect("loose_tail_right","beast",1));
 		mainDeck1.add(RobotCard.mainCard("s0n1a", 1, 1, 1, effects));
 		//mainDeck1.add(UndeadCard.mainCard("bone_lord", 1, 1, 1, effects2));
 		mainDeck1.add(WizardCard.mainCard("alchemist", 0, 0, 1, 0, 1, 1, 0, Arrays.asList(new Effect("gem_animator","wizard",2))));
 		mainDeck1.add(WizardCard.mainCard("blue_mage", 0, 0, 1, 0, 1, 1, 1, effects3));
+		mainDeck1.add(BeastCard.mainCard("kingfisher", "blood", 1, 1, 1, effects4));
 		mainDeck1.add(BeastCard.mainCard("kingfisher", "blood", 1, 1, 1, Arrays.asList(new Effect("bee_within","beast",1))));
 		mainDeck1.add(BeastCard.mainCard("kingfisher", "bone", 2, 1, 1, new ArrayList<>()));
 		mainDeck1.add(BeastCard.mainCard("kingfisher", "bone", 1, 1, 1, new ArrayList<>()));
@@ -280,7 +283,7 @@ public class Duel extends JFrame {
 	public void drawBegininCards() throws IOException, FontFormatException {
 		handCard1.add(new CardPanel(sourceDeck1.get(0)));
 		handCard1.add(new CardPanel(sourceDeck1.get(1)));
-		handCard1.add(new CardPanel(sourceDeck1.get(2)));
+		//handCard1.add(new CardPanel(sourceDeck1.get(2)));
 		handCard1.add(new CardPanel(mainDeck1.get(0)));
 		handCard1.add(new CardPanel(mainDeck1.get(1)));
 		handCard1.add(new CardPanel(mainDeck1.get(2)));
@@ -600,7 +603,7 @@ public class Duel extends JFrame {
 						Card card = copycard.getCard();
 						if (card.getEffects().stream().anyMatch(effect -> effect.getName().equals("fledgling"))) {
 							card.setHpBase(card.getHpBase()+1);
-							card.setHp(card.getHp()+1);
+							card.setHp(card.getHp()+2);
 							card.setAttackBase(card.getAttackBase()+1);
 							card.setAttack(card.getAttack()+1);
 							Effect fledglingEffect = card.getEffects().stream().filter(effect -> effect.getName().equals("fledgling")).findFirst().get();
@@ -955,7 +958,18 @@ public class Duel extends JFrame {
 		this.energyPileCount = energyPileCount;
 	}
 	
-	
-	
+	public int scavengerLevel() {
+		//buttonPlaceCard
+		int maxLevelScavenger = 0;
+		for (int i=0;i<4;i++) {
+			if (buttonPlaceCard[i].getCardPanel() != null) {
+				Optional<Effect> scavengerEffect = buttonPlaceCard[i].getCardPanel().getCard().getEffects().stream().filter(effect -> effect.getName().equals("scavenger")).findFirst();
+				if (scavengerEffect.isPresent() && scavengerEffect.get().getLevel()>maxLevelScavenger) {
+					maxLevelScavenger = scavengerEffect.get().getLevel();
+				}
+			}
+		}
+		return maxLevelScavenger;
+	}
 
 }

@@ -239,10 +239,9 @@ public abstract class Card {
 					advCard.deadCard(duel, buttonPlaceCard, positionAdv);
 				}
 				
-				Optional<Effect> scavenger = effects.stream().filter(effect -> effect.getName().equals("scavenger")).findFirst();
-				if (scavenger.isPresent()) {
-					duel.setBoneP1(duel.getBoneP1()+scavenger.get().getLevel());
-				}
+				int scavengerlevelMax = duel.scavengerLevel();
+				duel.setBoneP1(duel.getBoneP1()+scavengerlevelMax);
+				
 				Optional<Effect> ruby_heart_adv = advCard.getEffects().stream().filter(effect -> effect.getName().equals("ruby_heart")).findFirst();
 				Optional<Effect> emerald_heart_adv = advCard.getEffects().stream().filter(effect -> effect.getName().equals("emerald_heart")).findFirst();
 				if (ruby_heart_adv.isPresent() || emerald_heart_adv.isPresent()) {
@@ -422,7 +421,7 @@ public abstract class Card {
 			if (buttonPlaceCard[position] != null && buttonPlaceCard[position].getCardPanel().getCard().equals(this) && position<3) {
 				attackPlayer1WithTarget(duel, buttonPlaceCard, position, position+5, controler);
 			}
-			if (effects.stream().anyMatch(effect -> effect.getName().equals("bifurcated_strike"))){
+			if (effects.stream().anyMatch(effect -> effect.getName().equals("trifurcated_strike"))){
 				if (buttonPlaceCard[position] != null && buttonPlaceCard[position].getCardPanel().getCard().equals(this) && position>0) {
 					attackPlayer1WithTarget(duel, buttonPlaceCard, position, position+3, controler);
 				}
@@ -433,7 +432,7 @@ public abstract class Card {
 					attackPlayer1WithTarget(duel, buttonPlaceCard, position, position+5, controler);
 				}
 			}
-		} else if (effects.stream().anyMatch(effect -> effect.getName().equals("bifurcated_strike"))){
+		} else if (effects.stream().anyMatch(effect -> effect.getName().equals("trifurcated_strike"))){
 			if (buttonPlaceCard[position] != null && buttonPlaceCard[position].getCardPanel().getCard().equals(this) && position>0) {
 				attackPlayer1WithTarget(duel, buttonPlaceCard, position, position+3, controler);
 			}
@@ -585,10 +584,9 @@ public abstract class Card {
 					//carte morte
 					advCard.deadCard(duel, buttonPlaceCard, positionAdv);
 				}
-				Optional<Effect> scavenger = effects.stream().filter(effect -> effect.getName().equals("scavenger")).findFirst();
-				if (scavenger.isPresent()) {
-					duel.setBoneP2(duel.getBoneP2()+scavenger.get().getLevel());
-				}
+				int scavengerlevelMax = duel.scavengerLevel();
+				duel.setBoneP2(duel.getBoneP2()+scavengerlevelMax);
+				
 				Optional<Effect> ruby_heart_adv = advCard.getEffects().stream().filter(effect -> effect.getName().equals("ruby_heart")).findFirst();
 				Optional<Effect> emerald_heart_adv = advCard.getEffects().stream().filter(effect -> effect.getName().equals("emerald_heart")).findFirst();
 				if (ruby_heart_adv.isPresent() || emerald_heart_adv.isPresent()) {
@@ -629,12 +627,15 @@ public abstract class Card {
 	public void placeCard(Duel duel, ButtonPlaceCard buttonPlaceCard[], int position) throws IOException, FontFormatException {
 		Optional<Effect> rabbitEffect = effects.stream().filter(effect -> effect.getName().equals("rabbit_hole")).findAny();
 		if (rabbitEffect.isPresent()) {
-			BeastCard rabbitCard = new BeastCard("rabbit", "blood", 0, rabbitEffect.get().getLevel(), 0, new ArrayList<>(), mainDeck);
-			if (duel.isTurnJ2()) {
-				duel.getHandCard2().add(new CardPanel(rabbitCard));
-			} else {
-				duel.getHandCard1().add(new CardPanel(rabbitCard));
+			for (int i=0;i<(1+rabbitEffect.get().getLevel())/2;i++) {
+				BeastCard rabbitCard = new BeastCard("rabbit", "blood", 0, 1+rabbitEffect.get().getLevel()/2, 0, new ArrayList<>(), mainDeck);
+				if (duel.isTurnJ2()) {
+					duel.getHandCard2().add(new CardPanel(rabbitCard));
+				} else {
+					duel.getHandCard1().add(new CardPanel(rabbitCard));
+				}
 			}
+			
 		}
 		Optional<Effect> damEffect = effects.stream().filter(effect -> effect.getName().equals("dambuilder")).findAny();
 		if (damEffect.isPresent()) {
@@ -860,7 +861,7 @@ public abstract class Card {
 			if (position<7 && buttonPlaceCard[position+1].getCardPanel() == null) {
 				cardPanel.setFieldPosition(position+1);
 				cardPanel.setBounds(100 + 200 * ((position+1)%4), 10, 200, 300);
-				CardPanel tailPanel = new CardPanel(new BeastCard("tail", "blood", 0, 2*effect.getLevel(), 0, new ArrayList<>(), true));
+				CardPanel tailPanel = new CardPanel(new BeastCard("tail", "blood", 0, 2, 0, new ArrayList<>(), true));
 				duel.add(tailPanel,0);
 				tailPanel.setPosition("onField");
 				tailPanel.setFieldPosition(position);		
@@ -868,13 +869,19 @@ public abstract class Card {
 				tailPanel.setBounds(100 + 200 * ((position)%4), 10, 200, 300);
 				buttonPlaceCard[position].setCardPanel(tailPanel);
 				buttonPlaceCard[position+1].setCardPanel(cardPanel);
+				if (effect.getLevel()>1) {
+					effect.setLevel(effect.getLevel()-1);
+				} else {
+					effects.remove(effect);
+				}
+				
 			} else if (position>4 && buttonPlaceCard[position-1].getCardPanel() == null) {
 				//turn effect
 				int id = cardPanel.getCard().getEffects().indexOf(effect);
 				effect.inverseDirection(cardPanel.getEffects()[id], cardPanel.getCard());
 				cardPanel.setFieldPosition(position-1);
 				cardPanel.setBounds(100 + 200 * ((position-1)%4), 10, 200, 300);
-				CardPanel tailPanel = new CardPanel(new BeastCard("tail", "blood", 0, 2*effect.getLevel(), 0, new ArrayList<>(), true));
+				CardPanel tailPanel = new CardPanel(new BeastCard("tail", "blood", 0, 2, 0, new ArrayList<>(), true));
 				duel.add(tailPanel,0);
 				tailPanel.setPosition("onField");
 				tailPanel.setFieldPosition(position);		
@@ -882,12 +889,17 @@ public abstract class Card {
 				tailPanel.setBounds(100 + 200 * ((position)%4), 10, 200, 300);
 				buttonPlaceCard[position].setCardPanel(tailPanel);
 				buttonPlaceCard[position-1].setCardPanel(cardPanel);
+				if (effect.getLevel()>1) {
+					effect.setLevel(effect.getLevel()-1);
+				} else {
+					effects.remove(effect);
+				}
 			}
 		} else {
 			if (position>4 && buttonPlaceCard[position-1].getCardPanel() == null) {
 				cardPanel.setFieldPosition(position-1);
 				cardPanel.setBounds(100 + 200 * ((position-1)%4), 10, 200, 300);
-				CardPanel tailPanel = new CardPanel(new BeastCard("tail", "blood", 0, 2*effect.getLevel(), 0, new ArrayList<>(), true));
+				CardPanel tailPanel = new CardPanel(new BeastCard("tail", "blood", 0, 2, 0, new ArrayList<>(), true));
 				duel.add(tailPanel,0);
 				tailPanel.setPosition("onField");
 				tailPanel.setFieldPosition(position);		
@@ -895,13 +907,18 @@ public abstract class Card {
 				tailPanel.setBounds(100 + 200 * ((position)%4), 10, 200, 300);
 				buttonPlaceCard[position].setCardPanel(tailPanel);
 				buttonPlaceCard[position-1].setCardPanel(cardPanel);
+				if (effect.getLevel()>1) {
+					effect.setLevel(effect.getLevel()-1);
+				} else {
+					effects.remove(effect);
+				}
 			} else if (position<7 && buttonPlaceCard[position+1].getCardPanel() == null) {
 				//turn effect
 				int id = cardPanel.getCard().getEffects().indexOf(effect);
 				effect.inverseDirection(cardPanel.getEffects()[id], cardPanel.getCard());
 				cardPanel.setFieldPosition(position+1);
 				cardPanel.setBounds(100 + 200 * ((position+1)%4), 10, 200, 300);
-				CardPanel tailPanel = new CardPanel(new BeastCard("tail", "blood", 0, 2*effect.getLevel(), 0, new ArrayList<>(), true));
+				CardPanel tailPanel = new CardPanel(new BeastCard("tail", "blood", 0, 2, 0, new ArrayList<>(), true));
 				duel.add(tailPanel,0);
 				tailPanel.setPosition("onField");
 				tailPanel.setFieldPosition(position);		
@@ -909,13 +926,20 @@ public abstract class Card {
 				tailPanel.setBounds(100 + 200 * ((position)%4), 10, 200, 300);
 				buttonPlaceCard[position].setCardPanel(tailPanel);
 				buttonPlaceCard[position+1].setCardPanel(cardPanel);
-				
-				
+				if (effect.getLevel()>1) {
+					effect.setLevel(effect.getLevel()-1);
+				} else {
+					effects.remove(effect);
+				}
 			}
 		}
+		cardPanel.redrawEffects();
 	}
 	
 	public void corpse_eaterEffectP1(Duel duel, ButtonPlaceCard buttonPlaceCard[], DuelControler controler, int position) {
+		if (getEffects().stream().anyMatch(effect -> effect.getName().equals("corpse_eater"))) {
+			return;
+		}
 		for (int i=0;i<duel.getHandCard1().size();i++) {
 			Card card = duel.getHandCard1().get(i).getCard();
 			Optional<Effect> corpse_eaterEffect = card.getEffects().stream().filter(effect -> effect.getName().equals("corpse_eater")).findFirst();
@@ -927,9 +951,13 @@ public abstract class Card {
 				buttonPlaceCard[position].setCardPanel(cardpanel);
 				cardpanel.setBounds(100+200*position%4,310-300*position/4,200,300);
 				duel.getPanel().add(cardpanel,0);
-				
-				card.setAttack(card.getAttackBase()*corpse_eaterEffect.get().getLevel()/(corpse_eaterEffect.get().getLevel() + card.getLevel()/2));
-				card.setHp(Math.max(1, card.getHpBase()*corpse_eaterEffect.get().getLevel()/(corpse_eaterEffect.get().getLevel() + card.getLevel()/2)));
+				if (card instanceof BeastCard && ((BeastCard)card).getCostType().equals("blood")) {
+					card.setAttack(card.getAttackBase()*corpse_eaterEffect.get().getLevel()/(corpse_eaterEffect.get().getLevel() * card.getLevel()));
+					card.setHp(Math.max(1, card.getHpBase()*corpse_eaterEffect.get().getLevel()/(corpse_eaterEffect.get().getLevel() * card.getLevel())));
+				} else {
+					card.setAttack(card.getAttackBase()*corpse_eaterEffect.get().getLevel()/(corpse_eaterEffect.get().getLevel() * (1+card.getLevel()/2)));
+					card.setHp(Math.max(1, card.getHpBase()*corpse_eaterEffect.get().getLevel()/(corpse_eaterEffect.get().getLevel() * (1+card.getLevel()/2))));
+				}
 				cardpanel.getAttack().setText(card.getAttack().toString());
 				cardpanel.getHp().setText(card.getHp().toString());
 				duel.getHandCard1().remove(i);
@@ -939,6 +967,9 @@ public abstract class Card {
 	}
 	
 	public void corpse_eaterEffectP2(Duel duel, ButtonPlaceCard buttonPlaceCard[], DuelControler controler, int position) {
+		if (getEffects().stream().anyMatch(effect -> effect.getName().equals("corpse_eater"))) {
+			return;
+		}
 		for (int i=0;i<duel.getHandCard2().size();i++) {
 			Card card = duel.getHandCard2().get(i).getCard();
 			Optional<Effect> corpse_eaterEffect = card.getEffects().stream().filter(effect -> effect.getName().equals("corpse_eater")).findFirst();
@@ -950,9 +981,13 @@ public abstract class Card {
 				buttonPlaceCard[position].setCardPanel(cardpanel);
 				cardpanel.setBounds(100+200*position%4,310-300*position/4,200,300);
 				duel.getPanel().add(cardpanel);
-				
-				card.setAttack(card.getAttackBase()*corpse_eaterEffect.get().getLevel()/(corpse_eaterEffect.get().getLevel() * (1+card.getLevel()/2)));
-				card.setHp(Math.max(1, card.getHpBase()*corpse_eaterEffect.get().getLevel()/(corpse_eaterEffect.get().getLevel() * (1+card.getLevel()/2))));
+				if (card instanceof BeastCard && ((BeastCard)card).getCostType().equals("blood")) {
+					card.setAttack(card.getAttackBase()*corpse_eaterEffect.get().getLevel()/(corpse_eaterEffect.get().getLevel() * card.getLevel()));
+					card.setHp(Math.max(1, card.getHpBase()*corpse_eaterEffect.get().getLevel()/(corpse_eaterEffect.get().getLevel() * card.getLevel())));
+				} else {
+					card.setAttack(card.getAttackBase()*corpse_eaterEffect.get().getLevel()/(corpse_eaterEffect.get().getLevel() * (1+card.getLevel()/2)));
+					card.setHp(Math.max(1, card.getHpBase()*corpse_eaterEffect.get().getLevel()/(corpse_eaterEffect.get().getLevel() * (1+card.getLevel()/2))));
+				}
 				cardpanel.getAttack().setText(card.getAttack().toString());
 				cardpanel.getHp().setText(card.getHp().toString());
 				duel.getHandCard2().remove(i);

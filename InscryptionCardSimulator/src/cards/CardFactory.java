@@ -28,14 +28,35 @@ public class CardFactory {
 		}
 		u = (u * multiplicator + 2*levelRarity)%modulo;
 		if (type.equals("beast")) {
-			return beastCard(modulo, multiplicator, globalStrengh, rarityStrengh, u, levelRarity);
+			return beastCard(modulo, multiplicator, globalStrengh, rarityStrengh, u, levelRarity,0);
 		} else if (type.equals("robot")) {
-			return robotCard(modulo, multiplicator, globalStrengh, rarityStrengh, u, levelRarity);
+			return robotCard(modulo, multiplicator, globalStrengh, rarityStrengh, u, levelRarity,0);
 		} else if (type.equals("undead")) {
-			return undeadCard(modulo, multiplicator, globalStrengh, rarityStrengh, u, levelRarity);
+			return undeadCard(modulo, multiplicator, globalStrengh, rarityStrengh, u, levelRarity,0);
 		}
 		
-		return wizardCard(modulo, multiplicator, globalStrengh, rarityStrengh, u, levelRarity);
+		return wizardCard(modulo, multiplicator, globalStrengh, rarityStrengh, u, levelRarity,0);
+	}
+	
+	public static Card mainCard(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u0, String type, int difficulty) throws IOException {
+		int u = u0;
+		
+		int levelRarity = 0;
+		
+		while (u%10 == 9) {
+			u = (u * multiplicator)%modulo;
+			levelRarity++;
+		}
+		u = (u * multiplicator + 2*levelRarity)%modulo;
+		if (type.equals("beast")) {
+			return beastCard(modulo, multiplicator, globalStrengh, rarityStrengh, u, levelRarity,difficulty);
+		} else if (type.equals("robot")) {
+			return robotCard(modulo, multiplicator, globalStrengh, rarityStrengh, u, levelRarity,difficulty);
+		} else if (type.equals("undead")) {
+			return undeadCard(modulo, multiplicator, globalStrengh, rarityStrengh, u, levelRarity,difficulty);
+		}
+		
+		return wizardCard(modulo, multiplicator, globalStrengh, rarityStrengh, u, levelRarity,difficulty);
 	}
 	
 	public static Card sourceCard(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u0, String type) throws IOException {
@@ -60,7 +81,7 @@ public class CardFactory {
 	}
 	
 	
-	private static BeastCard beastCard(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u, int levelRarity) throws IOException {
+	private static BeastCard beastCard(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u, int levelRarity, int difficulty) throws IOException {
 		int nbstats = 0;
 		int level = 0;
 		int attackmin = 0;
@@ -99,6 +120,8 @@ public class CardFactory {
 			nbstats = nbstats + Math.max(0, level - 1 - u%(1+globalStrengh/4));
 			u = (u * multiplicator + 2*levelRarity)%modulo;
 		}
+		
+		nbstats = Math.max(0, nbstats + difficulty);
 		
 		//effects
 		boolean stopEffects = false;
@@ -221,7 +244,7 @@ public class CardFactory {
 		return new BeastCard(appearance, typeCost, level, hp, attack, effects, levelRarity, true);
 	}
 
-	private static UndeadCard undeadCard(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u, int levelRarity) throws IOException {
+	private static UndeadCard undeadCard(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u, int levelRarity, int difficulty) throws IOException {
 		int nbstats = 0;
 		int level = 0;
 		int attackmin = 0;
@@ -240,6 +263,7 @@ public class CardFactory {
 		nbstats = (level+1) * globalStrengh / 4 + levelRarity * rarityStrengh;
 		nbstats = nbstats - u%(1+globalStrengh/8);
 		u = (u * multiplicator + 2*levelRarity)%modulo;
+		nbstats = Math.max(0, nbstats + difficulty);
 		
 		//effects
 		boolean stopEffects = false;
@@ -363,7 +387,7 @@ public class CardFactory {
 	}
 	
 	
-	private static RobotCard robotCard(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u, int levelRarity) throws IOException {
+	private static RobotCard robotCard(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u, int levelRarity, int difficulty) throws IOException {
 		int nbstats = 0;
 		int level = 0;
 		int attackmin = 0;
@@ -394,7 +418,7 @@ public class CardFactory {
 		level = u%(lvlmax)+1;
 		u = (u * multiplicator + 2*levelRarity)%modulo;
 		nbstats = (2+level)*globalStrengh/4 + levelRarity*rarityStrengh;
-		
+		nbstats = Math.max(0, nbstats + difficulty);
 		//effects
 		boolean stopEffects = false;
 		List<Effect> effects = new ArrayList<>();
@@ -550,7 +574,7 @@ public class CardFactory {
 		return new RobotCard(appearance, level, hp, attack, effects, levelRarity, true);
 	}
 	
-	private static WizardCard wizardCard(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u, int levelRarity) throws IOException {
+	private static WizardCard wizardCard(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u, int levelRarity, int difficulty) throws IOException {
 		int nbstats = 0;
 		int level = 0;
 		int attackmin = 0;
@@ -711,7 +735,7 @@ public class CardFactory {
 		}
 		
 		nbstats = (2*nbAnyMox + 3*(level-nbAnyMox))*globalStrengh/4 + levelRarity*rarityStrengh;
-		
+		nbstats = Math.max(0, nbstats + difficulty);
 		
 		//effects
 		boolean stopEffects = false;

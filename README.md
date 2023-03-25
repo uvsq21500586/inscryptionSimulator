@@ -7,8 +7,8 @@ This program is made to simulate a duel between two players.
 2. Download this project and import it to eclipse workspace
 3. launch src/main/Main and enjoy
 
-To change cards power or type, go to src/frames/Menu and change values of globalStrenght1 (for player1) or globalStrenght2 (for player2).
-To have more different cards , go to src/frames/Menu and change values of modulo1 (for player1) or modulo2 (for player2).
+To change cards power or type, go to options and change values of globalStrenght1 (for player1) or globalStrenght2 (for player2).
+To have more different cards , go to options and change values of modulo1 (for player1) or modulo2 (for player2).
 
 # screenshot
 
