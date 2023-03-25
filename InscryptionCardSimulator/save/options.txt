@@ -5,7 +5,7 @@ multiplierP1: 8
 global_strenghtP1: 2
 rarity_strenghtP1: 2
 lifePointsP1: 6
-nbMainCardsP1: 8
+nbMainCardsP1: 5
 nbSourceCardsP1: 6
 typeP2: beast
 moduloP2: 13

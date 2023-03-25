@@ -1,11 +1,9 @@
 main deck:
-beast;turkey_vulture;blood;1;5;2;_;_;_;_;_;_;_;_;0
-beast;raven_egg;blood;2;4;1;fledgling;1;_;_;_;_;_;_;0
+beast;sparrow;bone;5;2;0;sprinter_right;_;_;_;_;_;_;_;0
+beast;turkey_vulture;blood;1;1;1;airborne;_;_;_;_;_;_;_;0
+beast;dire_wolf;blood;1;3;0;_;_;_;_;_;_;_;_;0
+beast;raven_egg;blood;2;2;2;_;_;_;_;_;_;_;_;0
 beast;raven;blood;2;2;0;loose_tail_right;1;burrower;_;_;_;_;_;0
-beast;raven_egg;blood;2;2;2;_;_;_;_;_;_;_;_;0
-beast;raven_egg;blood;2;2;2;_;_;_;_;_;_;_;_;0
-beast;coyote;blood;2;2;0;bee_within;1;sprinter_right;_;_;_;_;_;0
-beast;turkey_vulture;blood;1;5;0;_;_;_;_;_;_;_;_;0
 source deck:
 beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
 beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0

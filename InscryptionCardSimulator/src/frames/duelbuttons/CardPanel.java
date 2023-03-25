@@ -326,7 +326,7 @@ public class CardPanel extends JPanel {
 	    
 	    labelBackground.setBounds(0,0,200,300);
 	    labelAppeareance.setBounds(0,0,200,200);
-	    
+	    this.add(beingSacrified);
 	    this.add(labelAppeareance);
 	    hp = new JLabel(card.getHp().toString());
 	    hp.setBounds(160,220,50,50);

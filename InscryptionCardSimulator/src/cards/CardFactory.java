@@ -123,6 +123,38 @@ public class CardFactory {
 		
 		nbstats = Math.max(0, nbstats + difficulty);
 		
+		return beastCardFactory(modulo, multiplicator, u, levelRarity, nbstats, level, attackmin, typeCost);
+	}
+	
+	public static BeastCard beastCardFixedLevel(String typeCost, int level,int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u0) throws IOException {
+		int nbstats = 0;
+		int attackmin = 0;
+		int u = u0;
+		
+		int levelRarity = 0;
+		
+		while (u%10 == 9) {
+			u = (u * multiplicator)%modulo;
+			levelRarity++;
+		}
+		u = (u * multiplicator + 2*levelRarity)%modulo;
+		if (typeCost.equals("blood")) {
+			nbstats = level * globalStrengh + levelRarity * rarityStrengh;
+			nbstats = nbstats - u%(1+globalStrengh/4);
+			u = (u * multiplicator + 2*levelRarity)%modulo;
+			nbstats = nbstats + Math.max(0, level - 1 - u%(1+globalStrengh/4));
+			u = (u * multiplicator + 2*levelRarity)%modulo;
+		} else {
+			nbstats = level * globalStrengh / 4 + levelRarity * rarityStrengh;
+			nbstats = nbstats - u%(1+globalStrengh/8);
+			u = (u * multiplicator + 2*levelRarity)%modulo;
+		}	
+		
+		return beastCardFactory(modulo, multiplicator, u, levelRarity, nbstats, level, attackmin, typeCost);
+	}
+
+	private static BeastCard beastCardFactory(int modulo, int multiplicator, int u, int levelRarity, int nbstats,
+			int level, int attackmin, String typeCost) throws IOException {
 		//effects
 		boolean stopEffects = false;
 		List<Effect> effects = new ArrayList<>();

@@ -13,8 +13,13 @@ import cards.BeastCard;
 import cards.Card;
 import cards.CardFactory;
 import cards.RobotCard;
+import events.Alter;
 import events.CampFire;
+import events.CostCards;
 import events.RandomCards;
+import events.RandomSourceCards;
+import events.TraderCards;
+import events.Trapper;
 import frames.menubuttons.ButtonToDuel;
 import frames.menubuttons.ButtonToSimulatorCard;
 import frames.duelbuttons.CardPanel;
@@ -34,7 +39,40 @@ public class SpecialEventsControler implements ActionListener,MouseListener {
 		// TODO Auto-generated method stub
 		if (e.getSource() instanceof JButton) {
 			System.out.println("mouseClicked");
-			if (specialEvents.getTypeEvent().getSelectedValue().equals("random")) {
+			if (specialEvents.getTypeEvent().getSelectedValue().equals("alter")) {
+				try {
+					new Alter(specialEvents.getMenu());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (FontFormatException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			} else if (specialEvents.getTypeEvent().getSelectedValue().equals("backpack")) {
+					try {
+						new RandomSourceCards(specialEvents.getMenu());
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (FontFormatException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+			} else if (specialEvents.getTypeEvent().getSelectedValue().equals("cost")) {
+				try {
+					new CostCards(specialEvents.getMenu());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (FontFormatException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			} else if (specialEvents.getTypeEvent().getSelectedValue().equals("random")) {
 				try {
 					new RandomCards(specialEvents.getMenu());
 				} catch (IOException e1) {
@@ -48,6 +86,28 @@ public class SpecialEventsControler implements ActionListener,MouseListener {
 			} else if (specialEvents.getTypeEvent().getSelectedValue().equals("campfire")) {
 				try {
 					new CampFire(specialEvents.getMenu());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (FontFormatException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			} else if (specialEvents.getTypeEvent().getSelectedValue().equals("trapper")) {
+				try {
+					new Trapper(specialEvents.getMenu());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (FontFormatException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			} else if (specialEvents.getTypeEvent().getSelectedValue().equals("trader")) {
+				try {
+					new TraderCards(specialEvents.getMenu());
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
