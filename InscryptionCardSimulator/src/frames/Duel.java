@@ -602,7 +602,7 @@ public class Duel extends JFrame {
 					if (copycard != null) {
 						Card card = copycard.getCard();
 						if (card.getEffects().stream().anyMatch(effect -> effect.getName().equals("fledgling"))) {
-							card.setHpBase(card.getHpBase()+1);
+							card.setHpBase(card.getHpBase()+2);
 							card.setHp(card.getHp()+2);
 							card.setAttackBase(card.getAttackBase()+1);
 							card.setAttack(card.getAttack()+1);
@@ -637,8 +637,8 @@ public class Duel extends JFrame {
 					if (copycard != null) {
 						Card card = copycard.getCard();
 						if (card.getEffects().stream().anyMatch(effect -> effect.getName().equals("fledgling"))) {
-							card.setHpBase(card.getHpBase()+1);
-							card.setHp(card.getHp()+1);
+							card.setHpBase(card.getHpBase()+2);
+							card.setHp(card.getHp()+2);
 							card.setAttackBase(card.getAttackBase()+1);
 							card.setAttack(card.getAttack()+1);
 							Effect fledglingEffect = card.getEffects().stream().filter(effect -> effect.getName().equals("fledgling")).findFirst().get();

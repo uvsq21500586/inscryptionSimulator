@@ -37,7 +37,7 @@ public class CostCardsControler implements ActionListener,MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		//System.out.println("mouseClicked");
 		// TODO Auto-generated method stub
-		if (e.getSource() instanceof CostPanel) {
+		if (e.getSource() instanceof CostPanel && selectedCost == null) {
 			System.out.println("CostPanel");
 			selectedCost = (CostPanel) e.getSource();
 			Random r = new Random();

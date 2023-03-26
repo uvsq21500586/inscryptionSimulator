@@ -35,8 +35,8 @@ public class Player1Deck  extends JFrame {
 			panel.add(cardsPanelsSourceDeck.get(i));
 			cardsPanelsSourceDeck.get(i).setBounds(200*i, 320, 200, 300);
 		}
-		panel.setBounds(0, 0, 200 * cardsPanelsMainDeck.size(), 650);
-		panel.setPreferredSize(new Dimension(200 * cardsPanelsMainDeck.size(), 650));
+		panel.setBounds(0, 0, 200 *  Math.max(cardsPanelsMainDeck.size(), cardsPanelsSourceDeck.size()), 650);
+		panel.setPreferredSize(new Dimension(200 * Math.max(cardsPanelsMainDeck.size(), cardsPanelsSourceDeck.size()), 650));
 		
 		JScrollPane jscrollpane = new JScrollPane(panel);
 		

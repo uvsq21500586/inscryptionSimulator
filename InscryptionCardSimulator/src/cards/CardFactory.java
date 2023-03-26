@@ -38,10 +38,13 @@ public class CardFactory {
 		return wizardCard(modulo, multiplicator, globalStrengh, rarityStrengh, u, levelRarity,0);
 	}
 	
-	public static Card mainCard(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u0, String type, int difficulty) throws IOException {
+	public static Card mainCard(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u0, String type, int difficulty, boolean rarityGarantee) throws IOException {
 		int u = u0;
 		
 		int levelRarity = 0;
+		if (rarityGarantee) {
+			levelRarity = 1;
+		}
 		
 		while (u%10 == 9) {
 			u = (u * multiplicator)%modulo;

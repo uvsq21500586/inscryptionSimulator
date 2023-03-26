@@ -29,6 +29,8 @@ public class TraderCardsControler implements ActionListener,MouseListener {
 		for (int i=0;i<8;i++) {
 			traderCards.getCardsPanelsMainDeck().get(i).addMouseListener(this);
 			traderCards.getCardsPanelsMainDeckUpgraded().get(i).addMouseListener(this);
+		}
+		for (int i=0;i<4;i++) {
 			traderCards.getCardsPanelsMainDeckUpgraded2().get(i).addMouseListener(this);
 		}
 		traderCards.getButtonValidate().addMouseListener(this);
@@ -93,6 +95,8 @@ public class TraderCardsControler implements ActionListener,MouseListener {
 			} else if (traderCards.getNbPeltsLabel().getText().contains("wolf")) {
 				for (int i=0;i<8;i++) {
 					traderCards.getCardsPanelsMainDeckUpgraded().get(i).setVisible(false);
+				}
+				for (int i=0;i<4;i++) {
 					traderCards.getCardsPanelsMainDeckUpgraded2().get(i).setVisible(true);
 				}
 				int nbPelts = 0;

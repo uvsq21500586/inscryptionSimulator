@@ -22,6 +22,7 @@ import frames.duelbuttons.CardPanel;
 public class CampFireControler implements ActionListener,MouseListener {
 	private CampFire campFire;
 	private CardPanel selectedCard = null;
+	private boolean clickValidate = false;
 	
 	public CampFireControler(CampFire campFire) {
 		this.campFire = campFire;
@@ -47,20 +48,37 @@ public class CampFireControler implements ActionListener,MouseListener {
 		}
 		
 		if (e.getSource() instanceof JButton) {
-			Random r = new Random();
-			if (r.nextInt(Integer.parseInt(campFire.getChanceDice().getText())) < Integer.parseInt(campFire.getChanceSuccess().getText())) {
-				if (campFire.isAttackBonus()) {
-					selectedCard.getCard().setAttackBase(selectedCard.getCard().getAttackBase()+1);
-					selectedCard.getCard().setAttack(selectedCard.getCard().getAttackBase());
-				} else {
-					selectedCard.getCard().setHpBase(selectedCard.getCard().getHpBase()+2);
-					selectedCard.getCard().setHp(selectedCard.getCard().getHpBase());
-				}
+			if (clickValidate) {
+				campFire.dispose();
 			} else {
-				campFire.getMenu().getMainDeck1().remove(selectedCard.getCard());
+				Random r = new Random();
+				int chance = r.nextInt(Integer.parseInt(campFire.getChanceDice().getText()));
+				if (chance < Integer.parseInt(campFire.getChanceSuccess().getText())) {
+					System.out.println(chance);
+					if (campFire.isAttackBonus()) {
+						selectedCard.getCard().setAttackBase(selectedCard.getCard().getAttackBase()+1);
+						selectedCard.getCard().setAttack(selectedCard.getCard().getAttackBase());
+					} else {
+						selectedCard.getCard().setHpBase(selectedCard.getCard().getHpBase()+2);
+						selectedCard.getCard().setHp(selectedCard.getCard().getHpBase());
+					}
+					try {
+						campFire.getResult().repaint(selectedCard.getCard());
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					} catch (FontFormatException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				} else {
+					campFire.getMenu().getMainDeck1().remove(selectedCard.getCard());
+				}
+				campFire.getMenu().saveDeck(campFire.getMenu().getMainDeck1(), campFire.getMenu().getSourceDeck1());
+				clickValidate = true;
 			}
-			campFire.getMenu().saveDeck(campFire.getMenu().getMainDeck1(), campFire.getMenu().getSourceDeck1());
-			campFire.dispose();
+			
+			
 		}
 		
 	}

@@ -19,10 +19,11 @@ import frames.menubuttons.ButtonToDuel;
 public class SpecialEvents extends JFrame {
 	private String listTypes[] = {"beast", "robot", "undead","wizard"}; 
 	//private String listSpecial[] = {"boulder", "cost", "random", "trapper", "trial", "alter", "backpack", "campfire", "copy", "mycologist", "remove", "totem", "trade"}; 
-	private String listSpecial[] = {"alter", "backpack", "campfire", "cost", "random", "trader", "trapper"}; 
+	private String listSpecial[] = {"alter", "backpack", "boulders", "campfire", "copy", "cost", "mycologist", "random", "trader", "trapper", "trial"}; 
 	private Menu menu;
 	private JButton buttonSimulation;
 	private JList<String> typeEvent;
+	private JCheckBox checkBoss = new JCheckBox("boss gift");
 
 	public SpecialEvents() {
 		super("Card simulator");
@@ -58,6 +59,11 @@ public class SpecialEvents extends JFrame {
 		System.out.println(typeEvent.getSelectedValue());
 		this.getContentPane().add(typeEvent);
 		typeEvent.setBounds(200,50,140,250);
+		checkBoss.setBounds(1000,200,400,50);
+		checkBoss.setFont(font.deriveFont(Font.BOLD,18f));
+		checkBoss.setForeground(new Color(255,255,255));
+		checkBoss.setOpaque(false);
+		this.getContentPane().add(checkBoss);
 		
 		this.getContentPane().add(panelBackground);
 		this.setVisible(true);
@@ -111,6 +117,16 @@ public class SpecialEvents extends JFrame {
 
 	public void setMenu(Menu menu) {
 		this.menu = menu;
+	}
+
+
+	public JCheckBox getCheckBoss() {
+		return checkBoss;
+	}
+
+
+	public void setCheckBoss(JCheckBox checkBoss) {
+		this.checkBoss = checkBoss;
 	}
 	
 	

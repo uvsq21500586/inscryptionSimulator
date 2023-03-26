@@ -68,14 +68,14 @@ public class TraderCards  extends JFrame {
 					menu.getGlobalStrenght1(),
 					menu.getRarityStrenght1(),
 					r.nextInt(menu.getModulo1()-1)+1,
-					menu.getTypecards1(),1);
+					menu.getTypecards1(),1,false);
 			Card card2 = CardFactory.mainCard(
 					menu.getModulo1(),
 					menu.getMultiplier1(),
 					menu.getGlobalStrenght1(),
 					menu.getRarityStrenght1(),
 					r.nextInt(menu.getModulo1()-1)+1,
-					menu.getTypecards1(),1);
+					menu.getTypecards1(),1,false);
 			if (card2.getRarity() < card1.getRarity()) {
 				boosterMain2.add(card2);
 			} else {
@@ -83,22 +83,22 @@ public class TraderCards  extends JFrame {
 			}
 		}
 		List<Card> boosterMain3 = new ArrayList<>();
-		for(int i=0;i<8;i++) {
+		for(int i=0;i<4;i++) {
 			Card card1 = CardFactory.mainCard(
 					menu.getModulo1(),
 					menu.getMultiplier1(),
 					menu.getGlobalStrenght1(),
 					menu.getRarityStrenght1(),
 					r.nextInt(menu.getModulo1()-1)+1,
-					menu.getTypecards1(),2);
+					menu.getTypecards1(),2,false);
 			Card card2 = CardFactory.mainCard(
 					menu.getModulo1(),
 					menu.getMultiplier1(),
 					menu.getGlobalStrenght1(),
 					menu.getRarityStrenght1(),
 					r.nextInt(menu.getModulo1()-1)+1,
-					menu.getTypecards1(),2);
-			if (card2.getRarity() < card1.getRarity()) {
+					menu.getTypecards1(),2,false);
+			if (card1.getRarity() == 0 || card2.getRarity() < card1.getRarity()) {
 				boosterMain3.add(card2);
 			} else {
 				boosterMain3.add(card1);
@@ -108,12 +108,15 @@ public class TraderCards  extends JFrame {
 		for(int i=0;i<boosterMain.size();i++) {
 			cardsPanelsMainDeck.add(new CardPanel(boosterMain.get(i)));
 			cardsPanelsMainDeckUpgraded.add(new CardPanel(boosterMain2.get(i)));
-			cardsPanelsMainDeckUpgraded2.add(new CardPanel(boosterMain3.get(i)));
 			panel.add(cardsPanelsMainDeck.get(i));
 			cardsPanelsMainDeck.get(i).setBounds(200*i, 0, 200, 300);
 			panel.add(cardsPanelsMainDeckUpgraded.get(i));
 			cardsPanelsMainDeckUpgraded.get(i).setVisible(false);
 			cardsPanelsMainDeckUpgraded.get(i).setBounds(200*i, 0, 200, 300);
+			
+		}
+		for(int i=0;i<boosterMain3.size();i++) {
+			cardsPanelsMainDeckUpgraded2.add(new CardPanel(boosterMain3.get(i)));
 			panel.add(cardsPanelsMainDeckUpgraded2.get(i));
 			cardsPanelsMainDeckUpgraded2.get(i).setBounds(200*i, 0, 200, 300);
 			cardsPanelsMainDeckUpgraded2.get(i).setVisible(false);

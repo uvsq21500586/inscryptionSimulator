@@ -61,7 +61,7 @@ public class MenuControler implements ActionListener,MouseListener {
 								menu.getRarityStrenght2(),
 								r.nextInt(menu.getModulo2()-1)+1,
 								menu.getTypecards2(),
-								difficulty);
+								difficulty,false);
 						mainDeck2.add(newCard);
 					}
 					

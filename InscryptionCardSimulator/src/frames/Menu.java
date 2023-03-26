@@ -31,6 +31,18 @@ public class Menu extends JFrame {
 	//crédits: 0
 	//j2: s4;21-1(21)
 	
+	//base pelts prizes: 1-2-4, base start main deck size: 4, base start source deck size: 5
+	//parameters: positive(bonus chance(more bonus events), nb choices cards, nbWavesPerBoss), negativeOrNeutral(campfire chance, higher pelt price and more boulders and harder trials, harder bosses)
+	//totem -> more lifePoints, bonus stats for trade, nb cards for trial
+	
+	//player parameters -> choices costs, choices trader, totem
+	
+	//serie: 4[1(1,2,1)-1(1(1/2),1(+0/0),1(+0/0))]
+	//j1: 3-1(3),[1blood, 12345687, lifePoints]
+	//crédits: 10,d1
+	//bonus: 0,0,0
+	//malus: dice, lifePoints adv, strenght, cards, cardsup, price pelt:+1
+	//j2: 2-1(2)
 	
 	//default parameters
 	private Integer modulo1 = 11;

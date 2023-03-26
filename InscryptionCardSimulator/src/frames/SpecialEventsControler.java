@@ -14,12 +14,16 @@ import cards.Card;
 import cards.CardFactory;
 import cards.RobotCard;
 import events.Alter;
+import events.BoulderCards;
 import events.CampFire;
+import events.CopyCard;
 import events.CostCards;
+import events.Mycologist;
 import events.RandomCards;
 import events.RandomSourceCards;
 import events.TraderCards;
 import events.Trapper;
+import events.Trial;
 import frames.menubuttons.ButtonToDuel;
 import frames.menubuttons.ButtonToSimulatorCard;
 import frames.duelbuttons.CardPanel;
@@ -61,20 +65,9 @@ public class SpecialEventsControler implements ActionListener,MouseListener {
 						e1.printStackTrace();
 					}
 					
-			} else if (specialEvents.getTypeEvent().getSelectedValue().equals("cost")) {
+			} else if (specialEvents.getTypeEvent().getSelectedValue().equals("boulders")) {
 				try {
-					new CostCards(specialEvents.getMenu());
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (FontFormatException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
-			} else if (specialEvents.getTypeEvent().getSelectedValue().equals("random")) {
-				try {
-					new RandomCards(specialEvents.getMenu());
+					new BoulderCards(specialEvents.getMenu());
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -86,6 +79,64 @@ public class SpecialEventsControler implements ActionListener,MouseListener {
 			} else if (specialEvents.getTypeEvent().getSelectedValue().equals("campfire")) {
 				try {
 					new CampFire(specialEvents.getMenu());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (FontFormatException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			} else if (specialEvents.getTypeEvent().getSelectedValue().equals("copy")) {
+				try {
+					new CopyCard(specialEvents.getMenu());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (FontFormatException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			} else if (specialEvents.getTypeEvent().getSelectedValue().equals("cost")) {
+				try {
+					new CostCards(specialEvents.getMenu());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (FontFormatException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			} else if (specialEvents.getTypeEvent().getSelectedValue().equals("mycologist")) {
+				try {
+					new Mycologist(specialEvents.getMenu());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (FontFormatException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}  else if (specialEvents.getTypeEvent().getSelectedValue().equals("random")) {
+				try {
+					if (specialEvents.getCheckBoss().isSelected()) {
+						new RandomCards(specialEvents.getMenu(), true);
+					} else {
+						new RandomCards(specialEvents.getMenu());
+					}
+					
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (FontFormatException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			} else if (specialEvents.getTypeEvent().getSelectedValue().equals("trader")) {
+				try {
+					new TraderCards(specialEvents.getMenu());
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -105,9 +156,9 @@ public class SpecialEventsControler implements ActionListener,MouseListener {
 					e1.printStackTrace();
 				}
 				
-			} else if (specialEvents.getTypeEvent().getSelectedValue().equals("trader")) {
+			} else if (specialEvents.getTypeEvent().getSelectedValue().equals("trial")) {
 				try {
-					new TraderCards(specialEvents.getMenu());
+					new Trial(specialEvents.getMenu());
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

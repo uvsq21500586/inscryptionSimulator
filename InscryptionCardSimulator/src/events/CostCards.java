@@ -31,7 +31,7 @@ public class CostCards  extends JFrame {
 		super("Cost cards");
 		this.menu = menu;
 		Random r = new Random();
-		this.setSize(1530, 650);
+		this.setSize(1530, 950);
 		JPanel panel = new JPanel(); 
 		panel.setLayout(null);
 		costPanels = new CostPanel[3];

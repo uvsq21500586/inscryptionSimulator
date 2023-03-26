@@ -29,12 +29,13 @@ public class CampFire  extends JFrame {
 	private boolean attackBonus;
 	private JTextArea chanceSuccess = new JTextArea("1");
 	private JTextArea chanceDice = new JTextArea("2");
+	private CardPanel result;
 	
 	public CampFire(Menu menu) throws IOException, FontFormatException {
 		super("Camp Fire");
 		this.menu = menu;
 		Random r = new Random();
-		this.setSize(1530, 650);
+		this.setSize(1530, 950);
 		JPanel panel = new JPanel(); 
 		panel.setLayout(null);
 		
@@ -78,6 +79,10 @@ public class CampFire  extends JFrame {
 		panel.add(buttonValidate);
 		panel.setBounds(0, 0, 200 * cardsPanelsMainDeck.size(), 650);
 		panel.setPreferredSize(new Dimension(200 * cardsPanelsMainDeck.size(), 650));
+		
+		result = new CardPanel();
+		panel.add(result);
+		result.setBounds(550,450,200,300);
 		
 		JScrollPane jscrollpane = new JScrollPane(panel);
 		
@@ -154,6 +159,14 @@ public class CampFire  extends JFrame {
 
 	public void setChanceDice(JTextArea chanceDice) {
 		this.chanceDice = chanceDice;
+	}
+
+	public CardPanel getResult() {
+		return result;
+	}
+
+	public void setResult(CardPanel result) {
+		this.result = result;
 	}
 	
 	

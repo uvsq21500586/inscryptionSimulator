@@ -77,17 +77,48 @@ public class RandomCards  extends JFrame {
 		new RandomCardsControler(this);
 	}
 	
-	public RandomCards(List<Card> boosterMain) throws IOException, FontFormatException {
+	public RandomCards(Menu menu, boolean rarityGaranty) throws IOException, FontFormatException {
 		super("Random cards");
+		this.menu = menu;
+		Random r = new Random();
 		this.setSize(1530, 650);
 		JPanel panel = new JPanel(); 
 		panel.setLayout(null);
+		List<Card> boosterMain = new ArrayList<>();
+		for(int i=0;i<3;i++) {
+			Card card1 = CardFactory.mainCard(
+					menu.getModulo1(),
+					menu.getMultiplier1(),
+					menu.getGlobalStrenght1(),
+					menu.getRarityStrenght1(),
+					r.nextInt(menu.getModulo1()-1)+1,
+					menu.getTypecards1(),0,rarityGaranty);
+			Card card2 = CardFactory.mainCard(
+					menu.getModulo1(),
+					menu.getMultiplier1(),
+					menu.getGlobalStrenght1(),
+					menu.getRarityStrenght1(),
+					r.nextInt(menu.getModulo1()-1)+1,
+					menu.getTypecards1(),0,rarityGaranty);
+			if (card2.getRarity() < card1.getRarity()) {
+				boosterMain.add(card2);
+			} else {
+				boosterMain.add(card1);
+			}
+		}
+		
+		
 		
 		for(int i=0;i<boosterMain.size();i++) {
 			cardsPanelsMainDeck.add(new CardPanel(boosterMain.get(i)));
 			panel.add(cardsPanelsMainDeck.get(i));
 			cardsPanelsMainDeck.get(i).setBounds(200*i, 0, 200, 300);
 		}
+		
+		buttonValidate = new JButton("Validate");
+		buttonValidate.setBounds(500,400,100,50);
+		buttonValidate.setEnabled(false);
+		panel.add(buttonValidate);
 		panel.setBounds(0, 0, 200 * cardsPanelsMainDeck.size(), 650);
 		panel.setPreferredSize(new Dimension(200 * cardsPanelsMainDeck.size(), 650));
 		
@@ -96,6 +127,7 @@ public class RandomCards  extends JFrame {
 		this.add(jscrollpane, BorderLayout.CENTER);
 		
 		this.setVisible(true);
+		new RandomCardsControler(this);
 	}
 
 	public List<CardPanel> getCardsPanelsMainDeck() {
