@@ -56,7 +56,7 @@ public class SpecialEventsControler implements ActionListener,MouseListener {
 				
 			} else if (specialEvents.getTypeEvent().getSelectedValue().equals("backpack")) {
 					try {
-						new RandomSourceCards(specialEvents.getMenu());
+						new RandomSourceCards(specialEvents.getMenu(), Integer.parseInt(specialEvents.getParameter().getText()));
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -67,7 +67,7 @@ public class SpecialEventsControler implements ActionListener,MouseListener {
 					
 			} else if (specialEvents.getTypeEvent().getSelectedValue().equals("boulders")) {
 				try {
-					new BoulderCards(specialEvents.getMenu());
+					new BoulderCards(specialEvents.getMenu(), Integer.parseInt(specialEvents.getParameter().getText()));
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -98,7 +98,7 @@ public class SpecialEventsControler implements ActionListener,MouseListener {
 				}
 			} else if (specialEvents.getTypeEvent().getSelectedValue().equals("cost")) {
 				try {
-					new CostCards(specialEvents.getMenu());
+					new CostCards(specialEvents.getMenu(), Integer.parseInt(specialEvents.getParameter().getText()));
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -121,9 +121,9 @@ public class SpecialEventsControler implements ActionListener,MouseListener {
 			}  else if (specialEvents.getTypeEvent().getSelectedValue().equals("random")) {
 				try {
 					if (specialEvents.getCheckBoss().isSelected()) {
-						new RandomCards(specialEvents.getMenu(), true);
+						new RandomCards(specialEvents.getMenu(), true, Integer.parseInt(specialEvents.getParameter().getText()));
 					} else {
-						new RandomCards(specialEvents.getMenu());
+						new RandomCards(specialEvents.getMenu(), Integer.parseInt(specialEvents.getParameter().getText()));
 					}
 					
 				} catch (IOException e1) {
@@ -158,7 +158,7 @@ public class SpecialEventsControler implements ActionListener,MouseListener {
 				
 			} else if (specialEvents.getTypeEvent().getSelectedValue().equals("trial")) {
 				try {
-					new Trial(specialEvents.getMenu());
+					new Trial(specialEvents.getMenu(), Integer.parseInt(specialEvents.getParameter().getText()));
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

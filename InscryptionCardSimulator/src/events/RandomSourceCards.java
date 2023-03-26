@@ -25,7 +25,7 @@ public class RandomSourceCards  extends JFrame {
 	private JButton buttonValidate;
 	private Menu menu;
 	
-	public RandomSourceCards(Menu menu) throws IOException, FontFormatException {
+	public RandomSourceCards(Menu menu, Integer nbchoices) throws IOException, FontFormatException {
 		super("Random cards");
 		this.menu = menu;
 		Random r = new Random();
@@ -33,7 +33,7 @@ public class RandomSourceCards  extends JFrame {
 		JPanel panel = new JPanel(); 
 		panel.setLayout(null);
 		List<Card> boosterMain = new ArrayList<>();
-		for(int i=0;i<3;i++) {
+		for(int i=0;i<nbchoices;i++) {
 			Card card1 = CardFactory.sourceCard(
 					menu.getModulo1(),
 					menu.getMultiplier1(),

@@ -26,7 +26,7 @@ public class BoulderCards  extends JFrame {
 	private JButton buttonValidate;
 	private Menu menu;
 	
-	public BoulderCards(Menu menu) throws IOException, FontFormatException {
+	public BoulderCards(Menu menu, Integer nbchoices) throws IOException, FontFormatException {
 		super("Random cards");
 		this.menu = menu;
 		Random r = new Random();
@@ -34,8 +34,8 @@ public class BoulderCards  extends JFrame {
 		JPanel panel = new JPanel(); 
 		panel.setLayout(null);
 		List<Card> boosterMain = new ArrayList<>();
-		int idGoldenPelt = r.nextInt(3);
-		for(int i=0;i<3;i++) {
+		int idGoldenPelt = r.nextInt(3+nbchoices);
+		for(int i=0;i<3+nbchoices;i++) {
 			cardsPanelsBoulders.add(new CardPanel(new BeastCard("boulder", "blood", 0, 5, 0, new ArrayList<>(), 0, false)));
 			if (i == idGoldenPelt) {
 				boosterMain.add(new BeastCard("golden_pelt", "blood", 0, 3, 0, new ArrayList<>(), 0, false));

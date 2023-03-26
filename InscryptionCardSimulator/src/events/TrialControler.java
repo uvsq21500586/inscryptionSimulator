@@ -24,15 +24,16 @@ public class TrialControler implements ActionListener,MouseListener {
 	private TrialPanel selectedTrial = null;
 	private CardPanel selectedCard = null;
 	private int nbClicsOnValidate = 0;
-	private boolean success = false;
 	
 	
 	public TrialControler(Trial trial) {
 		this.trial = trial;
 		//menu.getButtonduel().addActionListener(this);
 		for (int i=0;i<3;i++) {
-			trial.getCardsPanelsNewCards().get(i).addMouseListener(this);
 			trial.getTrialPanels()[i].addMouseListener(this);
+		}
+		for (int i=0;i<trial.getCardsPanelsNewCards().size();i++) {
+			trial.getCardsPanelsNewCards().get(i).addMouseListener(this);
 		}
 		trial.getButtonValidate().addMouseListener(this);
 	}

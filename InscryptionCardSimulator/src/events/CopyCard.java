@@ -66,7 +66,7 @@ public class CopyCard  extends JFrame {
 		this.add(jscrollpane, BorderLayout.CENTER);
 		
 		this.setVisible(true);
-		//new CampFireControler(this);
+		new CopyCardControler(this);
 	}
 
 	public List<CardPanel> getCardsPanelsMainDeck() {

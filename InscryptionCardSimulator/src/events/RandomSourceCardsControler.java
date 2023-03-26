@@ -26,7 +26,7 @@ public class RandomSourceCardsControler implements ActionListener,MouseListener 
 	public RandomSourceCardsControler(RandomSourceCards randomCards) {
 		this.randomCards = randomCards;
 		//menu.getButtonduel().addActionListener(this);
-		for (int i=0;i<3;i++) {
+		for (int i=0;i<randomCards.getCardsPanelsNewSourceDeck().size();i++) {
 			randomCards.getCardsPanelsNewSourceDeck().get(i).addMouseListener(this);
 		}
 		for (int i=0;i<randomCards.getCardsPanelsSourceDeck().size();i++) {
@@ -43,7 +43,7 @@ public class RandomSourceCardsControler implements ActionListener,MouseListener 
 			CardPanel selectedCard = (CardPanel) e.getSource();
 			if (randomCards.getCardsPanelsNewSourceDeck().contains(selectedCard)) {
 				selectedNewSourceCard = selectedCard;
-				for (int i=0;i<3;i++) {
+				for (int i=0;i<randomCards.getCardsPanelsNewSourceDeck().size();i++) {
 					randomCards.getCardsPanelsNewSourceDeck().get(i).getSelected().setVisible(false);
 				}
 				selectedNewSourceCard.getSelected().setVisible(true);

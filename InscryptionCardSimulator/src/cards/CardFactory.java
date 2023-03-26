@@ -454,6 +454,11 @@ public class CardFactory {
 		u = (u * multiplicator + 2*levelRarity)%modulo;
 		nbstats = (2+level)*globalStrengh/4 + levelRarity*rarityStrengh;
 		nbstats = Math.max(0, nbstats + difficulty);
+		return robotCardFactory(modulo, multiplicator, u, levelRarity, nbstats, level, attackmin);
+	}
+
+	private static RobotCard robotCardFactory(int modulo, int multiplicator, int u, int levelRarity, int nbstats,
+			int level, int attackmin) throws IOException {
 		//effects
 		boolean stopEffects = false;
 		List<Effect> effects = new ArrayList<>();
@@ -607,6 +612,25 @@ public class CardFactory {
 		String appearance = robotAppearances[u%(robotAppearances.length)];
 		
 		return new RobotCard(appearance, level, hp, attack, effects, levelRarity, true);
+	}
+	
+	public static RobotCard robotCardFixedLevel(int level,int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u0) throws IOException {
+		int nbstats = 0;
+		int attackmin = 0;
+		int u = u0;
+		
+		int levelRarity = 0;
+		
+		while (u%10 == 9) {
+			u = (u * multiplicator)%modulo;
+			levelRarity++;
+		}
+		u = (u * multiplicator + 2*levelRarity)%modulo;
+		nbstats = (2+level) * globalStrengh / 4 + levelRarity * rarityStrengh;
+		nbstats = nbstats - u%(1+globalStrengh/8);
+		u = (u * multiplicator + 2*levelRarity)%modulo;	
+		
+		return robotCardFactory(modulo, multiplicator, u, levelRarity, nbstats, level, attackmin);
 	}
 	
 	private static WizardCard wizardCard(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u, int levelRarity, int difficulty) throws IOException {

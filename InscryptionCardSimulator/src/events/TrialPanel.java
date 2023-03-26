@@ -25,6 +25,7 @@ public class TrialPanel extends JPanel{
 		this.setLayout(null);
 		this.type = type;
 		this.level = level;
+		System.out.println(type + " " + level);
 		font = Font.createFont(Font.TRUETYPE_FONT, new File("conthrax-sb.ttf"));
 		levelTrial = new JLabel(level.toString(), SwingConstants.CENTER);
 		levelTrial.setFont(font.deriveFont(Font.BOLD,28f));

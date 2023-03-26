@@ -25,7 +25,7 @@ public class BoulderCardsControler implements ActionListener,MouseListener {
 	public BoulderCardsControler(BoulderCards boulderCards) {
 		this.boulderCards = boulderCards;
 		//menu.getButtonduel().addActionListener(this);
-		for (int i=0;i<3;i++) {
+		for (int i=0;i<boulderCards.getCardsPanelsBoulders().size();i++) {
 			boulderCards.getCardsPanelsBoulders().get(i).addMouseListener(this);
 		}
 		boulderCards.getButtonValidate().addMouseListener(this);

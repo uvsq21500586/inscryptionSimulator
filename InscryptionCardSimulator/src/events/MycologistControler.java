@@ -55,7 +55,7 @@ public class MycologistControler implements ActionListener,MouseListener {
 					e1.printStackTrace();
 				}
 				mycologist.getCardToFusion1().getBeingSacrified().setVisible(true);
-			} else if (!selectedCard.equals(selectedCardToFusion1)) {
+			} else if (!selectedCard.equals(selectedCardToFusion1) && fusionableCards(selectedCardToFusion1.getCard(),selectedCard.getCard())) {
 				selectedCardToFusion2 = selectedCard;
 				try {
 					mycologist.getCardToFusion2().repaint(selectedCard.getCard());
@@ -81,6 +81,21 @@ public class MycologistControler implements ActionListener,MouseListener {
 		}
 		
 	}
+	private boolean fusionableCards(Card cardToFusion1, Card cardToFusion2) {
+		if (cardToFusion1 instanceof BeastCard && cardToFusion2 instanceof BeastCard) {
+			BeastCard card1 = (BeastCard) cardToFusion1;
+			BeastCard card2 = (BeastCard) cardToFusion2;
+			return (card1.getAppearance().equals(card2.getAppearance()) && card1.getCostType().equals(card2.getCostType()) && card1.getLevel() == card2.getLevel());
+		}
+		if (cardToFusion1 instanceof RobotCard && cardToFusion2 instanceof RobotCard) {
+			RobotCard card1 = (RobotCard) cardToFusion1;
+			RobotCard card2 = (RobotCard) cardToFusion2;
+			return (card1.getAppearance().equals(card2.getAppearance()) && card1.getLevel() == card2.getLevel());
+		}
+		
+		return false;
+	}
+	
 	
 	private Card fusionCard(Card cardToFusion1, Card cardToFusion2) throws IOException {
 		Card fusionedCard = null;
@@ -99,7 +114,7 @@ public class MycologistControler implements ActionListener,MouseListener {
 				Optional<Effect> effectPresentInCardToFusion = fusionedCard.getEffects().stream().filter(effect -> effect.getName().equals(effectToTransfert.getName())).findFirst();
 				if (effectPresentInCardToFusion.isPresent() && Effect.namesLevelEffects.contains(effectToTransfert.getName())) {
 					effectPresentInCardToFusion.get().setLevel(Math.max(effectPresentInCardToFusion.get().getLevel(), effectToTransfert.getLevel()));
-				} else if (fusionedCard.getEffects().size()<4) {
+				} else if (!effectPresentInCardToFusion.isPresent() && fusionedCard.getEffects().size()<4) {
 					fusionedCard.getEffects().add(effectToTransfert);
 				}
 			}

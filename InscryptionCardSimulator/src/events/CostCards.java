@@ -27,30 +27,32 @@ public class CostCards  extends JFrame {
 	private CardPanel resultCard;
 	
 	
-	public CostCards(Menu menu) throws IOException, FontFormatException {
+	public CostCards(Menu menu, Integer nbChoices) throws IOException, FontFormatException {
 		super("Cost cards");
 		this.menu = menu;
 		Random r = new Random();
 		this.setSize(1530, 950);
 		JPanel panel = new JPanel(); 
 		panel.setLayout(null);
-		costPanels = new CostPanel[3];
+		costPanels = new CostPanel[nbChoices];
 		if (!menu.getTypecards1().equals("wizard")) {
-			String costs[] = new String[3];
-			Integer levels[] = new Integer[3];
+			String costs[] = new String[nbChoices];
+			Integer levels[] = new Integer[nbChoices];
 			if (menu.getTypecards1().equals("beast")) {
-				for (int i=0;i<3;i++) {
-					int type = r.nextInt(4);
-					if (type == 3) {
-						costs[i] = "bone";
+				for (int i=0;i<nbChoices;i++) {
+					costBeastFactory(costs, levels, i);
+					if (!isNewCost(costs, levels, i)) {
+						i--;
 					} else {
-						costs[i] = "blood";
+						costPanels[i] = new CostPanel(costs[i], levels[i]);
+						costPanels[i].setBounds(200*i,0,200,300);
+						panel.add(costPanels[i]);
 					}
-					if (costs[i].equals("blood")) {
-						levels[i] = 1 + r.nextInt(3);
-					} else {
-						levels[i] = 2 + r.nextInt(7);
-					}
+				}
+				
+			} else if (menu.getTypecards1().equals("robot")) {
+				for (int i=0;i<nbChoices;i++) {
+					costRobotFactory(costs, levels, i);
 					if (!isNewCost(costs, levels, i)) {
 						i--;
 					} else {
@@ -121,6 +123,56 @@ public class CostCards  extends JFrame {
 			}
 		}
 		return true;
+	}
+	
+	private void costBeastFactory(String costs[], Integer levels[], int pos) {
+		Random r = new Random();
+		int modulo = menu.getModulo1();
+		int multiplier = menu.getMultiplier1();
+		int u = r.nextInt(modulo-1)+1;
+		if (u%4 == 3) {
+			costs[pos] = "bone";
+			u = (u*multiplier)%modulo;
+			int lvlmax = 8;
+			ArrayList<Integer> integerSeen = new ArrayList<Integer>();
+			while (u%5 == 4 && !integerSeen.contains(u)) {
+				integerSeen.add(u);
+				u = (u * multiplier)%modulo;
+				lvlmax++;
+			}
+			u = (u * multiplier)%modulo;
+			levels[pos] = 2 + u%(lvlmax-1);
+		} else {
+			costs[pos] = "blood";
+			u = (u*multiplier)%modulo;
+			int lvlmax = 2;
+			u = (u * multiplier)%modulo;
+			ArrayList<Integer> integerSeen = new ArrayList<Integer>();
+			while (u%4 == 3 && !integerSeen.contains(u)) {
+				integerSeen.add(u);
+				u = (u * multiplier)%modulo;
+				lvlmax++;
+			}
+			u = (u * multiplier)%modulo;
+			levels[pos] = 1 + u%(lvlmax);
+		}
+	}
+	
+	private void costRobotFactory(String costs[], Integer levels[], int pos) {
+		costs[pos] = "energy";
+		Random r = new Random();
+		int modulo = menu.getModulo1();
+		int multiplier = menu.getMultiplier1();
+		int u = r.nextInt(modulo-1)+1;
+		int lvlmax = 6;
+		ArrayList<Integer> integerSeen = new ArrayList<Integer>();
+		while (u%4 == 3 && !integerSeen.contains(u)) {
+			integerSeen.add(u);
+			u = (u * multiplier)%modulo;
+			lvlmax++;
+		}
+		u = (u * multiplier)%modulo;
+		levels[pos] = 1 + u%(lvlmax);
 	}
 
 	public JButton getButtonValidate() {

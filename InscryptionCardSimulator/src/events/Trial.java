@@ -30,9 +30,10 @@ public class Trial  extends JFrame {
 	private TrialPanel trialPanels[];
 	private CardPanel resultCard;
 	private List<String> listTrialBeast = Arrays.asList("health","power", "wisdom", "blood", "bone");
+	private List<String> listTrialRobot = Arrays.asList("health","power", "wisdom", "energy");
 	public final static Map<String, Integer> mapTrialToLevel = buildMapNamesTrialToLevel();
 	
-	public Trial(Menu menu) throws IOException, FontFormatException {
+	public Trial(Menu menu, Integer nbChoices) throws IOException, FontFormatException {
 		super("Cost cards");
 		this.menu = menu;
 		Random r = new Random();
@@ -55,6 +56,18 @@ public class Trial  extends JFrame {
 					}
 				}
 				
+			} else if (menu.getTypecards1().equals("robot")) {
+				for (int i=0;i<3;i++) {
+					int typeId = r.nextInt(listTrialRobot.size());
+					symbols[i] = listTrialRobot.get(typeId);
+					if (!isNewCost(symbols, i)) {
+						i--;
+					} else {
+						trialPanels[i] = new TrialPanel(symbols[i], mapTrialToLevel.get(symbols[i]));
+						trialPanels[i].setBounds(200*i,0,200,300);
+						panel.add(trialPanels[i]);
+					}
+				}
 			}
 			
 		}
@@ -65,7 +78,7 @@ public class Trial  extends JFrame {
 		
 		List<Card> boosterMain = new ArrayList<>();
 		List<Card> drawCardsMainDeck = new ArrayList<>();
-		for(int i=0;i<3;i++) {
+		for(int i=0;i<nbChoices;i++) {
 			Card card1 = CardFactory.mainCard(
 					menu.getModulo1(),
 					menu.getMultiplier1(),
@@ -85,11 +98,15 @@ public class Trial  extends JFrame {
 			} else {
 				boosterMain.add(card1);
 			}
+			
+		}
+		for(int i=0;i<3;i++) {
 			Card card = menu.getMainDeck1().get(r.nextInt( menu.getMainDeck1().size()));
 			if (!drawCardsMainDeck.contains(card)) {
 				drawCardsMainDeck.add(card);
 			}
 		}
+		
 		
 		for(int i=0;i<drawCardsMainDeck.size();i++) {
 			cardsPanelsMainDeck.add(new CardPanel(drawCardsMainDeck.get(i)));
@@ -129,6 +146,7 @@ public class Trial  extends JFrame {
 		trialsToLevel.put("wisdom",3);
 		trialsToLevel.put("blood",4);
 		trialsToLevel.put("bone",5);
+		trialsToLevel.put("energy",10);
 
 		return trialsToLevel;
 	}
