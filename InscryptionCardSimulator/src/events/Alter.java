@@ -32,7 +32,7 @@ public class Alter  extends JFrame {
 	private CardPanel result;
 	
 	public Alter(Menu menu) throws IOException, FontFormatException {
-		super("Camp Fire");
+		super("Alter");
 		this.menu = menu;
 		Random r = new Random();
 		this.setSize(1530, 950);

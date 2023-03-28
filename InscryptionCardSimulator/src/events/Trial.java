@@ -34,7 +34,7 @@ public class Trial  extends JFrame {
 	public final static Map<String, Integer> mapTrialToLevel = buildMapNamesTrialToLevel();
 	
 	public Trial(Menu menu, Integer nbChoices) throws IOException, FontFormatException {
-		super("Cost cards");
+		super("Trial");
 		this.menu = menu;
 		Random r = new Random();
 		this.setSize(1530, 950);

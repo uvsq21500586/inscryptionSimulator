@@ -27,7 +27,7 @@ public class BoulderCards  extends JFrame {
 	private Menu menu;
 	
 	public BoulderCards(Menu menu, Integer nbchoices) throws IOException, FontFormatException {
-		super("Random cards");
+		super("Boulders");
 		this.menu = menu;
 		Random r = new Random();
 		this.setSize(1530, 650);

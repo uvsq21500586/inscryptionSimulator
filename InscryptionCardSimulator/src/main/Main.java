@@ -412,6 +412,325 @@ class Main {
 	      menu.setMainDeck1(maindeck);
 	      menu.setSourceDeck1(sourcedeck);
 	      fr.close();
+	      
+	      file = new File("save/deadcards.txt");    
+	      // Créer l'objet File Reader
+	      fr = new FileReader(file);  
+	      // Créer l'objet BufferedReader        
+	      br = new BufferedReader(fr); 
+	      line = br.readLine();
+	      line = br.readLine();
+	      List<Card> deadcardslist = new ArrayList<>();
+	      while(!line.equals("available dead cards:"))
+	      {
+	    	  String lineContent[] = line.split(";");
+	    	  List<Effect> effects = new ArrayList<>();
+	    	  
+	    	  if (lineContent[0].equals("beast")) {
+	    		  if (!lineContent[6].equals("_")) {
+		    		  if (lineContent[7].equals("_")) {
+		    			  effects.add(new Effect(lineContent[6], lineContent[0]));
+			    	  } else {
+			    		  effects.add(new Effect(lineContent[6], lineContent[0], Integer.parseInt(lineContent[7])));
+			    	  }
+		    		  
+		    		  if (!lineContent[8].equals("_")) {
+			    		  if (lineContent[9].equals("_")) {
+			    			  effects.add(new Effect(lineContent[8], lineContent[0]));
+				    	  } else {
+				    		  effects.add(new Effect(lineContent[8], lineContent[0], Integer.parseInt(lineContent[9])));
+				    	  }
+			    		  if (!lineContent[10].equals("_")) {
+				    		  if (lineContent[11].equals("_")) {
+				    			  effects.add(new Effect(lineContent[10], lineContent[0]));
+					    	  } else {
+					    		  effects.add(new Effect(lineContent[10], lineContent[0], Integer.parseInt(lineContent[11])));
+					    	  }
+				    	  }
+			    	  }
+		    	  }
+	    		  BeastCard newCard = new BeastCard(
+	    				  lineContent[1],
+	    				  lineContent[2],
+	    				  Integer.parseInt(lineContent[3]),
+	    				  Integer.parseInt(lineContent[4]),
+	    				  Integer.parseInt(lineContent[5]),
+	    				  effects,
+	    				  Integer.parseInt(lineContent[14]),
+	    				  true);
+	    		  maindeck.add(newCard);
+	    	  }
+	    	  if (lineContent[0].equals("robot")) {
+	    		  if (!lineContent[5].equals("_")) {
+		    		  if (lineContent[6].equals("_")) {
+		    			  effects.add(new Effect(lineContent[5], lineContent[0]));
+			    	  } else {
+			    		  effects.add(new Effect(lineContent[5], lineContent[0], Integer.parseInt(lineContent[6])));
+			    	  }
+		    		  
+		    		  if (!lineContent[7].equals("_")) {
+			    		  if (lineContent[8].equals("_")) {
+			    			  effects.add(new Effect(lineContent[7], lineContent[0]));
+				    	  } else {
+				    		  effects.add(new Effect(lineContent[7], lineContent[0], Integer.parseInt(lineContent[8])));
+				    	  }
+			    		  if (!lineContent[9].equals("_")) {
+				    		  if (lineContent[10].equals("_")) {
+				    			  effects.add(new Effect(lineContent[9], lineContent[0]));
+					    	  } else {
+					    		  effects.add(new Effect(lineContent[9], lineContent[0], Integer.parseInt(lineContent[10])));
+					    	  }
+				    		  if (!lineContent[11].equals("_")) {
+					    		  if (lineContent[12].equals("_")) {
+					    			  effects.add(new Effect(lineContent[11], lineContent[12]));
+						    	  } else {
+						    		  effects.add(new Effect(lineContent[11], lineContent[0], Integer.parseInt(lineContent[12])));
+						    	  }
+					    	  }
+				    	  }
+			    	  }
+		    	  }
+	    		  RobotCard newCard = new RobotCard(
+	    				  lineContent[1],
+	    				  Integer.parseInt(lineContent[2]),
+	    				  Integer.parseInt(lineContent[3]),
+	    				  Integer.parseInt(lineContent[4]),
+	    				  effects,
+	    				  Integer.parseInt(lineContent[13]),
+	    				  true);
+	    		  deadcardslist.add(newCard);
+	    	  }
+	    	  if (lineContent[0].equals("undead")) {
+	    		  if (!lineContent[5].equals("_")) {
+		    		  if (lineContent[6].equals("_")) {
+		    			  effects.add(new Effect(lineContent[5], lineContent[0]));
+			    	  } else {
+			    		  effects.add(new Effect(lineContent[5], lineContent[0], Integer.parseInt(lineContent[6])));
+			    	  }
+		    		  
+		    		  if (!lineContent[7].equals("_")) {
+			    		  if (lineContent[8].equals("_")) {
+			    			  effects.add(new Effect(lineContent[7], lineContent[0]));
+				    	  } else {
+				    		  effects.add(new Effect(lineContent[7], lineContent[0], Integer.parseInt(lineContent[8])));
+				    	  }
+			    		  if (!lineContent[9].equals("_")) {
+				    		  if (lineContent[10].equals("_")) {
+				    			  effects.add(new Effect(lineContent[9], lineContent[0]));
+					    	  } else {
+					    		  effects.add(new Effect(lineContent[9], lineContent[0], Integer.parseInt(lineContent[10])));
+					    	  }
+				    	  }
+			    	  }
+		    	  }
+	    		  UndeadCard newCard = new UndeadCard(
+	    				  lineContent[1],
+	    				  Integer.parseInt(lineContent[2]),
+	    				  Integer.parseInt(lineContent[3]),
+	    				  Integer.parseInt(lineContent[4]),
+	    				  effects,
+	    				  Integer.parseInt(lineContent[11]),
+	    				  true);
+	    		  deadcardslist.add(newCard);
+	    	  }
+	    	  if (lineContent[0].equals("wizard")) {
+	    		  if (!lineContent[5].equals("_")) {
+		    		  if (lineContent[6].equals("_")) {
+		    			  effects.add(new Effect(lineContent[5], lineContent[0]));
+			    	  } else {
+			    		  effects.add(new Effect(lineContent[5], lineContent[0], Integer.parseInt(lineContent[6])));
+			    	  }
+		    		  
+		    		  if (!lineContent[7].equals("_")) {
+			    		  if (lineContent[8].equals("_")) {
+			    			  effects.add(new Effect(lineContent[7], lineContent[0]));
+				    	  } else {
+				    		  effects.add(new Effect(lineContent[7], lineContent[0], Integer.parseInt(lineContent[8])));
+				    	  }
+			    		  if (!lineContent[9].equals("_")) {
+				    		  if (lineContent[10].equals("_")) {
+				    			  effects.add(new Effect(lineContent[9], lineContent[0]));
+					    	  } else {
+					    		  effects.add(new Effect(lineContent[9], lineContent[0], Integer.parseInt(lineContent[10])));
+					    	  }
+				    	  }
+			    	  }
+		    	  }
+	    		  WizardCard newCard = new WizardCard(
+	    				  lineContent[1],
+	    				  Integer.parseInt(lineContent[13]),
+	    				  Integer.parseInt(lineContent[14]),
+	    				  Integer.parseInt(lineContent[15]),
+	    				  Integer.parseInt(lineContent[16]),
+	    				  Integer.parseInt(lineContent[2]),
+	    				  Integer.parseInt(lineContent[3]),
+	    				  Integer.parseInt(lineContent[4]),
+	    				  effects,
+	    				  Integer.parseInt(lineContent[17]),
+	    				  true);
+	    		  deadcardslist.add(newCard);
+	    	  }
+	    	  line = br.readLine();
+	      }
+	      List<Card> availabledeadcardslist = new ArrayList<>();
+	      line = br.readLine();
+	      while(!line.equals("fin"))
+	      {
+	    	  String lineContent[] = line.split(";");
+	    	  List<Effect> effects = new ArrayList<>();
+	    	  
+	    	  if (lineContent[0].equals("beast")) {
+	    		  if (!lineContent[6].equals("_")) {
+		    		  if (lineContent[7].equals("_")) {
+		    			  effects.add(new Effect(lineContent[6], lineContent[0]));
+			    	  } else {
+			    		  effects.add(new Effect(lineContent[6], lineContent[0], Integer.parseInt(lineContent[7])));
+			    	  }
+		    		  
+		    		  if (!lineContent[8].equals("_")) {
+			    		  if (lineContent[9].equals("_")) {
+			    			  effects.add(new Effect(lineContent[8], lineContent[0]));
+				    	  } else {
+				    		  effects.add(new Effect(lineContent[8], lineContent[0], Integer.parseInt(lineContent[9])));
+				    	  }
+			    		  if (!lineContent[10].equals("_")) {
+				    		  if (lineContent[11].equals("_")) {
+				    			  effects.add(new Effect(lineContent[10], lineContent[0]));
+					    	  } else {
+					    		  effects.add(new Effect(lineContent[10], lineContent[0], Integer.parseInt(lineContent[11])));
+					    	  }
+				    	  }
+			    	  }
+		    	  }
+	    		  BeastCard newCard = new BeastCard(
+	    				  lineContent[1],
+	    				  lineContent[2],
+	    				  Integer.parseInt(lineContent[3]),
+	    				  Integer.parseInt(lineContent[4]),
+	    				  Integer.parseInt(lineContent[5]),
+	    				  effects,
+	    				  Integer.parseInt(lineContent[14]),
+	    				  false);
+	    		  if (newCard.getAppearance().contains("pelt")) {
+	    			  newCard.setSacrificiable(false);
+	    		  }
+	    		  availabledeadcardslist.add(newCard);
+	    	  }
+	    	  if (lineContent[0].equals("robot")) {
+	    		  if (!lineContent[5].equals("_")) {
+		    		  if (lineContent[6].equals("_")) {
+		    			  effects.add(new Effect(lineContent[5], lineContent[0]));
+			    	  } else {
+			    		  effects.add(new Effect(lineContent[5], lineContent[0], Integer.parseInt(lineContent[6])));
+			    	  }
+		    		  
+		    		  if (!lineContent[7].equals("_")) {
+			    		  if (lineContent[8].equals("_")) {
+			    			  effects.add(new Effect(lineContent[7], lineContent[0]));
+				    	  } else {
+				    		  effects.add(new Effect(lineContent[7], lineContent[0], Integer.parseInt(lineContent[8])));
+				    	  }
+			    		  if (!lineContent[9].equals("_")) {
+				    		  if (lineContent[10].equals("_")) {
+				    			  effects.add(new Effect(lineContent[9], lineContent[0]));
+					    	  } else {
+					    		  effects.add(new Effect(lineContent[9], lineContent[0], Integer.parseInt(lineContent[10])));
+					    	  }
+				    		  if (!lineContent[11].equals("_")) {
+					    		  if (lineContent[12].equals("_")) {
+					    			  effects.add(new Effect(lineContent[11], lineContent[12]));
+						    	  } else {
+						    		  effects.add(new Effect(lineContent[11], lineContent[0], Integer.parseInt(lineContent[12])));
+						    	  }
+					    	  }
+				    	  }
+			    	  }
+		    	  }
+	    		  RobotCard newCard = new RobotCard(
+	    				  lineContent[1],
+	    				  Integer.parseInt(lineContent[2]),
+	    				  Integer.parseInt(lineContent[3]),
+	    				  Integer.parseInt(lineContent[4]),
+	    				  effects,
+	    				  Integer.parseInt(lineContent[13]),
+	    				  false);
+	    		  availabledeadcardslist.add(newCard);
+	    	  }
+	    	  if (lineContent[0].equals("undead")) {
+	    		  if (!lineContent[5].equals("_")) {
+		    		  if (lineContent[6].equals("_")) {
+		    			  effects.add(new Effect(lineContent[5], lineContent[0]));
+			    	  } else {
+			    		  effects.add(new Effect(lineContent[5], lineContent[0], Integer.parseInt(lineContent[6])));
+			    	  }
+		    		  
+		    		  if (!lineContent[7].equals("_")) {
+			    		  if (lineContent[8].equals("_")) {
+			    			  effects.add(new Effect(lineContent[7], lineContent[0]));
+				    	  } else {
+				    		  effects.add(new Effect(lineContent[7], lineContent[0], Integer.parseInt(lineContent[8])));
+				    	  }
+			    		  if (!lineContent[9].equals("_")) {
+				    		  if (lineContent[10].equals("_")) {
+				    			  effects.add(new Effect(lineContent[9], lineContent[0]));
+					    	  } else {
+					    		  effects.add(new Effect(lineContent[9], lineContent[0], Integer.parseInt(lineContent[10])));
+					    	  }
+				    	  }
+			    	  }
+		    	  }
+	    		  UndeadCard newCard = new UndeadCard(
+	    				  lineContent[1],
+	    				  Integer.parseInt(lineContent[2]),
+	    				  Integer.parseInt(lineContent[3]),
+	    				  Integer.parseInt(lineContent[4]),
+	    				  effects,
+	    				  Integer.parseInt(lineContent[11]),
+	    				  false);
+	    		  availabledeadcardslist.add(newCard);
+	    	  }
+	    	  if (lineContent[0].equals("wizard")) {
+	    		  if (!lineContent[5].equals("_")) {
+		    		  if (lineContent[6].equals("_")) {
+		    			  effects.add(new Effect(lineContent[5], lineContent[0]));
+			    	  } else {
+			    		  effects.add(new Effect(lineContent[5], lineContent[0], Integer.parseInt(lineContent[6])));
+			    	  }
+		    		  
+		    		  if (!lineContent[7].equals("_")) {
+			    		  if (lineContent[8].equals("_")) {
+			    			  effects.add(new Effect(lineContent[7], lineContent[0]));
+				    	  } else {
+				    		  effects.add(new Effect(lineContent[7], lineContent[0], Integer.parseInt(lineContent[8])));
+				    	  }
+			    		  if (!lineContent[9].equals("_")) {
+				    		  if (lineContent[10].equals("_")) {
+				    			  effects.add(new Effect(lineContent[9], lineContent[0]));
+					    	  } else {
+					    		  effects.add(new Effect(lineContent[9], lineContent[0], Integer.parseInt(lineContent[10])));
+					    	  }
+				    	  }
+			    	  }
+		    	  }
+	    		  WizardCard newCard = new WizardCard(
+	    				  lineContent[1],
+	    				  Integer.parseInt(lineContent[13]),
+	    				  Integer.parseInt(lineContent[14]),
+	    				  Integer.parseInt(lineContent[15]),
+	    				  Integer.parseInt(lineContent[16]),
+	    				  Integer.parseInt(lineContent[2]),
+	    				  Integer.parseInt(lineContent[3]),
+	    				  Integer.parseInt(lineContent[4]),
+	    				  effects,
+	    				  Integer.parseInt(lineContent[17]),
+	    				  false);
+	    		  availabledeadcardslist.add(newCard);
+	    	  }
+	    	  line = br.readLine();
+	      }
+	      menu.setDeadCardsList(deadcardslist);
+	      menu.setAvailableDeadCardsList(availabledeadcardslist);
+	      fr.close();
 	    }
 	    catch(IOException e)
 	    {

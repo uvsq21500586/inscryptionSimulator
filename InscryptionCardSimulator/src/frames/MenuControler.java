@@ -20,6 +20,7 @@ import frames.menubuttons.ButtonToBoosterCard;
 import frames.menubuttons.ButtonToBuildDeck;
 import frames.menubuttons.ButtonToDuel;
 import frames.menubuttons.ButtonToOptions;
+import frames.menubuttons.ButtonToResetDeathCards;
 import frames.menubuttons.ButtonToSeeDeck;
 import frames.menubuttons.ButtonToSimulatorCard;
 import frames.menubuttons.ButtonToSpecial;
@@ -38,6 +39,7 @@ public class MenuControler implements ActionListener,MouseListener {
 		menu.getButtonToSeeDeck().addMouseListener(this);
 		menu.getButtonOptions().addMouseListener(this);
 		menu.getButtonSpecial().addMouseListener(this);
+		menu.getButtonToResetDeathCards().addMouseListener(this);
 	}
 
 	@Override
@@ -87,7 +89,8 @@ public class MenuControler implements ActionListener,MouseListener {
 								menu.getGlobalStrenght2(),
 								menu.getRarityStrenght2(),
 								r.nextInt(menu.getModulo2()-1)+1,
-								menu.getTypecards2());
+								menu.getTypecards2(),
+								difficulty,false);
 						supMainCardsP2.add(newCard);
 					}
 					
@@ -312,6 +315,11 @@ public class MenuControler implements ActionListener,MouseListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+		}
+		if (e.getSource() instanceof ButtonToResetDeathCards) {
+			menu.setAvailableDeadCardsList(new ArrayList<>());
+			menu.setDeadCardsList(new ArrayList<>());
+			menu.saveDeadCards();
 		}
 	}
 

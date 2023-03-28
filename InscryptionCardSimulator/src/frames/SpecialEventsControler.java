@@ -14,7 +14,9 @@ import cards.Card;
 import cards.CardFactory;
 import cards.RobotCard;
 import events.Alter;
+import events.Bleach;
 import events.BoulderCards;
+import events.BuildDeathCard;
 import events.CampFire;
 import events.CopyCard;
 import events.CostCards;
@@ -65,9 +67,31 @@ public class SpecialEventsControler implements ActionListener,MouseListener {
 						e1.printStackTrace();
 					}
 					
+			} else if (specialEvents.getTypeEvent().getSelectedValue().equals("bleach")) {
+				try {
+					new Bleach(specialEvents.getMenu());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (FontFormatException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 			} else if (specialEvents.getTypeEvent().getSelectedValue().equals("boulders")) {
 				try {
 					new BoulderCards(specialEvents.getMenu(), Integer.parseInt(specialEvents.getParameter().getText()));
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (FontFormatException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			} else if (specialEvents.getTypeEvent().getSelectedValue().equals("builddeathcard")) {
+				try {
+					new BuildDeathCard(specialEvents.getMenu(), Integer.parseInt(specialEvents.getParameter().getText()));
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

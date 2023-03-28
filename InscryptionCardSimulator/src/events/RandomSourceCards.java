@@ -26,7 +26,7 @@ public class RandomSourceCards  extends JFrame {
 	private Menu menu;
 	
 	public RandomSourceCards(Menu menu, Integer nbchoices) throws IOException, FontFormatException {
-		super("Random cards");
+		super("Random source cards");
 		this.menu = menu;
 		Random r = new Random();
 		this.setSize(1530, 950);

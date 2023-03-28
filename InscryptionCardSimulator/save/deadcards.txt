@@ -1,0 +1,3 @@
+list dead cards:
+available dead cards:
+fin

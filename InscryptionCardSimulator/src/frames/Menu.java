@@ -18,13 +18,14 @@ import frames.menubuttons.ButtonToBoosterCard;
 import frames.menubuttons.ButtonToBuildDeck;
 import frames.menubuttons.ButtonToDuel;
 import frames.menubuttons.ButtonToOptions;
+import frames.menubuttons.ButtonToResetDeathCards;
 import frames.menubuttons.ButtonToSeeDeck;
 import frames.menubuttons.ButtonToSimulatorCard;
 import frames.menubuttons.ButtonToSpecial;
 
 public class Menu extends JFrame {
 	//types: beast robot undead wizard
-	//codes interdits: 1-1,4-2,5-2,7-2,9-2,9-3,10-3,11-2,11-3,12-2,12-3,
+	//codes interdits: 1-1,4-2,5-2,7-2,9-2,9-3,10-3,11-2,11-3,12-2,12-3,14-3
 	//  15-1,16-{3+4},17-{2+3+4},18-{2-4},19-{3-4}, 20-3,22-3
 	
 	//j1:(23) 23-1*1(23,1(23)), booster value = 2*4+2=10, vies: 1/1
@@ -32,21 +33,23 @@ public class Menu extends JFrame {
 	//j2: s4;21-1(21)
 	
 	//base pelts prizes: 1-2-4, base start main deck size: 4, base start source deck size: 5
-	//parameters: positive(bonus chance(more bonus events), nb choices cards, nbWavesPerBoss), negativeOrNeutral(campfire chance, higher pelt price and more boulders and harder trials, harder bosses)
+	//parameters: positive(bonus chance(more bonus events + campfire), nb choices cards, nbWavesPerBoss), negativeOrNeutral(higher pelt price and more boulders, harder trials, harder bosses)
 	//totem -> more lifePoints, bonus stats for trade and trial, nb cards for trial success
+	//nb deaths = nb source cards supp + nb lives per game
 	
 	//player parameters -> choices costs, choices trader, totem
+	//harder trial: for 4 levels, hp and attack limit +4, costs limit +2, effects limit +1
 	
-	//serie: 8[4(2,2,1)-2(2(1/3),1(+0/0),1(+0/0))]
-	// 8[4(2,2,1)-2(2(1/3),1(+0/0),1(+0/0))]
-	//j1: 6-1(5),4[2:2bones, 2:12345687, 1:1-0-0]
-	//crédits: 1,d1
+	//serie: 11[1(1,1,1)-4(2(+1),2(+1),1(+0))],8[4(2,2,1)-1(2(+1),1(+0),1(+0))]
+	// 11[1(1,1,1)-4(2(+1),2(+1),1(+0))]
+	//j1: 5-1(5),3[1:1blood, 2:12345687, 1:1-0-0]
+	//crédits: 0,d0
 	//lifes: 1/1
 	//bonus: 0,0,0
-	//malus: dice, lifePoints adv, strenght, cards, cardsup, price pelt:+1
+	//malus: dice, lifePoints adv, strenght, cards, cardsup, price pelt:+0
 	//price pelts: 1,2,5
-	//j2: 3-1(3)
-	//map: 8+6=14->2
+	//j2: 7-1(7)
+	//map: 11+5+0=16->1
 	
 	//default parameters
 	private Integer modulo1 = 11;
@@ -73,6 +76,9 @@ public class Menu extends JFrame {
 	private List<Card> mainDeck2;
 	private List<Card> sourceDeck2;
 	
+	private List<Card> deadCardsList;
+	private List<Card> availableDeadCardsList;
+	
 	private ButtonToDuel buttonTestDuel;
 	private ButtonToDuel buttonTrueDuel;
 	private ButtonToSimulatorCard buttonSimulatorCard;
@@ -81,6 +87,7 @@ public class Menu extends JFrame {
 	private ButtonToSeeDeck buttonToSeeDeck;
 	private ButtonToOptions buttonOptions;
 	private ButtonToSpecial buttonSpecial;
+	private ButtonToResetDeathCards buttonToResetDeathCards;
 	
 	private JCheckBox checkGreenMageP1 = new JCheckBox("greenP1");
 	private JCheckBox checkOrangeMageP1 = new JCheckBox("orangeP1");
@@ -132,6 +139,7 @@ public class Menu extends JFrame {
 		this.getContentPane().add(buttonBoosterCard);
 		this.getContentPane().add(buttonOptions);
 		this.getContentPane().add(buttonSpecial);
+		this.getContentPane().add(buttonToResetDeathCards);
 		Font font = Font.createFont(Font.TRUETYPE_FONT, new File("conthrax-sb.ttf"));
 		JLabel wizardTypesP1 = new JLabel("Preference wizard types P1:");
 		wizardTypesP1.setBounds(1000,150,400,50);
@@ -201,10 +209,10 @@ public class Menu extends JFrame {
 	
 	private void setButtons() {
 		buttonTrueDuel = new ButtonToDuel("True Duel");
-		buttonTrueDuel.setBounds(600, 190, 100, 50);
+		buttonTrueDuel.setBounds(600, 190, 150, 50);
 		buttonTrueDuel.setForeground(new Color(255, 255, 255));
 		buttonTestDuel = new ButtonToDuel("Test Duel");
-		buttonTestDuel.setBounds(600, 300, 100, 50);
+		buttonTestDuel.setBounds(600, 300, 150, 50);
 		buttonTestDuel.setForeground(new Color(255, 255, 255));
 		buttonSimulatorCard = new ButtonToSimulatorCard();
 		buttonSimulatorCard.setBounds(600, 410, 150, 50);
@@ -230,6 +238,9 @@ public class Menu extends JFrame {
 		buttonSpecial.setBounds(800, 630, 150, 50);
 		buttonSpecial.setForeground(new Color(255, 255, 255));
 		buttonSpecial.add(new JLabel("buttonSpecial"));
+		buttonToResetDeathCards = new ButtonToResetDeathCards("Reset deaths");
+		buttonToResetDeathCards.setBounds(800, 190, 150, 50);
+		buttonToResetDeathCards.setForeground(new Color(255, 255, 255));
 		
 		this.repaint();
 		this.revalidate();
@@ -255,6 +266,42 @@ public class Menu extends JFrame {
 		content = content + "source deck:\n";
 		for (int i=0;i<sourceDeck1.size();i++) {
 			Card card = sourceDeck1.get(i);
+			content = content + card.toString() + "\n";
+		}
+		content = content + "fin\n";
+		
+		FileWriter fw;
+		try {
+			fw = new FileWriter(file.getAbsoluteFile());
+			BufferedWriter bw = new BufferedWriter(fw);
+			bw.write(content);
+			bw.close();
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+	}
+	
+	public void saveDeadCards() {
+		File file = new File("save/deadcards.txt");
+
+		// créer le fichier s'il n'existe pas
+		if (!file.exists()) {
+			try {
+				file.createNewFile();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		String content = "list dead cards:\n";
+		for (int i=0;i<deadCardsList.size();i++) {
+			Card card = deadCardsList.get(i);
+			content = content + card.toString() + "\n";
+		}
+		content = content + "available dead cards:\n";
+		for (int i=0;i<availableDeadCardsList.size();i++) {
+			Card card = availableDeadCardsList.get(i);
 			content = content + card.toString() + "\n";
 		}
 		content = content + "fin\n";
@@ -701,6 +748,42 @@ public class Menu extends JFrame {
 
 	public void setDifficultyP2(JTextArea difficultyP2) {
 		this.difficultyP2 = difficultyP2;
+	}
+
+
+
+	public List<Card> getDeadCardsList() {
+		return deadCardsList;
+	}
+
+
+
+	public void setDeadCardsList(List<Card> deadCardsList) {
+		this.deadCardsList = deadCardsList;
+	}
+
+
+
+	public List<Card> getAvailableDeadCardsList() {
+		return availableDeadCardsList;
+	}
+
+
+
+	public void setAvailableDeadCardsList(List<Card> availableDeadCardsList) {
+		this.availableDeadCardsList = availableDeadCardsList;
+	}
+
+
+
+	public ButtonToResetDeathCards getButtonToResetDeathCards() {
+		return buttonToResetDeathCards;
+	}
+
+
+
+	public void setButtonToResetDeathCards(ButtonToResetDeathCards buttonToResetDeathCards) {
+		this.buttonToResetDeathCards = buttonToResetDeathCards;
 	}
 	
 	
