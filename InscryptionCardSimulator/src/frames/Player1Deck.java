@@ -21,7 +21,7 @@ public class Player1Deck  extends JFrame {
 	
 	public Player1Deck(Menu menu) throws IOException, FontFormatException {
 		super("Deck view");
-		this.setSize(1530, 650);
+		this.setSize(1530, 700);
 		JPanel panel = new JPanel(); 
 		panel.setLayout(null);
 		

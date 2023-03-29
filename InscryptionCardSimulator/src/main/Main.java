@@ -163,7 +163,7 @@ class Main {
 					    	  }
 				    		  if (!lineContent[11].equals("_")) {
 					    		  if (lineContent[12].equals("_")) {
-					    			  effects.add(new Effect(lineContent[11], lineContent[12]));
+					    			  effects.add(new Effect(lineContent[11], lineContent[0]));
 						    	  } else {
 						    		  effects.add(new Effect(lineContent[11], lineContent[0], Integer.parseInt(lineContent[12])));
 						    	  }

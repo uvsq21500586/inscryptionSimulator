@@ -75,6 +75,14 @@ public class CardPanel extends JPanel {
 	    rarity.setBounds(10,50,40,40);
 	    rarityText.setBounds(10,50,50,40);
 	    rarityText.setFont(font.deriveFont(Font.BOLD,16f));
+	    if (card instanceof RobotCard) {
+	    	rarity.setIcon(new ImageIcon(ImageIO.read(new File("img/rarity_robot.png"))
+					.getScaledInstance(40,40, 
+							Image.SCALE_DEFAULT)));
+	    	rarityText.setForeground(Color.GREEN);
+	    }
+	    
+	    
 	    if (card.getRarity() == 0) {
 	    	rarity.setVisible(false);
 	    	rarityText.setVisible(false);
@@ -317,6 +325,14 @@ public class CardPanel extends JPanel {
 	    rarity.setBounds(10,50,40,40);
 	    rarityText.setBounds(10,50,50,40);
 	    rarityText.setFont(font.deriveFont(Font.BOLD,16f));
+	    
+	    if (card instanceof RobotCard) {
+	    	rarity.setIcon(new ImageIcon(ImageIO.read(new File("img/rarity_robot.png"))
+					.getScaledInstance(40,40, 
+							Image.SCALE_DEFAULT)));
+	    	rarityText.setForeground(Color.GREEN);
+	    }
+	    
 	    if (card.getRarity() == 0) {
 	    	rarity.setVisible(false);
 	    	rarityText.setVisible(false);

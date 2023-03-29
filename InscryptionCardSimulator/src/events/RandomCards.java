@@ -2,7 +2,9 @@ package events;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.FontFormatException;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,7 @@ public class RandomCards  extends JFrame {
 	List<CardPanel> cardsPanelsMainDeck = new ArrayList<>();
 	private JButton buttonValidate;
 	private Menu menu;
+	private boolean deathcards = false;
 	
 	public RandomCards(Menu menu, Integer nbChoices) throws IOException, FontFormatException {
 		super("Random cards");
@@ -65,6 +68,51 @@ public class RandomCards  extends JFrame {
 		buttonValidate = new JButton("Validate");
 		buttonValidate.setBounds(500,400,100,50);
 		buttonValidate.setEnabled(false);
+		panel.add(buttonValidate);
+		panel.setBounds(0, 0, 200 * cardsPanelsMainDeck.size(), 650);
+		panel.setPreferredSize(new Dimension(200 * cardsPanelsMainDeck.size(), 650));
+		
+		JScrollPane jscrollpane = new JScrollPane(panel);
+		
+		this.add(jscrollpane, BorderLayout.CENTER);
+		
+		this.setVisible(true);
+		new RandomCardsControler(this);
+	}
+	
+	public RandomCards(Menu menu, Integer nbChoices, boolean deathcards) throws IOException, FontFormatException {
+		super("Random death cards");
+		this.menu = menu;
+		this.deathcards = deathcards;
+		Random r = new Random();
+		this.setSize(1530, 650);
+		JPanel panel = new JPanel(); 
+		panel.setLayout(null);
+		List<Card> boosterMain = new ArrayList<>();
+		int nbDeathCards = menu.getAvailableDeadCardsList().size();
+		if (nbDeathCards>0) {
+			for(int i=0;i<nbChoices;i++) {
+				Card card = menu.getAvailableDeadCardsList().get(r.nextInt(nbDeathCards));
+				if (!boosterMain.contains(card)) {
+					boosterMain.add(card);
+				}
+			}
+		}
+		for(int i=0;i<boosterMain.size();i++) {
+			cardsPanelsMainDeck.add(new CardPanel(boosterMain.get(i)));
+			panel.add(cardsPanelsMainDeck.get(i));
+			cardsPanelsMainDeck.get(i).setBounds(200*i, 0, 200, 300);
+		}
+		if (nbDeathCards == 0) {
+			Font font = Font.createFont(Font.TRUETYPE_FONT, new File("conthrax-sb.ttf"));
+			JLabel description = new JLabel("There is no any death card available.");
+			description.setBounds(50, 310, 600, 50);
+			description.setFont(font.deriveFont(Font.BOLD,18f));
+			panel.add(description);
+		}
+		buttonValidate = new JButton("Validate");
+		buttonValidate.setBounds(500,400,100,50);
+		buttonValidate.setEnabled(nbDeathCards == 0);
 		panel.add(buttonValidate);
 		panel.setBounds(0, 0, 200 * cardsPanelsMainDeck.size(), 650);
 		panel.setPreferredSize(new Dimension(200 * cardsPanelsMainDeck.size(), 650));
@@ -152,6 +200,14 @@ public class RandomCards  extends JFrame {
 
 	public void setMenu(Menu menu) {
 		this.menu = menu;
+	}
+
+	public boolean isDeathcards() {
+		return deathcards;
+	}
+
+	public void setDeathcards(boolean deathcards) {
+		this.deathcards = deathcards;
 	}
 	
 	

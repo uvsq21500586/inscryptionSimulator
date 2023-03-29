@@ -157,7 +157,17 @@ public class SpecialEventsControler implements ActionListener,MouseListener {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
+			}  else if (specialEvents.getTypeEvent().getSelectedValue().equals("randomdeathcard")) {
+				try {
+					new RandomCards(specialEvents.getMenu(), Integer.parseInt(specialEvents.getParameter().getText()), true);
+					
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (FontFormatException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			} else if (specialEvents.getTypeEvent().getSelectedValue().equals("trader")) {
 				try {
 					new TraderCards(specialEvents.getMenu());

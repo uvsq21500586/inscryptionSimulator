@@ -558,6 +558,10 @@ public class DeckManagement {
 			Optional<Effect> air = card.getEffects().stream().filter(effect -> effect.getName().equals("airborne")).findFirst();
 			Optional<Effect> scavenger = card.getEffects().stream().filter(effect -> effect.getName().equals("scavenger")).findFirst();
 			Optional<Effect> corpse_eater = card.getEffects().stream().filter(effect -> effect.getName().equals("corpse_eater")).findFirst();
+			Optional<Effect> fledgling = card.getEffects().stream().filter(effect -> effect.getName().equals("fledgling")).findFirst();
+			if (fledgling.isPresent()) {
+				malus += Math.max(0, fledgling.get().getLevel()-2*card.getHpBase());
+			}
 			if (burrower.isPresent() && card.getHpBase() == 1) {
 				malus += card.getAttack();
 			}

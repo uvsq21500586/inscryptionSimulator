@@ -34,22 +34,22 @@ public class Menu extends JFrame {
 	
 	//base pelts prizes: 1-2-4, base start main deck size: 4, base start source deck size: 5
 	//parameters: positive(bonus chance(more bonus events + campfire), nb choices cards, nbWavesPerBoss), negativeOrNeutral(higher pelt price and more boulders, harder trials, harder bosses)
-	//totem -> more lifePoints, bonus stats for trade and trial, nb cards for trial success
+	//totem -> more lifePoints, bonus stats for trade and trial, nb cards for trial success(min 3)
 	//nb deaths = nb source cards supp + nb lives per game
 	
 	//player parameters -> choices costs, choices trader, totem
 	//harder trial: for 4 levels, hp and attack limit +4, costs limit +2, effects limit +1
 	
 	//serie: 11[1(1,1,1)-4(2(+1),2(+1),1(+0))],8[4(2,2,1)-1(2(+1),1(+0),1(+0))]
-	// 11[1(1,1,1)-4(2(+1),2(+1),1(+0))]
-	//j1: 5-1(5),3[1:1blood, 2:12345687, 1:1-0-0]
-	//crédits: 0,d0
+	// 8[4(2,2,1)-1(2(+1),1(+0),1(+0))]
+	//j1: 8-2(5),3[1:1energy, 2:12345687, 1:1-0-0](décalé avec le nb de vies)
+	//crédits: 4,d1
 	//lifes: 1/1
 	//bonus: 0,0,0
 	//malus: dice, lifePoints adv, strenght, cards, cardsup, price pelt:+0
-	//price pelts: 1,2,5
-	//j2: 7-1(7)
-	//map: 11+5+0=16->1
+	//price pelts: 1,2,6
+	//j2: 4-1(4)
+	//map: 8+5+1=14->2
 	
 	//default parameters
 	private Integer modulo1 = 11;

@@ -98,7 +98,7 @@ public class TraderCards  extends JFrame {
 					menu.getRarityStrenght1(),
 					r.nextInt(menu.getModulo1()-1)+1,
 					menu.getTypecards1(),2,false);
-			if (card1.getRarity() == 0 || card2.getRarity() < card1.getRarity()) {
+			if (card1.getRarity() == 0 || (card2.getRarity()>0 && card2.getRarity() < card1.getRarity())) {
 				boosterMain3.add(card2);
 			} else {
 				boosterMain3.add(card1);

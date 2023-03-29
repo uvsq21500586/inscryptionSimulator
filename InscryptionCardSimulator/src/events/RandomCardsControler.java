@@ -45,9 +45,20 @@ public class RandomCardsControler implements ActionListener,MouseListener {
 			randomCards.getButtonValidate().setEnabled(true);
 		}
 		
-		if (e.getSource() instanceof JButton) {
-			randomCards.getMenu().getMainDeck1().add(selectedCard.getCard());
-			randomCards.getMenu().saveDeck(randomCards.getMenu().getMainDeck1(), randomCards.getMenu().getSourceDeck1());
+		if (e.getSource() instanceof JButton && ((JButton)e.getSource()).isEnabled()) {
+			if (randomCards.isDeathcards()) {
+				if (selectedCard == null) {
+					randomCards.dispose();
+				} else {
+					randomCards.getMenu().getMainDeck1().add(selectedCard.getCard());
+					randomCards.getMenu().getAvailableDeadCardsList().remove(selectedCard.getCard());
+					randomCards.getMenu().saveDeck(randomCards.getMenu().getMainDeck1(), randomCards.getMenu().getSourceDeck1());
+					randomCards.getMenu().saveDeadCards();
+				}
+			} else {
+				randomCards.getMenu().getMainDeck1().add(selectedCard.getCard());
+				randomCards.getMenu().saveDeck(randomCards.getMenu().getMainDeck1(), randomCards.getMenu().getSourceDeck1());
+			}
 			randomCards.dispose();
 		}
 		

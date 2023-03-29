@@ -50,7 +50,7 @@ public class Trial  extends JFrame {
 					if (!isNewCost(symbols, i)) {
 						i--;
 					} else {
-						trialPanels[i] = new TrialPanel(symbols[i], mapTrialToLevel.get(symbols[i]));
+						trialPanels[i] = new TrialPanel(symbols[i], mapTrialToLevel.get(symbols[i])+Integer.parseInt(menu.getDifficultyP2().getText()));
 						trialPanels[i].setBounds(200*i,0,200,300);
 						panel.add(trialPanels[i]);
 					}
@@ -63,7 +63,7 @@ public class Trial  extends JFrame {
 					if (!isNewCost(symbols, i)) {
 						i--;
 					} else {
-						trialPanels[i] = new TrialPanel(symbols[i], mapTrialToLevel.get(symbols[i]));
+						trialPanels[i] = new TrialPanel(symbols[i], mapTrialToLevel.get(symbols[i])+Integer.parseInt(menu.getDifficultyP2().getText()));
 						trialPanels[i].setBounds(200*i,0,200,300);
 						panel.add(trialPanels[i]);
 					}

@@ -54,6 +54,8 @@ public class RandomSourceCardsControler implements ActionListener,MouseListener 
 					randomCards.getCardsPanelsSourceDeck().get(i).getSelected().setVisible(false);
 				}
 				selectedDeckSourceCard.getSelected().setVisible(true);
+				System.out.println(randomCards.getMenu().getSourceDeck1().indexOf(selectedDeckSourceCard.getCard()));
+				System.out.println(selectedDeckSourceCard.getCard().equals(randomCards.getMenu().getSourceDeck1().get(1)));
 			}
 			
 		}
@@ -61,7 +63,8 @@ public class RandomSourceCardsControler implements ActionListener,MouseListener 
 		if (e.getSource() instanceof JButton) {
 			randomCards.getMenu().getSourceDeck1().add(selectedNewSourceCard.getCard());
 			if (selectedDeckSourceCard != null) {
-				randomCards.getMenu().getMainDeck1().remove(selectedDeckSourceCard.getCard());
+				System.out.println(randomCards.getMenu().getSourceDeck1().indexOf(selectedDeckSourceCard.getCard()));
+				randomCards.getMenu().getSourceDeck1().remove(selectedDeckSourceCard.getCard());
 			}
 			randomCards.getMenu().saveDeck(randomCards.getMenu().getMainDeck1(), randomCards.getMenu().getSourceDeck1());
 			randomCards.dispose();
