@@ -16,6 +16,7 @@ import javax.swing.SwingConstants;
 public class TrialPanel extends JPanel{
 	JLabel symbol;
 	JLabel levelTrial;
+	JLabel selected;
 	Font font;
 	String type;
 	Integer level;
@@ -38,6 +39,14 @@ public class TrialPanel extends JPanel{
 				Image.SCALE_DEFAULT)));
 		this.add(symbol);
 		symbol.setBounds(50,50,100,100);
+		selected = new JLabel();
+		selected.setBounds(0,0,200,300);
+		selected.setIcon(new ImageIcon(ImageIO.read(new File("img/activedCard.png"))
+				.getScaledInstance(200,300, 
+				Image.SCALE_DEFAULT)));
+		this.add(symbol);
+		this.add(selected);
+		selected.setVisible(false);
 		levelTrial.setForeground(new Color(255,0,0));	
 	}
 	
@@ -59,6 +68,14 @@ public class TrialPanel extends JPanel{
 
 	public void setLevel(Integer level) {
 		this.level = level;
+	}
+
+	public JLabel getSelected() {
+		return selected;
+	}
+
+	public void setSelected(JLabel selected) {
+		this.selected = selected;
 	}
 
 	

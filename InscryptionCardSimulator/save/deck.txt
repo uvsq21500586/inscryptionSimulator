@@ -1,23 +1,12 @@
 main deck:
-robot;xformerporcupinebot;3;1;1;airborne;_;_;_;_;_;_;_;0
-robot;xformerporcupinebot;2;1;1;_;_;_;_;_;_;_;_;0
-robot;exeskeleton;1;1;1;airborne;_;_;_;_;_;_;_;1
-robot;exeskeleton;2;2;0;burrower;_;_;_;_;_;_;_;0
-robot;s0n1a;2;2;0;sharp_quills;1;_;_;_;_;_;_;1
-robot;xformergrizzlybot;3;3;0;_;_;_;_;_;_;_;_;0
-robot;bomb_latcher;2;1;0;unkillable;1;_;_;_;_;_;_;0
-robot;xformerporcupinebot;2;1;1;_;_;_;_;_;_;_;_;0
-robot;xformerporcupinebot;5;1;1;mighty_leap;_;airborne;_;burrower;_;_;_;0
-robot;xformergrizzlybot;2;3;0;guardian;_;unkillable;1;_;_;_;_;0
-robot;qu177;1;2;0;burrower;_;_;_;_;_;_;_;1
-robot;exeskeleton;2;2;0;burrower;_;_;_;_;_;_;_;0
-robot;xformerporcupinebot;3;1;1;airborne;_;mighty_leap;_;airborne;_;guardian;_;0
+beast;magpie;blood;2;1;1;sprinter_right;_;_;_;_;_;_;_;0
+beast;raven_egg;blood;1;2;0;_;_;_;_;_;_;_;_;0
+beast;turkey_vulture;blood;3;1;0;fledgling;2;sprinter_right;_;_;_;_;_;0
+beast;turkey_vulture;blood;3;1;0;fledgling;2;sprinter_right;_;_;_;_;_;0
 source deck:
-robot;empty_vessel;1;1;0;mighty_leap;_;_;_;_;_;_;_;0
-robot;empty_vessel;1;2;0;_;_;_;_;_;_;_;_;0
-robot;empty_vessel;1;1;0;mighty_leap;_;_;_;_;_;_;_;0
-robot;empty_vessel;1;1;0;guardian;_;_;_;_;_;_;_;0
-robot;empty_vessel;1;2;0;_;_;_;_;_;_;_;_;0
-robot;empty_vessel;1;1;0;burrower;_;_;_;_;_;_;_;0
-robot;empty_vessel;1;1;0;burrower;_;_;_;_;_;_;_;0
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
 fin

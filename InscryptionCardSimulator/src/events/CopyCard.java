@@ -41,8 +41,8 @@ public class CopyCard  extends JFrame {
 		for(int i=0;i<menu.getMainDeck1().size();i++) {
 			if (!menu.getMainDeck1().get(i).getAppearance().contains("pelt")) {
 				cardsPanelsMainDeck.add(new CardPanel(menu.getMainDeck1().get(i)));
-				panel.add(cardsPanelsMainDeck.get(i));
-				cardsPanelsMainDeck.get(i).setBounds(200*i, 0, 200, 300);
+				panel.add(cardsPanelsMainDeck.get(cardsPanelsMainDeck.size()-1));
+				cardsPanelsMainDeck.get(cardsPanelsMainDeck.size()-1).setBounds(200*(cardsPanelsMainDeck.size()-1), 0, 200, 300);
 			}
 		}
 		JLabel description = new JLabel("Choose a card to copy.");

@@ -1,5 +1,6 @@
 package events;
 
+import java.awt.Color;
 import java.awt.FontFormatException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -53,6 +54,7 @@ public class CampFireControler implements ActionListener,MouseListener {
 			} else {
 				Random r = new Random();
 				int chance = r.nextInt(Integer.parseInt(campFire.getChanceDice().getText()));
+				campFire.getResultText().setVisible(true);
 				if (chance < Integer.parseInt(campFire.getChanceSuccess().getText())) {
 					System.out.println(chance);
 					if (campFire.isAttackBonus()) {
@@ -72,6 +74,8 @@ public class CampFireControler implements ActionListener,MouseListener {
 						e1.printStackTrace();
 					}
 				} else {
+					campFire.getResultText().setText("Failure! You loose your card.");
+					campFire.getResultText().setForeground(new Color(255,0,0));
 					campFire.getMenu().getMainDeck1().remove(selectedCard.getCard());
 				}
 				campFire.getMenu().saveDeck(campFire.getMenu().getMainDeck1(), campFire.getMenu().getSourceDeck1());

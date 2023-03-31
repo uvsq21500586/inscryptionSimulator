@@ -36,7 +36,7 @@ public class DuelControler implements ActionListener,MouseListener {
 	private boolean puttingBloodCard = false;
 	private boolean mustDrawCard = false;
 	private CardPanel cardSelected;
-	private List<CardPanel> cardBeingSacrified;
+	private List<CardPanel> cardBeingSacrified = new ArrayList<>();
 	
 	
 	public DuelControler(Duel duel) {
@@ -164,6 +164,12 @@ public class DuelControler implements ActionListener,MouseListener {
 		}
 		
 		if (e.getSource() instanceof NextTurnButton) {
+			
+			sacrifying = false;
+			puttingBloodCard = false;
+			cardSelected = null;
+			cardBeingSacrified.forEach(card -> card.getBeingSacrified().setVisible(false));
+			
 			try {
 				duel.nextTurn(this);
 			} catch (IOException e1) {

@@ -45,19 +45,17 @@ public class TrialControler implements ActionListener,MouseListener {
 		if (e.getSource() instanceof CardPanel) {
 			selectedCard = (CardPanel) e.getSource();
 			//((CardPanel) e.getSource()).getSelected().setVisible(true);
-			int index = trial.getCardsPanelsMainDeck().indexOf(selectedCard);
-			for (int i=0;i<3;i++) {
-				trial.getCardsPanelsMainDeck().get(i).getSelected().setVisible(i == index);
+			int index = trial.getCardsPanelsNewCards().indexOf(selectedCard);
+			for (int i=0;i<trial.getCardsPanelsNewCards().size();i++) {
+				trial.getCardsPanelsNewCards().get(i).getSelected().setVisible(i == index);
 			}
 			trial.getButtonValidate().setEnabled(true);
 		}
 		
 		if (e.getSource() instanceof TrialPanel && nbClicsOnValidate == 0) {
 			selectedTrial = (TrialPanel) e.getSource();
-			//((CardPanel) e.getSource()).getSelected().setVisible(true);
-			int index = trial.getCardsPanelsMainDeck().indexOf(selectedCard);
-			for (int i=0;i<trial.getCardsPanelsMainDeck().size();i++) {
-				trial.getCardsPanelsMainDeck().get(i).getSelected().setVisible(i == index);
+			for (int i=0;i<3;i++) {
+				trial.getTrialPanels()[i].getSelected().setVisible(trial.getTrialPanels()[i].equals(selectedTrial));
 			}
 			trial.getButtonValidate().setEnabled(true);
 		}

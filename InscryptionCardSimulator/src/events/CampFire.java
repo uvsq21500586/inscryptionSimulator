@@ -1,6 +1,7 @@
 package events;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -29,6 +30,7 @@ public class CampFire  extends JFrame {
 	private boolean attackBonus;
 	private JTextArea chanceSuccess = new JTextArea("1");
 	private JTextArea chanceDice = new JTextArea("2");
+	private JLabel resultText = new JLabel("Success! Your card gain power or health!");
 	private CardPanel result;
 	
 	public CampFire(Menu menu) throws IOException, FontFormatException {
@@ -72,6 +74,12 @@ public class CampFire  extends JFrame {
 		chanceDice.setBounds(250, 510, 100, 50);
 		chanceDice.setFont(font.deriveFont(Font.BOLD,18f));
 		panel.add(chanceDice);
+		
+		resultText.setBounds(600, 400, 450, 50);
+		resultText.setFont(font.deriveFont(Font.BOLD,16f));
+		panel.add(resultText);
+		resultText.setForeground(new Color(0,128,0));
+		resultText.setVisible(false);
 		
 		buttonValidate = new JButton("Validate");
 		buttonValidate.setBounds(500,400,100,50);
@@ -167,6 +175,14 @@ public class CampFire  extends JFrame {
 
 	public void setResult(CardPanel result) {
 		this.result = result;
+	}
+
+	public JLabel getResultText() {
+		return resultText;
+	}
+
+	public void setResultText(JLabel resultText) {
+		this.resultText = resultText;
 	}
 	
 	

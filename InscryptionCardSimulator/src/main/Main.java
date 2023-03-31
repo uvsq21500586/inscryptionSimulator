@@ -127,6 +127,13 @@ class Main {
 					    	  } else {
 					    		  effects.add(new Effect(lineContent[10], lineContent[0], Integer.parseInt(lineContent[11])));
 					    	  }
+				    		  if (!lineContent[12].equals("_")) {
+					    		  if (lineContent[13].equals("_")) {
+					    			  effects.add(new Effect(lineContent[12], lineContent[0]));
+						    	  } else {
+						    		  effects.add(new Effect(lineContent[12], lineContent[0], Integer.parseInt(lineContent[13])));
+						    	  }
+					    	  }
 				    	  }
 			    	  }
 		    	  }
@@ -201,6 +208,13 @@ class Main {
 					    	  } else {
 					    		  effects.add(new Effect(lineContent[9], lineContent[0], Integer.parseInt(lineContent[10])));
 					    	  }
+				    		  if (!lineContent[11].equals("_")) {
+					    		  if (lineContent[12].equals("_")) {
+					    			  effects.add(new Effect(lineContent[11], lineContent[0]));
+						    	  } else {
+						    		  effects.add(new Effect(lineContent[11], lineContent[0], Integer.parseInt(lineContent[12])));
+						    	  }
+					    	  }
 				    	  }
 			    	  }
 		    	  }
@@ -233,6 +247,13 @@ class Main {
 				    			  effects.add(new Effect(lineContent[9], lineContent[0]));
 					    	  } else {
 					    		  effects.add(new Effect(lineContent[9], lineContent[0], Integer.parseInt(lineContent[10])));
+					    	  }
+				    		  if (!lineContent[11].equals("_")) {
+					    		  if (lineContent[12].equals("_")) {
+					    			  effects.add(new Effect(lineContent[11], lineContent[0]));
+						    	  } else {
+						    		  effects.add(new Effect(lineContent[11], lineContent[0], Integer.parseInt(lineContent[12])));
+						    	  }
 					    	  }
 				    	  }
 			    	  }
@@ -280,6 +301,13 @@ class Main {
 					    	  } else {
 					    		  effects.add(new Effect(lineContent[10], lineContent[0], Integer.parseInt(lineContent[11])));
 					    	  }
+				    		  if (!lineContent[12].equals("_")) {
+					    		  if (lineContent[13].equals("_")) {
+					    			  effects.add(new Effect(lineContent[12], lineContent[0]));
+						    	  } else {
+						    		  effects.add(new Effect(lineContent[12], lineContent[0], Integer.parseInt(lineContent[13])));
+						    	  }
+					    	  }
 				    	  }
 			    	  }
 		    	  }
@@ -319,7 +347,7 @@ class Main {
 					    	  }
 				    		  if (!lineContent[11].equals("_")) {
 					    		  if (lineContent[12].equals("_")) {
-					    			  effects.add(new Effect(lineContent[11], lineContent[12]));
+					    			  effects.add(new Effect(lineContent[11], lineContent[0]));
 						    	  } else {
 						    		  effects.add(new Effect(lineContent[11], lineContent[0], Integer.parseInt(lineContent[12])));
 						    	  }
@@ -357,6 +385,13 @@ class Main {
 					    	  } else {
 					    		  effects.add(new Effect(lineContent[9], lineContent[0], Integer.parseInt(lineContent[10])));
 					    	  }
+				    		  if (!lineContent[11].equals("_")) {
+					    		  if (lineContent[12].equals("_")) {
+					    			  effects.add(new Effect(lineContent[11], lineContent[0]));
+						    	  } else {
+						    		  effects.add(new Effect(lineContent[11], lineContent[0], Integer.parseInt(lineContent[12])));
+						    	  }
+					    	  }
 				    	  }
 			    	  }
 		    	  }
@@ -389,6 +424,13 @@ class Main {
 				    			  effects.add(new Effect(lineContent[9], lineContent[0]));
 					    	  } else {
 					    		  effects.add(new Effect(lineContent[9], lineContent[0], Integer.parseInt(lineContent[10])));
+					    	  }
+				    		  if (!lineContent[11].equals("_")) {
+					    		  if (lineContent[12].equals("_")) {
+					    			  effects.add(new Effect(lineContent[11], lineContent[0]));
+						    	  } else {
+						    		  effects.add(new Effect(lineContent[11], lineContent[0], Integer.parseInt(lineContent[12])));
+						    	  }
 					    	  }
 				    	  }
 			    	  }
@@ -446,6 +488,13 @@ class Main {
 					    	  } else {
 					    		  effects.add(new Effect(lineContent[10], lineContent[0], Integer.parseInt(lineContent[11])));
 					    	  }
+				    		  if (!lineContent[12].equals("_")) {
+					    		  if (lineContent[13].equals("_")) {
+					    			  effects.add(new Effect(lineContent[12], lineContent[0]));
+						    	  } else {
+						    		  effects.add(new Effect(lineContent[12], lineContent[0], Integer.parseInt(lineContent[13])));
+						    	  }
+					    	  }
 				    	  }
 			    	  }
 		    	  }
@@ -458,7 +507,7 @@ class Main {
 	    				  effects,
 	    				  Integer.parseInt(lineContent[14]),
 	    				  true);
-	    		  maindeck.add(newCard);
+	    		  deadcardslist.add(newCard);
 	    	  }
 	    	  if (lineContent[0].equals("robot")) {
 	    		  if (!lineContent[5].equals("_")) {
@@ -482,7 +531,7 @@ class Main {
 					    	  }
 				    		  if (!lineContent[11].equals("_")) {
 					    		  if (lineContent[12].equals("_")) {
-					    			  effects.add(new Effect(lineContent[11], lineContent[12]));
+					    			  effects.add(new Effect(lineContent[11], lineContent[0]));
 						    	  } else {
 						    		  effects.add(new Effect(lineContent[11], lineContent[0], Integer.parseInt(lineContent[12])));
 						    	  }
@@ -520,6 +569,13 @@ class Main {
 					    	  } else {
 					    		  effects.add(new Effect(lineContent[9], lineContent[0], Integer.parseInt(lineContent[10])));
 					    	  }
+				    		  if (!lineContent[11].equals("_")) {
+					    		  if (lineContent[12].equals("_")) {
+					    			  effects.add(new Effect(lineContent[11], lineContent[0]));
+						    	  } else {
+						    		  effects.add(new Effect(lineContent[11], lineContent[0], Integer.parseInt(lineContent[12])));
+						    	  }
+					    	  }
 				    	  }
 			    	  }
 		    	  }
@@ -552,6 +608,13 @@ class Main {
 				    			  effects.add(new Effect(lineContent[9], lineContent[0]));
 					    	  } else {
 					    		  effects.add(new Effect(lineContent[9], lineContent[0], Integer.parseInt(lineContent[10])));
+					    	  }
+				    		  if (!lineContent[11].equals("_")) {
+					    		  if (lineContent[12].equals("_")) {
+					    			  effects.add(new Effect(lineContent[11], lineContent[0]));
+						    	  } else {
+						    		  effects.add(new Effect(lineContent[11], lineContent[0], Integer.parseInt(lineContent[12])));
+						    	  }
 					    	  }
 				    	  }
 			    	  }
@@ -599,6 +662,13 @@ class Main {
 					    	  } else {
 					    		  effects.add(new Effect(lineContent[10], lineContent[0], Integer.parseInt(lineContent[11])));
 					    	  }
+				    		  if (!lineContent[12].equals("_")) {
+					    		  if (lineContent[13].equals("_")) {
+					    			  effects.add(new Effect(lineContent[12], lineContent[0]));
+						    	  } else {
+						    		  effects.add(new Effect(lineContent[12], lineContent[0], Integer.parseInt(lineContent[13])));
+						    	  }
+					    	  }
 				    	  }
 			    	  }
 		    	  }
@@ -610,7 +680,7 @@ class Main {
 	    				  Integer.parseInt(lineContent[5]),
 	    				  effects,
 	    				  Integer.parseInt(lineContent[14]),
-	    				  false);
+	    				  true);
 	    		  if (newCard.getAppearance().contains("pelt")) {
 	    			  newCard.setSacrificiable(false);
 	    		  }
@@ -638,7 +708,7 @@ class Main {
 					    	  }
 				    		  if (!lineContent[11].equals("_")) {
 					    		  if (lineContent[12].equals("_")) {
-					    			  effects.add(new Effect(lineContent[11], lineContent[12]));
+					    			  effects.add(new Effect(lineContent[11], lineContent[0]));
 						    	  } else {
 						    		  effects.add(new Effect(lineContent[11], lineContent[0], Integer.parseInt(lineContent[12])));
 						    	  }
@@ -653,7 +723,7 @@ class Main {
 	    				  Integer.parseInt(lineContent[4]),
 	    				  effects,
 	    				  Integer.parseInt(lineContent[13]),
-	    				  false);
+	    				  true);
 	    		  availabledeadcardslist.add(newCard);
 	    	  }
 	    	  if (lineContent[0].equals("undead")) {
@@ -676,6 +746,13 @@ class Main {
 					    	  } else {
 					    		  effects.add(new Effect(lineContent[9], lineContent[0], Integer.parseInt(lineContent[10])));
 					    	  }
+				    		  if (!lineContent[11].equals("_")) {
+					    		  if (lineContent[12].equals("_")) {
+					    			  effects.add(new Effect(lineContent[11], lineContent[0]));
+						    	  } else {
+						    		  effects.add(new Effect(lineContent[11], lineContent[0], Integer.parseInt(lineContent[12])));
+						    	  }
+					    	  }
 				    	  }
 			    	  }
 		    	  }
@@ -686,7 +763,7 @@ class Main {
 	    				  Integer.parseInt(lineContent[4]),
 	    				  effects,
 	    				  Integer.parseInt(lineContent[11]),
-	    				  false);
+	    				  true);
 	    		  availabledeadcardslist.add(newCard);
 	    	  }
 	    	  if (lineContent[0].equals("wizard")) {
@@ -709,6 +786,13 @@ class Main {
 					    	  } else {
 					    		  effects.add(new Effect(lineContent[9], lineContent[0], Integer.parseInt(lineContent[10])));
 					    	  }
+				    		  if (!lineContent[11].equals("_")) {
+					    		  if (lineContent[12].equals("_")) {
+					    			  effects.add(new Effect(lineContent[11], lineContent[0]));
+						    	  } else {
+						    		  effects.add(new Effect(lineContent[11], lineContent[0], Integer.parseInt(lineContent[12])));
+						    	  }
+					    	  }
 				    	  }
 			    	  }
 		    	  }
@@ -723,7 +807,7 @@ class Main {
 	    				  Integer.parseInt(lineContent[4]),
 	    				  effects,
 	    				  Integer.parseInt(lineContent[17]),
-	    				  false);
+	    				  true);
 	    		  availabledeadcardslist.add(newCard);
 	    	  }
 	    	  line = br.readLine();
