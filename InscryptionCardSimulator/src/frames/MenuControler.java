@@ -19,6 +19,7 @@ import decks.DeckManagement;
 import frames.menubuttons.ButtonToBoosterCard;
 import frames.menubuttons.ButtonToBuildDeck;
 import frames.menubuttons.ButtonToDuel;
+import frames.menubuttons.ButtonToHelp;
 import frames.menubuttons.ButtonToOptions;
 import frames.menubuttons.ButtonToResetDeathCards;
 import frames.menubuttons.ButtonToSeeDeck;
@@ -40,6 +41,7 @@ public class MenuControler implements ActionListener,MouseListener {
 		menu.getButtonOptions().addMouseListener(this);
 		menu.getButtonSpecial().addMouseListener(this);
 		menu.getButtonToResetDeathCards().addMouseListener(this);
+		menu.getButtonHelp().addMouseListener(this);
 	}
 
 	@Override
@@ -320,6 +322,15 @@ public class MenuControler implements ActionListener,MouseListener {
 			menu.setAvailableDeadCardsList(new ArrayList<>());
 			menu.setDeadCardsList(new ArrayList<>());
 			menu.saveDeadCards();
+		}
+		if (e.getSource() instanceof ButtonToHelp) {
+			Help help = new Help();
+			try {
+				help.open();
+			} catch (IOException | FontFormatException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 

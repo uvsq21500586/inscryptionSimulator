@@ -36,6 +36,19 @@ public class TrapperControler implements ActionListener,MouseListener {
 		// TODO Auto-generated method stub
 		if (e.getSource() instanceof CardPanel) {
 			CardPanel selectedCard = (CardPanel) e.getSource();
+			String name = selectedCard.getCard().getAppearance();
+			if (name.contains("rabbit")) {
+				trapperCards.setNbRabbitPeltBoughtCount(trapperCards.getNbRabbitPeltBoughtCount()+1);
+				trapperCards.getNbRabbitPeltBought().setText("nb rabbit pelts bought: " + trapperCards.getNbRabbitPeltBoughtCount());
+			}
+			if (name.contains("wolf")) {
+				trapperCards.setNbWolfPeltBoughtCount(trapperCards.getNbWolfPeltBoughtCount()+1);
+				trapperCards.getNbWolfPeltBought().setText("nb wolf pelts bought: " + trapperCards.getNbWolfPeltBoughtCount());
+			}
+			if (name.contains("golden")) {
+				trapperCards.setNbGoldenPeltBoughtCount(trapperCards.getNbGoldenPeltBoughtCount()+1);
+				trapperCards.getNbGoldenPeltBought().setText("nb golden pelts bought: " + trapperCards.getNbGoldenPeltBoughtCount());
+			}
 			//((CardPanel) e.getSource()).getSelected().setVisible(true);
 			trapperCards.getMenu().getMainDeck1().add(selectedCard.getCard());
 			trapperCards.getMenu().saveDeck(trapperCards.getMenu().getMainDeck1(), trapperCards.getMenu().getSourceDeck1());

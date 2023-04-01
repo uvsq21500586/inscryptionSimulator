@@ -164,11 +164,13 @@ public class DuelControler implements ActionListener,MouseListener {
 		}
 		
 		if (e.getSource() instanceof NextTurnButton) {
-			
 			sacrifying = false;
 			puttingBloodCard = false;
-			cardSelected = null;
-			cardBeingSacrified.forEach(card -> card.getBeingSacrified().setVisible(false));
+			if (cardSelected != null) {
+				cardSelected.getSelected().setVisible(false);
+				cardSelected = null;
+				cardBeingSacrified.forEach(card -> card.getBeingSacrified().setVisible(false));
+			}
 			
 			try {
 				duel.nextTurn(this);

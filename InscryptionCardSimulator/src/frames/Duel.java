@@ -205,7 +205,7 @@ public class Duel extends JFrame {
 		panel.add(bonePileCount,0);
 		panel.add(balanceLabel,0);
 		bonePile.setBounds(1000, 100, 50, 50);
-		bonePileCount.setBounds(1050, 100, 50, 50);
+		bonePileCount.setBounds(1050, 100, 100, 50);
 		balanceLabel.setBounds(1050, 200, 200, 50);
 		panel.add(energyPile,0);
 		panel.add(energyPileCount,0);
@@ -705,6 +705,8 @@ public class Duel extends JFrame {
 	private void applyUnkillableEffect(int i, CardPanel copycard, Card card, Optional<Effect> unkillableEffect) {
 		card.setAttackBase(card.getAttackBase() + (unkillableEffect.get().getLevel()-1)/3);
 		card.setHpBase(card.getHpBase() + (unkillableEffect.get().getLevel()-1)/3);
+		card.setPoisoned(0);
+		copycard.getPoison().setVisible(false);
 		int lvlSup = (unkillableEffect.get().getLevel()-1)%3;
 		if (lvlSup == 1) {
 			card.setHpBase(card.getHpBase() + 1);

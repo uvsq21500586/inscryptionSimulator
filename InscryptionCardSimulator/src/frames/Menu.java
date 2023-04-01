@@ -1,6 +1,5 @@
 package frames;
 
-import java.awt.event.KeyListener;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -14,14 +13,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import cards.Card;
-import frames.menubuttons.ButtonToBoosterCard;
-import frames.menubuttons.ButtonToBuildDeck;
-import frames.menubuttons.ButtonToDuel;
-import frames.menubuttons.ButtonToOptions;
-import frames.menubuttons.ButtonToResetDeathCards;
-import frames.menubuttons.ButtonToSeeDeck;
-import frames.menubuttons.ButtonToSimulatorCard;
-import frames.menubuttons.ButtonToSpecial;
+import frames.menubuttons.*;
 
 public class Menu extends JFrame {
 	//types: beast robot undead wizard
@@ -35,25 +27,24 @@ public class Menu extends JFrame {
 	//base pelts prizes: 1-2-4, base start main deck size: 4, base start source deck size: 5
 	//parameters: positive(bonus chance(more bonus events + campfire), nb choices cards, nbWavesPerBoss), negativeOrNeutral(higher pelt price and more boulders, harder trials, harder bosses)
 	//totem -> more lifePoints, bonus stats for trade and trial, nb cards for trial success(min 3)
-	//nb deaths = 1 + (numero map)%(nb source cards supp + nb lives per game)
+	//nb deaths = 1 + (numero map(y1 + z1 + z2 - 2 in "j1: x1-y1(z1)" and "j2: x2-y2(z2)"))%(nb source cards supp + nb lives per game)
 	
 	//player game parameters -> choices costs, choices trader, totem
 	//player global parameters -> player game parameters,(nb life points/ nb source cards supp)
 	//rival global parameters -> main deck size/source deck size,(nb life points/ nb cards supp to optimize)
 	//harder trial: for 4 levels, hp and attack limit +4, costs limit +2, effects limit +1
 	
-	//serie: 12[2(2,1,1)-4(2(+1),2(+1),1(+0))],9[1(1,1,1)-3(1(+0),2(+1),1(+0))]
-	// 12[2(2,1,1)-4(2(+1),2(+1),1(+0))]
-	//j1: 2-1(2),2[2:1*1blood+1*2bone, 1:12345678, 1:1-0-0](décalé avec le nb de vies)
+	//serie: 13[3(1,2,1)-3(1(+0),2(+1),1(+0))],10[2(2,1,1)-3(1(+0),2(+1),1(+0))]
+	// 13[3(1,2,1)-3(1(+0),2(+1),1(+0))]
+	//j1: 10-1(10),2[2:1*1blood+1*2bone, 1:12345678, 1:1-0-0](incremented by (nb lifes -1))
 	//bonus: 0-0-0
 	//crédits: 0,d0
 	//lifes: 1/1
-	//nb deaths: 1/1
+	//nb deaths: 2/2
 	//bonus: 0,0,0
 	//malus: dice, lifePoints adv, strenght, cards, cardsup, price pelt:+0
-	//price pelts: 1,2,5
-	//j2: 11-1(11)
-	//map: 12+2+0=14->2
+	//price pelts: 1,2,4
+	//j2: 4-1(4)
 	
 	//default parameters
 	private Integer modulo1 = 11;
@@ -90,6 +81,7 @@ public class Menu extends JFrame {
 	private ButtonToBuildDeck buttonToBuildDeck;
 	private ButtonToSeeDeck buttonToSeeDeck;
 	private ButtonToOptions buttonOptions;
+	private ButtonToHelp buttonHelp;
 	private ButtonToSpecial buttonSpecial;
 	private ButtonToResetDeathCards buttonToResetDeathCards;
 	
@@ -142,6 +134,7 @@ public class Menu extends JFrame {
 		this.getContentPane().add(buttonToSeeDeck);
 		this.getContentPane().add(buttonBoosterCard);
 		this.getContentPane().add(buttonOptions);
+		this.getContentPane().add(buttonHelp);
 		this.getContentPane().add(buttonSpecial);
 		this.getContentPane().add(buttonToResetDeathCards);
 		Font font = Font.createFont(Font.TRUETYPE_FONT, new File("conthrax-sb.ttf"));
@@ -238,6 +231,10 @@ public class Menu extends JFrame {
 		buttonOptions.setBounds(100, 520, 150, 50);
 		buttonOptions.setForeground(new Color(255, 255, 255));
 		buttonOptions.add(new JLabel("Options"));
+		buttonHelp = new ButtonToHelp();
+		buttonHelp.setBounds(100, 620, 150, 50);
+		buttonHelp.setForeground(new Color(255, 255, 255));
+		buttonHelp.add(new JLabel("Help"));
 		buttonSpecial = new ButtonToSpecial();
 		buttonSpecial.setBounds(800, 630, 150, 50);
 		buttonSpecial.setForeground(new Color(255, 255, 255));
@@ -788,6 +785,18 @@ public class Menu extends JFrame {
 
 	public void setButtonToResetDeathCards(ButtonToResetDeathCards buttonToResetDeathCards) {
 		this.buttonToResetDeathCards = buttonToResetDeathCards;
+	}
+
+
+
+	public ButtonToHelp getButtonHelp() {
+		return buttonHelp;
+	}
+
+
+
+	public void setButtonHelp(ButtonToHelp buttonHelp) {
+		this.buttonHelp = buttonHelp;
 	}
 	
 	
