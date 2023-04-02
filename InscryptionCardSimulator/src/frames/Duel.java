@@ -32,6 +32,7 @@ public class Duel extends JFrame {
 	private LeftButton buttonLeft;
 	private RightButton buttonRight;
 	private NextTurnButton nextTurnButton;
+	private ReturnButton returnButton;
 	private JLayeredPane panel;
 	private List<CardPanel> handCard1 = new ArrayList<>();
 	private List<CardPanel> handCard2 = new ArrayList<>();
@@ -136,10 +137,14 @@ public class Duel extends JFrame {
 		buttonLeft = new LeftButton();
 		buttonRight = new RightButton();
 		nextTurnButton = new NextTurnButton();
+		returnButton = new ReturnButton();
 		panel.add(nextTurnButton,0);
 		panel.add(buttonLeft,0);
 		panel.add(buttonRight,0);
+		panel.add(returnButton,0);
 		nextTurnButton.setBounds(975, 500, 50, 50);
+		returnButton.setBounds(975, 560, 50, 50);
+		
 		buttonLeft.setBounds(0, 800, 50, 50);
 		buttonRight.setBounds(850, 800, 50, 50);
 		activedCard = new JLabel();
@@ -973,5 +978,15 @@ public class Duel extends JFrame {
 		}
 		return maxLevelScavenger;
 	}
+
+	public ReturnButton getReturnButton() {
+		return returnButton;
+	}
+
+	public void setReturnButton(ReturnButton returnButton) {
+		this.returnButton = returnButton;
+	}
+	
+	
 
 }

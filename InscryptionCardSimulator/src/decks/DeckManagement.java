@@ -226,7 +226,7 @@ public class DeckManagement {
 					bonus_bones += 3*bone_kingEffect.get().getLevel();
 				}
 				if (scavenger.isPresent()) {
-					bonus_bones += scavenger.get().getLevel();
+					bonus_bones += scavenger.get().getLevel() + card.getHp()/2;
 				}
 				if (bone_digger.isPresent()) {
 					if (card.getEffects().stream().anyMatch(effect -> effect.getName().equals("brittle"))) {
@@ -395,19 +395,28 @@ public class DeckManagement {
 		}
 		if (levelMax == 1) return 0;
 		Integer tapLevelToNumberCards[] = new Integer[levelMax];
+		Integer tapLevelToNumberCardsBonus[] = new Integer[levelMax];
 		for (int i=0;i<levelMax;i++) {
 			tapLevelToNumberCards[i] = 0;
+			tapLevelToNumberCardsBonus[i] = 0;
 		}
 		for (int i=0;i<mainDeck.size();i++) {
 			Card card = mainDeck.get(i);
 			if (card.getLevel()>0 && card instanceof BeastCard && ((BeastCard) card).getCostType().equals("blood")) {
-				if (card.getEffects().stream().anyMatch(effect ->effect.getName().equals("corpse_eater"))) {
+				Optional<Effect> bee = card.getEffects().stream().filter(effect -> effect.getName().equals("bee_within")).findFirst();
+				Optional<Effect> rabbit_hole = card.getEffects().stream().filter(effect -> effect.getName().equals("rabbit_hole")).findFirst();
+				for (int j=card.getLevel()-1;j<levelMax;j++) {
+					tapLevelToNumberCards[j]++;
+				}
+				if (bee.isPresent()) {
+					int ratio = card.getHpBase()/bee.get().getLevel();
 					for (int j=0;j<levelMax;j++) {
-						tapLevelToNumberCards[j]++;
+						tapLevelToNumberCardsBonus[j] += 1 + ratio;
 					}
-				} else {
+				}
+				if (rabbit_hole.isPresent()) {
 					for (int j=card.getLevel()-1;j<levelMax;j++) {
-						tapLevelToNumberCards[j]++;
+						tapLevelToNumberCardsBonus[j] += (rabbit_hole.get().getLevel()+1)/2;
 					}
 				}
 				
@@ -415,7 +424,7 @@ public class DeckManagement {
 		}
 		int malus = 0;
 		for (int i=0;i<levelMax;i++) {
-			malus += Math.max(0, tapLevelToNumberCards[levelMax-1]*(1+i)/(2+i) - tapLevelToNumberCards[i]);
+			malus += Math.max(0, tapLevelToNumberCards[levelMax-1]*(1+i)/(2+i) - tapLevelToNumberCards[i] - tapLevelToNumberCardsBonus[i]);
 		}
 		return malus*malus;
 	}
@@ -453,7 +462,6 @@ public class DeckManagement {
 		int marge = nbPotentialBones;
 		for (int i=0;i<mainDeck.size();i++) {
 			Card card = mainDeck.get(i);
-			if (card.getEffects().stream().noneMatch(effect ->effect.getName().equals("corpse_eater"))) {
 			if (card.getLevel()>1 && ((card instanceof BeastCard && ((BeastCard) card).getCostType().equals("bone")) || card instanceof UndeadCard) ) {
 				Optional<Effect> bone_king = card.getEffects().stream().filter(effect -> effect.getName().equals("bone_king")).findFirst();
 				if (bone_king.isPresent()) {
@@ -461,8 +469,6 @@ public class DeckManagement {
 				} else {
 					marge -= (card.getLevel()-1);
 				}
-				
-			}
 			}
 		}
 		if (marge<0) return marge*marge;
@@ -575,9 +581,29 @@ public class DeckManagement {
 				malus += 2*scavenger.get().getLevel();
 			}
 			if (corpse_eater.isPresent()) {
-				int deltaHp = card.getHpBase() - Math.max(1, card.getHpBase()*corpse_eater.get().getLevel()/(corpse_eater.get().getLevel() * card.getLevel()));
-				int deltaAttk = card.getAttackBase() - card.getAttackBase()*corpse_eater.get().getLevel()/(corpse_eater.get().getLevel() * card.getLevel());
-				malus += deltaHp + 3*deltaAttk + 2*corpse_eater.get().getLevel();
+				if (card instanceof BeastCard && ((BeastCard)card).getCostType().equals("blood")) {
+					int numerator = card.getAttackBase()*corpse_eater.get().getLevel();
+					int denominator = corpse_eater.get().getLevel() * card.getLevel();
+					int rest = numerator%denominator;
+					if (rest >1) rest = 1;
+					int deltaAttk = card.getAttackBase() - numerator/denominator - rest;
+					numerator = card.getHpBase()*corpse_eater.get().getLevel();
+					rest = numerator%denominator;
+					if (rest >1) rest = 1;
+					int deltaHp = card.getHpBase() - numerator/denominator - rest;
+					malus += deltaHp + 3*deltaAttk;
+				} else {
+					int numerator = card.getAttackBase()*corpse_eater.get().getLevel();
+					int denominator = corpse_eater.get().getLevel() * (1+card.getLevel()/2);
+					int rest = numerator%denominator;
+					if (rest >1) rest = 1;
+					int deltaAttk = card.getAttackBase() - numerator/denominator - rest;
+					numerator = card.getHpBase()*corpse_eater.get().getLevel();
+					rest = numerator%denominator;
+					if (rest >1) rest = 1;
+					int deltaHp = card.getHpBase() - numerator/denominator - rest;
+					malus += deltaHp + 3*deltaAttk;
+				}
 			}
 		}
 		return malus;

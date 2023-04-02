@@ -480,7 +480,7 @@ public class CardFactory {
 				stopEffects = true;
 			} else if (Effect.namesAttackEffects.contains(effectName) && Effect.mapEffectToCost.get(effectName) + 2 > nbstats) {
 				stopEffects = true;
-			} else if (effectName.equals("unkillable") && level == 1) {
+			} else if (effectName.equals("unkillable") && level < 3) {
 				stopEffects = true;
 			} else {
 				sortedeffects.add(effectName);
@@ -508,7 +508,7 @@ public class CardFactory {
 				stopEffects = true;
 			} else if (Effect.namesAttackEffects.contains(effectName) && attackmin == 0 && Effect.mapEffectToCost.get(effectName) + 2 > nbstats) {
 				stopEffects = true;
-			} else if (effectName.equals("unkillable") && level == 1) {
+			} else if (effectName.equals("unkillable") && level < 3) {
 				stopEffects = true;
 			} else {
 				sortedeffects.add(effectName);
@@ -536,7 +536,7 @@ public class CardFactory {
 				stopEffects = true;
 			} else if (Effect.namesAttackEffects.contains(effectName) && attackmin == 0 && Effect.mapEffectToCost.get(effectName) + 2 > nbstats) {
 				stopEffects = true;
-			} else if (effectName.equals("unkillable") && level == 1) {
+			} else if (effectName.equals("unkillable") && level < 3) {
 				stopEffects = true;
 			} else {
 				sortedeffects.add(effectName);
@@ -564,7 +564,7 @@ public class CardFactory {
 					stopEffects = true;
 				} else if (Effect.namesAttackEffects.contains(effectName) && attackmin == 0 && Effect.mapEffectToCost.get(effectName) + 2 > nbstats) {
 					stopEffects = true;
-				} else if (effectName.equals("unkillable") && level == 1) {
+				} else if (effectName.equals("unkillable") && level < 3) {
 					stopEffects = true;
 				} else {
 					sortedeffects.add(effectName);
@@ -1080,7 +1080,7 @@ public class CardFactory {
 			String effectName = Effect.namesRobotEffects.get(u%(Effect.namesRobotEffects.size()));
 			if (Effect.mapEffectToCost.get(effectName) > nbstats || Effect.namesAttackEffects.contains(effectName) || sortedeffects.contains(effectName)) {
 				stopEffects = true;
-			} else if (effectName.equals("unkillable") && level == 1) {
+			} else if (effectName.equals("unkillable") && level < 3) {
 				stopEffects = true;
 			} else {
 				sortedeffects.add(effectName);
@@ -1103,7 +1103,7 @@ public class CardFactory {
 			String effectName = Effect.namesRobotEffects.get(u%(Effect.namesRobotEffects.size()));
 			if (Effect.mapEffectToCost.get(effectName) > nbstats || Effect.namesAttackEffects.contains(effectName) || sortedeffects.contains(effectName)) {
 				stopEffects = true;
-			} else if (effectName.equals("unkillable") && level == 1) {
+			} else if (effectName.equals("unkillable") && level < 3) {
 				stopEffects = true;
 			} else {
 				sortedeffects.add(effectName);
@@ -1126,7 +1126,7 @@ public class CardFactory {
 			String effectName = Effect.namesRobotEffects.get(u%(Effect.namesRobotEffects.size()));
 			if (Effect.mapEffectToCost.get(effectName) > nbstats || Effect.namesAttackEffects.contains(effectName) || sortedeffects.contains(effectName)) {
 				stopEffects = true;
-			} else if (effectName.equals("unkillable") && level == 1) {
+			} else if (effectName.equals("unkillable") && level < 3) {
 				stopEffects = true;
 			} else {
 				sortedeffects.add(effectName);
@@ -1149,7 +1149,7 @@ public class CardFactory {
 				String effectName = Effect.namesRobotEffects.get(u%(Effect.namesRobotEffects.size()));
 				if (Effect.mapEffectToCost.get(effectName) > nbstats || Effect.namesAttackEffects.contains(effectName) || sortedeffects.contains(effectName)) {
 					stopEffects = true;
-				} else if (effectName.equals("unkillable") && level == 1) {
+				} else if (effectName.equals("unkillable") && level < 3) {
 					stopEffects = true;
 				} else {
 					sortedeffects.add(effectName);

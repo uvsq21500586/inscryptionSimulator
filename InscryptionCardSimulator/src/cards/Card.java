@@ -952,11 +952,25 @@ public abstract class Card {
 				cardpanel.setBounds(100+200*position%4,310-300*position/4,200,300);
 				duel.getPanel().add(cardpanel,0);
 				if (card instanceof BeastCard && ((BeastCard)card).getCostType().equals("blood")) {
-					card.setAttack(card.getAttackBase()*corpse_eaterEffect.get().getLevel()/(corpse_eaterEffect.get().getLevel() * card.getLevel()));
-					card.setHp(Math.max(1, card.getHpBase()*corpse_eaterEffect.get().getLevel()/(corpse_eaterEffect.get().getLevel() * card.getLevel())));
+					int numerator = card.getAttackBase()*corpse_eaterEffect.get().getLevel();
+					int denominator = corpse_eaterEffect.get().getLevel() * card.getLevel();
+					int rest = numerator%denominator;
+					if (rest >1) rest = 1;
+					card.setAttack(numerator/denominator + rest);
+					numerator = card.getHpBase()*corpse_eaterEffect.get().getLevel();
+					rest = numerator%denominator;
+					if (rest >1) rest = 1;
+					card.setHp(numerator/denominator + rest);
 				} else {
-					card.setAttack(card.getAttackBase()*corpse_eaterEffect.get().getLevel()/(corpse_eaterEffect.get().getLevel() * (1+card.getLevel()/2)));
-					card.setHp(Math.max(1, card.getHpBase()*corpse_eaterEffect.get().getLevel()/(corpse_eaterEffect.get().getLevel() * (1+card.getLevel()/2))));
+					int numerator = card.getAttackBase()*corpse_eaterEffect.get().getLevel();
+					int denominator = corpse_eaterEffect.get().getLevel() * (1+card.getLevel()/2);
+					int rest = numerator%denominator;
+					if (rest >1) rest = 1;
+					card.setAttack(numerator/denominator + rest);
+					numerator = card.getHpBase()*corpse_eaterEffect.get().getLevel();
+					rest = numerator%denominator;
+					if (rest >1) rest = 1;
+					card.setHp(numerator/denominator + rest);
 				}
 				cardpanel.getAttack().setText(card.getAttack().toString());
 				cardpanel.getHp().setText(card.getHp().toString());
@@ -982,11 +996,25 @@ public abstract class Card {
 				cardpanel.setBounds(100+200*position%4,310-300*position/4,200,300);
 				duel.getPanel().add(cardpanel);
 				if (card instanceof BeastCard && ((BeastCard)card).getCostType().equals("blood")) {
-					card.setAttack(card.getAttackBase()*corpse_eaterEffect.get().getLevel()/(corpse_eaterEffect.get().getLevel() * card.getLevel()));
-					card.setHp(Math.max(1, card.getHpBase()*corpse_eaterEffect.get().getLevel()/(corpse_eaterEffect.get().getLevel() * card.getLevel())));
+					int numerator = card.getAttackBase()*corpse_eaterEffect.get().getLevel();
+					int denominator = corpse_eaterEffect.get().getLevel() * card.getLevel();
+					int rest = numerator%denominator;
+					if (rest >1) rest = 1;
+					card.setAttack(numerator/denominator + rest);
+					numerator = card.getHpBase()*corpse_eaterEffect.get().getLevel();
+					rest = numerator%denominator;
+					if (rest >1) rest = 1;
+					card.setHp(numerator/denominator + rest);
 				} else {
-					card.setAttack(card.getAttackBase()*corpse_eaterEffect.get().getLevel()/(corpse_eaterEffect.get().getLevel() * (1+card.getLevel()/2)));
-					card.setHp(Math.max(1, card.getHpBase()*corpse_eaterEffect.get().getLevel()/(corpse_eaterEffect.get().getLevel() * (1+card.getLevel()/2))));
+					int numerator = card.getAttackBase()*corpse_eaterEffect.get().getLevel();
+					int denominator = corpse_eaterEffect.get().getLevel() * (1+card.getLevel()/2);
+					int rest = numerator%denominator;
+					if (rest >1) rest = 1;
+					card.setAttack(numerator/denominator + rest);
+					numerator = card.getHpBase()*corpse_eaterEffect.get().getLevel();
+					rest = numerator%denominator;
+					if (rest >1) rest = 1;
+					card.setHp(numerator/denominator + rest);
 				}
 				cardpanel.getAttack().setText(card.getAttack().toString());
 				cardpanel.getHp().setText(card.getHp().toString());

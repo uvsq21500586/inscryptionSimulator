@@ -25,6 +25,7 @@ import frames.duelbuttons.CardPanel;
 import frames.duelbuttons.HandCardPanel;
 import frames.duelbuttons.LeftButton;
 import frames.duelbuttons.NextTurnButton;
+import frames.duelbuttons.ReturnButton;
 import frames.duelbuttons.RightButton;
 import frames.menubuttons.ButtonToDuel;
 
@@ -42,6 +43,7 @@ public class DuelControler implements ActionListener,MouseListener {
 	public DuelControler(Duel duel) {
 		super();
 		this.duel = duel;
+		this.duel.getReturnButton().addMouseListener(this);
 		this.duel.getButtonMainDeck().addMouseListener(this);
 		this.duel.getButtonSourceDeck().addMouseListener(this);
 		this.duel.getButtonLeft().addMouseListener(this);
@@ -146,6 +148,44 @@ public class DuelControler implements ActionListener,MouseListener {
 			}
 			return;
 		}
+		if (e.getSource() instanceof ReturnButton && ((ReturnButton)e.getSource()).isEnabled()) {
+			sacrifying = false;
+			puttingBloodCard = false;
+			mustDrawCard = false;
+			if (cardSelected != null) {
+				cardSelected.getSelected().setVisible(false);
+				if (cardSelected.getCard() instanceof BeastCard && ((BeastCard) cardSelected.getCard()).getCostType().equals("bone")) {
+					if (duel.isTurnJ2()) {
+						duel.setBoneP2(duel.getBoneP2() + cardSelected.getCard().getLevel());
+						duel.getBonePileCount().setText(": " + duel.getBoneP2());
+					} else {
+						duel.setBoneP1(duel.getBoneP1() + cardSelected.getCard().getLevel());
+						duel.getBonePileCount().setText(": " + duel.getBoneP1());
+					}
+					
+				}
+				if (cardSelected.getCard() instanceof RobotCard) {
+					duel.setEnergy(duel.getEnergy() + cardSelected.getCard().getLevel());
+					duel.getEnergyPileCount().setText(": " + duel.getEnergy() + "/" + duel.getEnergymax());
+				}
+				if (cardSelected.getCard() instanceof UndeadCard) {
+					if (duel.isTurnJ2()) {
+						duel.setBoneP2(duel.getBoneP2() + cardSelected.getCard().getLevel());
+						duel.getBonePileCount().setText(": " + duel.getBoneP2());
+					} else {
+						duel.setBoneP1(duel.getBoneP1() + cardSelected.getCard().getLevel());
+						duel.getBonePileCount().setText(": " + duel.getBoneP1());
+					}
+				}
+				cardSelected = null;
+				cardBeingSacrified.forEach(card -> {
+					card.getBeingSacrified().setVisible(false);
+				});
+				cardBeingSacrified = new ArrayList<>();
+			}
+			
+			return;
+		}
 		if (e.getSource() instanceof RightButton) {
 			int idFirstCard = duel.getIdFirstCard();
 			boolean turnJ2 = duel.isTurnJ2();
@@ -248,6 +288,7 @@ public class DuelControler implements ActionListener,MouseListener {
 		}
 		
 		if (duel.getButtonPlaceCard()[0].equals(fieldCard) || duel.getButtonPlaceCard()[1].equals(fieldCard) || duel.getButtonPlaceCard()[2].equals(fieldCard) || duel.getButtonPlaceCard()[3].equals(fieldCard)) {
+			duel.getReturnButton().setEnabled(true);
 			cardSelected.getCard().placeCard(duel, duel.getButtonPlaceCard(), cardSelected.getFieldPosition());
 			cardSelected.getSelected().setVisible(false);
 			duel.recalculateAttk(cardSelected.getCard(), cardSelected.getFieldPosition());
@@ -384,6 +425,7 @@ public class DuelControler implements ActionListener,MouseListener {
 				cardBeingSacrified.forEach(cardSacrified -> duel.getPanel().remove(cardSacrified));
 				puttingBloodCard = true;
 				sacrifying = false;
+				duel.getReturnButton().setEnabled(false);
 			}
 				
 		}

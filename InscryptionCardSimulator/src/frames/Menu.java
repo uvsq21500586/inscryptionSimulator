@@ -26,7 +26,7 @@ public class Menu extends JFrame {
 	
 	//base pelts prizes: 1-2-4, base start main deck size: 4, base start source deck size: 5
 	//parameters: positive(bonus chance(more bonus events + campfire), nb choices cards, nbWavesPerBoss), negativeOrNeutral(higher pelt price and more boulders, harder trials, harder bosses)
-	//totem -> more lifePoints, bonus stats for trade and trial, nb cards for trial success(min 3)
+	//totem -> more lifePoints, bonus stats for trade and trial, nb cards for trial success(min 3) and more chance camp fire success
 	//nb deaths = 1 + (numero map(y1 + z1 + z2 - 2 in "j1: x1-y1(z1)" and "j2: x2-y2(z2)"))%(nb source cards supp + nb lives per game)
 	
 	//player game parameters -> choices costs, choices trader, totem
@@ -34,17 +34,17 @@ public class Menu extends JFrame {
 	//rival global parameters -> main deck size/source deck size,(nb life points/ nb cards supp to optimize)
 	//harder trial: for 4 levels, hp and attack limit +4, costs limit +2, effects limit +1
 	
-	//serie: 13[3(1,2,1)-3(1(+0),2(+1),1(+0))],10[2(2,1,1)-3(1(+0),2(+1),1(+0))]
-	// 13[3(1,2,1)-3(1(+0),2(+1),1(+0))]
-	//j1: 10-1(10),2[2:1*1blood+1*2bone, 1:12345678, 1:1-0-0](incremented by (nb lifes -1))
-	//bonus: 0-0-0
+	//(fait: 5-1 vs 11-1)
+	//serie: 14[4(2,2,1)-3(1(+0),2(+1),1(+0))],11[1(1,1,1)-4(2(+1),2(+1),1(+0))]
+	// 11[1(1,1,1)-4(2(+1),2(+1),1(+0))]
+	//j1: 9-1(9),1[1:2*1blood, 1:12345678, 1:1-0-0](incremented by (nb lifes -1))
+	//bonus: 2-0-0
 	//crédits: 0,d0
 	//lifes: 1/1
 	//nb deaths: 2/2
-	//bonus: 0,0,0
 	//malus: dice, lifePoints adv, strenght, cards, cardsup, price pelt:+0
 	//price pelts: 1,2,4
-	//j2: 4-1(4)
+	//j2: 6-2(3)
 	
 	//default parameters
 	private Integer modulo1 = 11;

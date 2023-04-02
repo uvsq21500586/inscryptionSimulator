@@ -41,6 +41,8 @@ public class Effect {
 	public final static List<String> namesAttackEffects = Arrays.asList("airborne","poison","brittle","bifurcated_strike","scavenger","trifurcated_strike");
 	public final static List<String> namesResourceEffects = Arrays.asList("bone_king","scavenger","green_gem","orange_gem","blue_gem","bone_digger");
 	
+	public final static List<String> namesEffectsTooStrongWithUnkillable = Arrays.asList("corpse_eater","bone_king","bone_digger");
+	
 	String name;
 	int costStats;
 	Integer level;
