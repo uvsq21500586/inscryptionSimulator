@@ -994,7 +994,7 @@ public abstract class Card {
 				cardpanel.addMouseListener(controler);
 				buttonPlaceCard[position].setCardPanel(cardpanel);
 				cardpanel.setBounds(100+200*position%4,310-300*position/4,200,300);
-				duel.getPanel().add(cardpanel);
+				duel.getPanel().add(cardpanel,0);
 				if (card instanceof BeastCard && ((BeastCard)card).getCostType().equals("blood")) {
 					int numerator = card.getAttackBase()*corpse_eaterEffect.get().getLevel();
 					int denominator = corpse_eaterEffect.get().getLevel() * card.getLevel();
