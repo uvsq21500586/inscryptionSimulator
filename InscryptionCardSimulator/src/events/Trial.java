@@ -31,6 +31,7 @@ public class Trial  extends JFrame {
 	private CardPanel resultCard;
 	private List<String> listTrialBeast = Arrays.asList("health","power", "wisdom", "blood", "bone");
 	private List<String> listTrialRobot = Arrays.asList("health","power", "wisdom", "energy");
+	private List<String> listTrialUndead = Arrays.asList("health","power", "wisdom", "bone");
 	public final static Map<String, Integer> mapTrialToLevel = buildMapNamesTrialToLevel();
 	
 	public Trial(Menu menu, Integer nbChoices) throws IOException, FontFormatException {
@@ -60,6 +61,18 @@ public class Trial  extends JFrame {
 				for (int i=0;i<3;i++) {
 					int typeId = r.nextInt(listTrialRobot.size());
 					symbols[i] = listTrialRobot.get(typeId);
+					if (!isNewCost(symbols, i)) {
+						i--;
+					} else {
+						trialPanels[i] = new TrialPanel(symbols[i], mapTrialToLevel.get(symbols[i])+Integer.parseInt(menu.getDifficultyP2().getText()));
+						trialPanels[i].setBounds(200*i,0,200,300);
+						panel.add(trialPanels[i]);
+					}
+				}
+			} else if (menu.getTypecards1().equals("undead")) {
+				for (int i=0;i<3;i++) {
+					int typeId = r.nextInt(listTrialUndead.size());
+					symbols[i] = listTrialUndead.get(typeId);
 					if (!isNewCost(symbols, i)) {
 						i--;
 					} else {

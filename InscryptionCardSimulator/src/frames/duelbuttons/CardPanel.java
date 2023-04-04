@@ -188,7 +188,7 @@ public class CardPanel extends JPanel {
     							Image.SCALE_DEFAULT)));
     			this.add(cost);
     			cost.setBounds(145,40,50,50);
-    			level.setForeground(new Color(255,0,0));
+    			level.setForeground(new Color(255,255,0));
 	    	}
 	    }
 	    

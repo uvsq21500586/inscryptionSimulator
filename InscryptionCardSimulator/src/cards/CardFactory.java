@@ -3,6 +3,7 @@ package cards;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import effects.Effect;
 
@@ -240,6 +241,13 @@ public class CardFactory {
 		}
 		u = (u * multiplicator + 2*levelRarity)%modulo;
 		}
+		//too strong combinaison
+				Optional<Effect> unkillable = effects.stream().filter(effect->effect.getName().equals("unkillable")).findFirst();
+				if (unkillable.isPresent() && effects.stream().anyMatch(effect -> Effect.namesEffectsTooStrongWithUnkillable.contains(effect.getName()))) {
+					effects.remove(unkillable.get());
+					nbstats += unkillable.get().getCostStats();
+				}
+				
 		//levels effects
 		for (int i=0;i<effects.size();i++) {
 			Effect effect = effects.get(i);
@@ -279,6 +287,8 @@ public class CardFactory {
 		return new BeastCard(appearance, typeCost, level, hp, attack, effects, levelRarity, true);
 	}
 
+	
+	
 	private static UndeadCard undeadCard(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u, int levelRarity, int difficulty) throws IOException {
 		int nbstats = 0;
 		int level = 0;
@@ -299,6 +309,11 @@ public class CardFactory {
 		nbstats = nbstats - u%(1+globalStrengh/8);
 		u = (u * multiplicator + 2*levelRarity)%modulo;
 		nbstats = Math.max(0, nbstats + difficulty);
+		return undeadCardFactory(modulo, multiplicator, u, levelRarity, nbstats, level, attackmin);
+	}
+	
+	private static UndeadCard undeadCardFactory(int modulo, int multiplicator, int u, int levelRarity, int nbstats, int level, int attackmin) throws IOException {
+		
 		
 		//effects
 		boolean stopEffects = false;
@@ -312,7 +327,7 @@ public class CardFactory {
 				stopEffects = true;
 			} else if (Effect.namesAttackEffects.contains(effectName) && Effect.mapEffectToCost.get(effectName) + 2 > nbstats) {
 				stopEffects = true;
-			} else if (effectName.equals("unkillable") && level == 1) {
+			} else if (effectName.equals("unkillable") && level < 3) {
 				stopEffects = true;
 			} else {
 				sortedeffects.add(effectName);
@@ -340,7 +355,7 @@ public class CardFactory {
 				stopEffects = true;
 			} else if (Effect.namesAttackEffects.contains(effectName) && attackmin == 0 && Effect.mapEffectToCost.get(effectName) + 2 > nbstats) {
 				stopEffects = true;
-			} else if (effectName.equals("unkillable") && level == 1) {
+			} else if (effectName.equals("unkillable") && level < 3) {
 				stopEffects = true;
 			} else {
 				sortedeffects.add(effectName);
@@ -368,7 +383,7 @@ public class CardFactory {
 				stopEffects = true;
 			} else if (Effect.namesAttackEffects.contains(effectName) && attackmin == 0 && Effect.mapEffectToCost.get(effectName) + 2 > nbstats) {
 				stopEffects = true;
-			} else if (effectName.equals("unkillable") && level == 1) {
+			} else if (effectName.equals("unkillable") && level < 3) {
 				stopEffects = true;
 			} else {
 				sortedeffects.add(effectName);
@@ -388,6 +403,14 @@ public class CardFactory {
 		}
 		u = (u * multiplicator + 2*levelRarity)%modulo;
 		}
+		
+		//too strong combinaison
+		Optional<Effect> unkillable = effects.stream().filter(effect->effect.getName().equals("unkillable")).findFirst();
+		if (unkillable.isPresent() && effects.stream().anyMatch(effect -> Effect.namesEffectsTooStrongWithUnkillable.contains(effect.getName()))) {
+			effects.remove(unkillable.get());
+			nbstats += unkillable.get().getCostStats();
+		}
+		
 		//levels effects
 		for (int i=0;i<effects.size();i++) {
 			Effect effect = effects.get(i);
@@ -427,6 +450,24 @@ public class CardFactory {
 		return new UndeadCard(appearance, level, hp, attack, effects, levelRarity, true);
 	}
 	
+	public static UndeadCard undeadCardFixedLevel(int level,int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u0) throws IOException {
+		int nbstats = 0;
+		int attackmin = 0;
+		int u = u0;
+		
+		int levelRarity = 0;
+		
+		while (u%10 == 9) {
+			u = (u * multiplicator)%modulo;
+			levelRarity++;
+		}
+		u = (u * multiplicator + 2*levelRarity)%modulo;
+		nbstats = (1+level) * globalStrengh / 4 + levelRarity * rarityStrengh;
+		nbstats = nbstats - u%(1+globalStrengh/8);
+		u = (u * multiplicator + 2*levelRarity)%modulo;	
+		
+		return undeadCardFactory(modulo, multiplicator, u, levelRarity, nbstats, level, attackmin);
+	}
 	
 	private static RobotCard robotCard(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u, int levelRarity, int difficulty) throws IOException {
 		int nbstats = 0;
@@ -466,8 +507,7 @@ public class CardFactory {
 		return robotCardFactory(modulo, multiplicator, u, levelRarity, nbstats, level, attackmin);
 	}
 
-	private static RobotCard robotCardFactory(int modulo, int multiplicator, int u, int levelRarity, int nbstats,
-			int level, int attackmin) throws IOException {
+	private static RobotCard robotCardFactory(int modulo, int multiplicator, int u, int levelRarity, int nbstats, int level, int attackmin) throws IOException {
 		//effects
 		boolean stopEffects = false;
 		List<Effect> effects = new ArrayList<>();

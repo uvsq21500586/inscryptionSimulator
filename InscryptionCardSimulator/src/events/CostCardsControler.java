@@ -67,6 +67,19 @@ public class CostCardsControler implements ActionListener,MouseListener {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+			} else if (costCards.getMenu().getTypecards1().equals("undead")) {
+				try {
+					costCards.getResultCard().repaint(CardFactory.robotCardFixedLevel(
+							selectedCost.getLevel(),
+							costCards.getMenu().getModulo1(),
+							costCards.getMenu().getMultiplier1(),
+							costCards.getMenu().getGlobalStrenght1(),
+							costCards.getMenu().getRarityStrenght1(),
+							r.nextInt(costCards.getMenu().getModulo1()-1)+1));
+				} catch (IOException | FontFormatException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 			for (int i=0;i<costCards.getCostPanels().length;i++) {
 				costCards.getCostPanels()[i].setEnabled(false);

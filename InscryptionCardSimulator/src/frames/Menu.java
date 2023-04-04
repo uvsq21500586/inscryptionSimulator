@@ -35,16 +35,16 @@ public class Menu extends JFrame {
 	//harder trial: for 4 levels, hp and attack limit +4, costs limit +2, effects limit +1
 	
 	//(fait: 5-1 vs 11-1)
-	//serie: 14[4(2,2,1)-3(1(+0),2(+1),1(+0))],11[1(1,1,1)-4(2(+1),2(+1),1(+0))]
-	// 11[1(1,1,1)-4(2(+1),2(+1),1(+0))]
-	//j1: 9-1(9),1[1:2*1blood, 1:12345678, 1:1-0-0](incremented by (nb lifes -1))
-	//bonus: 2-0-0
+	//serie: 14[4(2,2,1)-3(1(+0),2(+1),1(+0))],11[1(1,1,1)-4(2(+1),2(+1),1(+0))],6[4(2,2,1)-1(1(+0),1(+0),1(+0))]
+	// 6[4(2,2,1)-1(1(+0),1(+0),1(+0))]
+	//j1: 13-3(5),3[1:1bone, 2:12345687, 1:1-0-0](incremented by (nb lifes -1))
+	//bonus: 0-0-0
 	//crédits: 0,d0
 	//lifes: 1/1
-	//nb deaths: 2/2
+	//nb deaths: 1/1
 	//malus: dice, lifePoints adv, strenght, cards, cardsup, price pelt:+0
 	//price pelts: 1,2,4
-	//j2: 6-2(3)
+	//j2: 2-1(2)
 	
 	//default parameters
 	private Integer modulo1 = 11;

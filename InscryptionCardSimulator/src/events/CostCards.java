@@ -62,6 +62,18 @@ public class CostCards  extends JFrame {
 					}
 				}
 				
+			} else if (menu.getTypecards1().equals("undead")) {
+				for (int i=0;i<nbChoices;i++) {
+					costUndeadFactory(costs, levels, i);
+					if (!isNewCost(costs, levels, i)) {
+						i--;
+					} else {
+						costPanels[i] = new CostPanel(costs[i], levels[i]);
+						costPanels[i].setBounds(200*i,0,200,300);
+						panel.add(costPanels[i]);
+					}
+				}
+				
 			}
 			
 		}
@@ -173,6 +185,25 @@ public class CostCards  extends JFrame {
 		}
 		u = (u * multiplier)%modulo;
 		levels[pos] = 1 + u%(lvlmax);
+	}
+	
+	private void costUndeadFactory(String costs[], Integer levels[], int pos) {
+		costs[pos] = "bone";
+		Random r = new Random();
+		int modulo = menu.getModulo1();
+		int multiplier = menu.getMultiplier1();
+		int u = r.nextInt(modulo-1)+1;
+		int lvlmax = 10;
+		ArrayList<Integer> integerSeen = new ArrayList<Integer>();
+		while (u%4 == 3 && !integerSeen.contains(u)) {
+			integerSeen.add(u);
+			u = (u * multiplier)%modulo;
+			lvlmax++;
+		}
+		u = (u * multiplier)%modulo;
+		levels[pos] = 1 + u%(lvlmax);
+		u = (u * multiplier)%modulo;
+		levels[pos] = Math.min(levels[pos], 1 + u%(lvlmax));
 	}
 
 	public JButton getButtonValidate() {
