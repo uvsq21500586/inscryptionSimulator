@@ -36,7 +36,7 @@ public class BuildDeathCard  extends JFrame {
 		super("Build death cards");
 		this.menu = menu;
 		Random r = new Random();
-		this.setSize(1530, 950);
+		this.setSize(1530, 1020);
 		JPanel panel = new JPanel(); 
 		panel.setLayout(null);
 		

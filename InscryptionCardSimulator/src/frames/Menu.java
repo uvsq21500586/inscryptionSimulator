@@ -34,16 +34,16 @@ public class Menu extends JFrame {
 	//rival global parameters -> main deck size/source deck size,(nb life points/ nb cards supp to optimize)
 	//harder trial: for 4 levels, hp and attack limit +4, costs limit +2, effects limit +1
 	
-	//serie: 15[3(1,2,1)-4(2(+1),2(+1),1(+0))],12[2(2,1,1)-4(2(+1),2(+1),1(+0))],7[3(1,2,1)-2(2(+1),1(+0),1(+0))]
-	// 15[3(1,2,1)-4(2(+1),2(+1),1(+0))]
-	//j1: 7-1(7),3[1:1energy, 2:12345687, 1:1-0-0](incremented by (nb lifes -1))
+	//serie: 16[4(2,2,1)-4(2(+1),2(+1),1(+0))],13[2(1,2,1)-4(1(+0),2(+1),1(+0))],8[4(2,2,1)-2(2(+1),1(+0),1(+0))]
+	// 16[4(2,2,1)-4(2(+1),2(+1),1(+0))]
+	//j1: 6-1(6),4[2:1*1blood+1*2bone, 2:12345687, 1:1-0-0](incremented by (nb lifes -1))
 	//bonus: 0-0-0
 	//crédits: 0,d0
 	//lifes: 1/1
 	//nb deaths: 1/1
 	//malus: dice, lifePoints adv, strenght, cards, cardsup, price pelt:+0
 	//price pelts: 1,2,5
-	//j2: 9-1(9)
+	//j2: 11-1(11)
 	
 	//default parameters
 	private Integer modulo1 = 11;

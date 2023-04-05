@@ -502,7 +502,7 @@ public class DeckManagement {
 			Card card = mainDeck.get(i);
 			if (card instanceof BeastCard && ((BeastCard) card).getCostType().equals("blood") && card.getLevel()>1) {
 				nbBloodCardsLevelSup2++;
-			} else if (card.getEffects().stream().anyMatch(effect -> effect.getName().equals("rabbit_hole") || effect.getName().equals("bee_within"))) {
+			} else if (card.getEffects().stream().anyMatch(effect -> effect.getName().equals("rabbit_hole") || effect.getName().equals("bee_within")) && card.getLevel()<3) {
 				nbCardsWithRabbitEffect++;
 			}
 		}

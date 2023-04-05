@@ -69,7 +69,7 @@ public class CostCardsControler implements ActionListener,MouseListener {
 				}
 			} else if (costCards.getMenu().getTypecards1().equals("undead")) {
 				try {
-					costCards.getResultCard().repaint(CardFactory.robotCardFixedLevel(
+					costCards.getResultCard().repaint(CardFactory.undeadCardFixedLevel(
 							selectedCost.getLevel(),
 							costCards.getMenu().getModulo1(),
 							costCards.getMenu().getMultiplier1(),

@@ -181,7 +181,7 @@ public class Duel extends JFrame {
 		labelBackground.setIcon(new ImageIcon(img
 							.getScaledInstance(panel.getWidth(), panel.getHeight(), 
 							Image.SCALE_DEFAULT)));
-		this.setSize(1530, 810);
+		this.setSize(1550, 1040);
 		//JScrollBar scrollBarV = new JScrollBar(JScrollBar.VERTICAL, 30, 40, 0, 500);
 		//this.getContentPane().add(scrollBarV, BorderLayout.EAST);
 		
