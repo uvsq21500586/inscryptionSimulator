@@ -207,8 +207,9 @@ public class DeckManagement {
 					moxCost ++;
 				}
 			}
-			
-			if (invocable(card, playableMainDeck, sourceDeck, nbPotentialBones,lvlMaxgreenmox,lvlMaxorangemox,lvlMaxbluemox,maxsumlevelmox)) {
+			if (playableMainDeck.size() == 0 && card.getEffects().stream().anyMatch(effect -> effect.getName().equals("familiar"))) {
+				
+			} else if (invocable(card, playableMainDeck, sourceDeck, nbPotentialBones,lvlMaxgreenmox,lvlMaxorangemox,lvlMaxbluemox,maxsumlevelmox)) {
 				
 				int bonus_bones = 1;
 				if (card.getEffects().stream().anyMatch(effect -> effect.getName().equals("rabbit_hole"))) {
@@ -554,8 +555,12 @@ public class DeckManagement {
 	
 	private static int badStatsEffects(List<Card> mainDeck) {
 		int malus = 0;
+		int nbfamiliar = 0;
 		for (int i=0;i<mainDeck.size();i++) {
 			Card card = mainDeck.get(i);
+			if (card.getEffects().stream().anyMatch(effect -> effect.getName().equals("familiar"))) {
+				nbfamiliar++;
+			}
 			//Optional<Effect> bee = card.getEffects().stream().filter(effect -> effect.getName().equals("bee_within")).findFirst();
 			Optional<Effect> burrower = card.getEffects().stream().filter(effect -> effect.getName().equals("burrower")).findFirst();
 			Optional<Effect> guardian = card.getEffects().stream().filter(effect -> effect.getName().equals("guardian")).findFirst();
@@ -605,6 +610,9 @@ public class DeckManagement {
 					malus += deltaHp + 3*deltaAttk;
 				}
 			}
+		}
+		if (mainDeck.size()>nbfamiliar) {
+			malus += 2*nbfamiliar/(mainDeck.size()-nbfamiliar);
 		}
 		return malus;
 	}

@@ -28,6 +28,7 @@ public class SimulatorCard extends JFrame {
 	private JTextArea raritystrengh;
 	//private JLabel typeLabel;
 	private JList<String> typeCard;
+	private JCheckBox checkSourceCard = new JCheckBox("Source card");
 	private CardPanel resultCard;
 
 	public SimulatorCard() {
@@ -108,7 +109,11 @@ public class SimulatorCard extends JFrame {
 		raritystrengh.setBounds(930,200,100,50);
 		raritystrengh.setFont(font.deriveFont(Font.BOLD,24f));
 		this.getContentPane().add(raritystrengh);
-		
+		checkSourceCard.setBounds(1000,300,400,50);
+		checkSourceCard.setFont(font.deriveFont(Font.BOLD,18f));
+		checkSourceCard.setForeground(new Color(255,255,255));
+		checkSourceCard.setOpaque(false);
+		this.getContentPane().add(checkSourceCard);
 		resultCard = new CardPanel();
 		this.getContentPane().add(resultCard);
 		resultCard.setBounds(400,400,200,300);
@@ -215,6 +220,16 @@ public class SimulatorCard extends JFrame {
 
 	public void setResultCard(CardPanel resultCard) {
 		this.resultCard = resultCard;
+	}
+
+
+	public JCheckBox getCheckSourceCard() {
+		return checkSourceCard;
+	}
+
+
+	public void setCheckSourceCard(JCheckBox checkSourceCard) {
+		this.checkSourceCard = checkSourceCard;
 	}
 	
 	

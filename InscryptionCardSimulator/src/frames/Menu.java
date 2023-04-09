@@ -18,7 +18,7 @@ import frames.menubuttons.*;
 public class Menu extends JFrame {
 	//types: beast robot undead wizard
 	//codes interdits: 1-1,4-2,5-2,7-2,9-2,9-3,10-3,11-2,11-3,12-2,12-3,14-3
-	//  15-1,16-{3+4},17-{2+3+4},18-{2-4},19-{3-4}, 20-3,22-3
+	//  16-{3},17-{2+3+4},18-{2-4},19-{3-4}, 20-3,22-3
 	
 	//j1:(23) 23-1*1(23,1(23)), booster value = 2*4+2=10, vies: 1/1
 	//crédits: 0
@@ -34,16 +34,16 @@ public class Menu extends JFrame {
 	//rival global parameters -> main deck size/source deck size,(nb life points/ nb cards supp to optimize)
 	//harder trial: for 4 levels, hp and attack limit +4, costs limit +2, effects limit +1
 	
-	//serie: 16[4(2,2,1)-4(2(+1),2(+1),1(+0))],13[2(1,2,1)-4(1(+0),2(+1),1(+0))],8[4(2,2,1)-2(2(+1),1(+0),1(+0))]
-	// 16[4(2,2,1)-4(2(+1),2(+1),1(+0))]
-	//j1: 6-1(6),4[2:1*1blood+1*2bone, 2:12345687, 1:1-0-0](incremented by (nb lifes -1))
+	//serie: 17[5(1,1,2)-1(1(+0),1(+0),1(+0))],14[4(2,2,1)-3(1(+0),2(+1),1(+0))],9[1(1,1,1)-3(1(+0),2(+1),1(+0))],2[2(2,1,1)-1(1(+0),1(+0),1(+0))]
+	// 14[4(2,2,1)-3(1(+0),2(+1),1(+0))]
+	//j1: 6-2(3),1[1:1*1energy, 1:12345678, 1:1-0-0](incremented by (nb lifes -1))
 	//bonus: 0-0-0
 	//crédits: 0,d0
 	//lifes: 1/1
 	//nb deaths: 1/1
 	//malus: dice, lifePoints adv, strenght, cards, cardsup, price pelt:+0
-	//price pelts: 1,2,5
-	//j2: 11-1(11)
+	//price pelts: 1,2,4
+	//j2: 12-1(12)
 	
 	//default parameters
 	private Integer modulo1 = 11;

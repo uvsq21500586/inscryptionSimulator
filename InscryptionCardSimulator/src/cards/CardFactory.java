@@ -11,6 +11,10 @@ public class CardFactory {
 	public static String beastAppearances[] = {"kingfisher", "raven_egg", "sparrow", "magpie", "raven", "turkey_vulture", "stunted_wolf","wolf_cub","bloodhound","dire_wolf",
 			"wolf","coyote"};
 	
+	public static String beastFeatheredAppearances[] = {"kingfisher", "raven_egg", "sparrow", "magpie", "raven", "turkey_vulture"};
+	public static String beastCanineAppearances[] = {"stunted_wolf","wolf_cub","bloodhound","dire_wolf",
+			"wolf","coyote"};
+	
 	public static String robotAppearances[] = {"xformerbatbot","s0n1a","xformerporcupinebot","qu177","xformergrizzlybot","gr1zz","bomb_latcher","exeskeleton","shield_latcher","skel_e_latcher",
 			"buff_conduit","gems_conduit"};
 	
@@ -163,9 +167,25 @@ public class CardFactory {
 		boolean stopEffects = false;
 		List<Effect> effects = new ArrayList<>();
 		List<String> sortedeffects = new ArrayList<>();
+		String tribe = "";
+		if (u%2==0) {
+			tribe = "feathered";
+		}else if (u%2==1) {
+			tribe = "canine";
+		}
+		u = (u * multiplicator + 2*levelRarity)%modulo;
+		
+		if (tribe.equals("feathered") || tribe.equals("canine")) {
+			if (attackmin == 0) {
+				nbstats = Math.max(nbstats-2, 0);
+			}
+			attackmin = Math.max(attackmin, 1);
+		}
 		
 		//effect1
-		if (u%4>0) {
+		if (tribe.equals("feathered")) {
+			effects.add(new Effect("airborne", "beast"));
+		} else if (u%4>0) {
 			String effectName = Effect.namesBeastEffects.get(u%(Effect.namesBeastEffects.size()));
 			if (Effect.mapEffectToCost.get(effectName) > nbstats) {
 				stopEffects = true;
@@ -282,7 +302,14 @@ public class CardFactory {
 		int attack = attackmin + bonusAttack;
 		int hp = 1 + nbstats - 2*bonusAttack;
 		u = (u * multiplicator + 2*levelRarity)%modulo;
+		
 		String appearance = beastAppearances[u%(beastAppearances.length)];
+		if (tribe.equals("feathered"))  {
+			appearance = beastFeatheredAppearances[u%(beastFeatheredAppearances.length)];
+		}
+		if (tribe.equals("canine"))  {
+			appearance = beastCanineAppearances[u%(beastCanineAppearances.length)];
+		}
 		
 		return new BeastCard(appearance, typeCost, level, hp, attack, effects, levelRarity, true);
 	}

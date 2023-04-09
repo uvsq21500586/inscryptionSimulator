@@ -43,39 +43,69 @@ public class CostCardsControler implements ActionListener,MouseListener {
 			Random r = new Random();
 			if (costCards.getMenu().getTypecards1().equals("beast")) {
 				try {
-					costCards.getResultCard().repaint(CardFactory.beastCardFixedLevel(selectedCost.getType(),
+					Card card1 = CardFactory.beastCardFixedLevel(selectedCost.getType(),
 							selectedCost.getLevel(),
 							costCards.getMenu().getModulo1(),
 							costCards.getMenu().getMultiplier1(),
 							costCards.getMenu().getGlobalStrenght1(),
 							costCards.getMenu().getRarityStrenght1(),
-							r.nextInt(costCards.getMenu().getModulo1()-1)+1));
+							r.nextInt(costCards.getMenu().getModulo1()-1)+1);
+					Card card2 = CardFactory.beastCardFixedLevel(selectedCost.getType(),
+							selectedCost.getLevel(),
+							costCards.getMenu().getModulo1(),
+							costCards.getMenu().getMultiplier1(),
+							costCards.getMenu().getGlobalStrenght1(),
+							costCards.getMenu().getRarityStrenght1(),
+							r.nextInt(costCards.getMenu().getModulo1()-1)+1);
+					if (card2.getRarity()<card1.getRarity()) card1 = card2;
+					
+					costCards.getResultCard().repaint(card1);
 				} catch (IOException | FontFormatException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			} else if (costCards.getMenu().getTypecards1().equals("robot")) {
 				try {
-					costCards.getResultCard().repaint(CardFactory.robotCardFixedLevel(
+					Card card1 = CardFactory.robotCardFixedLevel(
 							selectedCost.getLevel(),
 							costCards.getMenu().getModulo1(),
 							costCards.getMenu().getMultiplier1(),
 							costCards.getMenu().getGlobalStrenght1(),
 							costCards.getMenu().getRarityStrenght1(),
-							r.nextInt(costCards.getMenu().getModulo1()-1)+1));
+							r.nextInt(costCards.getMenu().getModulo1()-1)+1);
+					Card card2 = CardFactory.robotCardFixedLevel(
+							selectedCost.getLevel(),
+							costCards.getMenu().getModulo1(),
+							costCards.getMenu().getMultiplier1(),
+							costCards.getMenu().getGlobalStrenght1(),
+							costCards.getMenu().getRarityStrenght1(),
+							r.nextInt(costCards.getMenu().getModulo1()-1)+1);
+					if (card2.getRarity()<card1.getRarity()) card1 = card2;
+					
+					costCards.getResultCard().repaint(card1);
 				} catch (IOException | FontFormatException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			} else if (costCards.getMenu().getTypecards1().equals("undead")) {
 				try {
-					costCards.getResultCard().repaint(CardFactory.undeadCardFixedLevel(
+					Card card1 = CardFactory.undeadCardFixedLevel(
 							selectedCost.getLevel(),
 							costCards.getMenu().getModulo1(),
 							costCards.getMenu().getMultiplier1(),
 							costCards.getMenu().getGlobalStrenght1(),
 							costCards.getMenu().getRarityStrenght1(),
-							r.nextInt(costCards.getMenu().getModulo1()-1)+1));
+							r.nextInt(costCards.getMenu().getModulo1()-1)+1);
+					Card card2 = CardFactory.undeadCardFixedLevel(
+							selectedCost.getLevel(),
+							costCards.getMenu().getModulo1(),
+							costCards.getMenu().getMultiplier1(),
+							costCards.getMenu().getGlobalStrenght1(),
+							costCards.getMenu().getRarityStrenght1(),
+							r.nextInt(costCards.getMenu().getModulo1()-1)+1);
+					if (card2.getRarity()<card1.getRarity()) card1 = card2;
+					
+					costCards.getResultCard().repaint(card1);
 				} catch (IOException | FontFormatException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

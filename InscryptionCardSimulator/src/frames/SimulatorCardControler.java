@@ -33,7 +33,6 @@ public class SimulatorCardControler implements ActionListener,MouseListener {
 		if (e.getSource() instanceof JButton) {
 			System.out.println("mouseClicked");
 			try {
-				//simulatorCard.getResultCard().remove(null);
 				Card card = CardFactory.mainCard(
 						Integer.parseInt(simulatorCard.getModuloText().getText()),
 						Integer.parseInt(simulatorCard.getMultiplicatorText().getText()),
@@ -42,6 +41,17 @@ public class SimulatorCardControler implements ActionListener,MouseListener {
 						Integer.parseInt(simulatorCard.getSeed().getText()),
 						simulatorCard.getTypeCard().getSelectedValue()
 				);
+				if (simulatorCard.getCheckSourceCard().isSelected()) {
+					card = CardFactory.sourceCard(
+							Integer.parseInt(simulatorCard.getModuloText().getText()),
+							Integer.parseInt(simulatorCard.getMultiplicatorText().getText()),
+							Integer.parseInt(simulatorCard.getGlobalstrengh().getText()),
+							Integer.parseInt(simulatorCard.getRaritystrengh().getText()),
+							Integer.parseInt(simulatorCard.getSeed().getText()),
+							simulatorCard.getTypeCard().getSelectedValue()
+					);
+				}
+				
 				simulatorCard.getResultCard().repaint(card);
 				//.setResultCard(new CardPanel(card));
 			} catch (IOException | FontFormatException e1) {

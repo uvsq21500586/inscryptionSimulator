@@ -19,7 +19,8 @@ import cards.UndeadCard;
 import cards.WizardCard;
 
 public class CardPanel extends JPanel {
-	Font font; 
+	Font font;
+	Font font2;
 	Card card;
 	JLabel title;
 	JLabel attack;
@@ -43,7 +44,8 @@ public class CardPanel extends JPanel {
 	
 	public CardPanel(Card card) throws IOException, FontFormatException {
 		super();
-		font = Font.createFont(Font.TRUETYPE_FONT, new File("conthrax-sb.ttf"));
+		font = Font.createFont(Font.TRUETYPE_FONT, new File("HEAVYWEI.TTF"));
+		font2 = Font.createFont(Font.TRUETYPE_FONT, new File("conthrax-sb.ttf"));
 		position = "onHand";
 		setLayout(null);
 		this.card = card;
@@ -52,7 +54,7 @@ public class CardPanel extends JPanel {
 	    putBackGround(card, labelBackground);
 	    JLabel labelAppeareance = new JLabel("");
 	    level = new JLabel(card.getLevel().toString() + "x", SwingConstants.RIGHT);
-    	level.setFont(font.deriveFont(Font.BOLD,20f));
+    	level.setFont(font.deriveFont(28f));
     	this.add(level);
     	level.setBounds(105,40,60,50);
     	
@@ -80,6 +82,8 @@ public class CardPanel extends JPanel {
 					.getScaledInstance(40,40, 
 							Image.SCALE_DEFAULT)));
 	    	rarityText.setForeground(Color.GREEN);
+	    	rarityText.setFont(font2.deriveFont(Font.BOLD,16f));
+	    	level.setFont(font2.deriveFont(Font.BOLD,20f));
 	    }
 	    
 	    
@@ -95,17 +99,21 @@ public class CardPanel extends JPanel {
 	    this.add(labelAppeareance);
 	    hp = new JLabel(card.getHp().toString());
 	    hp.setBounds(160,220,50,50);
-	    hp.setFont(font.deriveFont(Font.BOLD,24f));
+	    hp.setFont(font.deriveFont(36f));
 	    this.add(hp);
 	    attack = new JLabel(card.getAttack().toString());
 	    attack.setBounds(20,220,50,50);
-	    attack.setFont(font.deriveFont(Font.BOLD,24f));
+	    attack.setFont(font.deriveFont(36f));
 	    this.add(attack);
+	    hp.setForeground(new Color(0,0,0));
+    	attack.setForeground(new Color(0,0,0));
 	    if (card instanceof RobotCard) {
 	    	hp.setBounds(160,255,50,50);
 	    	attack.setBounds(20,255,50,50);
 	    	hp.setForeground(new Color(0,240,255));
 	    	attack.setForeground(new Color(0,240,255));
+	    	hp.setFont(font2.deriveFont(Font.BOLD,24f));
+	    	attack.setFont(font2.deriveFont(Font.BOLD,24f));
 	    }
 	    effects = new JLabel[4];
 	    levelsEffects = new JLabel[4];
@@ -124,6 +132,7 @@ public class CardPanel extends JPanel {
 	    		if (card instanceof RobotCard) {
 	    			levelsEffects[i].setBounds(20 + 45*i,235 ,30,30);
 	    	    	levelsEffects[i].setForeground(new Color(0,240,255));
+	    	    	levelsEffects[i].setFont(font2.deriveFont(Font.BOLD,12f));
 	    	    }
 	    		this.add(levelsEffects[i]);
 	    	}
@@ -163,7 +172,7 @@ public class CardPanel extends JPanel {
 						Image.SCALE_DEFAULT)));
 	    		this.add(cost);
 	    		cost.setBounds(145,40,50,50);
-	    		level.setForeground(new Color(255,0,0));
+	    		level.setForeground(new Color(255,240,240));
 	    	}
 	    }
 	    
@@ -242,14 +251,13 @@ public class CardPanel extends JPanel {
     				level.setText(((wizard.getLevel()-wizard.getCostAnyMox())/nbcolors) + "x");
     			}
     			if (wizard.getCostAnyMox()>0 && costMaxMox == 1) {
-    				level.setText(wizard.getCostAnyMox() + "+");
+    				level.setText(wizard.getCostAnyMox() + "&");
     			}
     			if (wizard.getCostAnyMox()>0 && costMaxMox>1) {
-    				level.setText(wizard.getCostAnyMox() + "+" + ((wizard.getLevel()-wizard.getCostAnyMox())/nbcolors) + "x");
+    				level.setText(wizard.getCostAnyMox() + "&" + ((wizard.getLevel()-wizard.getCostAnyMox())/nbcolors) + "x");
     			}
     			level.setBounds(95,40,60,50);
-    			font = Font.createFont(Font.TRUETYPE_FONT, new File("conthrax-sb.ttf"));
-    			level.setFont(font.deriveFont(Font.BOLD,16f));
+    			level.setFont(font2.deriveFont(Font.BOLD,16f));
     			level.setForeground(new Color(255,0,0));
 	    	}
 	    }
@@ -291,7 +299,8 @@ public class CardPanel extends JPanel {
 	public void repaint(Card card) throws IOException, FontFormatException {
 		this.removeAll();
 		position = "onHand";
-		Font font = Font.createFont(Font.TRUETYPE_FONT, new File("conthrax-sb.ttf"));
+		font = Font.createFont(Font.TRUETYPE_FONT, new File("HEAVYWEI.TTF"));
+		font2 = Font.createFont(Font.TRUETYPE_FONT, new File("conthrax-sb.ttf"));
 		setLayout(null);
 		this.card = card;
 	    this.setPreferredSize(new Dimension(200,300));
@@ -299,7 +308,7 @@ public class CardPanel extends JPanel {
 	    putBackGround(card, labelBackground);
 	    JLabel labelAppeareance = new JLabel("");
 	    level = new JLabel(card.getLevel().toString() + "x",SwingConstants.RIGHT);
-    	level.setFont(font.deriveFont(Font.BOLD,20f));
+    	level.setFont(font.deriveFont(28f));
     	this.add(level);
     	level.setBounds(105,40,60,50);
     	
@@ -331,6 +340,8 @@ public class CardPanel extends JPanel {
 					.getScaledInstance(40,40, 
 							Image.SCALE_DEFAULT)));
 	    	rarityText.setForeground(Color.GREEN);
+	    	level.setFont(font2.deriveFont(Font.BOLD,20f));
+	    	rarityText.setFont(font2.deriveFont(Font.BOLD,16f));
 	    }
 	    
 	    if (card.getRarity() == 0) {
@@ -347,17 +358,21 @@ public class CardPanel extends JPanel {
 	    this.add(labelAppeareance);
 	    hp = new JLabel(card.getHp().toString());
 	    hp.setBounds(160,220,50,50);
-	    hp.setFont(font.deriveFont(Font.BOLD,24f));
+	    hp.setFont(font.deriveFont(36f));
 	    this.add(hp);
 	    attack = new JLabel(card.getAttack().toString());
 	    attack.setBounds(20,220,50,50);
-	    attack.setFont(font.deriveFont(Font.BOLD,24f));
+	    attack.setFont(font.deriveFont(36f));
 	    this.add(attack);
+	    hp.setForeground(new Color(0,0,0));
+	    attack.setForeground(new Color(0,0,0));
 	    if (card instanceof RobotCard) {
 	    	hp.setBounds(160,255,50,50);
 	    	attack.setBounds(20,255,50,50);
 	    	hp.setForeground(new Color(0,240,255));
 	    	attack.setForeground(new Color(0,240,255));
+	    	hp.setFont(font2.deriveFont(Font.BOLD,24f));
+	    	attack.setFont(font2.deriveFont(Font.BOLD,24f));
 	    }
 	    effects = new JLabel[4];
 	    levelsEffects = new JLabel[4];
@@ -376,6 +391,7 @@ public class CardPanel extends JPanel {
 	    		if (card instanceof RobotCard) {
 	    			levelsEffects[i].setBounds(20 + 40*i,235 ,30,30);
 	    	    	levelsEffects[i].setForeground(new Color(0,240,255));
+	    	    	levelsEffects[i].setFont(font2.deriveFont(Font.BOLD,12f));
 	    	    }
 	    		this.add(levelsEffects[i]);
 	    	}
@@ -410,6 +426,7 @@ public class CardPanel extends JPanel {
 	    		if (card instanceof RobotCard) {
 	    			levelsEffects[i].setBounds(20 + 45*i,235 ,30,30);
 	    	    	levelsEffects[i].setForeground(new Color(0,240,255));
+	    	    	levelsEffects[i].setFont(font2.deriveFont(Font.BOLD,12f));
 	    	    }
 	    		this.add(levelsEffects[i], 1);
 	    	}
