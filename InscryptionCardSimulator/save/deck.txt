@@ -1,13 +1,15 @@
 main deck:
-beast;kingfisher;blood;1;1;1;airborne;_;_;_;_;_;_;_;0
-beast;magpie;bone;3;1;1;airborne;_;_;_;_;_;_;_;0
-beast;raven_egg;blood;2;1;1;airborne;_;corpse_eater;1;_;_;_;_;0
-beast;bloodhound;blood;2;1;2;sprinter_right;_;_;_;_;_;_;_;0
+robot;exeskeleton;6;5;0;_;_;_;_;_;_;_;_;0
+robot;gr1zz;2;2;0;burrower;_;_;_;_;_;_;_;0
+robot;qu177;5;2;1;_;_;_;_;_;_;_;_;0
+robot;s0n1a;4;2;1;airborne;_;_;_;_;_;_;_;0
+robot;skel_e_latcher;5;3;0;mighty_leap;_;_;_;_;_;_;_;0
 source deck:
-beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
-beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
-beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
-beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
-beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
-beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
+robot;empty_vessel;1;2;0;_;_;_;_;_;_;_;_;0
+robot;empty_vessel;1;1;0;mighty_leap;_;_;_;_;_;_;_;0
+robot;empty_vessel;1;2;0;_;_;_;_;_;_;_;_;0
+robot;empty_vessel;1;1;0;guardian;_;_;_;_;_;_;_;0
+robot;empty_vessel;1;2;0;_;_;_;_;_;_;_;_;0
+robot;empty_vessel;1;2;0;_;_;_;_;_;_;_;_;0
+robot;empty_vessel;1;2;0;_;_;_;_;_;_;_;_;0
 fin

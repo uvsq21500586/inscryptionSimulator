@@ -107,7 +107,7 @@ public class CardPanel extends JPanel {
 	    //hp.setOpaque(true);
 	    this.add(hp);
 	    attack = new JLabel(card.getAttack().toString(), SwingConstants.CENTER);
-	    attack.setBounds(5,220,40,50);
+	    attack.setBounds(10,220,40,50);
 	    attack.setFont(font.deriveFont(36f));
 	    if (card.getAttack().toString().length()<2) {
 	    	attack.setFont(font.deriveFont(48f));
@@ -117,7 +117,7 @@ public class CardPanel extends JPanel {
 	    hp.setForeground(new Color(0,0,0));
     	attack.setForeground(new Color(0,0,0));
 	    if (card instanceof RobotCard) {
-	    	hp.setBounds(160,255,50,50);
+	    	hp.setBounds(130,255,50,50);
 	    	attack.setBounds(20,255,50,50);
 	    	hp.setForeground(new Color(0,240,255));
 	    	attack.setForeground(new Color(0,240,255));
@@ -180,6 +180,7 @@ public class CardPanel extends JPanel {
 						.getScaledInstance(50,50, 
 						Image.SCALE_DEFAULT)));
 	    		this.add(cost);
+	    		cost.setBounds(145,40,50,50);
 	    		if (typeCost.equals("blood")) {
 	    			if (card.getLevel() == 2) {
 		    			img = ImageIO.read(new File("img/costs/2blood.png"));
@@ -207,20 +208,47 @@ public class CardPanel extends JPanel {
 	    			if (card.getLevel() == 2) {
 		    			img = ImageIO.read(new File("img/costs/2bone.png"));
 			    		cost.setIcon(new ImageIcon(img
-								.getScaledInstance(50,50, 
+								.getScaledInstance(60,50, 
 								Image.SCALE_DEFAULT)));
 			    		level.setVisible(false);
+			    		cost.setBounds(135,40,60,50);
 		    		}
 		    		if (card.getLevel() == 3) {	
 		    			img = ImageIO.read(new File("img/costs/3bone.png"));
 			    		cost.setIcon(new ImageIcon(img
-								.getScaledInstance(50,50, 
+								.getScaledInstance(70,50, 
 								Image.SCALE_DEFAULT)));
 			    		level.setVisible(false);
+			    		cost.setBounds(125,40,70,50);
+		    		}
+		    		if (card.getLevel() > 3) {	
+			    		JPanel levelPanel = new JPanel();
+			    		levelPanel.setBounds(105,50,60,40);
+			    		levelPanel.setLayout(new FlowLayout(FlowLayout.TRAILING,0,0));
+			    		
+			    		String levelStr = card.getLevel().toString();
+			    		for (int i=0;i<levelStr.length();i++) {
+			    			JLabel labelNumber  = new JLabel();
+			    			img = ImageIO.read(new File("img/costs/bone/" + levelStr.charAt(i) + ".png"));
+			    			labelNumber.setIcon(new ImageIcon(img
+									.getScaledInstance(20,40, 
+											Image.SCALE_DEFAULT)));
+			    			levelPanel.add(labelNumber);
+			    		}
+			    		img = ImageIO.read(new File("img/costs/bone/x.png"));
+			    		JLabel labelX = new JLabel();
+			    		labelX.setIcon(new ImageIcon(img
+								.getScaledInstance(20,40, 
+								Image.SCALE_DEFAULT)));
+			    		level.setVisible(false);
+			    		levelPanel.add(labelX);
+			    		levelPanel.setOpaque(false);
+			    		this.add(levelPanel,0);
+			    		//cost.setBounds(155,50,35,30);
+			    		//level.setBounds(105,50,60,40);
 		    		}
 	    		}
 	    		
-	    		cost.setBounds(145,40,50,50);
 	    		level.setForeground(new Color(255,240,240));
 	    		level.setOpaque(true);
 	    		level.setBackground(new Color(0,0,0,96));
@@ -233,6 +261,18 @@ public class CardPanel extends JPanel {
 					.getScaledInstance(200,200, 
 					Image.SCALE_DEFAULT)));
 	    	level.setForeground(new Color(0,255,0));
+	    	if (card.getLevel() > 1 && card.getLevel() < 7) {
+	    		img = ImageIO.read(new File("img/costs/" + card.getLevel() + "energy.png"));
+	    		cost = new JLabel();
+	    		cost.setIcon(new ImageIcon(img
+						.getScaledInstance(72,25, 
+						Image.SCALE_DEFAULT)));
+	    		level.setVisible(false);
+	    		this.add(cost);
+	    		cost.setBounds(123,55,72,25);
+	    		
+	    	}
+	    	
 	    }
 	    
 	    if (card instanceof UndeadCard) {
@@ -249,6 +289,48 @@ public class CardPanel extends JPanel {
     			this.add(cost);
     			cost.setBounds(145,40,50,50);
     			level.setForeground(new Color(255,255,0));
+    			if (card.getLevel() == 2) {
+	    			img = ImageIO.read(new File("img/costs/2bone.png"));
+		    		cost.setIcon(new ImageIcon(img
+							.getScaledInstance(60,50, 
+							Image.SCALE_DEFAULT)));
+		    		level.setVisible(false);
+		    		cost.setBounds(135,40,60,50);
+	    		}
+	    		if (card.getLevel() == 3) {	
+	    			img = ImageIO.read(new File("img/costs/3bone.png"));
+		    		cost.setIcon(new ImageIcon(img
+							.getScaledInstance(70,50, 
+							Image.SCALE_DEFAULT)));
+		    		level.setVisible(false);
+		    		cost.setBounds(125,40,70,50);
+	    		}
+	    		if (card.getLevel() > 3) {	
+		    		JPanel levelPanel = new JPanel();
+		    		levelPanel.setBounds(105,50,60,40);
+		    		levelPanel.setLayout(new FlowLayout(FlowLayout.TRAILING,0,0));
+		    		
+		    		String levelStr = card.getLevel().toString();
+		    		for (int i=0;i<levelStr.length();i++) {
+		    			JLabel labelNumber  = new JLabel();
+		    			img = ImageIO.read(new File("img/costs/bone/" + levelStr.charAt(i) + ".png"));
+		    			labelNumber.setIcon(new ImageIcon(img
+								.getScaledInstance(20,40, 
+										Image.SCALE_DEFAULT)));
+		    			levelPanel.add(labelNumber);
+		    		}
+		    		img = ImageIO.read(new File("img/costs/bone/x.png"));
+		    		JLabel labelX = new JLabel();
+		    		labelX.setIcon(new ImageIcon(img
+							.getScaledInstance(20,40, 
+							Image.SCALE_DEFAULT)));
+		    		level.setVisible(false);
+		    		levelPanel.add(labelX);
+		    		levelPanel.setOpaque(false);
+		    		this.add(levelPanel,0);
+		    		//cost.setBounds(155,50,35,30);
+		    		//level.setBounds(105,50,60,40);
+	    		}
 	    	}
 	    }
 	    
@@ -418,7 +500,7 @@ public class CardPanel extends JPanel {
 	    //hp.setOpaque(true);
 	    this.add(hp);
 	    attack = new JLabel(card.getAttack().toString(), SwingConstants.CENTER);
-	    attack.setBounds(5,220,40,50);
+	    attack.setBounds(10,220,40,50);
 	    attack.setFont(font.deriveFont(36f));
 	    if (card.getAttack().toString().length()<2) {
 	    	attack.setFont(font.deriveFont(48f));
@@ -428,7 +510,7 @@ public class CardPanel extends JPanel {
 	    hp.setForeground(new Color(0,0,0));
 	    attack.setForeground(new Color(0,0,0));
 	    if (card instanceof RobotCard) {
-	    	hp.setBounds(160,255,50,50);
+	    	hp.setBounds(130,255,50,50);
 	    	attack.setBounds(20,255,50,50);
 	    	hp.setForeground(new Color(0,240,255));
 	    	attack.setForeground(new Color(0,240,255));

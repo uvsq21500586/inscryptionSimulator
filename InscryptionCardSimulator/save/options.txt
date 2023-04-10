@@ -1,5 +1,5 @@
 options:
-typeP1: beast
+typeP1: robot
 moduloP1: 11
 multiplierP1: 2
 global_strenghtP1: 2
@@ -7,7 +7,7 @@ rarity_strenghtP1: 1
 lifePointsP1: 5
 nbMainCardsP1: 4
 nbSourceCardsP1: 6
-typeP2: robot
+typeP2: beast
 moduloP2: 9
 multiplierP2: 2
 global_strenghtP2: 2
