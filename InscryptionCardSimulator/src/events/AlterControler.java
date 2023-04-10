@@ -99,7 +99,7 @@ public class AlterControler implements ActionListener,MouseListener {
 				Optional<Effect> effectPresentInCardToEnhance = enhancedCard.getEffects().stream().filter(effect -> effect.getName().equals(effectToTransfert.getName())).findFirst();
 				if (effectPresentInCardToEnhance.isPresent() && Effect.namesLevelEffects.contains(effectToTransfert.getName())) {
 					effectPresentInCardToEnhance.get().setLevel(effectPresentInCardToEnhance.get().getLevel()+1);
-				} else if (enhancedCard.getEffects().size()<4) {
+				} else if (enhancedCard.getEffects().size()<4 && !effectPresentInCardToEnhance.isPresent()) {
 					enhancedCard.getEffects().add(effectToTransfert);
 				}
 			}

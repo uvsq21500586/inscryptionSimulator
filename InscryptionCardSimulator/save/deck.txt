@@ -1,12 +1,13 @@
 main deck:
-robot;xformerporcupinebot;6;1;1;_;_;_;_;_;_;_;_;0
-robot;s0n1a;1;1;0;_;_;_;_;_;_;_;_;0
-robot;bomb_latcher;2;2;0;_;_;_;_;_;_;_;_;0
-robot;bomb_latcher;2;2;0;_;_;_;_;_;_;_;_;0
+beast;kingfisher;blood;1;1;1;airborne;_;_;_;_;_;_;_;0
+beast;magpie;bone;3;1;1;airborne;_;_;_;_;_;_;_;0
+beast;raven_egg;blood;2;1;1;airborne;_;corpse_eater;1;_;_;_;_;0
+beast;bloodhound;blood;2;1;2;sprinter_right;_;_;_;_;_;_;_;0
 source deck:
-robot;empty_vessel;1;1;0;_;_;_;_;_;_;_;_;0
-robot;empty_vessel;1;1;0;_;_;_;_;_;_;_;_;0
-robot;empty_vessel;1;1;0;_;_;_;_;_;_;_;_;0
-robot;empty_vessel;1;1;0;_;_;_;_;_;_;_;_;0
-robot;empty_vessel;1;1;0;_;_;_;_;_;_;_;_;0
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
 fin

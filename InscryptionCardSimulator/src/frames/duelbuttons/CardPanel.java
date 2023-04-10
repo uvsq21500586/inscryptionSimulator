@@ -56,7 +56,7 @@ public class CardPanel extends JPanel {
 	    level = new JLabel(card.getLevel().toString() + "x", SwingConstants.RIGHT);
     	level.setFont(font.deriveFont(28f));
     	this.add(level);
-    	level.setBounds(105,40,60,50);
+    	level.setBounds(105,50,60,40);
     	
 	    appearanceCard(card, labelAppeareance);
 	    poison = new JLabel("");
@@ -75,7 +75,7 @@ public class CardPanel extends JPanel {
 	    this.add(rarityText);
 	    this.add(rarity);
 	    rarity.setBounds(10,50,40,40);
-	    rarityText.setBounds(10,50,50,40);
+	    rarityText.setBounds(10,50,40,40);
 	    rarityText.setFont(font.deriveFont(Font.BOLD,16f));
 	    if (card instanceof RobotCard) {
 	    	rarity.setIcon(new ImageIcon(ImageIO.read(new File("img/rarity_robot.png"))
@@ -83,6 +83,7 @@ public class CardPanel extends JPanel {
 							Image.SCALE_DEFAULT)));
 	    	rarityText.setForeground(Color.GREEN);
 	    	rarityText.setFont(font2.deriveFont(Font.BOLD,16f));
+	    	level.setBounds(105,40,60,50);
 	    	level.setFont(font2.deriveFont(Font.BOLD,20f));
 	    }
 	    
@@ -97,13 +98,21 @@ public class CardPanel extends JPanel {
 	    this.add(selected);
 	    this.add(beingSacrified);
 	    this.add(labelAppeareance);
-	    hp = new JLabel(card.getHp().toString());
-	    hp.setBounds(160,220,50,50);
+	    hp = new JLabel(card.getHp().toString(), SwingConstants.CENTER);
+	    hp.setBounds(150,220,40,50);
 	    hp.setFont(font.deriveFont(36f));
+	    if (card.getHp().toString().length()<2) {
+	    	 hp.setFont(font.deriveFont(48f));
+	    }
+	    //hp.setOpaque(true);
 	    this.add(hp);
-	    attack = new JLabel(card.getAttack().toString());
-	    attack.setBounds(20,220,50,50);
+	    attack = new JLabel(card.getAttack().toString(), SwingConstants.CENTER);
+	    attack.setBounds(5,220,40,50);
 	    attack.setFont(font.deriveFont(36f));
+	    if (card.getAttack().toString().length()<2) {
+	    	attack.setFont(font.deriveFont(48f));
+	    }
+	    //attack.setOpaque(true);
 	    this.add(attack);
 	    hp.setForeground(new Color(0,0,0));
     	attack.setForeground(new Color(0,0,0));
@@ -171,8 +180,50 @@ public class CardPanel extends JPanel {
 						.getScaledInstance(50,50, 
 						Image.SCALE_DEFAULT)));
 	    		this.add(cost);
+	    		if (typeCost.equals("blood")) {
+	    			if (card.getLevel() == 2) {
+		    			img = ImageIO.read(new File("img/costs/2blood.png"));
+			    		cost.setIcon(new ImageIcon(img
+								.getScaledInstance(50,50, 
+								Image.SCALE_DEFAULT)));
+			    		level.setVisible(false);
+		    		}
+		    		if (card.getLevel() == 3) {	
+		    			img = ImageIO.read(new File("img/costs/3blood.png"));
+			    		cost.setIcon(new ImageIcon(img
+								.getScaledInstance(50,50, 
+								Image.SCALE_DEFAULT)));
+			    		level.setVisible(false);
+		    		}
+					if (card.getLevel() == 4) {
+						img = ImageIO.read(new File("img/costs/4blood.png"));
+			    		cost.setIcon(new ImageIcon(img
+								.getScaledInstance(50,50, 
+								Image.SCALE_DEFAULT)));
+			    		level.setVisible(false);
+						
+					}
+	    		} else {
+	    			if (card.getLevel() == 2) {
+		    			img = ImageIO.read(new File("img/costs/2bone.png"));
+			    		cost.setIcon(new ImageIcon(img
+								.getScaledInstance(50,50, 
+								Image.SCALE_DEFAULT)));
+			    		level.setVisible(false);
+		    		}
+		    		if (card.getLevel() == 3) {	
+		    			img = ImageIO.read(new File("img/costs/3bone.png"));
+			    		cost.setIcon(new ImageIcon(img
+								.getScaledInstance(50,50, 
+								Image.SCALE_DEFAULT)));
+			    		level.setVisible(false);
+		    		}
+	    		}
+	    		
 	    		cost.setBounds(145,40,50,50);
 	    		level.setForeground(new Color(255,240,240));
+	    		level.setOpaque(true);
+	    		level.setBackground(new Color(0,0,0,96));
 	    	}
 	    }
 	    
@@ -310,7 +361,7 @@ public class CardPanel extends JPanel {
 	    level = new JLabel(card.getLevel().toString() + "x",SwingConstants.RIGHT);
     	level.setFont(font.deriveFont(28f));
     	this.add(level);
-    	level.setBounds(105,40,60,50);
+    	level.setBounds(105,50,60,40);
     	
     	poison = new JLabel("");
 	    poison.setIcon(new ImageIcon(ImageIO.read(new File("img/poison.png"))
@@ -332,7 +383,8 @@ public class CardPanel extends JPanel {
 	    this.add(rarityText);
 	    this.add(rarity);
 	    rarity.setBounds(10,50,40,40);
-	    rarityText.setBounds(10,50,50,40);
+	    rarityText.setBounds(10,50,40,40);
+	    //rarityText.setOpaque(true);
 	    rarityText.setFont(font.deriveFont(Font.BOLD,16f));
 	    
 	    if (card instanceof RobotCard) {
@@ -340,6 +392,7 @@ public class CardPanel extends JPanel {
 					.getScaledInstance(40,40, 
 							Image.SCALE_DEFAULT)));
 	    	rarityText.setForeground(Color.GREEN);
+	    	level.setBounds(105,40,60,50);
 	    	level.setFont(font2.deriveFont(Font.BOLD,20f));
 	    	rarityText.setFont(font2.deriveFont(Font.BOLD,16f));
 	    }
@@ -356,13 +409,21 @@ public class CardPanel extends JPanel {
 	    this.add(selected);
 	    this.add(beingSacrified);
 	    this.add(labelAppeareance);
-	    hp = new JLabel(card.getHp().toString());
-	    hp.setBounds(160,220,50,50);
+	    hp = new JLabel(card.getHp().toString(), SwingConstants.CENTER);
+	    hp.setBounds(150,220,40,50);
 	    hp.setFont(font.deriveFont(36f));
+	    if (card.getHp().toString().length()<2) {
+	    	 hp.setFont(font.deriveFont(48f));
+	    }
+	    //hp.setOpaque(true);
 	    this.add(hp);
-	    attack = new JLabel(card.getAttack().toString());
-	    attack.setBounds(20,220,50,50);
+	    attack = new JLabel(card.getAttack().toString(), SwingConstants.CENTER);
+	    attack.setBounds(5,220,40,50);
 	    attack.setFont(font.deriveFont(36f));
+	    if (card.getAttack().toString().length()<2) {
+	    	attack.setFont(font.deriveFont(48f));
+	    }
+	    //attack.setOpaque(true);
 	    this.add(attack);
 	    hp.setForeground(new Color(0,0,0));
 	    attack.setForeground(new Color(0,0,0));
