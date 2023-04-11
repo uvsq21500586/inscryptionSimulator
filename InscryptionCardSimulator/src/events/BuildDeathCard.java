@@ -19,8 +19,8 @@ import javax.swing.JScrollPane;
 
 import cards.Card;
 import cards.CardFactory;
+import cards.CardPanel;
 import frames.Menu;
-import frames.duelbuttons.CardPanel;
 
 public class BuildDeathCard  extends JFrame {
 	public final int nbSkinsDeaths = 1;

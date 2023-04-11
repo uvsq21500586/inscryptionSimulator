@@ -18,6 +18,7 @@ import java.awt.*;
 
 import cards.BeastCard;
 import cards.Card;
+import cards.CardPanel;
 import cards.RobotCard;
 import cards.UndeadCard;
 import cards.WizardCard;
@@ -265,12 +266,16 @@ public class Duel extends JFrame {
 		sourceDeck2.add(BeastCard.sourceCard(1, new ArrayList<>()));
 		sourceDeck1.add(BeastCard.sourceCard(1, new ArrayList<>()));
 		sourceDeck2.add(BeastCard.sourceCard(1, new ArrayList<>()));
-		List<Effect> effects = new LinkedList<>(Arrays.asList(new Effect("trifurcated_strike","robot"), new Effect("bifurcated_strike","robot")));
+		List<Effect> effects = new LinkedList<>(Arrays.asList(new Effect("trifurcated_strike","robot"), new Effect("bifurcated_strike","robot"),new Effect("guardian","robot"),new Effect("burrower","robot")));
 		List<Effect> effects2 = new LinkedList<>(Arrays.asList(new Effect("corpse_eater","undead",1)));
 		List<Effect> effects3 = new LinkedList<>(Arrays.asList(new Effect("ruby_heart","wizard",1), new Effect("emerald_heart","wizard",1)));
 		List<Effect> effects4 = new ArrayList<>();
+		//List<Effect> effects5 = new LinkedList<>(Arrays.asList(new Effect("corpse_eater","undead",1)));
 		effects4.add(new Effect("loose_tail_right","beast",1));
+		effects4.add(new Effect("sprinter_right","beast"));
+		effects4.add(new Effect("burrower","beast"));
 		mainDeck1.add(RobotCard.mainCard("s0n1a", 1, 1, 1, effects));
+		mainDeck1.add(BeastCard.mainCard("kingfisher", "blood", 1, 1, 1, effects4));
 		mainDeck1.add(UndeadCard.mainCard("bone_lord", 1, 1, 1, effects2));
 		//mainDeck1.add(UndeadCard.mainCard("bone_lord", 1, 1, 1, effects2));
 		mainDeck1.add(WizardCard.mainCard("alchemist", 0, 0, 1, 0, 1, 1, 0, Arrays.asList(new Effect("gem_animator","wizard",2))));
@@ -290,7 +295,7 @@ public class Duel extends JFrame {
 	
 	public void drawBegininCards() throws IOException, FontFormatException {
 		handCard1.add(new CardPanel(sourceDeck1.get(0)));
-		handCard1.add(new CardPanel(sourceDeck1.get(1)));
+		//handCard1.add(new CardPanel(sourceDeck1.get(1)));
 		//handCard1.add(new CardPanel(sourceDeck1.get(2)));
 		handCard1.add(new CardPanel(mainDeck1.get(0)));
 		handCard1.add(new CardPanel(mainDeck1.get(1)));

@@ -18,8 +18,8 @@ import javax.swing.JScrollPane;
 
 import cards.Card;
 import cards.CardFactory;
+import cards.CardPanel;
 import frames.Menu;
-import frames.duelbuttons.CardPanel;
 
 public class TraderCards  extends JFrame {
 	Font font = Font.createFont(Font.TRUETYPE_FONT, new File("conthrax-sb.ttf"));

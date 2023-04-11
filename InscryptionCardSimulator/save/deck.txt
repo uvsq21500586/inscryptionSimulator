@@ -1,15 +1,13 @@
 main deck:
-robot;exeskeleton;6;5;0;_;_;_;_;_;_;_;_;0
-robot;gr1zz;2;2;0;burrower;_;_;_;_;_;_;_;0
-robot;qu177;5;2;1;_;_;_;_;_;_;_;_;0
-robot;s0n1a;4;2;1;airborne;_;_;_;_;_;_;_;0
-robot;skel_e_latcher;5;3;0;mighty_leap;_;_;_;_;_;_;_;0
+undead;bone_lord;3;3;1;_;_;_;_;_;_;0
+undead;bone_prince;8;1;2;_;_;_;_;_;_;0
+undead;bone_lord;6;1;0;corpse_eater;1;_;_;_;_;0
+undead;bone_lord;6;1;0;corpse_eater;1;_;_;_;_;0
+beast;rabbit_pelt;blood;0;1;0;_;_;_;_;_;_;_;_;0
 source deck:
-robot;empty_vessel;1;2;0;_;_;_;_;_;_;_;_;0
-robot;empty_vessel;1;1;0;mighty_leap;_;_;_;_;_;_;_;0
-robot;empty_vessel;1;2;0;_;_;_;_;_;_;_;_;0
-robot;empty_vessel;1;1;0;guardian;_;_;_;_;_;_;_;0
-robot;empty_vessel;1;2;0;_;_;_;_;_;_;_;_;0
-robot;empty_vessel;1;2;0;_;_;_;_;_;_;_;_;0
-robot;empty_vessel;1;2;0;_;_;_;_;_;_;_;_;0
+undead;skeleton;0;1;1;brittle;_;_;_;_;_;0
+undead;skeleton;0;1;1;brittle;_;_;_;_;_;0
+undead;skeleton;0;1;1;brittle;_;_;_;_;_;0
+undead;skeleton;0;1;1;brittle;_;_;_;_;_;0
+undead;skeleton;0;1;1;brittle;_;_;_;_;_;0
 fin

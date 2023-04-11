@@ -18,6 +18,11 @@ import cards.Card;
 
 public class Effect {
 	
+	public final static int dimensionIcon = 50;
+	public final static int dimensionIconWithLevel = 40;
+	public final static int dimensionIconRobot = 50;
+	public final static int dimensionIconRobotWithLevel = 40;
+	
 	public final static Map<String, Integer> mapEffectToCost = buildMapNamesEffectsToCost();
 	public final static Map<String, String> mapEffectToDescription = buildMapNamesEffectsToDescription();
 	
@@ -45,28 +50,35 @@ public class Effect {
 	public final static List<String> namesEffectsTooStrongWithUnkillable = Arrays.asList("corpse_eater","bone_king","bone_digger");
 	
 	String name;
+	String type;
 	int costStats;
 	Integer level;
 	Icon icone;
-	
+	Image image;
+
 	public Effect(String name, String typeCard, int level) throws IOException {
 		super();
 		this.name = name;
+		this.type = typeCard;
 		this.costStats = mapEffectToCost.get(name);
 		this.level = level;
-		this.icone = new ImageIcon((ImageIO.read(new File("img/" + typeCard + "/effects/" + name + ".png")))
-				.getScaledInstance(30,30, 
+		this.image = ImageIO.read(new File("img/" + typeCard + "/effects/" + name + ".png"));
+		this.icone = new ImageIcon(image
+				.getScaledInstance(dimensionIconWithLevel,dimensionIconWithLevel, 
 				Image.SCALE_DEFAULT));
+		
 	}
 	
 	public Effect(String name, String typeCard) throws IOException {
 		super();
 		this.name = name;
+		this.type = typeCard;
 		this.costStats = mapEffectToCost.get(name);
 		this.level = null;
-		this.icone = new ImageIcon((ImageIO.read(new File("img/" + typeCard + "/effects/" + name + ".png")))
-				.getScaledInstance(30,30, 
-				Image.SCALE_DEFAULT));;
+		this.image = ImageIO.read(new File("img/" + typeCard + "/effects/" + name + ".png"));
+		this.icone = new ImageIcon(image
+				.getScaledInstance(dimensionIcon,dimensionIcon, 
+				Image.SCALE_DEFAULT));
 	}
 	
 	public Effect(Effect effect) throws IOException {
@@ -80,44 +92,85 @@ public class Effect {
 	public void inverseDirection(JLabel label, Card card) throws IOException {
 		if (name.equals("sprinter_right")) {
 			name = "sprinter_left";
-			icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
-					.getScaledInstance(30,30, 
-							Image.SCALE_DEFAULT));
+			if (card.getType().equals("robot")) {
+				icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+						.getScaledInstance(dimensionIcon,dimensionIcon, 
+								Image.SCALE_DEFAULT));
+			} else {
+				icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+						.getScaledInstance(dimensionIconRobot,dimensionIconRobot, 
+								Image.SCALE_DEFAULT));
+			}
+			
 			label.setIcon(icone);
 		} else if (name.equals("sprinter_left")) {
 			name = "sprinter_right";
-			icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
-					.getScaledInstance(30,30, 
-							Image.SCALE_DEFAULT));
+			if (card.getType().equals("robot")) {
+				icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+						.getScaledInstance(dimensionIcon,dimensionIcon, 
+								Image.SCALE_DEFAULT));
+			} else {
+				icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+						.getScaledInstance(dimensionIconRobot,dimensionIconRobot, 
+								Image.SCALE_DEFAULT));
+			}
 			label.setIcon(icone);
 		} else if (name.equals("hefty_left")) {
 			name = "hefty_right";
-			icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
-					.getScaledInstance(30,30, 
-							Image.SCALE_DEFAULT));
+			if (card.getType().equals("robot")) {
+				icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+						.getScaledInstance(dimensionIcon,dimensionIcon, 
+								Image.SCALE_DEFAULT));
+			} else {
+				icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+						.getScaledInstance(dimensionIconRobot,dimensionIconRobot, 
+								Image.SCALE_DEFAULT));
+			}
 			label.setIcon(icone);
 		} else if (name.equals("hefty_right")) {
 			name = "hefty_left";
-			icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
-					.getScaledInstance(30,30, 
-							Image.SCALE_DEFAULT));
+			if (card.getType().equals("robot")) {
+				icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+						.getScaledInstance(dimensionIcon,dimensionIcon, 
+								Image.SCALE_DEFAULT));
+			} else {
+				icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+						.getScaledInstance(dimensionIconRobot,dimensionIconRobot, 
+								Image.SCALE_DEFAULT));
+			}
 			label.setIcon(icone);
 		} else if (name.equals("loose_tail_left")) {
 			name = "loose_tail_right";
-			icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
-					.getScaledInstance(30,30, 
-							Image.SCALE_DEFAULT));
+			if (card.getType().equals("robot")) {
+				icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+						.getScaledInstance(dimensionIconWithLevel,dimensionIconWithLevel, 
+								Image.SCALE_DEFAULT));
+			} else {
+				icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+						.getScaledInstance(dimensionIconRobotWithLevel,dimensionIconRobotWithLevel, 
+								Image.SCALE_DEFAULT));
+			}
 			label.setIcon(icone);
 		} else if (name.equals("loose_tail_right")) {
 			name = "loose_tail_left";
-			icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
-					.getScaledInstance(30,30, 
-							Image.SCALE_DEFAULT));
+			if (card.getType().equals("robot")) {
+				icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+						.getScaledInstance(dimensionIconWithLevel,dimensionIconWithLevel, 
+								Image.SCALE_DEFAULT));
+			} else {
+				icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+						.getScaledInstance(dimensionIconRobotWithLevel,dimensionIconRobotWithLevel, 
+								Image.SCALE_DEFAULT));
+			}
 			label.setIcon(icone);
 		}
 	}
 	
-	
+	public void ajustSizeRobot4Effects() {
+		this.icone = new ImageIcon(image
+				.getScaledInstance(dimensionIconRobotWithLevel,dimensionIconRobotWithLevel, 
+				Image.SCALE_DEFAULT));
+	}
 	
 	private static Map<String, Integer> buildMapNamesEffectsToCost() {
 		Map<String, Integer> effectsToCost = new HashMap<>();
@@ -221,6 +274,14 @@ public class Effect {
 
 	public void setIcone(Icon icone) {
 		this.icone = icone;
+	}
+
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
 	}
 	
 	

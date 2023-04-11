@@ -12,10 +12,10 @@ import javax.swing.JButton;
 import cards.BeastCard;
 import cards.Card;
 import cards.CardFactory;
+import cards.CardPanel;
 import cards.RobotCard;
 import frames.menubuttons.ButtonToDuel;
 import frames.menubuttons.ButtonToSimulatorCard;
-import frames.duelbuttons.CardPanel;
 
 public class SimulatorCardControler implements ActionListener,MouseListener {
 	private SimulatorCard simulatorCard;

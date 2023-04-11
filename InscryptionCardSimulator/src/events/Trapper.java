@@ -19,8 +19,8 @@ import javax.swing.JScrollPane;
 import cards.BeastCard;
 import cards.Card;
 import cards.CardFactory;
+import cards.CardPanel;
 import frames.Menu;
-import frames.duelbuttons.CardPanel;
 
 public class Trapper extends JFrame {
 	List<CardPanel> cardsPanelsMainDeck = new ArrayList<>();

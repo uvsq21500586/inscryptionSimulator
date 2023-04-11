@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 import cards.BeastCard;
 import cards.Card;
+import cards.CardPanel;
 import cards.RobotCard;
 import cards.UndeadCard;
 import cards.WizardCard;
@@ -21,7 +22,6 @@ import effects.Effect;
 import frames.duelbuttons.ButtonMainDeck;
 import frames.duelbuttons.ButtonPlaceCard;
 import frames.duelbuttons.ButtonSourceDeck;
-import frames.duelbuttons.CardPanel;
 import frames.duelbuttons.HandCardPanel;
 import frames.duelbuttons.LeftButton;
 import frames.duelbuttons.NextTurnButton;

@@ -14,11 +14,11 @@ import javax.swing.JButton;
 import cards.BeastCard;
 import cards.Card;
 import cards.CardFactory;
+import cards.CardPanel;
 import cards.RobotCard;
 import events.RandomCards;
 import frames.menubuttons.ButtonToDuel;
 import frames.menubuttons.ButtonToSimulatorCard;
-import frames.duelbuttons.CardPanel;
 
 public class CampFireControler implements ActionListener,MouseListener {
 	private CampFire campFire;

@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import cards.BeastCard;
 import cards.Card;
 import cards.CardFactory;
+import cards.CardPanel;
 import cards.RobotCard;
 import events.Alter;
 import events.Bleach;
@@ -28,7 +29,6 @@ import events.Trapper;
 import events.Trial;
 import frames.menubuttons.ButtonToDuel;
 import frames.menubuttons.ButtonToSimulatorCard;
-import frames.duelbuttons.CardPanel;
 
 public class SpecialEventsControler implements ActionListener,MouseListener {
 	private SpecialEvents specialEvents;

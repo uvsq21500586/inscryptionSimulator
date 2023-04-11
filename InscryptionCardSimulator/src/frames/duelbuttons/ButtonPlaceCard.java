@@ -4,6 +4,8 @@ import java.awt.Dimension;
 
 import javax.swing.JButton;
 
+import cards.CardPanel;
+
 public class ButtonPlaceCard extends JButton {
 	CardPanel cardPanel;
 	

@@ -19,8 +19,8 @@ import javax.swing.JTextArea;
 
 import cards.Card;
 import cards.CardFactory;
+import cards.CardPanel;
 import frames.Menu;
-import frames.duelbuttons.CardPanel;
 
 public class Bleach  extends JFrame {
 	List<CardPanel> cardsPanelsMainDeck = new ArrayList<>();

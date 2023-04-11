@@ -16,8 +16,8 @@ import javax.swing.JScrollPane;
 
 import cards.Card;
 import cards.CardFactory;
+import cards.CardPanel;
 import frames.Menu;
-import frames.duelbuttons.CardPanel;
 
 public class CostCards  extends JFrame {
 	List<CostPanel> cardsPanelsMainDeck = new ArrayList<>();

@@ -13,7 +13,6 @@ import effects.Effect;
 import frames.Duel;
 import frames.DuelControler;
 import frames.duelbuttons.ButtonPlaceCard;
-import frames.duelbuttons.CardPanel;
 
 public abstract class Card {
 	String type;

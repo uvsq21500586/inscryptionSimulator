@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 
 import cards.BeastCard;
 import cards.Card;
+import cards.CardPanel;
 
 public class HandCardPanel extends JPanel {
 	public List<CardPanel> cardsPanels = new ArrayList<>();

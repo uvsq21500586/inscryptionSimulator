@@ -13,7 +13,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ListSelectionListener;
 
-import frames.duelbuttons.CardPanel;
+import cards.CardPanel;
 import frames.menubuttons.ButtonToDuel;
 
 public class SpecialEvents extends JFrame {

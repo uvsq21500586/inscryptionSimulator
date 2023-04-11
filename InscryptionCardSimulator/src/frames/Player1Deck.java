@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import cards.Card;
-import frames.duelbuttons.CardPanel;
+import cards.CardPanel;
 
 public class Player1Deck  extends JFrame {
 	List<CardPanel> cardsPanelsMainDeck = new ArrayList<>();
