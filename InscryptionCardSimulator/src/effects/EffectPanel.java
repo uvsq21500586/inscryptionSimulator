@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,7 +25,7 @@ public class EffectPanel extends JPanel {
 	
 	public EffectPanel(Effect effect, String typeCard) throws FontFormatException, IOException {
 		super();
-		this.setLayout(new VerticalFlowLayout(0));
+		this.setLayout(new VerticalFlowLayout(0, VerticalFlowLayout.CENTER, VerticalFlowLayout.CENTER));
 		//this.setLayout(null);
 		
 		font = Font.createFont(Font.TRUETYPE_FONT, new File("HEAVYWEI.TTF"));
@@ -40,13 +41,16 @@ public class EffectPanel extends JPanel {
 			level.setFont(font.deriveFont(Font.BOLD,16f));
 			if (typeCard.equals("robot")) {
 				level.setForeground(new Color(0,240,255));
-			}
-			if (typeCard.equals("undead")) {
-				level.setForeground(new Color(255,255,0));
+			} else {
+				level.setForeground(new Color(0,0,0));
 			}
 			this.add(level);
 		}
 		this.setOpaque(false);
+	}
+	
+	public void setIconToEffectIcon(Icon icon) {
+		effectIcon.setIcon(icon);
 	}
 
 	public JLabel getLevel() {
@@ -55,6 +59,14 @@ public class EffectPanel extends JPanel {
 
 	public void setLevel(JLabel level) {
 		this.level = level;
+	}
+
+	public JLabel getEffectIcon() {
+		return effectIcon;
+	}
+
+	public void setEffectIcon(JLabel effectIcon) {
+		this.effectIcon = effectIcon;
 	}
 	
 	

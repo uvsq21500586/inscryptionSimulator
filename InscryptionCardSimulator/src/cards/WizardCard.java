@@ -142,7 +142,7 @@ public class WizardCard extends Card {
 		if (!sourceGemEffects[0] && !sourceGemEffects[1] && sourceGemEffects[2]) return "blue_mox";
 		if (sourceGemEffects[0] && sourceGemEffects[1] && !sourceGemEffects[2]) return "goranjs_mox";
 		if (sourceGemEffects[0] && !sourceGemEffects[1] && sourceGemEffects[2]) return "bleens_mox";
-		if (!sourceGemEffects[0] && sourceGemEffects[1] && sourceGemEffects[2]) return "bleens_mox";
+		if (!sourceGemEffects[0] && sourceGemEffects[1] && sourceGemEffects[2]) return "orlus_mox";
 		if (sourceGemEffects[0] && sourceGemEffects[1] && sourceGemEffects[2]) return "magnus_mox";
 		return null;
 	}

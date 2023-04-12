@@ -10,6 +10,7 @@ import java.util.Optional;
 import javax.swing.JLabel;
 
 import effects.Effect;
+import effects.EffectPanel;
 import frames.Duel;
 import frames.DuelControler;
 import frames.duelbuttons.ButtonPlaceCard;
@@ -725,9 +726,8 @@ public abstract class Card {
 			} else {
 				if (position>0 && buttonPlaceCard[position-1].getCardPanel() == null) {
 					int idEffect = effects.indexOf(sprinterrighteffect.get());
-					JLabel effectLabel = buttonPlaceCard[position].getCardPanel().getEffects()[idEffect];
-					
-					sprinterrighteffect.get().inverseDirection(effectLabel, this);
+					EffectPanel effect = buttonPlaceCard[position].getCardPanel().getEffects2()[idEffect];
+					sprinterrighteffect.get().inverseDirection(effect, this);
 					
 					CardPanel cardpanel = buttonPlaceCard[position].getCardPanel();
 					cardpanel.setFieldPosition(position-1);
@@ -748,9 +748,8 @@ public abstract class Card {
 			} else {
 				if (position<3 && buttonPlaceCard[position+1].getCardPanel() == null) {
 					int idEffect = effects.indexOf(sprinterlefteffect.get());
-					JLabel effectLabel = buttonPlaceCard[position].getCardPanel().getEffects()[idEffect];
-					
-					sprinterlefteffect.get().inverseDirection(effectLabel, this);
+					EffectPanel effect = buttonPlaceCard[position].getCardPanel().getEffects2()[idEffect];
+					sprinterlefteffect.get().inverseDirection(effect, this);			
 					
 					CardPanel cardpanel = buttonPlaceCard[position].getCardPanel();
 					cardpanel.setFieldPosition(position+1);
@@ -792,8 +791,8 @@ public abstract class Card {
 				if (nearestLeftGap != null) {
 					//trou à gauche
 					int idEffect = effects.indexOf(heftyrighteffect.get());
-					JLabel effectLabel = buttonPlaceCard[position].getCardPanel().getEffects()[idEffect];
-					heftyrighteffect.get().inverseDirection(effectLabel, this);
+					EffectPanel effect = buttonPlaceCard[position].getCardPanel().getEffects2()[idEffect];
+					heftyrighteffect.get().inverseDirection(effect, this);
 					for (int i=nearestLeftGap+1;i<=position;i++) {
 						//déplacer
 						CardPanel cardPanToMove = buttonPlaceCard[i].getCardPanel();
@@ -837,8 +836,8 @@ public abstract class Card {
 				if (nearestRightGap != null) {
 					//trou à droite
 					int idEffect = effects.indexOf(heftylefteffect.get());
-					JLabel effectLabel = buttonPlaceCard[position].getCardPanel().getEffects()[idEffect];
-					heftylefteffect.get().inverseDirection(effectLabel, this);
+					EffectPanel effect = buttonPlaceCard[position].getCardPanel().getEffects2()[idEffect];
+					heftylefteffect.get().inverseDirection(effect, this);
 					for (int i=nearestRightGap-1;i>=position;i--) {
 						//déplacer
 						CardPanel cardPanToMove = buttonPlaceCard[i].getCardPanel();
@@ -877,7 +876,8 @@ public abstract class Card {
 			} else if (position>4 && buttonPlaceCard[position-1].getCardPanel() == null) {
 				//turn effect
 				int id = cardPanel.getCard().getEffects().indexOf(effect);
-				effect.inverseDirection(cardPanel.getEffects()[id], cardPanel.getCard());
+				EffectPanel effectpanel = cardPanel.getEffects2()[id];
+				effect.inverseDirection(effectpanel, cardPanel.getCard());
 				cardPanel.setFieldPosition(position-1);
 				cardPanel.setBounds(100 + 200 * ((position-1)%4), 10, 200, 300);
 				CardPanel tailPanel = new CardPanel(new BeastCard("tail", "blood", 0, 2, 0, new ArrayList<>(), true));
@@ -914,7 +914,8 @@ public abstract class Card {
 			} else if (position<7 && buttonPlaceCard[position+1].getCardPanel() == null) {
 				//turn effect
 				int id = cardPanel.getCard().getEffects().indexOf(effect);
-				effect.inverseDirection(cardPanel.getEffects()[id], cardPanel.getCard());
+				EffectPanel effectpanel = cardPanel.getEffects2()[id];
+				effect.inverseDirection(effectpanel, cardPanel.getCard());
 				cardPanel.setFieldPosition(position+1);
 				cardPanel.setBounds(100 + 200 * ((position+1)%4), 10, 200, 300);
 				CardPanel tailPanel = new CardPanel(new BeastCard("tail", "blood", 0, 2, 0, new ArrayList<>(), true));

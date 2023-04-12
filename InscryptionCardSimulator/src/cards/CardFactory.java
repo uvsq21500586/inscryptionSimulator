@@ -1390,12 +1390,15 @@ public class CardFactory {
 		if (nbGemEffects == 1) {
 			if (u%3 == 0) {
 				effects.add(new Effect("green_gem", "wizard", 1));
+				sortedeffects.add("green_gem");
 			}
 			if (u%3 == 1) {
 				effects.add(new Effect("orange_gem", "wizard", 1));
+				sortedeffects.add("orange_gem");
 			}
 			if (u%3 == 2) {
 				effects.add(new Effect("blue_gem", "wizard", 1));
+				sortedeffects.add("blue_gem");
 			}
 			nbstats -= 2;
 		}
@@ -1403,14 +1406,20 @@ public class CardFactory {
 			if (u%3 == 0) {
 				effects.add(new Effect("orange_gem", "wizard", 1));
 				effects.add(new Effect("blue_gem", "wizard", 1));
+				sortedeffects.add("orange_gem");
+				sortedeffects.add("blue_gem");
 			}
 			if (u%3 == 1) {
 				effects.add(new Effect("green_gem", "wizard", 1));
 				effects.add(new Effect("blue_gem", "wizard", 1));
+				sortedeffects.add("green_gem");
+				sortedeffects.add("blue_gem");
 			}
 			if (u%3 == 2) {
 				effects.add(new Effect("green_gem", "wizard", 1));
 				effects.add(new Effect("orange_gem", "wizard", 1));
+				sortedeffects.add("green_gem");
+				sortedeffects.add("orange_gem");
 			}
 			nbstats -= 4;
 		}
@@ -1418,6 +1427,9 @@ public class CardFactory {
 			effects.add(new Effect("green_gem", "wizard", 1));
 			effects.add(new Effect("orange_gem", "wizard", 1));
 			effects.add(new Effect("blue_gem", "wizard", 1));
+			sortedeffects.add("green_gem");
+			sortedeffects.add("orange_gem");
+			sortedeffects.add("blue_gem");
 			nbstats -= 6;
 		}
 		

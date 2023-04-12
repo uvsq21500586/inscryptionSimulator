@@ -84,12 +84,14 @@ public class Effect {
 	public Effect(Effect effect) throws IOException {
 		super();
 		this.name = effect.name;
+		this.type = effect.getType();
 		this.costStats = mapEffectToCost.get(name);
 		this.level = effect.level;
+		this.image = ImageIO.read(new File("img/" + type + "/effects/" + name + ".png"));
 		this.icone = effect.icone;
 	}
 	
-	public void inverseDirection(JLabel label, Card card) throws IOException {
+	/*public void inverseDirection(JLabel label, Card card) throws IOException {
 		if (name.equals("sprinter_right")) {
 			name = "sprinter_left";
 			if (card.getType().equals("robot")) {
@@ -164,7 +166,85 @@ public class Effect {
 			}
 			label.setIcon(icone);
 		}
+	}*/
+	
+	public void inverseDirection(EffectPanel effectpanel, Card card) throws IOException {
+		if (name.equals("sprinter_right")) {
+			name = "sprinter_left";
+			if (card.getType().equals("robot")) {
+				icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+						.getScaledInstance(dimensionIcon,dimensionIcon, 
+								Image.SCALE_DEFAULT));
+			} else {
+				icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+						.getScaledInstance(dimensionIconRobot,dimensionIconRobot, 
+								Image.SCALE_DEFAULT));
+			}
+			
+			effectpanel.setIconToEffectIcon(icone);
+		} else if (name.equals("sprinter_left")) {
+			name = "sprinter_right";
+			if (card.getType().equals("robot")) {
+				icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+						.getScaledInstance(dimensionIcon,dimensionIcon, 
+								Image.SCALE_DEFAULT));
+			} else {
+				icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+						.getScaledInstance(dimensionIconRobot,dimensionIconRobot, 
+								Image.SCALE_DEFAULT));
+			}
+			effectpanel.setIconToEffectIcon(icone);
+		} else if (name.equals("hefty_left")) {
+			name = "hefty_right";
+			if (card.getType().equals("robot")) {
+				icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+						.getScaledInstance(dimensionIcon,dimensionIcon, 
+								Image.SCALE_DEFAULT));
+			} else {
+				icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+						.getScaledInstance(dimensionIconRobot,dimensionIconRobot, 
+								Image.SCALE_DEFAULT));
+			}
+			effectpanel.setIconToEffectIcon(icone);
+		} else if (name.equals("hefty_right")) {
+			name = "hefty_left";
+			if (card.getType().equals("robot")) {
+				icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+						.getScaledInstance(dimensionIcon,dimensionIcon, 
+								Image.SCALE_DEFAULT));
+			} else {
+				icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+						.getScaledInstance(dimensionIconRobot,dimensionIconRobot, 
+								Image.SCALE_DEFAULT));
+			}
+			effectpanel.setIconToEffectIcon(icone);
+		} else if (name.equals("loose_tail_left")) {
+			name = "loose_tail_right";
+			if (card.getType().equals("robot")) {
+				icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+						.getScaledInstance(dimensionIconWithLevel,dimensionIconWithLevel, 
+								Image.SCALE_DEFAULT));
+			} else {
+				icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+						.getScaledInstance(dimensionIconRobotWithLevel,dimensionIconRobotWithLevel, 
+								Image.SCALE_DEFAULT));
+			}
+			effectpanel.setIconToEffectIcon(icone);
+		} else if (name.equals("loose_tail_right")) {
+			name = "loose_tail_left";
+			if (card.getType().equals("robot")) {
+				icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+						.getScaledInstance(dimensionIconWithLevel,dimensionIconWithLevel, 
+								Image.SCALE_DEFAULT));
+			} else {
+				icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+						.getScaledInstance(dimensionIconRobotWithLevel,dimensionIconRobotWithLevel, 
+								Image.SCALE_DEFAULT));
+			}
+			effectpanel.setIconToEffectIcon(icone);
+		}
 	}
+	
 	
 	public void ajustSizeRobot4Effects() {
 		this.icone = new ImageIcon(image
@@ -282,6 +362,14 @@ public class Effect {
 
 	public void setImage(Image image) {
 		this.image = image;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 	

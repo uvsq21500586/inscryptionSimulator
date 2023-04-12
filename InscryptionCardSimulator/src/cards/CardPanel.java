@@ -99,6 +99,9 @@ public class CardPanel extends JPanel {
 	    this.add(beingSacrified);
 	    hp = new JLabel(card.getHp().toString(), SwingConstants.CENTER);
 	    hp.setBounds(150,240,40,50);
+	    if (card instanceof UndeadCard) {
+	    	hp.setBounds(150,220,40,50);
+	    }
 	    hp.setFont(font.deriveFont(40f));
 	    if (card.getHp().toString().length()<2) {
 	    	 hp.setFont(font.deriveFont(48f));
@@ -282,6 +285,16 @@ public class CardPanel extends JPanel {
 					.getScaledInstance(200,200, 
 					Image.SCALE_DEFAULT)));
 	    	if (card.getLevel() > 0) {
+	    		this.remove(level);
+	    		level = new JLabel(card.getLevel().toString(), SwingConstants.CENTER);
+	    		level.setBounds(75,40,50,50);
+	    		level.setForeground(new Color(0,0,0));
+	    		this.add(level);
+	    		level.setVisible(true);
+	    		level.setFont(font.deriveFont(28f));
+	    	}
+	    	
+	    	/*if (card.getLevel() > 0) {
 	    		cost = new JLabel();
     			img = ImageIO.read(new File("img/costs/bone.png"));
     			cost.setIcon(new ImageIcon(img
@@ -332,7 +345,7 @@ public class CardPanel extends JPanel {
 		    		//cost.setBounds(155,50,35,30);
 		    		//level.setBounds(105,50,60,40);
 	    		}
-	    	}
+	    	}*/
 	    }
 	    
 	    if (card instanceof WizardCard) {
@@ -377,8 +390,67 @@ public class CardPanel extends JPanel {
     							Image.SCALE_DEFAULT)));
     			this.add(cost);
     			cost.setBounds(145,50,50,30);
-    			int costMaxMox = Math.max(wizard.getCostGreenMox(), Math.max(wizard.getCostOrangeMox(),wizard.getCostBlueMox()));
-    			if (wizard.getCostAnyMox() == 0 && costMaxMox == 1) {
+    			Integer costMaxMox = Math.max(wizard.getCostGreenMox(), Math.max(wizard.getCostOrangeMox(),wizard.getCostBlueMox()));
+    			level.setVisible(false);
+    			if (costMaxMox>1) {
+    				JPanel levelPanel = new JPanel();
+		    		levelPanel.setBounds(105,50,60,40);
+		    		levelPanel.setLayout(new FlowLayout(FlowLayout.TRAILING,0,0));
+		    		
+		    		String levelStr = costMaxMox.toString();
+		    		for (int i=0;i<levelStr.length();i++) {
+		    			JLabel labelNumber  = new JLabel();
+		    			img = ImageIO.read(new File("img/costs/gem/" + levelStr.charAt(i) + ".png"));
+		    			labelNumber.setIcon(new ImageIcon(img
+								.getScaledInstance(20,40, 
+										Image.SCALE_DEFAULT)));
+		    			levelPanel.add(labelNumber);
+		    		}
+		    		img = ImageIO.read(new File("img/costs/gem/x.png"));
+		    		JLabel labelX = new JLabel();
+		    		labelX.setIcon(new ImageIcon(img
+							.getScaledInstance(20,40, 
+							Image.SCALE_DEFAULT)));
+		    		level.setVisible(false);
+		    		levelPanel.add(labelX);
+		    		levelPanel.setOpaque(false);
+		    		this.add(levelPanel,0);
+    			}
+    			if (wizard.getCostAnyMox()>0) {
+    				JLabel prismGem = new JLabel();
+    				img = ImageIO.read(new File("img/costs/prism_gem.png"));
+    				prismGem.setIcon(new ImageIcon(img
+        					.getScaledInstance(50,30, 
+        							Image.SCALE_DEFAULT)));
+    				this.add(prismGem,0);
+    				prismGem.setBounds(145,95,50,30);
+    				if (wizard.getCostAnyMox()>1) {
+    					JPanel levelPanel = new JPanel();
+    		    		levelPanel.setBounds(105,100,60,40);
+    		    		levelPanel.setLayout(new FlowLayout(FlowLayout.TRAILING,0,0));
+    		    		
+    		    		String levelStr = wizard.getCostAnyMox().toString();
+    		    		for (int i=0;i<levelStr.length();i++) {
+    		    			JLabel labelNumber  = new JLabel();
+    		    			img = ImageIO.read(new File("img/costs/gem/" + levelStr.charAt(i) + ".png"));
+    		    			labelNumber.setIcon(new ImageIcon(img
+    								.getScaledInstance(20,40, 
+    										Image.SCALE_DEFAULT)));
+    		    			levelPanel.add(labelNumber);
+    		    		}
+    		    		img = ImageIO.read(new File("img/costs/gem/x.png"));
+    		    		JLabel labelX = new JLabel();
+    		    		labelX.setIcon(new ImageIcon(img
+    							.getScaledInstance(20,40, 
+    							Image.SCALE_DEFAULT)));
+    		    		level.setVisible(false);
+    		    		levelPanel.add(labelX);
+    		    		levelPanel.setOpaque(false);
+    		    		this.add(levelPanel,0);
+    				}
+    				
+    			}
+    			/*if (wizard.getCostAnyMox() == 0 && costMaxMox == 1) {
     				level.setVisible(false);
     			}
     			if (wizard.getCostAnyMox() == 0 && costMaxMox>1) {
@@ -392,14 +464,16 @@ public class CardPanel extends JPanel {
     			}
     			level.setBounds(95,40,60,50);
     			level.setFont(font2.deriveFont(Font.BOLD,16f));
-    			level.setForeground(new Color(255,0,0));
+    			level.setForeground(new Color(255,0,0));*/
 	    	}
 	    }
-	    
-	    if (card.getLevel() < 2) {
+	    if (card instanceof UndeadCard) {
+	    	if (card.getLevel() < 1) {
+		    	level.setVisible(false);
+		    }
+	    } else if (card.getLevel() < 2) {
 	    	level.setVisible(false);
 	    }
-	    
 	}
 
 
@@ -489,7 +563,7 @@ public class CardPanel extends JPanel {
 	    JLabel labelBackground = new JLabel("");
 	    putBackGround(card, labelBackground);
 	    JLabel labelAppeareance = new JLabel("");
-	    level = new JLabel(card.getLevel().toString() + "x",SwingConstants.RIGHT);
+	    level = new JLabel(card.getLevel().toString(),SwingConstants.RIGHT);
     	level.setFont(font.deriveFont(28f));
     	this.add(level);
     	level.setBounds(105,50,60,40);
@@ -541,6 +615,9 @@ public class CardPanel extends JPanel {
 	    this.add(beingSacrified);
 	    hp = new JLabel(card.getHp().toString(), SwingConstants.CENTER);
 	    hp.setBounds(150,240,40,50);
+	    if (card instanceof UndeadCard) {
+	    	hp.setBounds(150,220,40,50);
+	    }
 	    hp.setFont(font.deriveFont(40f));
 	    if (card.getHp().toString().length()<2) {
 	    	 hp.setFont(font.deriveFont(48f));
@@ -621,6 +698,9 @@ public class CardPanel extends JPanel {
 			effectPanel = new JPanel();
 			effectPanel.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
 			effectPanel.setBounds(5,200,190,60);
+			if (card.getEffects().stream().allMatch(effect -> effect.getLevel() == null)) {
+				effectPanel.setBounds(5,210,190,50);
+			}
 			effectPanel.setOpaque(false);
 			for (int i=0;i<card.getEffects().size();i++) {
 				//effects[i].setIcon(card.getEffects().get(i).getIcone());
@@ -637,11 +717,11 @@ public class CardPanel extends JPanel {
 					card.getEffects().get(i).setImage(ImageIO.read(new File("img/" + card.getType() + "/effects/" + card.getEffects().get(i).getName() + "_34.png")));
 					if (card.getEffects().get(i).getLevel() != null) {
 						card.getEffects().get(i).setIcone( new ImageIcon(card.getEffects().get(i).getImage()
-								.getScaledInstance(Effect.dimensionIcon,Effect.dimensionIcon, 
+								.getScaledInstance(Effect.dimensionIconWithLevel,Effect.dimensionIconWithLevel, 
 								Image.SCALE_DEFAULT)));
 					} else {
 						card.getEffects().get(i).setIcone( new ImageIcon(card.getEffects().get(i).getImage()
-								.getScaledInstance(Effect.dimensionIconWithLevel,Effect.dimensionIconWithLevel, 
+								.getScaledInstance(Effect.dimensionIcon,Effect.dimensionIcon, 
 								Image.SCALE_DEFAULT)));
 					}
 					
@@ -804,6 +884,16 @@ public class CardPanel extends JPanel {
 
 	public void setBeingSacrified(JLabel beingSacrified) {
 		this.beingSacrified = beingSacrified;
+	}
+
+
+	public EffectPanel[] getEffects2() {
+		return effects2;
+	}
+
+
+	public void setEffects2(EffectPanel[] effects2) {
+		this.effects2 = effects2;
 	}
 	
 	

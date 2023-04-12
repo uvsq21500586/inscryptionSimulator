@@ -266,7 +266,7 @@ public class Duel extends JFrame {
 		sourceDeck2.add(BeastCard.sourceCard(1, new ArrayList<>()));
 		sourceDeck1.add(BeastCard.sourceCard(1, new ArrayList<>()));
 		sourceDeck2.add(BeastCard.sourceCard(1, new ArrayList<>()));
-		List<Effect> effects = new LinkedList<>(Arrays.asList(new Effect("trifurcated_strike","robot"), new Effect("bifurcated_strike","robot"),new Effect("guardian","robot"),new Effect("burrower","robot")));
+		List<Effect> effects = new LinkedList<>(Arrays.asList(new Effect("sprinter_right","robot"), new Effect("bifurcated_strike","robot"),new Effect("guardian","robot"),new Effect("burrower","robot")));
 		List<Effect> effects2 = new LinkedList<>(Arrays.asList(new Effect("corpse_eater","undead",1)));
 		List<Effect> effects3 = new LinkedList<>(Arrays.asList(new Effect("ruby_heart","wizard",1), new Effect("emerald_heart","wizard",1)));
 		List<Effect> effects4 = new ArrayList<>();
@@ -274,7 +274,7 @@ public class Duel extends JFrame {
 		effects4.add(new Effect("loose_tail_right","beast",1));
 		effects4.add(new Effect("sprinter_right","beast"));
 		effects4.add(new Effect("burrower","beast"));
-		mainDeck1.add(RobotCard.mainCard("s0n1a", 1, 1, 1, effects));
+		mainDeck1.add(RobotCard.mainCard("s0n1a", 5, 1, 1, effects));
 		mainDeck1.add(BeastCard.mainCard("kingfisher", "blood", 1, 1, 1, effects4));
 		mainDeck1.add(UndeadCard.mainCard("bone_lord", 1, 1, 1, effects2));
 		//mainDeck1.add(UndeadCard.mainCard("bone_lord", 1, 1, 1, effects2));
@@ -584,8 +584,16 @@ public class Duel extends JFrame {
 			CardPanel copycardPanel = buttonPlaceCard[i].getCardPanel();
 			if (copycardPanel != null) {
 			Card copycard = copycardPanel.getCard();
+			if (copycardPanel.getEffects2() != null) {
+				for (int j=0;j<copycard.getEffects().size();j++) {
+					copycard.getEffects().get(j).inverseDirection(copycardPanel.getEffects2()[j], copycard);
+				}
+			}
 			for (int j=0;j<copycard.getEffects().size();j++) {
-				copycard.getEffects().get(j).inverseDirection(copycardPanel.getEffects()[j], copycard);
+				if (copycardPanel.getEffects2() != null) {
+					
+				}
+				//copycard.getEffects().get(j).inverseDirection(copycardPanel.getEffects()[j], copycard);
 			}
 			}
 		}

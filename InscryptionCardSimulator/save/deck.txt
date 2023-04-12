@@ -1,13 +1,14 @@
 main deck:
-undead;bone_lord;3;3;1;_;_;_;_;_;_;0
-undead;bone_prince;8;1;2;_;_;_;_;_;_;0
-undead;bone_lord;6;1;0;corpse_eater;1;_;_;_;_;0
-undead;bone_lord;6;1;0;corpse_eater;1;_;_;_;_;0
-beast;rabbit_pelt;blood;0;1;0;_;_;_;_;_;_;_;_;0
+beast;sparrow;blood;2;2;2;airborne;_;_;_;_;_;_;_;0
+beast;raven_egg;blood;2;2;1;airborne;_;_;_;_;_;_;_;0
+beast;bloodhound;bone;8;1;1;_;_;_;_;_;_;_;_;0
+beast;raven_egg;blood;2;2;1;airborne;_;_;_;_;_;_;_;0
+beast;magpie;blood;2;2;1;airborne;_;_;_;_;_;_;_;0
+beast;stunted_wolf;blood;1;3;1;_;_;_;_;_;_;_;_;0
 source deck:
-undead;skeleton;0;1;1;brittle;_;_;_;_;_;0
-undead;skeleton;0;1;1;brittle;_;_;_;_;_;0
-undead;skeleton;0;1;1;brittle;_;_;_;_;_;0
-undead;skeleton;0;1;1;brittle;_;_;_;_;_;0
-undead;skeleton;0;1;1;brittle;_;_;_;_;_;0
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
+beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
 fin

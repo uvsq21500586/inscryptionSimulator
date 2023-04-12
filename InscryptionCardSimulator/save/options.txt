@@ -1,18 +1,18 @@
 options:
-typeP1: undead
-moduloP1: 9
-multiplierP1: 2
-global_strenghtP1: 2
+typeP1: beast
+moduloP1: 7
+multiplierP1: 3
+global_strenghtP1: 1
 rarity_strenghtP1: 1
-lifePointsP1: 5
+lifePointsP1: 6
 nbMainCardsP1: 4
 nbSourceCardsP1: 5
 typeP2: beast
-moduloP2: 9
+moduloP2: 13
 multiplierP2: 2
 global_strenghtP2: 2
 rarity_strenghtP2: 1
 lifePointsP2: 5
-nbMainCardsP2: 6
-nbSourceCardsP2: 6
+nbMainCardsP2: 7
+nbSourceCardsP2: 5
 nbSupCardsP2: 0
