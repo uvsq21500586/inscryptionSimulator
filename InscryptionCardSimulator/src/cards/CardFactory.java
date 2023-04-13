@@ -1135,8 +1135,9 @@ public class CardFactory {
 			}
 		}
 		level = 1;
-		nbstats = (2+level)*globalStrengh/4 + levelRarity*rarityStrengh;
-		
+		nbstats = (1+level)*globalStrengh/4 + levelRarity*rarityStrengh;
+		nbstats = nbstats - u%(1+globalStrengh/4);
+		u = (u * multiplicator + 2*levelRarity)%modulo;
 		//effects
 		boolean stopEffects = false;
 		List<Effect> effects = new ArrayList<>();
@@ -1362,8 +1363,9 @@ public class CardFactory {
 	
 	private static WizardCard wizardCardSource(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u, int levelRarity) throws IOException {
 		int nbstats = 0;
-		nbstats = 2 + globalStrengh/8 + levelRarity * rarityStrengh;
-		nbstats = nbstats - u%(1+globalStrengh/8);
+		nbstats = globalStrengh/2 + levelRarity * rarityStrengh;
+		nbstats = nbstats - u%(1+globalStrengh/4);
+		nbstats = Math.max(2, nbstats);
 		u = (u * multiplicator + 2*levelRarity)%modulo;
 		//effects
 		boolean stopEffects = false;

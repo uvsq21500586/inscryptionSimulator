@@ -27,7 +27,9 @@ public class CostCardsControler implements ActionListener,MouseListener {
 		this.costCards = costCards;
 		//menu.getButtonduel().addActionListener(this);
 		for (int i=0;i<costCards.getCostPanels().length;i++) {
-			costCards.getCostPanels()[i].addMouseListener(this);
+			if (costCards.getCostPanels()[i] != null) {
+				costCards.getCostPanels()[i].addMouseListener(this);
+			}
 			//randomCards.getCardsPanelsMainDeck().get(i).addMouseListener(this);
 		}
 		costCards.getButtonValidate().addMouseListener(this);
@@ -112,13 +114,17 @@ public class CostCardsControler implements ActionListener,MouseListener {
 				}
 			}
 			for (int i=0;i<costCards.getCostPanels().length;i++) {
-				costCards.getCostPanels()[i].setEnabled(false);
+				if (costCards.getCostPanels()[i] != null) {
+					costCards.getCostPanels()[i].setEnabled(false);
+				}
+				
 			}
 			costCards.getMenu().getMainDeck1().add(costCards.getResultCard().getCard());
 			costCards.getButtonValidate().setEnabled(true);
 		}
 		
 		if (e.getSource() instanceof JButton) {
+			costCards.getMenu().saveDeck(costCards.getMenu().getMainDeck1(), costCards.getMenu().getSourceDeck1());
 			costCards.dispose();
 		}
 		

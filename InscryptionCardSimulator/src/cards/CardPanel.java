@@ -53,7 +53,11 @@ public class CardPanel extends JPanel {
 	    JLabel labelBackground = new JLabel("");
 	    putBackGround(card, labelBackground);
 	    labelAppeareance = new JLabel("");
-	    level = new JLabel(card.getLevel().toString() + "x", SwingConstants.RIGHT);
+	    if (card instanceof RobotCard) {
+	    	level = new JLabel(card.getLevel().toString() + "x",SwingConstants.RIGHT);
+	    } else {
+	    	level = new JLabel(card.getLevel().toString(),SwingConstants.RIGHT);
+	    }
     	level.setFont(font.deriveFont(28f));
     	this.add(level);
     	level.setBounds(105,50,60,40);
@@ -98,21 +102,30 @@ public class CardPanel extends JPanel {
 	    this.add(selected);
 	    this.add(beingSacrified);
 	    hp = new JLabel(card.getHp().toString(), SwingConstants.CENTER);
-	    hp.setBounds(150,240,40,50);
+	    hp.setBounds(150,235,40,60);
 	    if (card instanceof UndeadCard) {
-	    	hp.setBounds(150,220,40,50);
+	    	hp.setBounds(150,230,40,60);
 	    }
 	    hp.setFont(font.deriveFont(40f));
 	    if (card.getHp().toString().length()<2) {
-	    	 hp.setFont(font.deriveFont(48f));
+	    	if (card instanceof UndeadCard) {
+	    		hp.setFont(font.deriveFont(40f));
+		    } else if (!(card instanceof RobotCard)) {
+		    	hp.setFont(font.deriveFont(56f));
+		    }
+	    	 
 	    }
 	    //hp.setOpaque(true);
 	    this.add(hp);
 	    attack = new JLabel(card.getAttack().toString(), SwingConstants.CENTER);
-	    attack.setBounds(10,220,40,50);
+	    attack.setBounds(10,210,40,60);
 	    attack.setFont(font.deriveFont(40f));
 	    if (card.getAttack().toString().length()<2) {
-	    	attack.setFont(font.deriveFont(48f));
+	    	if (card instanceof UndeadCard) {
+	    		attack.setBounds(10,230,40,60);
+		    } else if (!(card instanceof RobotCard)) {
+		    	attack.setFont(font.deriveFont(56f));
+		    }
 	    }
 	    //attack.setOpaque(true);
 	    this.add(attack);
@@ -563,7 +576,12 @@ public class CardPanel extends JPanel {
 	    JLabel labelBackground = new JLabel("");
 	    putBackGround(card, labelBackground);
 	    JLabel labelAppeareance = new JLabel("");
-	    level = new JLabel(card.getLevel().toString(),SwingConstants.RIGHT);
+	    if (card instanceof RobotCard) {
+	    	level = new JLabel(card.getLevel().toString() + "x",SwingConstants.RIGHT);
+	    } else {
+	    	level = new JLabel(card.getLevel().toString(),SwingConstants.RIGHT);
+	    }
+	    
     	level.setFont(font.deriveFont(28f));
     	this.add(level);
     	level.setBounds(105,50,60,40);
@@ -614,21 +632,30 @@ public class CardPanel extends JPanel {
 	    this.add(selected);
 	    this.add(beingSacrified);
 	    hp = new JLabel(card.getHp().toString(), SwingConstants.CENTER);
-	    hp.setBounds(150,240,40,50);
+	    hp.setBounds(150,235,40,60);
 	    if (card instanceof UndeadCard) {
-	    	hp.setBounds(150,220,40,50);
+	    	hp.setBounds(150,230,40,60);
 	    }
 	    hp.setFont(font.deriveFont(40f));
 	    if (card.getHp().toString().length()<2) {
-	    	 hp.setFont(font.deriveFont(48f));
+	    	if (card instanceof UndeadCard) {
+	    		hp.setFont(font.deriveFont(40f));
+		    } else if (!(card instanceof RobotCard)) {
+		    	hp.setFont(font.deriveFont(56f));
+		    }
+	    	 
 	    }
 	    //hp.setOpaque(true);
 	    this.add(hp);
 	    attack = new JLabel(card.getAttack().toString(), SwingConstants.CENTER);
-	    attack.setBounds(10,220,40,50);
+	    attack.setBounds(10,210,40,60);
 	    attack.setFont(font.deriveFont(40f));
 	    if (card.getAttack().toString().length()<2) {
-	    	attack.setFont(font.deriveFont(48f));
+	    	if (card instanceof UndeadCard) {
+	    		attack.setBounds(10,230,40,60);
+		    } else if (!(card instanceof RobotCard)) {
+		    	attack.setFont(font.deriveFont(56f));
+		    }
 	    }
 	    //attack.setOpaque(true);
 	    this.add(attack);
@@ -730,6 +757,15 @@ public class CardPanel extends JPanel {
 				if (i==0) {
 					if (card.getEffects().size()>1) {
 						effects2[i].setBounds(50,230,55,60);
+						if (card.getEffects().get(i).getLevel() != null) {
+							card.getEffects().get(i).setIcone( new ImageIcon(card.getEffects().get(i).getImage()
+									.getScaledInstance(Effect.dimensionIconWithLevel,Effect.dimensionIconWithLevel, 
+									Image.SCALE_DEFAULT)));
+						} else {
+							card.getEffects().get(i).setIcone( new ImageIcon(card.getEffects().get(i).getImage()
+									.getScaledInstance(Effect.dimensionIcon,Effect.dimensionIcon, 
+									Image.SCALE_DEFAULT)));
+						}
 					} else {
 						if (card.getEffects().get(i).getLevel() != null) {
 							card.getEffects().get(i).setIcone( new ImageIcon(card.getEffects().get(i).getImage()

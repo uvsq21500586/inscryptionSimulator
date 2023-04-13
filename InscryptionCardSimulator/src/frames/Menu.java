@@ -36,14 +36,14 @@ public class Menu extends JFrame {
 	
 	//serie: 19[5(1,1,2)-2(2(+1),1(+0),1(+0))],16[4(2,2,1)-4(2(+1),2(+1),1(+0))],11[1(1,1,1)-4(2(+1),2(+1),1(+0))],4[2(2,1,1)-2(2(+1),1(+0),1(+0))]
 	// 19[5(1,1,2)-2(2(+1),1(+0),1(+0))]
-	//j1: 4-1(4),3[1:1*2blood, 2:12345683, 1:1-0-0](incremented by (nb lifes -1))
+	//j1: 9-1(9),1[1:2*1blood, 1:12345678, 1:1-0-0](incremented by (nb lifes -1))
 	//bonus: 0-0-0
 	//crédits: 0,d0
 	//lifes: 1/1
-	//nb deaths: 1/1
+	//nb deaths: 2/2
 	//malus: dice, lifePoints adv, strenght, cards, cardsup, price pelt:+0
 	//price pelts: 1,2,5
-	//j2: 16-1(16)
+	//j2: 11-1(11)
 	
 	//default parameters
 	private Integer modulo1 = 11;

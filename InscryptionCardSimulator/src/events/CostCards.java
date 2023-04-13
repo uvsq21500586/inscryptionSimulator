@@ -35,42 +35,40 @@ public class CostCards  extends JFrame {
 		JPanel panel = new JPanel(); 
 		panel.setLayout(null);
 		costPanels = new CostPanel[nbChoices];
+		int nbcosts = 0;
 		if (!menu.getTypecards1().equals("wizard")) {
 			String costs[] = new String[nbChoices];
 			Integer levels[] = new Integer[nbChoices];
 			if (menu.getTypecards1().equals("beast")) {
 				for (int i=0;i<nbChoices;i++) {
-					costBeastFactory(costs, levels, i);
-					if (!isNewCost(costs, levels, i)) {
-						i--;
-					} else {
-						costPanels[i] = new CostPanel(costs[i], levels[i]);
-						costPanels[i].setBounds(200*i,0,200,300);
-						panel.add(costPanels[i]);
+					costBeastFactory(costs, levels, nbcosts);
+					if (isNewCost(costs, levels, nbcosts)) {
+						costPanels[nbcosts] = new CostPanel(costs[nbcosts], levels[nbcosts]);
+						costPanels[nbcosts].setBounds(200*nbcosts,0,200,300);
+						panel.add(costPanels[nbcosts]);
+						nbcosts++;
 					}
 				}
 				
 			} else if (menu.getTypecards1().equals("robot")) {
 				for (int i=0;i<nbChoices;i++) {
-					costRobotFactory(costs, levels, i);
-					if (!isNewCost(costs, levels, i)) {
-						i--;
-					} else {
-						costPanels[i] = new CostPanel(costs[i], levels[i]);
-						costPanels[i].setBounds(200*i,0,200,300);
-						panel.add(costPanels[i]);
+					costRobotFactory(costs, levels, nbcosts);
+					if (isNewCost(costs, levels, nbcosts)) {
+						costPanels[nbcosts] = new CostPanel(costs[nbcosts], levels[nbcosts]);
+						costPanels[nbcosts].setBounds(200*nbcosts,0,200,300);
+						panel.add(costPanels[nbcosts]);
+						nbcosts++;
 					}
 				}
 				
 			} else if (menu.getTypecards1().equals("undead")) {
 				for (int i=0;i<nbChoices;i++) {
-					costUndeadFactory(costs, levels, i);
-					if (!isNewCost(costs, levels, i)) {
-						i--;
-					} else {
-						costPanels[i] = new CostPanel(costs[i], levels[i]);
-						costPanels[i].setBounds(200*i,0,200,300);
-						panel.add(costPanels[i]);
+					costUndeadFactory(costs, levels, nbcosts);
+					if (isNewCost(costs, levels, nbcosts)) {
+						costPanels[nbcosts] = new CostPanel(costs[nbcosts], levels[nbcosts]);
+						costPanels[nbcosts].setBounds(200*nbcosts,0,200,300);
+						panel.add(costPanels[nbcosts]);
+						nbcosts++;
 					}
 				}
 				
@@ -117,8 +115,8 @@ public class CostCards  extends JFrame {
 		buttonValidate.setBounds(500,400,100,50);
 		buttonValidate.setEnabled(false);
 		panel.add(buttonValidate);
-		panel.setBounds(0, 0, 200 * cardsPanelsMainDeck.size(), 650);
-		panel.setPreferredSize(new Dimension(200 * cardsPanelsMainDeck.size(), 650));
+		panel.setBounds(0, 0, 200 * costPanels.length, 650);
+		panel.setPreferredSize(new Dimension(200 * costPanels.length, 650));
 		
 		JScrollPane jscrollpane = new JScrollPane(panel);
 		
