@@ -19,7 +19,7 @@ import frames.menubuttons.ButtonToDuel;
 public class SpecialEvents extends JFrame {
 	private String listTypes[] = {"beast", "robot", "undead","wizard"}; 
 	//private String listSpecial[] = {"boulder", "cost", "random", "trapper", "trial", "alter", "backpack", "campfire", "copy", "mycologist", "remove", "totem", "trade"}; 
-	private String listSpecial[] = {"alter", "backpack", "bleach", "boulders", "builddeathcard", "campfire", "copy", "cost", "mycologist", "random", "randomdeathcard", "trader", "trapper", "trial"}; 
+	private String listSpecial[] = {"alter", "bleach", "boulders", "builddeathcard", "campfire", "copy", "cost", "mycologist", "random", "randomsource", "randomdeathcard", "trader", "trapper", "trial"}; 
 	private Menu menu;
 	private JButton buttonSimulation;
 	private JList<String> typeEvent;

@@ -260,7 +260,7 @@ public class Duel extends JFrame {
 		//sourceDeck1.add(WizardCard.sourceCard(1, Arrays.asList(new Effect("orange_gem","wizard",1))));
 		//sourceDeck2.add(WizardCard.sourceCard(1, Arrays.asList(new Effect("orange_gem","wizard",1))));
 		sourceDeck1.add(new UndeadCard("skeleton", 0, 1, 1, Arrays.asList(new Effect("brittle","undead")), 0, false));
-		sourceDeck2.add(new UndeadCard("skeleton", 0, 1, 1, Arrays.asList(new Effect("brittle","undead")), 0, false));
+		sourceDeck2.add(new UndeadCard("skeleton", 0, 1, 2, Arrays.asList(new Effect("brittle","undead")), 0, false));
 		sourceDeck2.add(BeastCard.sourceCard(1, new ArrayList<>()));
 		sourceDeck1.add(BeastCard.sourceCard(1, new ArrayList<>()));
 		sourceDeck2.add(BeastCard.sourceCard(1, new ArrayList<>()));

@@ -56,7 +56,7 @@ public class SpecialEventsControler implements ActionListener,MouseListener {
 					e1.printStackTrace();
 				}
 				
-			} else if (specialEvents.getTypeEvent().getSelectedValue().equals("backpack")) {
+			} else if (specialEvents.getTypeEvent().getSelectedValue().equals("randomsource")) {
 					try {
 						new RandomSourceCards(specialEvents.getMenu(), Integer.parseInt(specialEvents.getParameter().getText()));
 					} catch (IOException e1) {

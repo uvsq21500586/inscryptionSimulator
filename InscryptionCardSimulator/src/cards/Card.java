@@ -860,7 +860,7 @@ public abstract class Card {
 				cardPanel.setFieldPosition(position+1);
 				cardPanel.setBounds(100 + 200 * ((position+1)%4), 10, 200, 300);
 				CardPanel tailPanel = new CardPanel(new BeastCard("tail", "blood", 0, 2, 0, new ArrayList<>(), true));
-				duel.add(tailPanel,0);
+				duel.getPanel().add(tailPanel,0);
 				tailPanel.setPosition("onField");
 				tailPanel.setFieldPosition(position);		
 				tailPanel.addMouseListener(controler);
@@ -881,7 +881,7 @@ public abstract class Card {
 				cardPanel.setFieldPosition(position-1);
 				cardPanel.setBounds(100 + 200 * ((position-1)%4), 10, 200, 300);
 				CardPanel tailPanel = new CardPanel(new BeastCard("tail", "blood", 0, 2, 0, new ArrayList<>(), true));
-				duel.add(tailPanel,0);
+				duel.getPanel().add(tailPanel,0);
 				tailPanel.setPosition("onField");
 				tailPanel.setFieldPosition(position);		
 				tailPanel.addMouseListener(controler);
@@ -899,7 +899,7 @@ public abstract class Card {
 				cardPanel.setFieldPosition(position-1);
 				cardPanel.setBounds(100 + 200 * ((position-1)%4), 10, 200, 300);
 				CardPanel tailPanel = new CardPanel(new BeastCard("tail", "blood", 0, 2, 0, new ArrayList<>(), true));
-				duel.add(tailPanel,0);
+				duel.getPanel().add(tailPanel,0);
 				tailPanel.setPosition("onField");
 				tailPanel.setFieldPosition(position);		
 				tailPanel.addMouseListener(controler);
@@ -919,7 +919,7 @@ public abstract class Card {
 				cardPanel.setFieldPosition(position+1);
 				cardPanel.setBounds(100 + 200 * ((position+1)%4), 10, 200, 300);
 				CardPanel tailPanel = new CardPanel(new BeastCard("tail", "blood", 0, 2, 0, new ArrayList<>(), true));
-				duel.add(tailPanel,0);
+				duel.getPanel().add(tailPanel,0);
 				tailPanel.setPosition("onField");
 				tailPanel.setFieldPosition(position);		
 				tailPanel.addMouseListener(controler);

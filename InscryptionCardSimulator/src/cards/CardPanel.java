@@ -209,18 +209,46 @@ public class CardPanel extends JPanel {
 		    		if (card.getLevel() == 3) {	
 		    			img = ImageIO.read(new File("img/costs/3blood.png"));
 			    		cost.setIcon(new ImageIcon(img
-								.getScaledInstance(50,50, 
+								.getScaledInstance(60,50, 
 								Image.SCALE_DEFAULT)));
+			    		cost.setBounds(135,40,60,50);
 			    		level.setVisible(false);
 		    		}
 					if (card.getLevel() == 4) {
 						img = ImageIO.read(new File("img/costs/4blood.png"));
 			    		cost.setIcon(new ImageIcon(img
-								.getScaledInstance(50,50, 
+								.getScaledInstance(70,50, 
 								Image.SCALE_DEFAULT)));
+			    		cost.setBounds(125,40,70,50);
 			    		level.setVisible(false);
 						
 					}
+					if (card.getLevel() > 4) {	
+			    		JPanel levelPanel = new JPanel();
+			    		levelPanel.setBounds(105,50,60,40);
+			    		levelPanel.setLayout(new FlowLayout(FlowLayout.TRAILING,0,0));
+			    		
+			    		String levelStr = card.getLevel().toString();
+			    		for (int i=0;i<levelStr.length();i++) {
+			    			JLabel labelNumber  = new JLabel();
+			    			img = ImageIO.read(new File("img/costs/blood/" + levelStr.charAt(i) + ".png"));
+			    			labelNumber.setIcon(new ImageIcon(img
+									.getScaledInstance(20,35, 
+											Image.SCALE_DEFAULT)));
+			    			levelPanel.add(labelNumber);
+			    		}
+			    		img = ImageIO.read(new File("img/costs/blood/x.png"));
+			    		JLabel labelX = new JLabel();
+			    		labelX.setIcon(new ImageIcon(img
+								.getScaledInstance(20,35, 
+								Image.SCALE_DEFAULT)));
+			    		level.setVisible(false);
+			    		levelPanel.add(labelX);
+			    		levelPanel.setOpaque(false);
+			    		this.add(levelPanel,0);
+			    		//cost.setBounds(155,50,35,30);
+			    		//level.setBounds(105,50,60,40);
+		    		}
 	    		} else {
 	    			if (card.getLevel() == 2) {
 		    			img = ImageIO.read(new File("img/costs/2bone.png"));
@@ -248,14 +276,14 @@ public class CardPanel extends JPanel {
 			    			JLabel labelNumber  = new JLabel();
 			    			img = ImageIO.read(new File("img/costs/bone/" + levelStr.charAt(i) + ".png"));
 			    			labelNumber.setIcon(new ImageIcon(img
-									.getScaledInstance(20,40, 
+									.getScaledInstance(20,35, 
 											Image.SCALE_DEFAULT)));
 			    			levelPanel.add(labelNumber);
 			    		}
 			    		img = ImageIO.read(new File("img/costs/bone/x.png"));
 			    		JLabel labelX = new JLabel();
 			    		labelX.setIcon(new ImageIcon(img
-								.getScaledInstance(20,40, 
+								.getScaledInstance(20,35, 
 								Image.SCALE_DEFAULT)));
 			    		level.setVisible(false);
 			    		levelPanel.add(labelX);
@@ -306,59 +334,6 @@ public class CardPanel extends JPanel {
 	    		level.setVisible(true);
 	    		level.setFont(font.deriveFont(28f));
 	    	}
-	    	
-	    	/*if (card.getLevel() > 0) {
-	    		cost = new JLabel();
-    			img = ImageIO.read(new File("img/costs/bone.png"));
-    			cost.setIcon(new ImageIcon(img
-    					.getScaledInstance(50,50, 
-    							Image.SCALE_DEFAULT)));
-    			this.add(cost);
-    			cost.setBounds(145,40,50,50);
-    			level.setForeground(new Color(255,255,0));
-    			if (card.getLevel() == 2) {
-	    			img = ImageIO.read(new File("img/costs/2bone.png"));
-		    		cost.setIcon(new ImageIcon(img
-							.getScaledInstance(60,50, 
-							Image.SCALE_DEFAULT)));
-		    		level.setVisible(false);
-		    		cost.setBounds(135,40,60,50);
-	    		}
-	    		if (card.getLevel() == 3) {	
-	    			img = ImageIO.read(new File("img/costs/3bone.png"));
-		    		cost.setIcon(new ImageIcon(img
-							.getScaledInstance(70,50, 
-							Image.SCALE_DEFAULT)));
-		    		level.setVisible(false);
-		    		cost.setBounds(125,40,70,50);
-	    		}
-	    		if (card.getLevel() > 3) {	
-		    		JPanel levelPanel = new JPanel();
-		    		levelPanel.setBounds(105,50,60,40);
-		    		levelPanel.setLayout(new FlowLayout(FlowLayout.TRAILING,0,0));
-		    		
-		    		String levelStr = card.getLevel().toString();
-		    		for (int i=0;i<levelStr.length();i++) {
-		    			JLabel labelNumber  = new JLabel();
-		    			img = ImageIO.read(new File("img/costs/bone/" + levelStr.charAt(i) + ".png"));
-		    			labelNumber.setIcon(new ImageIcon(img
-								.getScaledInstance(20,40, 
-										Image.SCALE_DEFAULT)));
-		    			levelPanel.add(labelNumber);
-		    		}
-		    		img = ImageIO.read(new File("img/costs/bone/x.png"));
-		    		JLabel labelX = new JLabel();
-		    		labelX.setIcon(new ImageIcon(img
-							.getScaledInstance(20,40, 
-							Image.SCALE_DEFAULT)));
-		    		level.setVisible(false);
-		    		levelPanel.add(labelX);
-		    		levelPanel.setOpaque(false);
-		    		this.add(levelPanel,0);
-		    		//cost.setBounds(155,50,35,30);
-		    		//level.setBounds(105,50,60,40);
-	    		}
-	    	}*/
 	    }
 	    
 	    if (card instanceof WizardCard) {
@@ -415,14 +390,14 @@ public class CardPanel extends JPanel {
 		    			JLabel labelNumber  = new JLabel();
 		    			img = ImageIO.read(new File("img/costs/gem/" + levelStr.charAt(i) + ".png"));
 		    			labelNumber.setIcon(new ImageIcon(img
-								.getScaledInstance(20,40, 
+								.getScaledInstance(20,35, 
 										Image.SCALE_DEFAULT)));
 		    			levelPanel.add(labelNumber);
 		    		}
 		    		img = ImageIO.read(new File("img/costs/gem/x.png"));
 		    		JLabel labelX = new JLabel();
 		    		labelX.setIcon(new ImageIcon(img
-							.getScaledInstance(20,40, 
+							.getScaledInstance(20,35, 
 							Image.SCALE_DEFAULT)));
 		    		level.setVisible(false);
 		    		levelPanel.add(labelX);
@@ -447,14 +422,14 @@ public class CardPanel extends JPanel {
     		    			JLabel labelNumber  = new JLabel();
     		    			img = ImageIO.read(new File("img/costs/gem/" + levelStr.charAt(i) + ".png"));
     		    			labelNumber.setIcon(new ImageIcon(img
-    								.getScaledInstance(20,40, 
+    								.getScaledInstance(20,35, 
     										Image.SCALE_DEFAULT)));
     		    			levelPanel.add(labelNumber);
     		    		}
     		    		img = ImageIO.read(new File("img/costs/gem/x.png"));
     		    		JLabel labelX = new JLabel();
     		    		labelX.setIcon(new ImageIcon(img
-    							.getScaledInstance(20,40, 
+    							.getScaledInstance(20,35, 
     							Image.SCALE_DEFAULT)));
     		    		level.setVisible(false);
     		    		levelPanel.add(labelX);
