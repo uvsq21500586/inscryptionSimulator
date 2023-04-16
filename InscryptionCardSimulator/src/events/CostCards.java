@@ -17,6 +17,7 @@ import javax.swing.JScrollPane;
 import cards.Card;
 import cards.CardFactory;
 import cards.CardPanel;
+import effects.Effect;
 import frames.Menu;
 
 public class CostCards  extends JFrame {
@@ -74,6 +75,18 @@ public class CostCards  extends JFrame {
 				
 			}
 			
+		} else {
+			int costs[][] = new int[nbChoices][3];
+			Integer levels[] = new Integer[nbChoices];
+			for (int i=0;i<nbChoices;i++) {
+				costWizardFactory(costs, levels, nbcosts);
+				if (isNewGemCost(costs, levels, nbcosts)) {
+					costPanels[nbcosts] = new CostPanel(costs[nbcosts], levels[nbcosts]);
+					costPanels[nbcosts].setBounds(200*nbcosts,0,200,300);
+					panel.add(costPanels[nbcosts]);
+					nbcosts++;
+				}
+			}
 		}
 		
 		resultCard = new CardPanel();
@@ -129,6 +142,15 @@ public class CostCards  extends JFrame {
 	private boolean isNewCost(String costs[], Integer levels[], int pos) {
 		for (int i=0;i<pos;i++) {
 			if (costs[i].equals(costs[pos]) && levels[i] == levels[pos]) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	private boolean isNewGemCost(int costs[][], Integer levels[], int pos) {
+		for (int i=0;i<pos;i++) {
+			if (costs[i][0] == costs[pos][0] && costs[i][1] == costs[pos][1] && costs[i][2] == costs[pos][2] && levels[i] == levels[pos]) {
 				return false;
 			}
 		}
@@ -202,6 +224,142 @@ public class CostCards  extends JFrame {
 		levels[pos] = 1 + u%(lvlmax);
 		u = (u * multiplier)%modulo;
 		levels[pos] = Math.min(levels[pos], 1 + u%(lvlmax));
+	}
+	
+	private void costWizardFactory(int costs[][], Integer levels[], int pos) {
+		Random r = new Random();
+		int level = 0;
+		int nbAnyMox = 0;
+		int nbGreenMox = 0;
+		int nbOrangeMox = 0;
+		int nbBlueMox = 0;
+		int modulo = menu.getModulo1();
+		int multiplicator = menu.getMultiplier1();
+		int u = r.nextInt(modulo-1)+1;
+		int lvlmax = 1;
+		ArrayList<Integer> integerSeen = new ArrayList<Integer>();
+		while (u%4 == 3 && !integerSeen.contains(u)) {
+			integerSeen.add(u);
+			u = (u * multiplicator)%modulo;
+			lvlmax++;
+		}
+		u = (u * multiplicator)%modulo;
+		level = u%(lvlmax)+1;
+		u = (u * multiplicator)%modulo;
+		
+		if (level == 1) {
+			if (u%3 == 0) {
+				nbGreenMox ++;
+			}
+			if (u%3 == 1) {
+				nbOrangeMox ++;
+			}
+			if (u%3 == 2) {
+				nbBlueMox ++;
+			}
+			u = (u * multiplicator)%modulo;
+		}
+		if (level == 2) {
+			if (u%2 == 0) {
+				//one color
+				u = (u * multiplicator)%modulo;
+				if (u%3 == 0) {
+					nbGreenMox ++;
+					u = (u * multiplicator)%modulo;
+					if (u%2 == 0) {
+						nbAnyMox ++;
+					} else {
+						nbGreenMox ++;
+					}
+				} else if (u%3 == 1) {
+					nbOrangeMox ++;
+					u = (u * multiplicator)%modulo;
+					if (u%2 == 0) {
+						nbAnyMox ++;
+					} else {
+						nbOrangeMox ++;
+					}
+				} else {
+					nbBlueMox ++;
+					u = (u * multiplicator)%modulo;
+					if (u%2 == 0) {
+						nbAnyMox ++;
+					} else {
+						nbBlueMox ++;
+					}
+				}
+			} else {
+				//two colors
+				u = (u * multiplicator)%modulo;
+				if (u%3 == 0) {
+					nbOrangeMox ++;
+					nbBlueMox ++;
+					
+				}
+				if (u%3 == 1) {
+					nbGreenMox ++;
+					nbBlueMox ++;
+				}
+				if (u%3 == 2) {
+					nbGreenMox ++;
+					nbOrangeMox ++;
+				}
+			}
+		}
+		if (level>2) {
+			if (u%3 == 0) {
+				//one color
+				u = (u * multiplicator)%modulo;
+				int colorGem = u%3;
+				u = (u * multiplicator)%modulo;
+				int nbcoloredGem = 1+u%level;
+				nbAnyMox += level - nbcoloredGem;
+				if (colorGem == 0) {
+					nbGreenMox += nbcoloredGem;
+				}
+				if (colorGem == 1) {
+					nbOrangeMox += nbcoloredGem;
+				}
+				if (colorGem == 2) {
+					nbBlueMox += nbcoloredGem;
+				}
+				u = (u * multiplicator)%modulo;
+			} else if (u%3 == 1) {
+				//two colors
+				u = (u * multiplicator)%modulo;
+				int absentColorGem = u%3;
+				u = (u * multiplicator)%modulo;
+				int nbcoloredGem = 1+u%(level/2);
+				nbAnyMox += level - 2 *nbcoloredGem;
+				if (absentColorGem == 0) {
+					nbOrangeMox += nbcoloredGem;
+					nbBlueMox += nbcoloredGem;
+				}
+				if (absentColorGem == 1) {
+					nbGreenMox += nbcoloredGem;
+					nbBlueMox += nbcoloredGem;
+				}
+				if (absentColorGem == 2) {
+					nbGreenMox += nbcoloredGem;
+					nbOrangeMox += nbcoloredGem;
+				}
+				u = (u * multiplicator)%modulo;
+			} else {
+				//all colors
+				u = (u * multiplicator)%modulo;
+				int nbcoloredGem = 1+u%(level/3);
+				nbAnyMox += level - 3 *nbcoloredGem;
+				nbGreenMox += nbcoloredGem;
+				nbOrangeMox += nbcoloredGem;
+				nbBlueMox += nbcoloredGem;
+				u = (u * multiplicator)%modulo;
+			}
+		}
+		
+		costs[pos][0] = nbGreenMox;
+		costs[pos][1] = nbOrangeMox;
+		costs[pos][2] = nbBlueMox;
+		levels[pos] = level;
 	}
 
 	public JButton getButtonValidate() {

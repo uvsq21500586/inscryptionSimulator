@@ -136,6 +136,13 @@ public class BuildDeathCardControler implements ActionListener,MouseListener {
 			int attack = cardHpAndAttack.getAttackBase();
 			List<Effect> effects = cardEffects.getEffects();
 			return new RobotCard("death_" + idDeath, level, hp, attack, effects, 0, true);
+		} else if (cardTypeAndCost instanceof UndeadCard) {
+			UndeadCard undeadcardTypeAndCost = (UndeadCard) cardTypeAndCost;
+			int level = undeadcardTypeAndCost.getLevel();
+			int hp = cardHpAndAttack.getHpBase();
+			int attack = cardHpAndAttack.getAttackBase();
+			List<Effect> effects = cardEffects.getEffects();
+			return new UndeadCard("death_" + idDeath, level, hp, attack, effects, 0, true);
 		}
 		
 		

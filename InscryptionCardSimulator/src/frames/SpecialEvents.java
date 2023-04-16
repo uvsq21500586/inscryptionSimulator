@@ -25,6 +25,7 @@ public class SpecialEvents extends JFrame {
 	private JList<String> typeEvent;
 	private JCheckBox checkBoss = new JCheckBox("boss gift");
 	private JTextArea parameter;
+	private JTextArea parameter2;
 
 	public SpecialEvents() {
 		super("Card simulator");
@@ -54,9 +55,13 @@ public class SpecialEvents extends JFrame {
 		labelType.setFont(font.deriveFont(Font.BOLD,24f));
 		labelType.setForeground(Color.WHITE);
 		parameter = new JTextArea("1");
-		parameter.setBounds(830,50,100,50);
+		parameter.setBounds(830,50,100,40);
 		parameter.setFont(font.deriveFont(Font.BOLD,24f));
 		this.getContentPane().add(parameter);
+		parameter2 = new JTextArea("0");
+		parameter2.setBounds(830,100,100,40);
+		parameter2.setFont(font.deriveFont(Font.BOLD,24f));
+		this.getContentPane().add(parameter2);
 		
 		typeEvent = new JList<String>(listSpecial);
 		typeEvent.setSelectedIndex(0);
@@ -69,11 +74,16 @@ public class SpecialEvents extends JFrame {
 		checkBoss.setOpaque(false);
 		this.getContentPane().add(checkBoss);
 		
-		JLabel labelParameter = new JLabel("parameter: ");
-		labelParameter.setBounds(670,50,150,50);
+		JLabel labelParameter = new JLabel("parameter 1: ");
+		labelParameter.setBounds(620,50,200,50);
 		this.getContentPane().add(labelParameter);
+		JLabel labelParameter2 = new JLabel("parameter 2: ");
+		labelParameter2.setBounds(620,100,200,50);
+		this.getContentPane().add(labelParameter2);
 		labelParameter.setFont(font.deriveFont(Font.BOLD,20f));
 		labelParameter.setForeground(Color.WHITE);
+		labelParameter2.setFont(font.deriveFont(Font.BOLD,20f));
+		labelParameter2.setForeground(Color.WHITE);
 		
 		
 		
@@ -149,6 +159,16 @@ public class SpecialEvents extends JFrame {
 
 	public void setParameter(JTextArea parameter) {
 		this.parameter = parameter;
+	}
+
+
+	public JTextArea getParameter2() {
+		return parameter2;
+	}
+
+
+	public void setParameter2(JTextArea parameter2) {
+		this.parameter2 = parameter2;
 	}
 	
 	

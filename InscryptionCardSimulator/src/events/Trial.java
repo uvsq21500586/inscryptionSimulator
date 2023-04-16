@@ -32,9 +32,10 @@ public class Trial  extends JFrame {
 	private List<String> listTrialBeast = Arrays.asList("health","power", "wisdom", "blood", "bone");
 	private List<String> listTrialRobot = Arrays.asList("health","power", "wisdom", "energy");
 	private List<String> listTrialUndead = Arrays.asList("health","power", "wisdom", "bone");
+	private List<String> listTrialWizard = Arrays.asList("health","power", "wisdom", "green", "orange", "blue", "prism");
 	public final static Map<String, Integer> mapTrialToLevel = buildMapNamesTrialToLevel();
 	
-	public Trial(Menu menu, Integer nbChoices) throws IOException, FontFormatException {
+	public Trial(Menu menu, Integer nbChoices, Integer nbDrawnCardsSup) throws IOException, FontFormatException {
 		super("Trial");
 		this.menu = menu;
 		Random r = new Random();
@@ -83,6 +84,19 @@ public class Trial  extends JFrame {
 				}
 			}
 			
+		} else {
+			String symbols[] = new String[3];
+			for (int i=0;i<3;i++) {
+				int typeId = r.nextInt(listTrialWizard.size());
+				symbols[i] = listTrialWizard.get(typeId);
+				if (!isNewCost(symbols, i)) {
+					i--;
+				} else {
+					trialPanels[i] = new TrialPanel(symbols[i], mapTrialToLevel.get(symbols[i])+Integer.parseInt(menu.getDifficultyP2().getText()));
+					trialPanels[i].setBounds(200*i,0,200,300);
+					panel.add(trialPanels[i]);
+				}
+			}
 		}
 		
 		resultCard = new CardPanel();
@@ -113,7 +127,7 @@ public class Trial  extends JFrame {
 			}
 			
 		}
-		for(int i=0;i<3;i++) {
+		for(int i=0;i<3+nbDrawnCardsSup;i++) {
 			Card card = menu.getMainDeck1().get(r.nextInt( menu.getMainDeck1().size()));
 			if (!drawCardsMainDeck.contains(card)) {
 				drawCardsMainDeck.add(card);
@@ -160,6 +174,10 @@ public class Trial  extends JFrame {
 		trialsToLevel.put("blood",4);
 		trialsToLevel.put("bone",5);
 		trialsToLevel.put("energy",10);
+		trialsToLevel.put("green",3);
+		trialsToLevel.put("orange",3);
+		trialsToLevel.put("blue",3);
+		trialsToLevel.put("prism",2);
 
 		return trialsToLevel;
 	}

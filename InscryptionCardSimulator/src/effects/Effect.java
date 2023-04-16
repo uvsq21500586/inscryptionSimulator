@@ -28,7 +28,7 @@ public class Effect {
 	
 	public final static List<String> namesEffects = Arrays.asList("rabbit_hole","airborne","bee_within","sprinter_right","poison","fledgling","dambuilder","burrower","unkillable","sharp_quills",
 			"hefty_right","guardian","brittle","fecundity","loose_tail_right","corpse_eater","bone_king","mighty_leap","bifurcated_strike","scavenger",
-			"green_gem","orange_gem","blue_gem","familiar","gem_animator","bone_digger","detonator","trifurcated_strike","ruby_heart","emerald_heart");
+			"green_gem","orange_gem","blue_gem","familiar","gem_animator","bone_digger","detonator","trifurcated_strike","ruby_heart","emerald_heart","amorpheous");
 	public final static List<String> namesBeastEffects = Arrays.asList("rabbit_hole","airborne","bee_within","sprinter_right","poison","fledgling","dambuilder","burrower","fecundity","loose_tail_right",
 			"corpse_eater","bone_king");
 	public final static List<String> namesRobotEffects = Arrays.asList("sprinter_right","poison","burrower","unkillable","sharp_quills","hefty_right","guardian","airborne","mighty_leap","bifurcated_strike",
@@ -41,9 +41,9 @@ public class Effect {
 	public final static List<String> namesWizardGreenOrangeEffects = Arrays.asList("green_gem","orange_gem","familiar","gem_animator","ruby_heart","emerald_heart");
 	public final static List<String> namesWizardGreenBlueEffects = Arrays.asList("green_gem","blue_gem","familiar","hoarder","emerald_heart");
 	public final static List<String> namesWizardOrangeBlueEffects = Arrays.asList("orange_gem","blue_gem","familiar","hoarder","gem_animator","ruby_heart");
-	public final static List<String> namesWizardGreenOrangeBlueEffects = Arrays.asList("green_gem","orange_gem","blue_gem","familiar","hoarder","gem_animator","ruby_heart","emerald_heart");
+	public final static List<String> namesWizardGreenOrangeBlueEffects = Arrays.asList("green_gem","orange_gem","blue_gem","familiar","hoarder","gem_animator","ruby_heart","emerald_heart","amorpheous");
 	public final static List<String> namesLevelEffects = Arrays.asList("rabbit_hole","bee_within","poison","fledgling","dambuilder","unkillable","sharp_quills","loose_tail_right","corpse_eater","bone_king",
-			"scavenger","green_gem","orange_gem","blue_gem","hoarder","gem_animator","bone_digger","ruby_heart","emerald_heart");
+			"scavenger","green_gem","orange_gem","blue_gem","hoarder","gem_animator","bone_digger","ruby_heart","emerald_heart","amorpheous");
 	public final static List<String> namesAttackEffects = Arrays.asList("airborne","poison","brittle","bifurcated_strike","scavenger","trifurcated_strike");
 	public final static List<String> namesResourceEffects = Arrays.asList("bone_king","scavenger","green_gem","orange_gem","blue_gem","bone_digger");
 	
@@ -285,6 +285,7 @@ public class Effect {
 		effectsToCost.put("trifurcated_strike",5);
 		effectsToCost.put("ruby_heart",3);
 		effectsToCost.put("emerald_heart",3);
+		effectsToCost.put("amorpheous",3);
 		return effectsToCost;
 	}
 	
@@ -321,6 +322,7 @@ public class Effect {
 		effectsToDescription.put("trifurcated_strike","This card will deal damage to the opposing spaces left, right, and opposite of it.");
 		effectsToDescription.put("ruby_heart","When a card bearing this sigil perishes, a Ruby Mox is created in its place.");
 		effectsToDescription.put("emerald_heart","When a card bearing this sigil perishes, a Emerald Mox is created in its place.");
+		effectsToDescription.put("amorpheous","A card bearing this sigil is drawn, this sigil becomes another random sigil.");
 		return effectsToDescription;
 	}
 

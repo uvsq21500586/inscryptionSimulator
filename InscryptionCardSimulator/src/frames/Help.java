@@ -193,12 +193,6 @@ public class Help extends JFrame {
 					Image.SCALE_DEFAULT)));
 			imgEffectLabel.setBounds(0,100*i,50,50);
 			panel2.add(imgEffectLabel);
-			JLabel backgroundImg = new JLabel(); 
-			backgroundImg.setIcon(new ImageIcon(ImageIO.read(new File("img/black_square.png"))
-					.getScaledInstance(50,50, 
-					Image.SCALE_DEFAULT)));
-			backgroundImg.setBounds(0,100*i,50,50);
-			panel2.add(backgroundImg);
 			JTextArea textEffectLabel = new JTextArea(Effect.mapEffectToDescription.get(Effect.namesUndeadEffects.get(i)));
 			textEffectLabel.setFont(font.deriveFont(Font.BOLD,14f));
 			textEffectLabel.setBounds(50,100*i,1300,95);

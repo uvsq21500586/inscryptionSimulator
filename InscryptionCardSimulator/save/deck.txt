@@ -1,20 +1,13 @@
 main deck:
-beast;bloodhound;blood;1;3;2;_;_;_;_;_;_;_;_;0
-beast;kingfisher;blood;1;1;1;airborne;_;_;_;_;_;_;_;0
-beast;stunted_wolf;bone;5;1;1;_;_;_;_;_;_;_;_;0
-beast;kingfisher;blood;1;3;1;airborne;_;_;_;_;_;_;_;0
-beast;stunted_wolf;bone;5;1;1;_;_;_;_;_;_;_;_;0
-beast;sparrow;blood;2;2;1;airborne;_;_;_;_;_;_;_;0
-beast;kingfisher;blood;2;2;1;airborne;_;_;_;_;_;_;_;0
-beast;death_1;blood;0;1;1;airborne;_;_;_;_;_;_;_;0
-beast;stunted_wolf;bone;5;1;1;_;_;_;_;_;_;_;_;0
-beast;kingfisher;blood;2;2;1;airborne;_;_;_;_;_;_;_;0
+wizard;bignificus;1;1;1;familiar;_;_;_;_;_;_;_;0;0;1;0;0
+wizard;fire_node;1;3;0;_;_;_;_;_;_;_;_;0;0;1;0;0
+wizard;amalgam_wiz;1;1;0;_;_;_;_;_;_;_;_;0;0;1;0;0
+wizard;bignificus;1;1;1;familiar;_;_;_;_;_;_;_;0;0;1;0;0
+wizard;bignificus;1;1;1;familiar;_;_;_;_;_;_;_;0;0;1;0;0
 source deck:
-beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
-beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
-beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
-beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
-beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
-beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
-beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
+wizard;orange_mox;0;1;0;orange_gem;1;_;_;_;_;_;_;0;0;0;0;0
+wizard;orange_mox;0;1;0;orange_gem;1;_;_;_;_;_;_;0;0;0;0;0
+wizard;blue_mox;0;1;0;blue_gem;1;_;_;_;_;_;_;0;0;0;0;0
+wizard;blue_mox;0;1;0;blue_gem;1;_;_;_;_;_;_;0;0;0;0;0
+wizard;green_mox;0;1;0;green_gem;1;_;_;_;_;_;_;0;0;0;0;0
 fin

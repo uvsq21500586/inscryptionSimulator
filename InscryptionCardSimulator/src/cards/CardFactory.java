@@ -18,7 +18,7 @@ public class CardFactory {
 	public static String robotAppearances[] = {"xformerbatbot","s0n1a","xformerporcupinebot","qu177","xformergrizzlybot","gr1zz","bomb_latcher","exeskeleton","shield_latcher","skel_e_latcher",
 			"buff_conduit","gems_conduit"};
 	
-	public static String undeadAppearances[] = {"armored_zombie","bone_lord","bone_lords_horn","bone_pile","bone_prince","dead_hand","dead_pets","draugr","drowned_soul","ember_spirit"};
+	public static String undeadAppearances[] = {"armored_zombie","bone_lord","bone_lords_horn","bone_pile","bone_prince","dead_hand","pharaoh_pets","draugr","drowned_soul","ember_spirit"};
 	
 	public static String wizardAppearances[] = {"alchemist","amalgam_wiz","bignificus","blue_mage","blue_mage_fused","boss_stim_mage","fire_node","flying_mage"};
 	
@@ -880,7 +880,7 @@ public class CardFactory {
 		nbstats = (2*nbAnyMox + 3*(level-nbAnyMox))*globalStrengh/4 + levelRarity*rarityStrengh;
 		nbstats = Math.max(0, nbstats + difficulty);
 		
-		//effects
+		/*//effects
 		boolean stopEffects = false;
 		List<Effect> effects = new ArrayList<>();
 		List<String> sortedeffects = new ArrayList<>();
@@ -1006,9 +1006,188 @@ public class CardFactory {
 		u = (u * multiplicator + 2*levelRarity)%modulo;
 		String appearance = wizardAppearances[u%(wizardAppearances.length)];
 		
-		return new WizardCard(appearance, nbAnyMox, nbGreenMox, nbOrangeMox, nbBlueMox, level, hp, attack, effects, levelRarity, true);
+		return new WizardCard(appearance, nbAnyMox, nbGreenMox, nbOrangeMox, nbBlueMox, level, hp, attack, effects, levelRarity, true);*/
+		
+		return wizardCardFactory(modulo, multiplicator, u, levelRarity, nbstats, listWizardEffects, level,
+				 nbAnyMox, nbGreenMox, nbOrangeMox, nbBlueMox, attackmin);
 		
 	}
+	
+	public static WizardCard wizardCardFixedLevel(int level, int nbAnyMox, int nbGreenMox, int nbOrangeMox, int nbBlueMox,int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u0) throws IOException {
+		int nbstats = 0;
+		int attackmin = 0;
+		int u = u0;
+		
+		int levelRarity = 0;
+		
+		while (u%10 == 9) {
+			u = (u * multiplicator)%modulo;
+			levelRarity++;
+		}
+		u = (u * multiplicator + 2*levelRarity)%modulo;
+		nbstats = (2+level) * globalStrengh / 4 + levelRarity * rarityStrengh;
+		nbstats = nbstats - u%(1+globalStrengh/8);
+		u = (u * multiplicator + 2*levelRarity)%modulo;	
+		List<String> listWizardEffects = new ArrayList<>();
+		
+		if (nbGreenMox>0 && nbOrangeMox==0 && nbBlueMox==0) {
+			listWizardEffects = Effect.namesWizardGreenEffects;
+			
+		}
+		if (nbGreenMox==0 && nbOrangeMox>0 && nbBlueMox==0) {
+			listWizardEffects = Effect.namesWizardOrangeEffects;
+		}
+		if (nbGreenMox==0 && nbOrangeMox==0 && nbBlueMox>0) {
+			listWizardEffects = Effect.namesWizardBlueEffects;
+		}
+		if (nbGreenMox>0 && nbOrangeMox>0 && nbBlueMox==0) {
+			listWizardEffects = Effect.namesWizardGreenOrangeEffects;
+		}
+		if (nbGreenMox>0 && nbOrangeMox==0 && nbBlueMox>0) {
+			listWizardEffects = Effect.namesWizardGreenBlueEffects;
+		}
+		if (nbGreenMox==0 && nbOrangeMox>0 && nbBlueMox>0) {
+			listWizardEffects = Effect.namesWizardOrangeBlueEffects;
+		}
+		if (nbGreenMox==0 && nbOrangeMox==0 && nbBlueMox==0) {
+			listWizardEffects = Effect.namesWizardGreenOrangeBlueEffects;
+		}
+		
+		return wizardCardFactory(modulo, multiplicator, u, levelRarity, nbstats, listWizardEffects, level,
+				 nbAnyMox, nbGreenMox, nbOrangeMox, nbBlueMox, attackmin);
+	}
+	
+	private static WizardCard wizardCardFactory(int modulo, int multiplicator, int u, int levelRarity, int nbstats, List<String> listWizardEffects, int level,
+			 int nbAnyMox, int nbGreenMox, int nbOrangeMox, int nbBlueMox, int attackmin) throws IOException {
+		//effects
+				boolean stopEffects = false;
+				List<Effect> effects = new ArrayList<>();
+				List<String> sortedeffects = new ArrayList<>();
+				
+				//effect1
+				if (u%4>0) {
+					String effectName = listWizardEffects.get(u%(listWizardEffects.size()));
+					if (Effect.mapEffectToCost.get(effectName) > nbstats) {
+						stopEffects = true;
+					} else if (Effect.namesAttackEffects.contains(effectName) && Effect.mapEffectToCost.get(effectName) + 2 > nbstats) {
+						stopEffects = true;
+					} else {
+						sortedeffects.add(effectName);
+						if (Effect.namesLevelEffects.contains(effectName)) {
+							effects.add(new Effect(effectName, "wizard", 1));
+						} else {
+							effects.add(new Effect(effectName, "wizard"));
+						}
+						nbstats -= effects.get(effects.size()-1).getCostStats();
+						if (Effect.namesAttackEffects.contains(effectName)) {
+							attackmin++;
+							nbstats -= 2;
+						}
+					}
+				} else {
+					stopEffects = true;
+				}
+				u = (u * multiplicator + 2*levelRarity)%modulo;
+				
+				//effect2
+				if (!stopEffects) {
+				if (u%4>1) {
+					String effectName = listWizardEffects.get(u%(listWizardEffects.size()));
+					if (Effect.mapEffectToCost.get(effectName) > nbstats || sortedeffects.contains(effectName)) {
+						stopEffects = true;
+					} else if (Effect.namesAttackEffects.contains(effectName) && attackmin == 0 && Effect.mapEffectToCost.get(effectName) + 2 > nbstats) {
+						stopEffects = true;
+					} else {
+						sortedeffects.add(effectName);
+						if (Effect.namesLevelEffects.contains(effectName)) {
+							effects.add(new Effect(effectName, "wizard", 1));
+						} else {
+							effects.add(new Effect(effectName, "wizard"));
+						}
+						nbstats -= effects.get(effects.size()-1).getCostStats();
+						if (Effect.namesAttackEffects.contains(effectName) && attackmin == 0) {
+							attackmin++;
+							nbstats -= 2;
+						}
+					}
+				} else {
+					stopEffects = true;
+				}
+				u = (u * multiplicator + 2*levelRarity)%modulo;
+				}
+				//effect3
+				if (!stopEffects) {
+				if (u%4>2) {
+					String effectName = listWizardEffects.get(u%(listWizardEffects.size()));
+					if (Effect.mapEffectToCost.get(effectName) > nbstats || sortedeffects.contains(effectName)) {
+						stopEffects = true;
+					} else if (Effect.namesAttackEffects.contains(effectName) && attackmin == 0 && Effect.mapEffectToCost.get(effectName) + 2 > nbstats) {
+						stopEffects = true;
+					} else {
+						sortedeffects.add(effectName);
+						if (Effect.namesLevelEffects.contains(effectName)) {
+							effects.add(new Effect(effectName, "wizard", 1));
+						} else {
+							effects.add(new Effect(effectName, "wizard"));
+						}
+						nbstats -= effects.get(effects.size()-1).getCostStats();
+						if (Effect.namesAttackEffects.contains(effectName) && attackmin == 0) {
+							attackmin++;
+							nbstats -= 2;
+						}
+					}
+				} else {
+					stopEffects = true;
+				}
+				u = (u * multiplicator + 2*levelRarity)%modulo;
+				}
+				
+				//levels effects
+						for (int i=0;i<effects.size();i++) {
+							Effect effect = effects.get(i);
+							if (Effect.namesLevelEffects.contains(effect.getName())) {
+								if (Effect.namesResourceEffects.contains(effect.getName())) {
+									int lvlmaxEffect = 1;
+									int lvlmaxMaxEffect = 1 + nbstats/effect.getCostStats();
+									ArrayList<Integer> integerSeen2 = new ArrayList<Integer>();
+									while (u%4 == 3 && !integerSeen2.contains(u) && lvlmaxEffect < lvlmaxMaxEffect) {
+										integerSeen2.add(u);
+										u = (u * multiplicator + 2*levelRarity)%modulo;
+										lvlmaxEffect++;
+									}
+									u = (u * multiplicator + 2*levelRarity)%modulo;
+									int levelEffect = 1 + u%lvlmaxEffect;
+									u = (u * multiplicator + 2*levelRarity)%modulo;
+									nbstats -= (levelEffect-1)*effect.getCostStats();
+									effect.setLevel(levelEffect);
+								} else {
+									int levelEffect = 1 + u%(1+nbstats/effect.getCostStats());
+									u = (u * multiplicator + 2*levelRarity)%modulo;
+									levelEffect = Math.min(levelEffect, 1 + u%(1+nbstats/effect.getCostStats()));
+									u = (u * multiplicator + 2*levelRarity)%modulo;
+									nbstats -= (levelEffect-1)*effect.getCostStats();
+									effect.setLevel(levelEffect);
+								}
+							}
+						}
+				
+				//attack and hp
+				int costAttack = 2;
+				if (effects.stream().anyMatch(effect -> effect.getName().equals("bifurcated_strike"))) {
+					costAttack ++;
+				}
+				if (effects.stream().anyMatch(effect -> effect.getName().equals("trifurcated_strike"))) {
+					costAttack += 2;
+				}
+				int bonusAttack = u%(1+nbstats/costAttack);
+				int attack = attackmin + bonusAttack;
+				int hp = 1 + nbstats - 2*bonusAttack;
+				u = (u * multiplicator + 2*levelRarity)%modulo;
+				String appearance = wizardAppearances[u%(wizardAppearances.length)];
+				
+				return new WizardCard(appearance, nbAnyMox, nbGreenMox, nbOrangeMox, nbBlueMox, level, hp, attack, effects, levelRarity, true);
+	}
+	
 	
 	private static BeastCard beastCardSource(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u, int levelRarity) throws IOException {
 		int nbstats = 0;
@@ -1136,7 +1315,11 @@ public class CardFactory {
 		}
 		level = 1;
 		nbstats = (1+level)*globalStrengh/4 + levelRarity*rarityStrengh;
-		nbstats = nbstats - u%(1+globalStrengh/4);
+		if (level == 1) {
+			nbstats = nbstats - u%(1+globalStrengh/4);
+		} else {
+			nbstats = nbstats - u%(1+globalStrengh/8);
+		}
 		u = (u * multiplicator + 2*levelRarity)%modulo;
 		//effects
 		boolean stopEffects = false;

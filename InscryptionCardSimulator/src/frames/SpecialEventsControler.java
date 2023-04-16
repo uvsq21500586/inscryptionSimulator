@@ -192,7 +192,7 @@ public class SpecialEventsControler implements ActionListener,MouseListener {
 				
 			} else if (specialEvents.getTypeEvent().getSelectedValue().equals("trial")) {
 				try {
-					new Trial(specialEvents.getMenu(), Integer.parseInt(specialEvents.getParameter().getText()));
+					new Trial(specialEvents.getMenu(), Integer.parseInt(specialEvents.getParameter().getText()), Integer.parseInt(specialEvents.getParameter2().getText()));
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

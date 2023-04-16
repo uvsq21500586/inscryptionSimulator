@@ -112,6 +112,38 @@ public class CostCardsControler implements ActionListener,MouseListener {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+			} else if (costCards.getMenu().getTypecards1().equals("wizard")) {
+				try {
+					int prismcost = selectedCost.getLevel() - selectedCost.getGemCosts()[0] - selectedCost.getGemCosts()[1] - selectedCost.getGemCosts()[2];
+					Card card1 = CardFactory.wizardCardFixedLevel(
+							selectedCost.getLevel(),
+							prismcost,
+							selectedCost.getGemCosts()[0],
+							selectedCost.getGemCosts()[1],
+							selectedCost.getGemCosts()[2],
+							costCards.getMenu().getModulo1(),
+							costCards.getMenu().getMultiplier1(),
+							costCards.getMenu().getGlobalStrenght1(),
+							costCards.getMenu().getRarityStrenght1(),
+							r.nextInt(costCards.getMenu().getModulo1()-1)+1);
+					Card card2 = CardFactory.wizardCardFixedLevel(
+							selectedCost.getLevel(),
+							prismcost,
+							selectedCost.getGemCosts()[0],
+							selectedCost.getGemCosts()[1],
+							selectedCost.getGemCosts()[2],
+							costCards.getMenu().getModulo1(),
+							costCards.getMenu().getMultiplier1(),
+							costCards.getMenu().getGlobalStrenght1(),
+							costCards.getMenu().getRarityStrenght1(),
+							r.nextInt(costCards.getMenu().getModulo1()-1)+1);
+					if (card2.getRarity()<card1.getRarity()) card1 = card2;
+					
+					costCards.getResultCard().repaint(card1);
+				} catch (IOException | FontFormatException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 			for (int i=0;i<costCards.getCostPanels().length;i++) {
 				if (costCards.getCostPanels()[i] != null) {
