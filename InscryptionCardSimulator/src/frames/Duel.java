@@ -274,12 +274,14 @@ public class Duel extends JFrame {
 		effects4.add(new Effect("loose_tail_right","beast",1));
 		effects4.add(new Effect("sprinter_right","beast"));
 		effects4.add(new Effect("burrower","beast"));
+		List<Effect> effects5 = new ArrayList<>();
+		effects5.add(new Effect("amorpheous","wizard",1));
 		mainDeck1.add(RobotCard.mainCard("s0n1a", 5, 1, 1, effects));
 		mainDeck1.add(BeastCard.mainCard("kingfisher", "blood", 1, 1, 1, effects4));
-		mainDeck1.add(UndeadCard.mainCard("bone_lord", 1, 1, 1, effects2));
 		//mainDeck1.add(UndeadCard.mainCard("bone_lord", 1, 1, 1, effects2));
-		mainDeck1.add(WizardCard.mainCard("alchemist", 0, 0, 1, 0, 1, 1, 0, Arrays.asList(new Effect("gem_animator","wizard",2))));
-		mainDeck1.add(WizardCard.mainCard("blue_mage", 0, 0, 1, 0, 1, 1, 1, effects3));
+		//mainDeck1.add(UndeadCard.mainCard("bone_lord", 1, 1, 1, effects2));
+		//mainDeck1.add(WizardCard.mainCard("alchemist", 0, 0, 1, 0, 1, 1, 0, Arrays.asList(new Effect("gem_animator","wizard",2))));
+		mainDeck1.add(WizardCard.mainCard("blue_mage", 0, 1, 1, 1, 3, 1, 1, effects5));
 		mainDeck1.add(BeastCard.mainCard("kingfisher", "blood", 1, 1, 1, effects4));
 		mainDeck1.add(BeastCard.mainCard("kingfisher", "blood", 1, 1, 1, Arrays.asList(new Effect("bee_within","beast",1))));
 		mainDeck1.add(BeastCard.mainCard("kingfisher", "bone", 2, 1, 1, new ArrayList<>()));
@@ -297,14 +299,87 @@ public class Duel extends JFrame {
 		handCard1.add(new CardPanel(sourceDeck1.get(0)));
 		//handCard1.add(new CardPanel(sourceDeck1.get(1)));
 		//handCard1.add(new CardPanel(sourceDeck1.get(2)));
+		
+		Card card = mainDeck1.get(0);
+		Optional<Effect> amorpheous = card.getEffects().stream().filter(effect->effect.getName().equals("amorpheous")).findFirst();
+		if (amorpheous.isPresent()) {
+			String nameNewEffect = randomEffectExceptAmorpheous(card);
+			Effect newEffect;
+			if (Effect.namesLevelEffects.contains(nameNewEffect)) {
+				newEffect = new Effect(nameNewEffect, "wizard", amorpheous.get().getLevel());
+			} else {
+				newEffect = new Effect(nameNewEffect, "wizard");
+			}
+			card.getEffects().set(card.getEffects().indexOf(amorpheous.get()), newEffect);
+		}
 		handCard1.add(new CardPanel(mainDeck1.get(0)));
+		card = mainDeck1.get(1);
+		amorpheous = card.getEffects().stream().filter(effect->effect.getName().equals("amorpheous")).findFirst();
+		if (amorpheous.isPresent()) {
+			String nameNewEffect = randomEffectExceptAmorpheous(card);
+			Effect newEffect;
+			if (Effect.namesLevelEffects.contains(nameNewEffect)) {
+				newEffect = new Effect(nameNewEffect, "wizard", amorpheous.get().getLevel());
+			} else {
+				newEffect = new Effect(nameNewEffect, "wizard");
+			}
+			card.getEffects().set(card.getEffects().indexOf(amorpheous.get()), newEffect);
+		}
 		handCard1.add(new CardPanel(mainDeck1.get(1)));
+		card = mainDeck1.get(2);
+		amorpheous = card.getEffects().stream().filter(effect->effect.getName().equals("amorpheous")).findFirst();
+		if (amorpheous.isPresent()) {
+			String nameNewEffect = randomEffectExceptAmorpheous(card);
+			Effect newEffect;
+			if (Effect.namesLevelEffects.contains(nameNewEffect)) {
+				newEffect = new Effect(nameNewEffect, "wizard", amorpheous.get().getLevel());
+			} else {
+				newEffect = new Effect(nameNewEffect, "wizard");
+			}
+			card.getEffects().set(card.getEffects().indexOf(amorpheous.get()), newEffect);
+		}
 		handCard1.add(new CardPanel(mainDeck1.get(2)));
 		//handCard1.add(new CardPanel(mainDeck1.get(1)));
 		handCard2.add(new CardPanel(sourceDeck2.get(0)));
 		handCard2.add(new CardPanel(sourceDeck2.get(1)));
+		card = mainDeck2.get(0);
+		amorpheous = card.getEffects().stream().filter(effect->effect.getName().equals("amorpheous")).findFirst();
+		if (amorpheous.isPresent()) {
+			String nameNewEffect = randomEffectExceptAmorpheous(card);
+			Effect newEffect;
+			if (Effect.namesLevelEffects.contains(nameNewEffect)) {
+				newEffect = new Effect(nameNewEffect, "wizard", amorpheous.get().getLevel());
+			} else {
+				newEffect = new Effect(nameNewEffect, "wizard");
+			}
+			card.getEffects().set(card.getEffects().indexOf(amorpheous.get()), newEffect);
+		}
 		handCard2.add(new CardPanel(mainDeck2.get(0)));
+		card = mainDeck2.get(1);
+		amorpheous = card.getEffects().stream().filter(effect->effect.getName().equals("amorpheous")).findFirst();
+		if (amorpheous.isPresent()) {
+			String nameNewEffect = randomEffectExceptAmorpheous(card);
+			Effect newEffect;
+			if (Effect.namesLevelEffects.contains(nameNewEffect)) {
+				newEffect = new Effect(nameNewEffect, "wizard", amorpheous.get().getLevel());
+			} else {
+				newEffect = new Effect(nameNewEffect, "wizard");
+			}
+			card.getEffects().set(card.getEffects().indexOf(amorpheous.get()), newEffect);
+		}
 		handCard2.add(new CardPanel(mainDeck2.get(1)));
+		card = mainDeck2.get(2);
+		amorpheous = card.getEffects().stream().filter(effect->effect.getName().equals("amorpheous")).findFirst();
+		if (amorpheous.isPresent()) {
+			String nameNewEffect = randomEffectExceptAmorpheous(card);
+			Effect newEffect;
+			if (Effect.namesLevelEffects.contains(nameNewEffect)) {
+				newEffect = new Effect(nameNewEffect, "wizard", amorpheous.get().getLevel());
+			} else {
+				newEffect = new Effect(nameNewEffect, "wizard");
+			}
+			card.getEffects().set(card.getEffects().indexOf(amorpheous.get()), newEffect);
+		}
 		handCard2.add(new CardPanel(mainDeck2.get(2)));
 		mainDeck1.remove(0);
 		mainDeck1.remove(0);
@@ -329,14 +404,45 @@ public class Duel extends JFrame {
 	public void drawMainDeckCard(DuelControler controler) throws IOException, FontFormatException {
 		if (!turnJ2) {
 			Card card = mainDeck1.get(0);
+			Optional<Effect> amorpheous = card.getEffects().stream().filter(effect->effect.getName().equals("amorpheous")).findFirst();
+			if (amorpheous.isPresent()) {
+				String nameNewEffect = randomEffectExceptAmorpheous(card);
+				Effect newEffect;
+				if (Effect.namesLevelEffects.contains(nameNewEffect)) {
+					newEffect = new Effect(nameNewEffect, "wizard", amorpheous.get().getLevel());
+				} else {
+					newEffect = new Effect(nameNewEffect, "wizard");
+				}
+				card.getEffects().set(card.getEffects().indexOf(amorpheous.get()), newEffect);
+			}
 			mainDeck1.remove(0);
 			handCard1.add(new CardPanel(card));
 		} else {
 			Card card = mainDeck2.get(0);
+			Optional<Effect> amorpheous = card.getEffects().stream().filter(effect->effect.getName().equals("amorpheous")).findFirst();
+			if (amorpheous.isPresent()) {
+				String nameNewEffect = randomEffectExceptAmorpheous(card);
+				Effect newEffect;
+				if (Effect.namesLevelEffects.contains(nameNewEffect)) {
+					newEffect = new Effect(nameNewEffect, "wizard", amorpheous.get().getLevel());
+				} else {
+					newEffect = new Effect(nameNewEffect, "wizard");
+				}
+				card.getEffects().set(card.getEffects().indexOf(amorpheous.get()), newEffect);
+			}
 			mainDeck2.remove(0);
 			handCard2.add(new CardPanel(card));
 		}
 		redrawHandCard(controler);
+	}
+	
+	public String randomEffectExceptAmorpheous(Card card) {
+		String nameNewEffect = "";
+		Random r = new Random();
+		do {
+			nameNewEffect = Effect.namesWizardGreenOrangeBlueEffects.get(r.nextInt(Effect.namesWizardGreenOrangeBlueEffects.size()));
+		} while (nameNewEffect.equals("amorpheous"));
+		return nameNewEffect;
 	}
 	
 	public void drawSourceDeckCard(DuelControler controler) throws IOException, FontFormatException {

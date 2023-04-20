@@ -26,14 +26,14 @@ public class Effect {
 	public final static Map<String, Integer> mapEffectToCost = buildMapNamesEffectsToCost();
 	public final static Map<String, String> mapEffectToDescription = buildMapNamesEffectsToDescription();
 	
-	public final static List<String> namesEffects = Arrays.asList("rabbit_hole","airborne","bee_within","sprinter_right","poison","fledgling","dambuilder","burrower","unkillable","sharp_quills",
+	public final static List<String> namesEffects = Arrays.asList("rabbit_hole","airborne","bee_within","sprinter_right","touch_of_death","fledgling","dambuilder","burrower","unkillable","sharp_quills",
 			"hefty_right","guardian","brittle","fecundity","loose_tail_right","corpse_eater","bone_king","mighty_leap","bifurcated_strike","scavenger",
 			"green_gem","orange_gem","blue_gem","familiar","gem_animator","bone_digger","detonator","trifurcated_strike","ruby_heart","emerald_heart","amorpheous");
-	public final static List<String> namesBeastEffects = Arrays.asList("rabbit_hole","airborne","bee_within","sprinter_right","poison","fledgling","dambuilder","burrower","fecundity","loose_tail_right",
+	public final static List<String> namesBeastEffects = Arrays.asList("rabbit_hole","airborne","bee_within","sprinter_right","touch_of_death","fledgling","dambuilder","burrower","fecundity","loose_tail_right",
 			"corpse_eater","bone_king");
-	public final static List<String> namesRobotEffects = Arrays.asList("sprinter_right","poison","burrower","unkillable","sharp_quills","hefty_right","guardian","airborne","mighty_leap","bifurcated_strike",
+	public final static List<String> namesRobotEffects = Arrays.asList("sprinter_right","touch_of_death","burrower","unkillable","sharp_quills","hefty_right","guardian","airborne","mighty_leap","bifurcated_strike",
 			"trifurcated_strike","brittle");
-	public final static List<String> namesUndeadEffects = Arrays.asList("brittle","poison","corpse_eater","bone_king","unkillable","guardian","airborne","scavenger","bone_digger","detonator");
+	public final static List<String> namesUndeadEffects = Arrays.asList("brittle","touch_of_death","corpse_eater","bone_king","unkillable","guardian","airborne","scavenger","bone_digger","detonator");
 	public final static List<String> namesWizardMoxEffects = Arrays.asList("green_gem","orange_gem","blue_gem");
 	public final static List<String> namesWizardGreenEffects = Arrays.asList("green_gem","familiar","emerald_heart");
 	public final static List<String> namesWizardOrangeEffects = Arrays.asList("orange_gem","familiar","gem_animator","ruby_heart");
@@ -42,9 +42,9 @@ public class Effect {
 	public final static List<String> namesWizardGreenBlueEffects = Arrays.asList("green_gem","blue_gem","familiar","hoarder","emerald_heart");
 	public final static List<String> namesWizardOrangeBlueEffects = Arrays.asList("orange_gem","blue_gem","familiar","hoarder","gem_animator","ruby_heart");
 	public final static List<String> namesWizardGreenOrangeBlueEffects = Arrays.asList("green_gem","orange_gem","blue_gem","familiar","hoarder","gem_animator","ruby_heart","emerald_heart","amorpheous");
-	public final static List<String> namesLevelEffects = Arrays.asList("rabbit_hole","bee_within","poison","fledgling","dambuilder","unkillable","sharp_quills","loose_tail_right","corpse_eater","bone_king",
+	public final static List<String> namesLevelEffects = Arrays.asList("rabbit_hole","bee_within","fledgling","dambuilder","unkillable","sharp_quills","loose_tail_right","corpse_eater","bone_king",
 			"scavenger","green_gem","orange_gem","blue_gem","hoarder","gem_animator","bone_digger","ruby_heart","emerald_heart","amorpheous");
-	public final static List<String> namesAttackEffects = Arrays.asList("airborne","poison","brittle","bifurcated_strike","scavenger","trifurcated_strike");
+	public final static List<String> namesAttackEffects = Arrays.asList("airborne","touch_of_death","brittle","bifurcated_strike","scavenger","trifurcated_strike");
 	public final static List<String> namesResourceEffects = Arrays.asList("bone_king","scavenger","green_gem","orange_gem","blue_gem","bone_digger");
 	
 	public final static List<String> namesEffectsTooStrongWithUnkillable = Arrays.asList("corpse_eater","bone_king","bone_digger");
@@ -258,7 +258,7 @@ public class Effect {
 		effectsToCost.put("airborne",0);
 		effectsToCost.put("bee_within",3);
 		effectsToCost.put("sprinter_right",1);
-		effectsToCost.put("poison",4);
+		effectsToCost.put("touch_of_death",4);
 		effectsToCost.put("fledgling",2);
 		effectsToCost.put("dambuilder",3);
 		effectsToCost.put("burrower",1);
@@ -295,7 +295,7 @@ public class Effect {
 		effectsToDescription.put("airborne","This card will ignore opposing cards and strike an opponent directly.");
 		effectsToDescription.put("bee_within","When this card is struck, a Bee is created in your hand. With the level of this effect, the Bee is stronger.");
 		effectsToDescription.put("sprinter_right","At the end of the owner's turn, this card moves in the sigil's direction.");
-		effectsToDescription.put("poison","This card gives poison to any card it damages.\n Each turn, the poisoned card will lose hp (higher level of this effect increase the amount of lost hp per turn).");
+		effectsToDescription.put("touch_of_death","This card kills any card it damages.");
 		effectsToDescription.put("fledgling","After surviving for 1 turn, this card grows into a stronger form (+2 hp and +1 attack per level).");
 		effectsToDescription.put("dambuilder","When this card is played, Dams are created on adjacent empty spaces. Dams are not sacrificiable.");
 		effectsToDescription.put("burrower","This card will move to any empty space that is attacked by an enemy to block it.");
@@ -322,7 +322,7 @@ public class Effect {
 		effectsToDescription.put("trifurcated_strike","This card will deal damage to the opposing spaces left, right, and opposite of it.");
 		effectsToDescription.put("ruby_heart","When a card bearing this sigil perishes, a Ruby Mox is created in its place.");
 		effectsToDescription.put("emerald_heart","When a card bearing this sigil perishes, a Emerald Mox is created in its place.");
-		effectsToDescription.put("amorpheous","A card bearing this sigil is drawn, this sigil becomes another random sigil.");
+		effectsToDescription.put("amorpheous","When a card bearing this sigil is drawn, this sigil becomes another random sigil.");
 		return effectsToDescription;
 	}
 

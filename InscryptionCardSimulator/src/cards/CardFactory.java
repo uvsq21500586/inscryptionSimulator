@@ -527,8 +527,8 @@ public class CardFactory {
 		level = u%(lvlmax)+1;
 		u = (u * multiplicator + 2*levelRarity)%modulo;
 		nbstats = (2+level)*globalStrengh/4 + levelRarity*rarityStrengh;
-		if (level == 6) {
-			System.out.println(nbstats);
+		if (level > 6) {
+			nbstats = (2+level+2*Math.max(0, level-6))*globalStrengh/4 + levelRarity*rarityStrengh;
 		}
 		nbstats = Math.max(0, nbstats + difficulty);
 		return robotCardFactory(modulo, multiplicator, u, levelRarity, nbstats, level, attackmin);

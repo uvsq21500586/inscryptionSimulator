@@ -207,7 +207,7 @@ public abstract class Card {
 			}
 			
 			
-			if (advCard.getHp()<=0) {
+			if (advCard.getHp()<=0 || this.effects.stream().anyMatch(effect ->effect.getName().equals("touch_of_death"))) {
 				Optional<Effect> unkillableEffect = advCard.getEffects().stream().filter(effect -> effect.getName().equals("unkillable")).findFirst();
 				if (unkillableEffect.isPresent()) {
 					advCard.setAttackBase(advCard.getAttackBase() + (unkillableEffect.get().getLevel()-1)/3);
@@ -553,7 +553,7 @@ public abstract class Card {
 				}
 			}
 			
-			if (advCard.getHp()<=0) {
+			if (advCard.getHp()<=0 || this.effects.stream().anyMatch(effect ->effect.getName().equals("touch_of_death"))) {
 				Optional<Effect> unkillableEffect = advCard.getEffects().stream().filter(effect -> effect.getName().equals("unkillable")).findFirst();
 				if (unkillableEffect.isPresent()) {
 					advCard.setAttackBase(advCard.getAttackBase() + (unkillableEffect.get().getLevel()-1)/3);

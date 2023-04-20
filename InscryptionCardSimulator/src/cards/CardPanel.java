@@ -701,7 +701,7 @@ public class CardPanel extends JPanel {
 			effectPanel.setLayout(new FlowLayout(FlowLayout.CENTER,0,0));
 			effectPanel.setBounds(5,200,190,60);
 			if (card.getEffects().stream().allMatch(effect -> effect.getLevel() == null)) {
-				effectPanel.setBounds(5,210,190,50);
+				effectPanel.setBounds(5,205,190,50);
 			}
 			effectPanel.setOpaque(false);
 			for (int i=0;i<card.getEffects().size();i++) {
