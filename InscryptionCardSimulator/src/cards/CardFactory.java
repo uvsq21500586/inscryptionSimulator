@@ -2,6 +2,7 @@ package cards;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -1695,5 +1696,13 @@ public class CardFactory {
 		int hp = 1 + nbstats;
 
 		return WizardCard.sourceCard(hp, effects, levelRarity);
+	}
+	
+	private boolean incompatibleEffect(String effect, String beastType) {
+		if (beastType.equals("canine")) {
+			List<String> incompatibleEffects = Arrays.asList("airborne");
+			return incompatibleEffects.contains(effect);
+		}
+		return false;
 	}
 }

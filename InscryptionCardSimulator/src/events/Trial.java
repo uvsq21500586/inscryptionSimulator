@@ -35,7 +35,7 @@ public class Trial  extends JFrame {
 	private List<String> listTrialWizard = Arrays.asList("health","power", "wisdom", "green", "orange", "blue", "prism");
 	public final static Map<String, Integer> mapTrialToLevel = buildMapNamesTrialToLevel();
 	
-	public Trial(Menu menu, Integer nbChoices, Integer nbDrawnCardsSup) throws IOException, FontFormatException {
+	public Trial(Menu menu, Integer nbChoices, Integer nbDrawnCardsSup, Integer statsBonus) throws IOException, FontFormatException {
 		super("Trial");
 		this.menu = menu;
 		Random r = new Random();
@@ -112,14 +112,14 @@ public class Trial  extends JFrame {
 					menu.getGlobalStrenght1(),
 					menu.getRarityStrenght1(),
 					r.nextInt(menu.getModulo1()-1)+1,
-					menu.getTypecards1(),1,false);
+					menu.getTypecards1(),statsBonus,false);
 			Card card2 = CardFactory.mainCard(
 					menu.getModulo1(),
 					menu.getMultiplier1(),
 					menu.getGlobalStrenght1(),
 					menu.getRarityStrenght1(),
 					r.nextInt(menu.getModulo1()-1)+1,
-					menu.getTypecards1(),1,false);
+					menu.getTypecards1(),statsBonus,false);
 			if (card2.getRarity() < card1.getRarity()) {
 				boosterMain.add(card2);
 			} else {

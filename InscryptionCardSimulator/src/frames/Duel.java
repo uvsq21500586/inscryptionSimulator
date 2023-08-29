@@ -260,7 +260,7 @@ public class Duel extends JFrame {
 		//sourceDeck1.add(WizardCard.sourceCard(1, Arrays.asList(new Effect("orange_gem","wizard",1))));
 		//sourceDeck2.add(WizardCard.sourceCard(1, Arrays.asList(new Effect("orange_gem","wizard",1))));
 		sourceDeck1.add(new UndeadCard("skeleton", 0, 1, 1, Arrays.asList(new Effect("brittle","undead")), 0, false));
-		sourceDeck2.add(new UndeadCard("skeleton", 0, 1, 2, Arrays.asList(new Effect("brittle","undead")), 0, false));
+		sourceDeck2.add(new UndeadCard("skeleton", 0, 1, 1, Arrays.asList(new Effect("brittle","undead")), 0, false));
 		sourceDeck2.add(BeastCard.sourceCard(1, new ArrayList<>()));
 		sourceDeck1.add(BeastCard.sourceCard(1, new ArrayList<>()));
 		sourceDeck2.add(BeastCard.sourceCard(1, new ArrayList<>()));
@@ -272,8 +272,8 @@ public class Duel extends JFrame {
 		List<Effect> effects4 = new ArrayList<>();
 		//List<Effect> effects5 = new LinkedList<>(Arrays.asList(new Effect("corpse_eater","undead",1)));
 		effects4.add(new Effect("loose_tail_right","beast",1));
-		effects4.add(new Effect("sprinter_right","beast"));
-		effects4.add(new Effect("burrower","beast"));
+		//effects4.add(new Effect("sprinter_right","beast"));
+		effects4.add(new Effect("corpse_eater","beast"));
 		List<Effect> effects5 = new ArrayList<>();
 		effects5.add(new Effect("amorpheous","wizard",1));
 		mainDeck1.add(RobotCard.mainCard("s0n1a", 5, 1, 1, effects));

@@ -31,7 +31,7 @@ public class TraderCards  extends JFrame {
 	private JLabel nbPeltsLabel;
 	private int nbPelts;
 	
-	public TraderCards(Menu menu) throws IOException, FontFormatException {
+	public TraderCards(Menu menu, int statsBonus) throws IOException, FontFormatException {
 		super("Trader");
 		this.menu = menu;
 		Random r = new Random();
@@ -68,14 +68,14 @@ public class TraderCards  extends JFrame {
 					menu.getGlobalStrenght1(),
 					menu.getRarityStrenght1(),
 					r.nextInt(menu.getModulo1()-1)+1,
-					menu.getTypecards1(),1,false);
+					menu.getTypecards1(),statsBonus,false);
 			Card card2 = CardFactory.mainCard(
 					menu.getModulo1(),
 					menu.getMultiplier1(),
 					menu.getGlobalStrenght1(),
 					menu.getRarityStrenght1(),
 					r.nextInt(menu.getModulo1()-1)+1,
-					menu.getTypecards1(),1,false);
+					menu.getTypecards1(),statsBonus,false);
 			if (card2.getRarity() < card1.getRarity()) {
 				boosterMain2.add(card2);
 			} else {
@@ -90,14 +90,14 @@ public class TraderCards  extends JFrame {
 					menu.getGlobalStrenght1(),
 					menu.getRarityStrenght1(),
 					r.nextInt(menu.getModulo1()-1)+1,
-					menu.getTypecards1(),2,false);
+					menu.getTypecards1(),2*statsBonus,false);
 			Card card2 = CardFactory.mainCard(
 					menu.getModulo1(),
 					menu.getMultiplier1(),
 					menu.getGlobalStrenght1(),
 					menu.getRarityStrenght1(),
 					r.nextInt(menu.getModulo1()-1)+1,
-					menu.getTypecards1(),2,false);
+					menu.getTypecards1(),2*statsBonus,false);
 			if (card1.getRarity() == 0 || (card2.getRarity()>0 && card2.getRarity() < card1.getRarity())) {
 				boosterMain3.add(card2);
 			} else {

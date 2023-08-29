@@ -61,6 +61,7 @@ public class AlterControler implements ActionListener,MouseListener {
 					alter.getCardToEnhance().repaint(selectedCard.getCard());
 					Card enhancedCard = enhanceCard(selectedCardToSacrifice.getCard(), selectedCard.getCard());
 					alter.getResult().repaint(enhancedCard);
+					alter.getResult().repaint(enhancedCard);
 					alter.getButtonValidate().setEnabled(true);
 					
 				} catch (IOException | FontFormatException e1) {

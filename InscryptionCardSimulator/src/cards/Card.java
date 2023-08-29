@@ -933,7 +933,7 @@ public abstract class Card {
 				}
 			}
 		}
-		cardPanel.redrawEffects();
+		cardPanel.repaint(cardPanel.getCard());
 	}
 	
 	public void corpse_eaterEffectP1(Duel duel, ButtonPlaceCard buttonPlaceCard[], DuelControler controler, int position) {

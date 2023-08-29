@@ -26,6 +26,7 @@ public class SpecialEvents extends JFrame {
 	private JCheckBox checkBoss = new JCheckBox("boss gift");
 	private JTextArea parameter;
 	private JTextArea parameter2;
+	private JTextArea statsBonus;
 
 	public SpecialEvents() {
 		super("Card simulator");
@@ -63,6 +64,11 @@ public class SpecialEvents extends JFrame {
 		parameter2.setFont(font.deriveFont(Font.BOLD,24f));
 		this.getContentPane().add(parameter2);
 		
+		statsBonus = new JTextArea("1");
+		statsBonus.setBounds(830,150,100,40);
+		statsBonus.setFont(font.deriveFont(Font.BOLD,24f));
+		this.getContentPane().add(statsBonus);
+		
 		typeEvent = new JList<String>(listSpecial);
 		typeEvent.setSelectedIndex(0);
 		System.out.println(typeEvent.getSelectedValue());
@@ -80,10 +86,15 @@ public class SpecialEvents extends JFrame {
 		JLabel labelParameter2 = new JLabel("parameter 2: ");
 		labelParameter2.setBounds(620,100,200,50);
 		this.getContentPane().add(labelParameter2);
+		JLabel labelParameter3 = new JLabel("stats bonus: ");
+		labelParameter3.setBounds(620,150,200,50);
+		this.getContentPane().add(labelParameter3);
 		labelParameter.setFont(font.deriveFont(Font.BOLD,20f));
 		labelParameter.setForeground(Color.WHITE);
 		labelParameter2.setFont(font.deriveFont(Font.BOLD,20f));
 		labelParameter2.setForeground(Color.WHITE);
+		labelParameter3.setFont(font.deriveFont(Font.BOLD,20f));
+		labelParameter3.setForeground(Color.WHITE);
 		
 		
 		
@@ -170,6 +181,18 @@ public class SpecialEvents extends JFrame {
 	public void setParameter2(JTextArea parameter2) {
 		this.parameter2 = parameter2;
 	}
+
+
+	public JTextArea getStatsBonus() {
+		return statsBonus;
+	}
+
+
+	public void setStatsBonus(JTextArea statsBonus) {
+		this.statsBonus = statsBonus;
+	}
+	
+	
 	
 	
 
