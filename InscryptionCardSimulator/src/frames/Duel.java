@@ -271,7 +271,7 @@ public class Duel extends JFrame {
 		List<Effect> effects3 = new LinkedList<>(Arrays.asList(new Effect("ruby_heart","wizard",1), new Effect("emerald_heart","wizard",1)));
 		List<Effect> effects4 = new ArrayList<>();
 		//List<Effect> effects5 = new LinkedList<>(Arrays.asList(new Effect("corpse_eater","undead",1)));
-		effects4.add(new Effect("loose_tail_right","beast",1));
+		effects4.add(new Effect("rabbit_hole","beast",1));
 		//effects4.add(new Effect("sprinter_right","beast"));
 		effects4.add(new Effect("corpse_eater","beast"));
 		List<Effect> effects5 = new ArrayList<>();

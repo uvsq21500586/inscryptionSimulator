@@ -1,10 +1,8 @@
 main deck:
-beast;kingfisher;blood;1;1;1;airborne;_;_;_;_;_;_;_;0
-beast;sparrow;blood;2;2;2;airborne;_;_;_;_;_;_;_;0
-beast;wolf;blood;1;1;1;_;_;_;_;_;_;_;_;0
-beast;stunted_wolf;bone;5;1;1;_;_;_;_;_;_;_;_;0
-beast;kingfisher;blood;1;1;2;airborne;_;_;_;_;_;_;_;0
-beast;sparrow;bone;3;1;1;airborne;_;burrower;_;_;_;_;_;0
+beast;raven;blood;2;1;1;airborne;_;sprinter_right;_;_;_;_;_;0
+beast;magpie;blood;3;4;1;airborne;_;_;_;_;_;_;_;0
+beast;wolf_cub;blood;3;1;1;corpse_eater;1;_;_;_;_;_;_;0
+beast;magpie;blood;3;4;1;airborne;_;_;_;_;_;_;_;0
 source deck:
 beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
 beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0

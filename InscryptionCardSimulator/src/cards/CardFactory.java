@@ -11,6 +11,8 @@ import effects.Effect;
 public class CardFactory {
 	public static String beastAppearances[] = {"kingfisher", "raven_egg", "sparrow", "magpie", "raven", "turkey_vulture", "stunted_wolf","wolf_cub","bloodhound","dire_wolf",
 			"wolf","coyote"};
+	public static String beast_tribe[] = {"feathered", "feathered", "feathered", "feathered", "feathered", "feathered", "canine","canine","canine","canine",
+			"canine","canine"};
 	
 	public static String beastFeatheredAppearances[] = {"kingfisher", "raven_egg", "sparrow", "magpie", "raven", "turkey_vulture"};
 	public static String beastCanineAppearances[] = {"stunted_wolf","wolf_cub","bloodhound","dire_wolf",
@@ -21,7 +23,14 @@ public class CardFactory {
 	
 	public static String undeadAppearances[] = {"armored_zombie","bone_lord","bone_lords_horn","bone_pile","bone_prince","dead_hand","pharaoh_pets","draugr","drowned_soul","ember_spirit"};
 	
-	public static String wizardAppearances[] = {"alchemist","amalgam_wiz","bignificus","blue_mage","blue_mage_fused","boss_stim_mage","fire_node","flying_mage"};
+	//public static String wizardAppearances[] = {"alchemist","amalgam_wiz","bignificus","blue_mage","blue_mage_fused","boss_stim_mage","fire_node","flying_mage"};
+	public static String GwizardAppearances[] = {"alchemist","amalgam_wiz","bignificus","boss_stim_mage","fire_node","flying_mage"};
+	public static String OwizardAppearances[] = {"alchemist","amalgam_wiz","bignificus","boss_stim_mage","fire_node","flying_mage"};
+	public static String BwizardAppearances[] = {"alchemist","amalgam_wiz","bignificus","blue_mage","blue_mage_fused","boss_stim_mage","fire_node","flying_mage"};
+	public static String GOwizardAppearances[] = {"alchemist","amalgam_wiz","bignificus","boss_stim_mage","fire_node","flying_mage"};
+	public static String GBwizardAppearances[] = {"alchemist","amalgam_wiz","bignificus","boss_stim_mage","fire_node","flying_mage"};
+	public static String OBwizardAppearances[] = {"alchemist","amalgam_wiz","bignificus","boss_stim_mage","fire_node","flying_mage"};
+	public static String GOBwizardAppearances[] = {"alchemist","amalgam_wiz","bignificus","boss_stim_mage","fire_node","flying_mage"};
 	
 	public static Card mainCard(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u0, String type) throws IOException {
 		int u = u0;
@@ -168,12 +177,8 @@ public class CardFactory {
 		boolean stopEffects = false;
 		List<Effect> effects = new ArrayList<>();
 		List<String> sortedeffects = new ArrayList<>();
-		String tribe = "";
-		if (u%2==0) {
-			tribe = "feathered";
-		}else if (u%2==1) {
-			tribe = "canine";
-		}
+		String appearance = beastAppearances[u%(beastAppearances.length)];
+		String tribe = beast_tribe[u%(beastAppearances.length)];
 		u = (u * multiplicator + 2*levelRarity)%modulo;
 		
 		if (tribe.equals("feathered") || tribe.equals("canine")) {
@@ -303,14 +308,6 @@ public class CardFactory {
 		int attack = attackmin + bonusAttack;
 		int hp = 1 + nbstats - 2*bonusAttack;
 		u = (u * multiplicator + 2*levelRarity)%modulo;
-		
-		String appearance = beastAppearances[u%(beastAppearances.length)];
-		if (tribe.equals("feathered"))  {
-			appearance = beastFeatheredAppearances[u%(beastFeatheredAppearances.length)];
-		}
-		if (tribe.equals("canine"))  {
-			appearance = beastCanineAppearances[u%(beastCanineAppearances.length)];
-		}
 		
 		return new BeastCard(appearance, typeCost, level, hp, attack, effects, levelRarity, true);
 	}
@@ -1184,7 +1181,29 @@ public class CardFactory {
 				int attack = attackmin + bonusAttack;
 				int hp = 1 + nbstats - 2*bonusAttack;
 				u = (u * multiplicator + 2*levelRarity)%modulo;
-				String appearance = wizardAppearances[u%(wizardAppearances.length)];
+				String appearance = "";
+				if (nbGreenMox>0 && nbOrangeMox==0 && nbBlueMox==0) {
+					appearance = GwizardAppearances[u%(GwizardAppearances.length)];
+				}
+				else if (nbGreenMox==0 && nbOrangeMox>0 && nbBlueMox==0) {
+					appearance = OwizardAppearances[u%(OwizardAppearances.length)];
+				}
+				else if (nbGreenMox==0 && nbOrangeMox==0 && nbBlueMox>0) {
+					appearance = BwizardAppearances[u%(BwizardAppearances.length)];
+				}
+				else if (nbGreenMox>0 && nbOrangeMox>0 && nbBlueMox==0) {
+					appearance = GOwizardAppearances[u%(GOwizardAppearances.length)];
+				}
+				else if (nbGreenMox>0 && nbOrangeMox==0 && nbBlueMox>0) {
+					appearance = GBwizardAppearances[u%(GBwizardAppearances.length)];
+				}
+				else if (nbGreenMox==0 && nbOrangeMox>0 && nbBlueMox>0) {
+					appearance = OBwizardAppearances[u%(OBwizardAppearances.length)];
+				} else {
+					appearance = GOBwizardAppearances[u%(GOBwizardAppearances.length)];
+				}
+				
+				//String appearance = wizardAppearances[u%(wizardAppearances.length)];
 				
 				return new WizardCard(appearance, nbAnyMox, nbGreenMox, nbOrangeMox, nbBlueMox, level, hp, attack, effects, levelRarity, true);
 	}
