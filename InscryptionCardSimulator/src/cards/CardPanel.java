@@ -758,9 +758,27 @@ public class CardPanel extends JPanel {
 				}
 				if (i==1) {
 					effects2[i].setBounds(100,210,55,60);
+					if (card.getEffects().get(i).getLevel() != null) {
+						card.getEffects().get(i).setIcone( new ImageIcon(card.getEffects().get(i).getImage()
+								.getScaledInstance(Effect.dimensionIconWithLevel,Effect.dimensionIconWithLevel, 
+								Image.SCALE_DEFAULT)));
+					} else {
+						card.getEffects().get(i).setIcone( new ImageIcon(card.getEffects().get(i).getImage()
+								.getScaledInstance(Effect.dimensionIcon,Effect.dimensionIcon, 
+								Image.SCALE_DEFAULT)));
+					}
 				}
 				if (i==2) {
 					effects2[i].setBounds(5,90,55,50);
+					if (card.getEffects().get(i).getLevel() != null) {
+						card.getEffects().get(i).setIcone( new ImageIcon(card.getEffects().get(i).getImage()
+								.getScaledInstance(Effect.dimensionIconWithLevel,Effect.dimensionIconWithLevel, 
+								Image.SCALE_DEFAULT)));
+					} else {
+						card.getEffects().get(i).setIcone( new ImageIcon(card.getEffects().get(i).getImage()
+								.getScaledInstance(Effect.dimensionIcon,Effect.dimensionIcon, 
+								Image.SCALE_DEFAULT)));
+					}
 					effects2[i].setOpaque(true);
 					effects2[i].setBackground(new Color(0,0,0));
 					if (effects2[i].getLevel() != null) {
@@ -769,6 +787,15 @@ public class CardPanel extends JPanel {
 				}
 				if (i==3) {
 					effects2[i].setBounds(5,140,55,50);
+					if (card.getEffects().get(i).getLevel() != null) {
+						card.getEffects().get(i).setIcone( new ImageIcon(card.getEffects().get(i).getImage()
+								.getScaledInstance(Effect.dimensionIconWithLevel,Effect.dimensionIconWithLevel, 
+								Image.SCALE_DEFAULT)));
+					} else {
+						card.getEffects().get(i).setIcone( new ImageIcon(card.getEffects().get(i).getImage()
+								.getScaledInstance(Effect.dimensionIcon,Effect.dimensionIcon, 
+								Image.SCALE_DEFAULT)));
+					}
 					effects2[i].setOpaque(true);
 					effects2[i].setBackground(new Color(0,0,0));
 					if (effects2[i].getLevel() != null) {

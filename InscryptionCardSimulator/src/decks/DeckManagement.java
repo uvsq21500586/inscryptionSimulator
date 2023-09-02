@@ -258,7 +258,7 @@ public class DeckManagement {
 				int cost = effect.getCostStats();
 				if (Effect.namesLevelEffects.contains(effect.getName())) {
 					cost = cost * effect.getLevel();
-					if (card.getEffects().get(j).getName().equals("fledgling") || card.getEffects().get(j).getName().equals("hoarder")) {
+					if (card.getEffects().get(j).getName().equals("fledgling") || card.getEffects().get(j).getName().equals("draw_card")) {
 						cost = cost + effect.getLevel();
 					}
 				}

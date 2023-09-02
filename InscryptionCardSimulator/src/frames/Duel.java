@@ -254,12 +254,12 @@ public class Duel extends JFrame {
 	}
 	
 	private void buildDecks() throws IOException {
-		//sourceDeck1.add(WizardCard.sourceCard(1, Arrays.asList(new Effect("orange_gem","wizard",1))));
+		sourceDeck1.add(WizardCard.sourceCard(1, Arrays.asList(new Effect("blue_gem","wizard",1))));
 		//sourceDeck1.add(UndeadCard.sourceCard(1, 1, Arrays.asList(new Effect("brittle","undead"))));
 		//sourceDeck1.add(WizardCard.sourceCard(1, Arrays.asList(new Effect("orange_gem","wizard",1))));
 		//sourceDeck1.add(WizardCard.sourceCard(1, Arrays.asList(new Effect("orange_gem","wizard",1))));
 		//sourceDeck2.add(WizardCard.sourceCard(1, Arrays.asList(new Effect("orange_gem","wizard",1))));
-		sourceDeck1.add(new UndeadCard("skeleton", 0, 1, 1, Arrays.asList(new Effect("brittle","undead")), 0, false));
+		//sourceDeck1.add(new UndeadCard("skeleton", 0, 1, 1, Arrays.asList(new Effect("brittle","undead")), 0, false));
 		sourceDeck2.add(new UndeadCard("skeleton", 0, 1, 1, Arrays.asList(new Effect("brittle","undead")), 0, false));
 		sourceDeck2.add(BeastCard.sourceCard(1, new ArrayList<>()));
 		sourceDeck1.add(BeastCard.sourceCard(1, new ArrayList<>()));
@@ -275,13 +275,13 @@ public class Duel extends JFrame {
 		//effects4.add(new Effect("sprinter_right","beast"));
 		effects4.add(new Effect("corpse_eater","beast"));
 		List<Effect> effects5 = new ArrayList<>();
-		effects5.add(new Effect("amorpheous","wizard",1));
+		effects5.add(new Effect("draw_card","wizard",1));
 		mainDeck1.add(RobotCard.mainCard("s0n1a", 5, 1, 1, effects));
 		mainDeck1.add(BeastCard.mainCard("kingfisher", "blood", 1, 1, 1, effects4));
 		//mainDeck1.add(UndeadCard.mainCard("bone_lord", 1, 1, 1, effects2));
 		//mainDeck1.add(UndeadCard.mainCard("bone_lord", 1, 1, 1, effects2));
 		//mainDeck1.add(WizardCard.mainCard("alchemist", 0, 0, 1, 0, 1, 1, 0, Arrays.asList(new Effect("gem_animator","wizard",2))));
-		mainDeck1.add(WizardCard.mainCard("blue_mage", 0, 1, 1, 1, 3, 1, 1, effects5));
+		mainDeck1.add(WizardCard.mainCard("blue_mage", 0, 0, 0, 1, 1, 1, 1, effects5));
 		mainDeck1.add(BeastCard.mainCard("kingfisher", "blood", 1, 1, 1, effects4));
 		mainDeck1.add(BeastCard.mainCard("kingfisher", "blood", 1, 1, 1, Arrays.asList(new Effect("bee_within","beast",1))));
 		mainDeck1.add(BeastCard.mainCard("kingfisher", "bone", 2, 1, 1, new ArrayList<>()));

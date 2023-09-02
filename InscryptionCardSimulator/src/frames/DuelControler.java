@@ -314,7 +314,7 @@ public class DuelControler implements ActionListener,MouseListener {
 					duel.getBonePileCount().setText(": " + duel.getBoneP2());
 				}
 			}
-			Optional<Effect> hoarder = cardSelected.getCard().getEffects().stream().filter(effect -> effect.getName().equals("hoarder")).findFirst();
+			Optional<Effect> hoarder = cardSelected.getCard().getEffects().stream().filter(effect -> effect.getName().equals("draw_card")).findFirst();
 			if (hoarder.isPresent()) {
 				if (!duel.isTurnJ2()) {
 					for (int i=0;i<hoarder.get().getLevel();i++) {

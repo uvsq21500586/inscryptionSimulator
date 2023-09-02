@@ -24,13 +24,13 @@ public class CardFactory {
 	public static String undeadAppearances[] = {"armored_zombie","bone_lord","bone_lords_horn","bone_pile","bone_prince","dead_hand","pharaoh_pets","draugr","drowned_soul","ember_spirit"};
 	
 	//public static String wizardAppearances[] = {"alchemist","amalgam_wiz","bignificus","blue_mage","blue_mage_fused","boss_stim_mage","fire_node","flying_mage"};
-	public static String GwizardAppearances[] = {"alchemist","amalgam_wiz","bignificus","boss_stim_mage","fire_node","flying_mage"};
-	public static String OwizardAppearances[] = {"alchemist","amalgam_wiz","bignificus","boss_stim_mage","fire_node","flying_mage"};
+	public static String GwizardAppearances[] = {"alchemist","amalgam_wiz","bignificus","boss_stim_mage","fire_node"};
+	public static String OwizardAppearances[] = {"alchemist","amalgam_wiz","bignificus","fire_node"};
 	public static String BwizardAppearances[] = {"alchemist","amalgam_wiz","bignificus","blue_mage","blue_mage_fused","boss_stim_mage","fire_node","flying_mage"};
-	public static String GOwizardAppearances[] = {"alchemist","amalgam_wiz","bignificus","boss_stim_mage","fire_node","flying_mage"};
+	public static String GOwizardAppearances[] = {"alchemist","amalgam_wiz","bignificus","fire_node"};
 	public static String GBwizardAppearances[] = {"alchemist","amalgam_wiz","bignificus","boss_stim_mage","fire_node","flying_mage"};
-	public static String OBwizardAppearances[] = {"alchemist","amalgam_wiz","bignificus","boss_stim_mage","fire_node","flying_mage"};
-	public static String GOBwizardAppearances[] = {"alchemist","amalgam_wiz","bignificus","boss_stim_mage","fire_node","flying_mage"};
+	public static String OBwizardAppearances[] = {"alchemist","amalgam_wiz","bignificus","fire_node","flying_mage"};
+	public static String GOBwizardAppearances[] = {"alchemist","amalgam_wiz","bignificus","fire_node","flying_mage"};
 	
 	public static Card mainCard(int modulo, int multiplicator, int globalStrengh, int rarityStrengh, int u0, String type) throws IOException {
 		int u = u0;
@@ -193,7 +193,7 @@ public class CardFactory {
 			effects.add(new Effect("airborne", "beast"));
 		} else if (u%4>0) {
 			String effectName = Effect.namesBeastEffects.get(u%(Effect.namesBeastEffects.size()));
-			if (Effect.mapEffectToCost.get(effectName) > nbstats) {
+			if (Effect.mapEffectToCost.get(effectName) > nbstats || incompatibleEffect(effectName, tribe)) {
 				stopEffects = true;
 			} else if (Effect.namesAttackEffects.contains(effectName) && Effect.mapEffectToCost.get(effectName) + 2 > nbstats) {
 				stopEffects = true;
@@ -219,7 +219,7 @@ public class CardFactory {
 		if (!stopEffects) {
 		if (u%4>1) {
 			String effectName = Effect.namesBeastEffects.get(u%(Effect.namesBeastEffects.size()));
-			if (Effect.mapEffectToCost.get(effectName) > nbstats || sortedeffects.contains(effectName)) {
+			if (Effect.mapEffectToCost.get(effectName) > nbstats || sortedeffects.contains(effectName)|| incompatibleEffect(effectName, tribe)) {
 				stopEffects = true;
 			} else if (Effect.namesAttackEffects.contains(effectName) && attackmin == 0 && Effect.mapEffectToCost.get(effectName) + 2 > nbstats) {
 				stopEffects = true;
@@ -245,7 +245,7 @@ public class CardFactory {
 		if (!stopEffects) {
 		if (u%4>2) {
 			String effectName = Effect.namesBeastEffects.get(u%(Effect.namesBeastEffects.size()));
-			if (Effect.mapEffectToCost.get(effectName) > nbstats || sortedeffects.contains(effectName)) {
+			if (Effect.mapEffectToCost.get(effectName) > nbstats || sortedeffects.contains(effectName) || incompatibleEffect(effectName, tribe)) {
 				stopEffects = true;
 			} else if (Effect.namesAttackEffects.contains(effectName) && attackmin == 0 && Effect.mapEffectToCost.get(effectName) + 2 > nbstats) {
 				stopEffects = true;
@@ -1717,7 +1717,7 @@ public class CardFactory {
 		return WizardCard.sourceCard(hp, effects, levelRarity);
 	}
 	
-	private boolean incompatibleEffect(String effect, String beastType) {
+	private static boolean incompatibleEffect(String effect, String beastType) {
 		if (beastType.equals("canine")) {
 			List<String> incompatibleEffects = Arrays.asList("airborne");
 			return incompatibleEffects.contains(effect);
