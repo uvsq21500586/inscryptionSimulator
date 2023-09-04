@@ -176,9 +176,16 @@ public class Effect {
 						.getScaledInstance(dimensionIcon,dimensionIcon, 
 								Image.SCALE_DEFAULT));
 			} else {
-				icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
-						.getScaledInstance(dimensionIconRobot,dimensionIconRobot, 
-								Image.SCALE_DEFAULT));
+				if (card.getEffects().size()>1) {
+					icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+							.getScaledInstance(dimensionIconRobot,dimensionIconRobot, 
+									Image.SCALE_DEFAULT));
+				} else {
+					icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+							.getScaledInstance(dimensionIconRobot+25,dimensionIconRobot+25, 
+									Image.SCALE_DEFAULT));
+				}
+				
 			}
 			
 			effectpanel.setIconToEffectIcon(icone);
@@ -189,9 +196,15 @@ public class Effect {
 						.getScaledInstance(dimensionIcon,dimensionIcon, 
 								Image.SCALE_DEFAULT));
 			} else {
-				icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
-						.getScaledInstance(dimensionIconRobot,dimensionIconRobot, 
-								Image.SCALE_DEFAULT));
+				if (card.getEffects().size()>1) {
+					icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+							.getScaledInstance(dimensionIconRobot,dimensionIconRobot, 
+									Image.SCALE_DEFAULT));
+				} else {
+					icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+							.getScaledInstance(dimensionIconRobot+25,dimensionIconRobot+25, 
+									Image.SCALE_DEFAULT));
+				}
 			}
 			effectpanel.setIconToEffectIcon(icone);
 		} else if (name.equals("hefty_left")) {
@@ -201,9 +214,15 @@ public class Effect {
 						.getScaledInstance(dimensionIcon,dimensionIcon, 
 								Image.SCALE_DEFAULT));
 			} else {
-				icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
-						.getScaledInstance(dimensionIconRobot,dimensionIconRobot, 
-								Image.SCALE_DEFAULT));
+				if (card.getEffects().size()>1) {
+					icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+							.getScaledInstance(dimensionIconRobot,dimensionIconRobot, 
+									Image.SCALE_DEFAULT));
+				} else {
+					icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+							.getScaledInstance(dimensionIconRobot+25,dimensionIconRobot+25, 
+									Image.SCALE_DEFAULT));
+				}
 			}
 			effectpanel.setIconToEffectIcon(icone);
 		} else if (name.equals("hefty_right")) {
@@ -213,9 +232,15 @@ public class Effect {
 						.getScaledInstance(dimensionIcon,dimensionIcon, 
 								Image.SCALE_DEFAULT));
 			} else {
-				icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
-						.getScaledInstance(dimensionIconRobot,dimensionIconRobot, 
-								Image.SCALE_DEFAULT));
+				if (card.getEffects().size()>1) {
+					icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+							.getScaledInstance(dimensionIconRobot,dimensionIconRobot, 
+									Image.SCALE_DEFAULT));
+				} else {
+					icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+							.getScaledInstance(dimensionIconRobot+25,dimensionIconRobot+25, 
+									Image.SCALE_DEFAULT));
+				}
 			}
 			effectpanel.setIconToEffectIcon(icone);
 		} else if (name.equals("loose_tail_left")) {
@@ -225,9 +250,15 @@ public class Effect {
 						.getScaledInstance(dimensionIconWithLevel,dimensionIconWithLevel, 
 								Image.SCALE_DEFAULT));
 			} else {
-				icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
-						.getScaledInstance(dimensionIconRobotWithLevel,dimensionIconRobotWithLevel, 
-								Image.SCALE_DEFAULT));
+				if (card.getEffects().size()>1) {
+					icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+							.getScaledInstance(dimensionIconRobot,dimensionIconRobot, 
+									Image.SCALE_DEFAULT));
+				} else {
+					icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+							.getScaledInstance(dimensionIconRobot+25,dimensionIconRobot+25, 
+									Image.SCALE_DEFAULT));
+				}
 			}
 			effectpanel.setIconToEffectIcon(icone);
 		} else if (name.equals("loose_tail_right")) {
@@ -237,9 +268,15 @@ public class Effect {
 						.getScaledInstance(dimensionIconWithLevel,dimensionIconWithLevel, 
 								Image.SCALE_DEFAULT));
 			} else {
-				icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
-						.getScaledInstance(dimensionIconRobotWithLevel,dimensionIconRobotWithLevel, 
-								Image.SCALE_DEFAULT));
+				if (card.getEffects().size()>1) {
+					icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+							.getScaledInstance(dimensionIconRobot,dimensionIconRobot, 
+									Image.SCALE_DEFAULT));
+				} else {
+					icone = new ImageIcon((ImageIO.read(new File("img/" + card.getType() + "/effects/" + name + ".png")))
+							.getScaledInstance(dimensionIconRobot+25,dimensionIconRobot+25, 
+									Image.SCALE_DEFAULT));
+				}
 			}
 			effectpanel.setIconToEffectIcon(icone);
 		}

@@ -1,3 +1,4 @@
 list dead cards:
+beast;death_1;blood;1;1;1;airborne;_;_;_;_;_;_;_;0
 available dead cards:
 fin
