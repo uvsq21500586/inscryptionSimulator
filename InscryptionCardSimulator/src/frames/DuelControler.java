@@ -398,7 +398,7 @@ public class DuelControler implements ActionListener,MouseListener {
 					duel.getBonePileCount().setText(": " + duel.getBoneP1());
 				}
 			}
-		} else if (card.getPosition().equals("onField") && card.getFieldPosition()<4 && sacrifying && !cardBeingSacrified.contains(card)) {
+		} else if (card.getPosition().equals("onField") && card.isSacrifable() && card.getFieldPosition()<4 && sacrifying && !cardBeingSacrified.contains(card)) {
 			System.out.println("sacrifying + ");
 			cardBeingSacrified.add(card);
 			card.getBeingSacrified().setVisible(true);

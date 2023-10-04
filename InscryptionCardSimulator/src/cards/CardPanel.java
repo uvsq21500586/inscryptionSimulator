@@ -933,6 +933,17 @@ public class CardPanel extends JPanel {
 	public void setEffects2(EffectPanel[] effects2) {
 		this.effects2 = effects2;
 	}
+
+
+	public boolean isSacrifable() {
+		// TODO Auto-generated method stub
+		if (card!= null) {
+			if (!card.getAppearance().contains("pelt") && !card.getAppearance().contains("mox") && !card.getAppearance().equals("dam")) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	
 }

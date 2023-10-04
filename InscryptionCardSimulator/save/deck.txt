@@ -1,17 +1,9 @@
 main deck:
-beast;sparrow;blood;2;4;2;airborne;_;_;_;_;_;_;_;0
-beast;turkey_vulture;blood;1;1;1;airborne;_;_;_;_;_;_;_;0
-beast;bloodhound;blood;2;1;3;burrower;_;_;_;_;_;_;_;0
-beast;sparrow;blood;2;2;2;airborne;_;_;_;_;_;_;_;0
-beast;rabbit_pelt;blood;0;1;0;_;_;_;_;_;_;_;_;0
-beast;sparrow;blood;2;5;1;airborne;_;_;_;_;_;_;_;1
-beast;death_1;blood;1;1;1;airborne;_;_;_;_;_;_;_;0
-beast;rabbit_pelt;blood;0;1;0;_;_;_;_;_;_;_;_;0
-beast;wolf_pelt;blood;0;2;0;_;_;_;_;_;_;_;_;0
-beast;wolf_pelt;blood;0;2;0;_;_;_;_;_;_;_;_;0
-beast;wolf_pelt;blood;0;2;0;_;_;_;_;_;_;_;_;0
+beast;sparrow;blood;1;1;1;airborne;_;_;_;_;_;_;_;0
+beast;raven_egg;bone;9;1;1;airborne;_;_;_;_;_;_;_;0
+beast;stunted_wolf;blood;1;1;1;_;_;_;_;_;_;_;_;0
+beast;sparrow;blood;1;1;1;airborne;_;_;_;_;_;_;_;0
 source deck:
-beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
 beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
 beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
 beast;squirrel;blood;0;1;0;_;_;_;_;_;_;_;_;0
