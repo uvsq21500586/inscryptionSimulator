@@ -30,6 +30,7 @@ public class Duel extends JFrame {
 	private ButtonPlaceCard buttonPlaceCard[];
 	private ButtonMainDeck buttonMainDeck;
 	private ButtonSourceDeck buttonSourceDeck;
+	private ButtonDelete buttonDelete;
 	private LeftButton buttonLeft;
 	private RightButton buttonRight;
 	private NextTurnButton nextTurnButton;
@@ -139,12 +140,15 @@ public class Duel extends JFrame {
 		buttonRight = new RightButton();
 		nextTurnButton = new NextTurnButton();
 		returnButton = new ReturnButton();
+		buttonDelete = new ButtonDelete();
 		panel.add(nextTurnButton,0);
 		panel.add(buttonLeft,0);
 		panel.add(buttonRight,0);
 		panel.add(returnButton,0);
+		panel.add(buttonDelete,0);
 		nextTurnButton.setBounds(975, 500, 50, 50);
 		returnButton.setBounds(975, 560, 50, 50);
+		buttonDelete.setBounds(975, 620, 50, 50);
 		
 		buttonLeft.setBounds(0, 800, 50, 50);
 		buttonRight.setBounds(850, 800, 50, 50);
@@ -1110,6 +1114,14 @@ public class Duel extends JFrame {
 
 	public void setReturnButton(ReturnButton returnButton) {
 		this.returnButton = returnButton;
+	}
+
+	public ButtonDelete getButtonDelete() {
+		return buttonDelete;
+	}
+
+	public void setButtonDelete(ButtonDelete buttonDelete) {
+		this.buttonDelete = buttonDelete;
 	}
 	
 	

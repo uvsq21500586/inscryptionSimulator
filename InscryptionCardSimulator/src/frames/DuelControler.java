@@ -19,6 +19,7 @@ import cards.RobotCard;
 import cards.UndeadCard;
 import cards.WizardCard;
 import effects.Effect;
+import frames.duelbuttons.ButtonDelete;
 import frames.duelbuttons.ButtonMainDeck;
 import frames.duelbuttons.ButtonPlaceCard;
 import frames.duelbuttons.ButtonSourceDeck;
@@ -34,6 +35,7 @@ public class DuelControler implements ActionListener,MouseListener {
 	private int sacrificeNeeded = 0;
 	private int sacrifices = 0;
 	private boolean sacrifying = false;
+	private boolean deleting = false;
 	private boolean puttingBloodCard = false;
 	private boolean mustDrawCard = false;
 	private CardPanel cardSelected;
@@ -49,6 +51,7 @@ public class DuelControler implements ActionListener,MouseListener {
 		this.duel.getButtonLeft().addMouseListener(this);
 		this.duel.getButtonRight().addMouseListener(this);
 		this.duel.getNextTurnButton().addMouseListener(this);
+		this.duel.getButtonDelete().addMouseListener(this);
 		for (int i=0;i<this.duel.getHandPanel().cardsPanels.size(); i++) {
 			this.duel.getHandPanel().cardsPanels.get(i).addMouseListener(this);
 		}
@@ -117,12 +120,35 @@ public class DuelControler implements ActionListener,MouseListener {
 			}
 			return;
 		}
-		if (e.getSource() instanceof CardPanel && !puttingBloodCard) {
-			System.out.println("select card");
+		if (e.getSource() instanceof CardPanel && !puttingBloodCard && !deleting) {
+			//System.out.println("select card");
 			playCard(e);
 			return;
 			
 		}
+		
+		if (e.getSource() instanceof CardPanel && !puttingBloodCard && deleting) {
+			//remove card
+			CardPanel cardPanel = (CardPanel) e.getSource();
+			
+			Card card = cardPanel.getCard();
+			for (int i=0;i<8;i++) {
+				if (duel.getButtonPlaceCard()[i].getCardPanel().equals(cardPanel)) {
+					card.deadCard(duel, duel.getButtonPlaceCard(), i);
+					if (!duel.isTurnJ2()) {
+						duel.getBonePileCount().setText(": " + duel.getBoneP1());
+					} else {
+						duel.getBonePileCount().setText(": " + duel.getBoneP2());
+					}
+					break;
+				}
+			}
+			
+			//playCard(e);
+			return;
+			
+		}
+		
 		if (e.getSource() instanceof ButtonPlaceCard && !sacrifying && cardSelected != null && ((ButtonPlaceCard) e.getSource()).getCardPanel() == null) {
 			try {
 				putCard(e);
@@ -148,8 +174,13 @@ public class DuelControler implements ActionListener,MouseListener {
 			}
 			return;
 		}
+		if (e.getSource() instanceof ButtonDelete && !sacrifying) {
+			deleting = true;
+		}
+		
 		if (e.getSource() instanceof ReturnButton && ((ReturnButton)e.getSource()).isEnabled()) {
 			sacrifying = false;
+			deleting = false;
 			puttingBloodCard = false;
 			mustDrawCard = false;
 			if (cardSelected != null) {
@@ -205,6 +236,7 @@ public class DuelControler implements ActionListener,MouseListener {
 		
 		if (e.getSource() instanceof NextTurnButton) {
 			sacrifying = false;
+			deleting = false;
 			puttingBloodCard = false;
 			if (cardSelected != null) {
 				cardSelected.getSelected().setVisible(false);
